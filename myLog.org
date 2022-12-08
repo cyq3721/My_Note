@@ -1,0 +1,282 @@
+#+title:MyLog（我的日志）
+#+author:CYQ
+;;#+html_head: <link rel="stylesheet" type="text/css" href="./note/css/worg.css" />
+* 笔记随记
+** mmm-mode
+ 在一个 buffer 中同时使用多个 major mode， 在不同的区域拥有不同的对应键绑定、变量、缩进…… 如果有嵌入 html的 javascript、css php，就可以用 mmm-mode
+
+* Todo代办事项
+** TODO 最近事项 [5/5]
+- [X] 最近核酸检测日程 [2/2]
+  - [X] 6-16日 ，9：30 - 10：30 ，初一年级全体师生核酸检测
+  - [X] 6-19日， 16：00 - 17:30, 初一初二核算检测
+- [X] 初二生物地理会考信息上报(10日前)<2022-06-09 Thu> [100%]
+  - [X] 在平台中核对清理学生信息（苏州精准教科研 http://jkyupload.suzhou.edu.cn/login_v1.html）
+  - [X] 准备学生信息上报文件
+  - [X] 上传到平台
+- [X] 初一初二期末考试考场安排 [3/3]
+  - [X] 初一学生数目核对
+  - [X] 初二学生数目核对
+  - [X] 编排考场
+- [X] 初三中考工作 [3/3]
+  - [X] 初三学区生认定 [100%]
+    - [X] 检查房产证
+    - [X] 初三学区生认定学生签字
+    - [X] 初三学区生公示
+    - [X] 4个教师的在职证明
+    - [X] 初三学生肝功能平台上报
+  - [X] 毕业证书打印 [100%]
+    - [X]  word 邮件模板的数据索引 excel 文件
+    - [X]  word模板文件
+    - [X] 最后打印
+  - [X] 毕业验印,时间等通知 [100%]
+    - [X] 毕业生统计表
+    - [X] 毕业生名单
+    - [X] 特教生统计表
+    - [X] 特教生成绩
+    - [X] 异动情况统计表
+    - [X] 普职融通提前录取名单
+    - [X] 补考成绩表（以准考号排列)
+    - [X] 现场审核扫码文件打印
+- [X] 小升初现场审核<2022-06-11 Thu> [100%]
+  - [X] 现场审核大数据文件
+  - [X] 现场审核前培训<2022-06-10 Thu> [100%]
+    - [X] 校门口的三个人：查看两码、指导扫码、报名（压力比较大）
+    - [X] 顾丽芳：根据报名做好大数据文件的入场标记，新报名的，在大数据文件中添加报名号，并做好入场标记
+    - [X] 4 组的电脑操作员
+  - [X] 13日扫码上报数据到局里
+** TODO 需要解决的问题[100%]
+   - [X] 配置放到OneDrive进行网络同步
+   - [X] 配置spacemacs中的org-mode
+   - [X] 配置python环境
+   - [X] 配置html开发环境
+
+* TODO mylog [5/5]
+- [X] 办公室manjaro 开启ssh服务<2022-06-06 Mon>
+- [X] 安装并启用tramp， 用于 emacs 远程编辑服务器上的文件<2022-06-06 Mon>
+- [X] 实现使用 emacs 直接编辑远程文件
+      c-x c-f /ssh:用户名@服务器地址:/
+      跳出密码输入框，输入密码登陆远程服务器
+- [X] 在 macbook 上安装 macports ，可用 macports 安装 gd2
+- [X] mac 上用 brew 重新安装 php，启用 php 的步骤<2022-06-08 Wed>
+  To enable PHP in Apache add the following to httpd.conf and restart Apache:
+    LoadModule php_module /usr/local/opt/php/lib/httpd/modules/libphp.so
+
+    <FilesMatch \.php$>
+        SetHandler application/x-httpd-php
+    </FilesMatch>
+- [ ] 编辑 httpd.conf，加载 php8.1
+
+Finally, check DirectoryIndex includes index.php
+    DirectoryIndex index.php index.html
+
+The php.ini and php-fpm.ini file can be found in:
+    /usr/local/etc/php/8.1/
+
+To restart php after an upgrade:
+  brew services restart php
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/php/sbin/php-fpm --nodaemonize
+
+
+* 重新开始使用spacemacs
+
+** 配置org-mode
+*** 换行
+    修改 truncate-lines 变量。流程如下：
+        - SPC h l   进入layers的帮助
+        - 
+    (add-hook 'org-mode-hook (lambda ()
+                             (setq truncate-lines nil)))
+
+** 快速插入标题（列表）org-meta-return 函数按键绑定的改变
+   在原始的emacs中，这个函数绑定为 ‘M-RET’，但是在spacemace中，'M-RET‘绑定为了被的功能，改为’SPC m M-RET
+
+*  使用 php 读取 excel<2022-04-14 Thu>
+** 使用 PhpspreadsExcel库
+*** 使用 composer 安装 PhpspreadsExcel
+**** 在 mac os 上安转 composer
+- Download composer binary file from getcomposer.org website by running the following command. It will create a composer.phar file in the current directory.
+
+#+begin_src c
+curl -sS https://getcomposer.org/installer | php
+#+end_src
+
+- Now, copy this composer.phar file under bin directory to make available anywhere in the system. Also, set the execute permission on file. I have changed the filename from composer.phar to composer for the easy use.
+
+  #+begin_src c
+mv composer.phar /usr/local/bin/composer
+chmod +x /usr/local/bin/composer
+  #+end_src
+  
+*** 一个简单的例子
+#+begin_src c++
+    <?php
+
+    require 'vendor/autoload.php';
+
+    use PhpOffice\PhpSpreadsheet\Spreadsheet;
+    use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    $sheet->setCellValue('A1', 'Hello World !');
+
+    $writer = new Xlsx($spreadsheet);
+    $writer->save('hello world.xlsx');
+   ?>
+#+end_src
+
+*** 经常被问到的问题
+**** 字符编码问题（character encoding）
+有必要在PhpSpreadsheet中使用UTF-8编码。 如果使用了其他编码，可以使用PHP的iconv（）或者mb_convert_encoding()函数来转换编码。
+**** Fatal error: Allowed memory size of xxx bytes exhausted (tried to allocate yyy bytes) in zzz on line aaa
+PhpSpreadsheet holds an "in memory" representation of a spreadsheet, so it is susceptible to PHP's memory limitations. The memory made available to PHP can be increased by editing the value of the memory_limit directive in your php.ini file, or by using ini_set('memory_limit', '128M') within your code.
+
+Some Readers and Writers are faster than others, and they also use differing amounts of memory.
+**** 工作表保护不起作用
+When you make use of any of the worksheet protection features (e.g. cell range protection, prohibiting deleting rows, ...), make sure you enable worksheet security. This can for example be
+done like this:
+
+$spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+
+
+* php读取excel写入数据库简要流程<2022-07-17 Sun>
+
+** 制作一个文件上传的表单
+*** 一个实例
+#+begin_src html
+  <html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<form action="upload_file.php" method="post" enctype="multipart/form-data">
+    <label for="file">文件名：</label>
+    <input type="file" name="file" id="file"><br>
+    <input type="submit" name="submit" value="提交">
+</form>
+
+</body>
+</html>
+#+end_src
+
+*** 注意项
+- <form> 标签的 enctype 属性规定了在提交表单时要使用哪种内容类型。在表单需要二进制数据时，比如文件内容，请使用 "multipart/form-data"。
+  
+- <input> 标签的 type="file" 属性规定了应该把输入作为文件来处理。举例来说，当在浏览器中预览时，会看到输入框旁边有一个浏览按钮。
+** 制作上传php脚本（把上传文件保存到指定目录）
+*** 实例源码
+#+begin_src php
+  <?php
+if ($_FILES["file"]["error"] > 0)
+{
+    echo "错误：" . $_FILES["file"]["error"] . "<br>";
+}
+else
+{
+    echo "上传文件名: " . $_FILES["file"]["name"] . "<br>";
+    echo "文件类型: " . $_FILES["file"]["type"] . "<br>";
+    echo "文件大小: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+    echo "文件临时存储的位置: " . $_FILES["file"]["tmp_name"];
+}
+?>
+#+end_src
+*** 源码说明
+- $_FILES["file"]["name"] - 上传文件的名称
+- $_FILES["file"]["type"] - 上传文件的类型
+- $_FILES["file"]["size"] - 上传文件的大小，以字节计
+- $_FILES["file"]["tmp_name"] - 存储在服务器的文件的临时副本的名称
+- $_FILES["file"]["error"] - 由文件上传导致的错误代码
+
+*** 上传限制的实例
+**** 源码
+#+begin_src php
+  <!doctype html>
+<html>
+  <head>
+    <title>文件上传服务器端处理</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>文件上传服务器端处理</h1>
+    <?php
+    $allowExts = array("gif","jpeg","jpg","png");//把允许的后缀名存入数组$allowExts
+    $temp = explode(".",$_FILES["file"]["name"]);//根据.对文件名进行分割，并保存到数组$temp
+    $exts = end($temp); //end()取数组中的最后一个元素
+    if($_FILES["file"]["error"] >0 ){
+      echo "错误: " . $_FILES["file"]["error"] . "<br>";
+    }
+    else{
+      if(!in_array($exts,$allowExts)){ //in_array(),数据是否存在于数组中
+        echo "文件类型出错，该类型不支持上传！ <br>";
+      }else{
+        echo "上传文件名：" . $_FILES["file"]["name"]."<br>";
+        echo "文件类型：" . $_FILES["file"]["type"]."<br>";
+        echo "文件大小：" . ($_FILES["file"]["size"]/1024/1024)." mb <br>";
+        echo "文件临时存储的位置: " . $_FILES["file"]["tmp_name"]."<br>";
+      }
+    }
+    if(file_exists("upload/" . $_FILES["file"]["name"]))
+    {
+      echo "文件已经存在！";
+    }
+    else{
+      move_uploaded_file($_FILES["file"]["tmp_name"],"upload/" . $_FILES["file"]["name"]);//move_uploaded_file()把上传到缓存目录中中的文件保存到指定目录
+
+      if(file_exists("upload/" . $_FILES["file"]["name"]))
+      {
+        echo "文件上传成功！";
+        
+      }
+      else
+        echo "文件上传失败！";
+      }
+    ?>
+  </body>
+</html}
+
+#+end_src
+
+* MAC OS下的PHP环境
+** apache服务的控制命令
+- sudo systemctl status httpd    查看apache服务状态
+- sudo apachectl start     mac启动 apache
+- apachectl staus          mac 下查看 apache 状态
+**  apache modules 目录的位置
+/usr/local/opt/php/lib/httpd/modules
+** php扩展的目录
+/usr/lib/php/extensions
+** 安装扩展 
+*** 通过pecl安装 php 扩展
+#+begin_quote
+$ curl -O https://pear.php.net/go-pear.phar
+$ sudo php -d detect_unicode=0 go-pear.phar
+#+end_quote
+*** 查看 pecl 的相关配置
+#+begin_quote
+$ pecl config-show
+#+end_quote
+这个命令可以查看 php 默认的扩展目录
+* manjaro 开启ssh服务
+systemctl enable sshd.service 开机启动
+systemctl start sshd.service 立即启动
+systemctl restart sshd.service 立即重启
+
+** ssh 登陆远程服务器
+ssh 用户名@服务器地址
+
+
+* 教务管理系统数据库(cssyz)log
+** 学生基本信息表（cssyz_student_bassic)
+- student_name
+- student_identification
+- student_grade
+- student_class
+- student_number
+- exame_number
+
+
+* 配置图片显示插件 image+

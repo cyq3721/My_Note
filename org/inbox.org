@@ -1,0 +1,11 @@
+* Tasks
+** DONE 档案室材料[0%]
+- [] 课表打印稿
+- [] 新生名单（看去年的模板）
+  [2021-09-17 周五]
+  [[file:c:/Users/cyq37/OneDrive/my_note(emacs版)/note/Emacs Lisp简明教程.org::*基础知识][基础知识]]
+** TODO 
+** TODO 
+  [2021-09-17 周五]
+  [[file:c:/Users/cyq37/OneDrive/my_note(emacs版)/note/Emacs Lisp简明教程.org::*基础知识][基础知识]]
+  
