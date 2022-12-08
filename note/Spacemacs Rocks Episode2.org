@@ -1,0 +1,713 @@
+#+title: Spacemacs Rocks Episode2 21 Days
+#+author: chen
+#+data: 2018-11
+* Day 1
+** install Emacs
+   - Mac
+   - Windows
+   - Linux ( apt get install emacs )
+** Go over the tutorial at least once
+   - C-h t  to open the tutorial
+   - You need be familiar with cursor movement(c-f/c-b/c-p/c-n/c-a/c-e) and basic editing (c-k)
+   - You should be familiar with M(eta),s(uper,command key),S(hift),C(trl) M-x s-p S-p c-p
+   - Prefix key(c-h is a prefix key) and c-g (C-x C-f )
+** Learn to active some built-in functionality (org-mode)
+   - linum-mode to display line numbers (M-x linum-mode)
+   - you should always ask Emacs the right question
+   - c-h k / c-h v / c-h f / c-h m (Emacs is a self document, extensiable editor.)
+   - The key bindings are actually a quick way to command Emacs.
+** Learn some elisp(emacs lisp)
+   - use [[https://learnxinyminutes.com/docs/elisp/][Learn X in Y minutes]] website to learn emacs lisp.
+#+BEGIN_SRC lisp
+   This gives an introduction to Emacs Lisp in 15 minutes (v0.2d)
+  ;;
+  ;; First make sure you read this text by Peter Norvig:
+  ;; http://norvig.com/21-days.html q Then install GNU Emacs 24.3:
+  ;;
+  ;; Debian: apt-get install emacs (or see your distro instructions)
+  ;; OSX: http://emacsformacosx.com/emacs-builds/Emacs-24.3-universal-10.6.8.dmg
+  ;; Windows: http://ftp.gnu.org/gnu/windows/emacs/emacs-24.3-bin-i386.zip
+  ;;
+  ;; More general information can be found at:
+  ;; http://www.gnu.org/software/emacs/#Obtaining
+
+  ;; Important warning:
+  ;;
+  ;; Going through this tutorial won't damage your computer unless
+  ;; you get so angry that you throw it on the floor.  In that case,
+  ;; I hereby decline any responsibility.  Have fun!
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;
+  ;; Fire up Emacs.
+  ;;
+  ;; Hit the `q' key to dismiss the welcome message.
+  ;;
+  ;; Now look at the gray line at the bottom of the window:
+  ;;
+  ;; "*scratch*" is the name of the editing space you are now in.
+  ;; This editing space is called a "buffer".
+  ;;
+  ;; The scratch buffer is the default buffer when opening Emacs.
+  ;; You are never editing files: you are editing buffers that you
+  ;; can save to a file.
+  ;;
+  ;; "Lisp interaction" refers to a set of commands available here.
+  ;;
+  ;; Emacs has a built-in set of commands available in every buffer,
+  ;; and several subsets of commands available when you activate a
+  ;; specific mode.  Here we use the `lisp-interaction-mode', which
+  ;; comes with commands to evaluate and navigate within Elisp code.
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;
+  ;; Semi-colons start comments anywhere on a line.
+  ;;
+  ;; Elisp programs are made of symbolic expressions ("sexps"):
+  (+ 2 2)
+
+  ;; This symbolic expression reads as "Add 2 to 2".
+
+  ;; Sexps are enclosed into parentheses, possibly nested:
+  (+ 2 (+ 1 1))
+
+  ;; A symbolic expression contains atoms or other symbolic
+  ;; expressions.  In the above examples, 1 and 2 are atoms,
+  ;; (+ 2 (+ 1 1)) and (+ 1 1) are symbolic expressions.
+
+  ;; From `lisp-interaction-mode' you can evaluate sexps.
+  ;; Put the cursor right after the closing parenthesis then
+  ;; hold down the control and hit the j keys ("C-j" for short).
+
+  (+ 3 (+ 1 2))
+  ;;           ^ cursor here
+  ;; `C-j' => 6
+
+  ;; `C-j' inserts the result of the evaluation in the buffer.
+
+  ;; `C-xC-e' displays the same result in Emacs bottom line,
+  ;; called the "minibuffer".  We will generally use `C-xC-e',
+  ;; as we don't want to clutter the buffer with useless text.
+
+  ;; `setq' stores a value into a variable:
+  (setq my-name "Bastien")
+  ;; `C-xC-e' => "Bastien" (displayed in the mini-buffer)
+
+  ;; `insert' will insert "Hello!" where the cursor is:
+  (insert "Hello!")
+  ;; `C-xC-e' => "Hello!"
+
+  ;; We used `insert' with only one argument "Hello!", but
+  ;; we can pass more arguments -- here we use two:
+
+  (insert "Hello" " world!")
+  ;; `C-xC-e' => "Hello world!"
+
+  ;; You can use variables instead of strings:
+  (insert "Hello, I am " my-name)
+  ;; `C-xC-e' => "Hello, I am Bastien"
+
+  ;; You can combine sexps into functions:
+  (defun hello () (insert "Hello, I am " my-name))
+  ;; `C-xC-e' => hello
+
+  ;; You can evaluate functions:
+  (hello)
+  ;; `C-xC-e' => Hello, I am Bastien
+
+  ;; The empty parentheses in the function's definition means that
+  ;; it does not accept arguments.  But always using `my-name' is
+  ;; boring, let's tell the function to accept one argument (here
+  ;; the argument is called "name"):
+
+  (defun hello (name) (insert "Hello " name))
+  ;; `C-xC-e' => hello
+
+  ;; Now let's call the function with the string "you" as the value
+  ;; for its unique argument:
+  (hello "you")
+  ;; `C-xC-e' => "Hello you"
+
+  ;; Yeah!
+
+  ;; Take a breath.
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;
+  ;; Now switch to a new buffer named "*test*" in another window:
+
+  (switch-to-buffer-other-window "*test*")
+  ;; `C-xC-e'
+  ;; => [screen has two windows and cursor is in the *test* buffer]
+
+  ;; Mouse over the top window and left-click to go back.  Or you can
+  ;; use `C-xo' (i.e. hold down control-x and hit o) to go to the other
+  ;; window interactively.
+
+  ;; You can combine several sexps with `progn':
+  (progn
+    (switch-to-buffer-other-window "*test*")
+    (hello "you"))
+  ;; `C-xC-e'
+  ;; => [The screen has two windows and cursor is in the *test* buffer]
+
+  ;; Now if you don't mind, I'll stop asking you to hit `C-xC-e': do it
+  ;; for every sexp that follows.
+
+  ;; Always go back to the *scratch* buffer with the mouse or `C-xo'.
+
+  ;; It's often useful to erase the buffer:
+  (progn
+    (switch-to-buffer-other-window "*test*")
+    (erase-buffer)
+    (hello "there"))
+
+  ;; Or to go back to the other window:
+  (progn
+    (switch-to-buffer-other-window "*test*")
+    (erase-buffer)
+    (hello "you")
+    (other-window 1))
+
+  ;; You can bind a value to a local variable with `let':
+  (let ((local-name "you"))
+    (switch-to-buffer-other-window "*test*")
+    (erase-buffer)
+    (hello local-name)
+    (other-window 1))
+
+  ;; No need to use `progn' in that case, since `let' also combines
+  ;; several sexps.
+
+  ;; Let's format a string:
+  (format "Hello %s!\n" "visitor")
+
+  ;; %s is a place-holder for a string, replaced by "visitor".
+  ;; \n is the newline character.
+
+  ;; Let's refine our function by using format:
+  (defun hello (name)
+    (insert (format "Hello %s!\n" name)))
+
+  (hello "you")
+
+  ;; Let's create another function which uses `let':
+  (defun greeting (name)
+    (let ((your-name "Bastien"))
+      (insert (format "Hello %s!\n\nI am %s."
+                      name       ; the argument of the function
+                      your-name  ; the let-bound variable "Bastien"
+                      ))))
+
+  ;; And evaluate it:
+  (greeting "you")
+
+  ;; Some functions are interactive:
+  (read-from-minibuffer "Enter your name: ")
+
+  ;; Evaluating this function returns what you entered at the prompt.
+
+  ;; Let's make our `greeting' function prompt for your name:
+  (defun greeting (from-name)
+    (let ((your-name (read-from-minibuffer "Enter your name: ")))
+      (insert (format "Hello!\n\nI am %s and you are %s."
+                      from-name ; the argument of the function
+                      your-name ; the let-bound var, entered at prompt
+                      ))))
+
+  (greeting "Bastien")
+
+  ;; Let's complete it by displaying the results in the other window:
+  (defun greeting (from-name)
+    (let ((your-name (read-from-minibuffer "Enter your name: ")))
+      (switch-to-buffer-other-window "*test*")
+      (erase-buffer)
+      (insert (format "Hello %s!\n\nI am %s." your-name from-name))
+      (other-window 1)))
+
+  ;; Now test it:
+  (greeting "Bastien")
+
+  ;; Take a breath.
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;
+  ;; Let's store a list of names:
+  ;; If you want to create a literal list of data, use ' to stop it from
+  ;; being evaluated - literally, "quote" the data.
+  (setq list-of-names '("Sarah" "Chloe" "Mathilde"))
+
+  ;; Get the first element of this list with `car':
+  (car list-of-names)
+
+  ;; Get a list of all but the first element with `cdr':
+  (cdr list-of-names)
+
+  ;; Add an element to the beginning of a list with `push':
+  (push "Stephanie" list-of-names)
+
+  ;; NOTE: `car' and `cdr' don't modify the list, but `push' does.
+  ;; This is an important difference: some functions don't have any
+  ;; side-effects (like `car') while others have (like `push').
+
+  ;; Let's call `hello' for each element in `list-of-names':
+  (mapcar 'hello list-of-names)
+
+  ;; Refine `greeting' to say hello to everyone in `list-of-names':
+  (defun greeting ()
+      (switch-to-buffer-other-window "*test*")
+      (erase-buffer)
+      (mapcar 'hello list-of-names)
+      (other-window 1))
+
+  (greeting)
+
+  ;; Remember the `hello' function we defined above?  It takes one
+  ;; argument, a name.  `mapcar' calls `hello', successively using each
+  ;; element of `list-of-names' as the argument for `hello'.
+
+  ;; Now let's arrange a bit what we have in the displayed buffer:
+
+  (defun replace-hello-by-bonjour ()
+      (switch-to-buffer-other-window "*test*")
+      (goto-char (point-min))
+      (while (search-forward "Hello")
+        (replace-match "Bonjour"))
+      (other-window 1))
+
+  ;; (goto-char (point-min)) goes to the beginning of the buffer.
+  ;; (search-forward "Hello") searches for the string "Hello".
+  ;; (while x y) evaluates the y sexp(s) while x returns something.
+  ;; If x returns `nil' (nothing), we exit the while loop.
+
+  (replace-hello-by-bonjour)
+
+  ;; You should see all occurrences of "Hello" in the *test* buffer
+  ;; replaced by "Bonjour".
+
+  ;; You should also get an error: "Search failed: Hello".
+  ;;
+  ;; To avoid this error, you need to tell `search-forward' whether it
+  ;; should stop searching at some point in the buffer, and whether it
+  ;; should silently fail when nothing is found:
+
+  ;; (search-forward "Hello" nil t) does the trick:
+
+  ;; The `nil' argument says: the search is not bound to a position.
+  ;; The `'t' argument says: silently fail when nothing is found.
+
+  ;; We use this sexp in the function below, which doesn't throw an error:
+
+  (defun hello-to-bonjour ()
+      (switch-to-buffer-other-window "*test*")
+      (erase-buffer)
+      ;; Say hello to names in `list-of-names'
+      (mapcar 'hello list-of-names)
+      (goto-char (point-min))
+      ;; Replace "Hello" by "Bonjour"
+      (while (search-forward "Hello" nil t)
+        (replace-match "Bonjour"))
+      (other-window 1))
+
+  (hello-to-bonjour)
+
+  ;; Let's boldify the names:
+
+  (defun boldify-names ()
+      (switch-to-buffer-other-window "*test*")
+      (goto-char (point-min))
+      (while (re-search-forward "Bonjour \\(.+\\)!" nil t)
+        (add-text-properties (match-beginning 1)
+                             (match-end 1)
+                             (list 'face 'bold)))
+      (other-window 1))
+
+  ;; This functions introduces `re-search-forward': instead of
+  ;; searching for the string "Bonjour", you search for a pattern,
+  ;; using a "regular expression" (abbreviated in the prefix "re-").
+
+  ;; The regular expression is "Bonjour \\(.+\\)!" and it reads:
+  ;; the string "Bonjour ", and
+  ;; a group of            | this is the \\( ... \\) construct
+  ;;   any character       | this is the .
+  ;;   possibly repeated   | this is the +
+  ;; and the "!" string.
+
+  ;; Ready?  Test it!
+
+  (boldify-names)
+
+  ;; `add-text-properties' adds... text properties, like a face.
+
+  ;; OK, we are done.  Happy hacking!
+
+  ;; If you want to know more about a variable or a function:
+  ;;
+  ;; C-h v a-variable RET
+  ;; C-h f a-function RET
+  ;;
+  ;; To read the Emacs Lisp manual with Emacs:
+  ;;
+  ;; C-h i m elisp RET
+  ;;
+  ;; To read an online introduction to Emacs Lisp:
+  ;; https://www.gnu.org/software/emacs/manual/html_node/eintr/index.html
+#+END_SRC
+- at least you know how to define variable, functions
+- you should know how to make a function callable and how to set a key binding for che function.
+** Start to hacking Emacs from the day one!
+   - turn off tool-bar
+     #+BEGIN_SRC elisp
+     (tool-bar-mode 1)
+     #+END_SRC
+   - turn off scroll-bar
+   - show linum-mode
+     #+BEGIN_SRC elisp
+     (linum-mode t)
+     #+END_SRC
+   - trun off splash screen
+   - save your config
+   - define a function to quickly open your config file
+     #+BEGIN_SRC elisp
+     (defun open-my-init-file()
+     (interactive)
+     (find-file "~/.emacs.d/.init.el"))
+
+     (global-set-key (kbd "<f2>") 'open-my-init-file')
+     #+END_SRC
+     - 开启recentf（最近文件）
+       #+BEGIN_SRC elisp
+       (recentf-modoe t)
+       #+END_SRC
+** Emacs package system in the first glance.
+   - How to use the built-in Package system of Emacs.
+   - Install company mode and active it.
+   - Major mode and minor mode (c-h m)
+   - Happy hacking.
+   - (pacakge-initialize)(指明pacakage的初始化路径为主目录的elpa目录，不能省。)
+** Bonus(org-mode basics)
+- use * to define headings
+- C-c C-t to toggle TODO states(GTD)
+- GTD(getting things done)
+* Day 2
+** Fixes some annoying stuff
+   1. make cursor style to bar
+   2. setq和setq-default 
+      - setq is "buffer-local"（局部变量）
+      - setq-default  全局变量
+   3. disable backup file
+      #+BEGIN_SRC elisp
+      (setq make-backup-files nil)
+      #+END_SRC
+   4. enable recentf-mode
+      #+BEGIN_SRC elisp
+	(require 'recentf)
+	(recentf-mode 1)
+	(setq recent-max-menu-items 25)
+	(global-set-key "\c-x\   \c-r"  'recentf-open-files)
+      #+END_SRC
+   5. Make source code fancy in the org file.(org模式下的语法高亮）)
+      #+BEGIN_SRC elisp
+	(require 'org)
+	(setq org-src-fontify-natively t)
+      #+END_SRC
+** Make Emacs more fancy
+   1. open with full screen
+#+BEGIN_SRC elisp
+  (setq initial-frame-alist (quote ((fullscreen,maximized))))
+#+END_SRC
+   2. show mactch parents(匹配括号)
+      #+BEGIN_SRC elisp
+	(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+      #+END_SRC
+It has a flaw , we will use more powerful package in the future.
+   3. Highlight current line (global-h1-line-mode)
+      #+BEGIN_SRC elisp
+	(global-h1-line-mode 1)
+      #+END_SRC
+** Improve built-in package system
+#+BEGIN_SRC emacs-lisp
+ (when (>= emacs-major-version 24)
+     (require 'package)
+     (package-initialize)
+     (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                      ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
+
+;; 注意 elpa.emacs-china.org 是 Emacs China 中文社区在国内搭建的一个 ELPA 镜像
+
+ ;; cl - Common Lisp Extension
+ (require 'cl)
+
+ ;; Add Packages
+ (defvar my/packages '(
+                ;; --- Auto-completion ---
+                company
+                ;; --- Better Editor ---
+                hungry-delete
+                swiper
+                counsel
+                smartparens
+                ;; --- Major Mode ---
+                js2-mode
+                ;; --- Minor Mode ---
+                nodejs-repl
+                exec-path-from-shell
+                ;; --- Themes ---
+                monokai-theme
+                ;; solarized-theme
+                ) "Default packages")
+
+ (setq package-selected-packages my/packages)
+
+ (defun my/packages-installed-p ()
+     (loop for pkg in my/packages
+           when (not (package-installed-p pkg)) do (return nil)
+           finally (return t)))
+
+ (unless (my/packages-installed-p)
+     (message "%s" "Refreshing package database...")
+     (package-refresh-contents)
+     (dolist (pkg my/packages)
+       (when (not (package-installed-p pkg))
+         (package-install pkg))))
+
+ ;; Find Executable Path on OS X
+ (when (memq window-system '(mac ns))
+   (exec-path-from-shell-initialize))
+
+#+END_SRC
+1. install a theme (monokai)
+2. install hungry delete mode
+   #+BEGIN_SRC emacs-lisp
+(require 'hungry-delete)
+(global-hungry-delete-mode)
+#+END_SRC
+3. package-list-packages （add/delete/update packages）
+    M-x package-autoremove (atuo remove packages)
+4. install and confgiure  swiper/ counsel/ ivy mode
+    这几个插件配合，增强C-x M-x C-r等的综合使用体验
+5. package-list管理系统的使用
+   - I     install
+   - D     delete
+   - U     updat
+   - X     执行
+6. use customize-group to customize the package settings
+7. install and configure smartparens mode
+** Setup a javascript IDE
+1. Install js2-mode and start to write javascript
+2. Install nodejs-repl to execute code inside Emacs
+** Learn more from Emacs itself
+   1. tell users to learn more about elisp(M-x info)
+   2. c-h c-f (find-function), c-h c-v (find-variable), c-h c-k (find-function-on-key)
+** Org-mode (Bonus Time)
+*** Agenda files and agenda view
+    1. one gtd.org file
+       #+BEGIN_SRC elisp
+	 (setq org-agenda-files '("/org"))
+	 (global-set-key (kbd "C-c a") 'org-agenda)
+       #+END_SRC
+     - 光标移到列表的最后，按住Meta 回车，会自动调整列表序号。 
+     - C-c C-s to schedule item
+     - C-c C-d to set deadline of item
+     - C-c '         在src代码编写模式中开启新的buffer进行代码书写。C-c  '     返回。
+*** Learn how to schedule items and set deadline
+    1. c-c c-s to schedule item
+    2. c-c c-d to set deadline of item
+** Excercise
+* Day 3
+** Split your configs into multiple files
+1. use Git to management your init file
+2. help window is anoyying
+    #+BEGIN_SRC elisp
+      ;;add popwin mode
+      ;;why this line is needed
+      (require 'popwin)
+      (popwin-mode t)
+    #+END_SRC
+3. load-file, load-path and load
+4. features, provide and require, auoload
+5. naming conventions(命名规则)
+   all of the names should hane a prefix , such that the nameing conflicts could be minimal.
+6. define your abbrevs.(自定义你的缩写列表)
+   #+begin_src elisp
+   (abbrev-mode t)
+   (define-abbrev-table 'global-abbrev-table  '(
+                                ("缩写字符"    "全部字符")
+   ))   ;;使用方式：键入缩写字符后，按空格键
+   #+end_src
+7. how to organize your configs
+   - init-packages.el
+   - init-ui.el
+   - init-better-defaults.el
+   - init-keybindings.el
+   - custom.el
+     #+begin_src elisp
+     (setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory ))
+     #+end_src
+ 8. use 'consel-git' to find file in git managed project(这个需要使用git进行版本控制 )
+** Major mode and minor mode in details
+*** conventions
+     - Major mode 分三种
+       - text-mode
+       - special-mode
+       - prog-mode(编程环境)
+     - naming 
+       - xxx-mode
+       - xxx-key-map(快捷键)
+       - xxx-mode-hook
+** Better defaults
+** Dired mode and file related operations
+** Bonus time . Use Org-mode literate programming to organize your Emacs configurations
+** Exercise
+* Day 4 
+** Talk more about load, load-file, require, provide and autoload
+***  load-file
+    用于打开某一个指定的文件，用于当你不想让 Emacs 来去决定加载某个配置文件，自已手动加载时（.el或者.elc文件）。
+*** load
+    搜索load-path中的路径并打开第一个所找到的匹配文件名的文件,此方法用于你预先不知道文件路径的时候。
+*** require
+    加载还未被加载的插件。首先它会查看变量features中是否存在所要加载的符号如果不存在则使用上面提到的load将其载入。
+*** autoload
+    用于仅在函数调用时加载文件，使用此方法可以大大节省编辑器的启动时间。
+** Better defaults
+*** Indent-region or buffer
+      #+begin_src elisp
+      (defun indent-buffer()
+  "Indent the currently visited buffer."
+  (interactive)
+ 
+  (indent-region (point-min) (point-max))
+  )
+
+(defun indent-region-or-buffer ()
+  "Indent a region if selected, otherwise the whole buffer."
+  (interactive)
+  (save-excursion)
+  (if (region-active-p)
+      (progn
+	(indent-region (region-geginning) (region-end))
+	(message "Endented selected region."))
+    (progn
+      (indent-buffer)
+      (message "Indented buffer.")))
+  )
+  (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
+      #+end_src
+*** another way to complete things in Emacs. (hippie-expand)
+    hippie-expand通常是在company不是很好用的时候作为一个补全的方式使用，在很多company不能够使用的时候可以提供补全功能。 一个简单的配置如下：
+    #+begin_src elisp
+    ;; hippie-expand config
+(setq hippie-expand-try-function-list '(try-expand-debbrev
+ try-expand-debbrev-all-buffers
+ try-expand-debbrev-from-kill
+ try-complete-file-name-partially
+ try-complete-file-name
+ try-expand-all-abbrevs
+ try-expand-list 
+ try-expand-line
+ try-complete-lisp-symbol-partially
+ try-complete-lisp-symbol))
+;; This is not a must configuration on Windows, "s" is the command key on Mac. When on Windows, just use M-/
+(global-set-key (kbd "s-/") 'hippie-expand)
+    #+end_src \
+** Dired mode and file related operations
+*** dired mode 概要
+   1. copy, delete and rename file. (Copy/Delete/Rname files and folders)
+   2. add new file and folder
+      - 符号+ for adding new folders
+      - C-x C-f to create a new file.
+   3. open dired of current buffer
+      #+begin_src elisp
+      (require 'dired-x)
+      #+end_src
+      after applying this setting, wo could press 'C-x C-j' to jump to the dired buffer of current file.
+   4. open finder on Mac. (optional)
+      Packages:
+      reveal-in-osx-find for openning the finder of the cuurent file.
+
+*** dired mode详细
+    dired 是Emacs管理文件的模式，相当于一个简单的档案管理器。 Dired有相应的操作方法， 使用C-x d 或者M-x dired 开启Dired。 
+    - ？：  dired-summary  简单的帮助
+    - h ：  describ-mode   帮助
+    - q ：  quit-window    退出窗口
+**** 相关命令
+***** 移动操作
+     -  p: dired-previous-line 向上移动一行.
+     -  n: dired-next-line 向下移动一行.
+     -  DEL: dired-unmark-backward 向上移动一行并去除标记.
+     -  SPC: dired-next-line 向下移动一行.
+     -  <: dired-prev-dirline 移动到上一个目录行, 跳过文件行.
+     -  >: dired-next-dirline 移动到下一个目录行, 跳过文件行.
+     -  ^: dired-up-directory 向上移动一级目录.
+     -  j: dired-goto-file 移动到文件.
+***** 文件管理
+     - m: dired-mark 标记.
+     - ~: dired-flag-backup-files 标记所有的以 ~ 结尾的备份文件.
+     - #: 标记自动保存的文件.
+     - u: dired-unmark 去除标记.
+     - U: dired-unmark-all-marks 去除所有标记.
+     - d: dired-flag-file-deletion 标记删除.
+     - x: dired-do-flagged-delete 删除标记删除的文件.
+     - R: dired-do-rename 重命名文件或者移动文件.
+     - C: dired-do-copy 复制标记的文件文件.
+     - D: dired-do-delete 删除标记的文件.
+     - +: dired-create-directory 新建文件夹.
+***** 浏览操作
+      - A: dired-do-search 按照正则表达式搜索文件, 在第一个结果处停下.
+      - v: dired-view-file 浏览文件内容
+      - o: dired-find-file-other-window 在另一个窗口打开选中窗口的子目录.
+      - i: dired-maybe-insert-subdir 在当前窗口插入选中窗口的子目录.
+      - s: dired-sort-toggle-or-edit 对列表进行按照名字或日期的排序.
+      - l: dired-do-redisplay 重新显示.
+***** 功能操作
+      - !: dired-do-shell-command 运行 shell 命令.
+      - &: dired-do-async-shell-command 后台运行 shell 命令.
+      - =: dired-diff 对比两个文件的不同. M-= 比较文件和其备份.
+      - H: dired-do-hardlink 建立硬链接.
+      - S: dired-do-softlink 建立软链接.
+      - G: dired-do-chgrp 改变组.
+      - O: dired-do-chown 改变所属.
+      - M: dired-do-chmod 改变权限.
+      - P: dired-do-print 打印.
+      - T: dired-do-touch 新建文件.
+      - Z: dired-do-compress 压缩和解压缩.
+** 使用org-mode 管理配置
+   在init.el文件中加入
+#+begin_src elsip
+(org-bable-load-file (expand-file-name "my_init.org" user-emacs-directory))
+#+end_src
+* Day 5
+** Fix smartparen quote issue
+ 在lisp模式下关闭单引号' 的成对匹配
+#+BEGIN_SRC lisp
+  (define-advice show-paren-function (:around (fn) fix-show-paren-function)
+    "Highlight enclosing parens."
+    (cond ((looking-at-p "\\s(") (funcall fn)
+           (t (save-excursion
+                (ignore-errors (backward-up-list))
+                (funcall fn))))))
+
+  (sp-local-pair 'emacs-lisp-mode "'" nil:action nil)
+  
+
+#+END_SRC
+** editting large web page
+ 去除打开网页文件时产生的dos换行符号
+#+BEGIN_SRC  lisp
+(defun hidden-dos-eol ()
+
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+
+(defun remove-dos-eol ()
+  (interactive)
+  (goto-char (point-min))
+  (while (search-forward "\r" nil t) (replace-match "")))
+#+END_SRC
+** occur and imenu
+** Bonus Time Org export
+** Exercises
+   1. Learn how to use emmet-mode to do zen coding
+   2. configure your system to export org fifle to pdf file
+   3. install multiple cursor mode and compare it with iedit mode

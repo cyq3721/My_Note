@@ -1,0 +1,17 @@
+#+title:Org-mode Export Setting
+#+author:CYQ
+#+date:<2021-06-10 ÖÜËÄ>
+#+language:zh-CN
+#+options:html-postamble:nil
+
+Export Settings
+- author
+  The document author(user-full-name)
+- creater
+  Entity responsible for output generation
+- date
+  A date or a time-stamp
+- email
+  The email address(user-mail-address)
+- language
+  Language to use for translating certain strings

@@ -1,0 +1,565 @@
+#+TITLE:Spacemacs Rock 第二季笔记
+#+author: chen
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+date: 2020-3-2
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+
+* 第一天：准备开始
+** 查看官方教程
+   c-h t
+** 基础操作
+*** 常见符号所代表的意义
+   -  M(eta)，在 Mac 下为 Option 键
+   -  s(uper)，在 Mac 环境下为左 Command 键
+   -  S(Shift)
+   -  C(trl)
+*** 光标的移动
+   - C-f 为前移一个字符， f 代表 forward
+   - C-b 为后移一个字符， b 代表 backward
+   - C-p 为上移至前一行， p 代表 previous
+   - C-n 为上移至下一行， n 代表 next
+   - C-a 为移至行首， a 代表 ahead
+   - C-e 为移至行尾， e 代表 end
+*** 常用的文件操作
+    - C-x C-f 为打开目标文件， f 代表 find/file
+    - C-x C-s 为保存当前缓冲区（Buffer）， s 代表 save
+** 内置功能
+*** 开启行号
+    M-x linum-mode
+*** 获取帮助
+    - C-h k 寻找快捷键的帮助信息
+    - C-h v 寻找变量的帮助信息
+    - C-h f 寻找函数的帮助信息
+** 学习基础Elisp
+#+BEGIN_SRC lisp
+  ;; 2 + 2
+  (+ 2 2)
+
+;; 2 + 3 * 4
+(+ 2 (* 3 4))
+
+;; 定义变量
+(setq name "username")
+(message name) ; -> "username"
+
+;; 定义函数
+(defun func ()
+  (message "Hello, %s" name))
+
+;; 执行函数
+(func) ; -> Hello, username
+
+;; 设置快捷键
+(global-set-key (kbd "<f1>") 'func)
+
+;; 使函数可直接被调用可添加 (interactive)
+(defun func ()
+  (interactive)
+  (message "Hello, %s" name))
+#+END_SRC
+** 开始Hacking！
+*** 配置文件
+配置文件默认保存在～/.emacs.d/init.el文件中。（如果不存在可以自行创建，配置文件也可以保存在～/.emacs文件中。
+#+BEGIN_QUOTE
+如果希望把配置文件放在～/.emacs.d/init.el文件中，那么需要手工删除~/.emacs文件。
+#+END_QUOTE
+*** Major Mode 和 Minor Mode 的区别
+    - Major Mode通常是定义对于一种文件类型编辑的核心规则，例如语法高亮、缩进、快捷键绑定等。
+    - Minor Mode是除去Major Mode所提供的核心功能以外的额外编辑功能（辅助功能）。例如tool-bar-mode与linum-mode均为Minor Mode。
+
+#+BEGIN_QUOTE
+一个文件只能同时存在一种Major Mode，但是可以同时激活多种Minor Mode。可以使用c-h m 来显示当前所有开启的全部Minor Mode信息。
+#+END_QUOTE
+
+*** 简单的编辑器定义
+**** init.el文件例子
+写入配置文件～/.emacs.d/init.el中。
+
+#+BEGIN_SRC  lisp
+;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
+(tool-bar-mode -1)
+
+;; 关闭文件滑动控件
+(scroll-bar-mode -1)
+
+;; 显示行号
+(global-linum-mode 1)
+
+;;开启全局 Company 补全
+(global-company-mode 1)
+
+;; 更改光标的样式（不能生效，解决方案见第二集）
+(setq cursor-type 'bar)
+
+;; 关闭启动帮助画面
+(setq inhibit-splash-screen 1)
+
+;; 关闭缩进 (第二天中被去除)
+;; (electric-indent-mode -1)
+
+;; 更改显示字体大小 16pt
+;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
+(set-face-attribute 'default nil :height 160)
+
+;; 快速打开配置文件
+(defun open-init-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
+(global-set-key (kbd "<f2>") 'open-init-file)
+#+END_SRC
+
+**** 使配置生效
+ - 方法1：重新启动emacs
+ - 方法2：M-x load-file
+ - 方法3：M-x eval-buffer， 执行当前缓冲区的所有lisp命令。
+ - 方法4：M-x c-x c-e， 执行某一行的Lisp代码。
+* 第二天：高级自定义
+** 说在最前面
+*** 深入学习Emacs Lisp
+ M-x info 选择Emacs Lisp Intro
+*** setq和setq-default
+ - setq 设置当前缓冲区（Buffer）中的变量值
+ - setq-default 设置的为全局的变量的值
+***  分屏
+-   C-x 1 仅保留当前窗口
+-   C-x 2 将当前窗口分到上边
+-   C-x 3 将当前窗口分到右边
+*** 加入最近打开文件功能
+#+BEGIN_SRC lisp
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-item 10)
+;; 这个快捷键绑定可以用之后的插件 counsel 代替
+;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+#+END_SRC
+*** 改进默认的删除功能
+#+BEGIN_SRC lisp
+(delete-selection-mode 1)
+#+END_SRC
+*** 几个查找的函数
+  -  find-function （ C-h C-f ）
+  -  find-variable （ C-h C-v ）
+  -  find-function-on-key （ C-h C-k ）
+** Emacs 也很美
+*** 配置插件源
+**** MELPA源
+在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 MELPA
+（Milkypostman's Emacs Lisp Package Archive）。它有非常多的插件（3000 多个插件）。
+一个插件下载的次数多并不能说明它非常有用，也许这个插件是其他的插件的依赖。在这里
+你可以找到其安装使用方法。添加源后，我们就可以使用 M-x package-list-packages
+来查看所有 MELPA 上的插件了。在表单中可以使用 I 来标记安装 D 来标记删除，
+U 来更新，并用 X 来确认。
+**** 配置MELPA源
+#+BEGIN_SRC lisp
+ (when (>= emacs-major-version 24)
+     (require 'package)
+     (package-initialize)
+     (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                      ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
+
+;; 注意 elpa.emacs-china.org 是 Emacs China 中文社区在国内搭建的一个 ELPA 镜像
+
+ ;; cl - Common Lisp Extension
+ (require 'cl)
+
+ ;; Add Packages
+ (defvar my/packages '(
+                ;; --- Auto-completion ---
+                company
+                ;; --- Better Editor ---
+                hungry-delete
+                swiper
+                counsel
+                smartparens
+                ;; --- Major Mode ---
+                js2-mode
+                ;; --- Minor Mode ---
+                nodejs-repl
+                exec-path-from-shell
+                ;; --- Themes ---
+                monokai-theme
+                ;; solarized-theme
+                ) "Default packages")
+
+ (setq package-selected-packages my/packages)
+
+ (defun my/packages-installed-p ()
+     (loop for pkg in my/packages
+           when (not (package-installed-p pkg)) do (return nil)
+           finally (return t)))
+
+ (unless (my/packages-installed-p)
+     (message "%s" "Refreshing package database...")
+     (package-refresh-contents)
+     (dolist (pkg my/packages)
+       (when (not (package-installed-p pkg))
+         (package-install pkg))))
+
+ ;; Find Executable Path on OS X
+ (when (memq window-system '(mac ns))
+   (exec-path-from-shell-initialize))
+#+END_SRC
+* 第三天：配置文件模块化（上）
+** 多文件存储配置文件（上）
+*** 现在的配置文件结构
+将不同的配置代码放置到不同的文件中，使其模块化，这让我们的后续维护变得更加简单。
+下面是我们现在的 ~/.emacs.d/ 目录中的样子，
+#+BEGIN_QUOTE
+├── auto-save-list # 自动生成的保存数据
+├── elpa           # 下载的插件目录
+├── init.el        # 我们的配置文件
+└── recentf        # 最近访问的文件列表
+#+END_QUOTE
+*** 模块后的目录结构
+#+BEGIN_QUOTE
+├── init.el
+└── lisp
+    ├── custom.el  # 存放使用编辑器接口产生的配置信息
+    ├── init-better-defaults.el  # 增强内置功能
+    ├── init-helper.el
+    ├── init-keybindings.el   # 快捷键绑定
+    ├── init-packages.el     # 插件管理
+    ├── init-ui.el        # 视觉层配置
+    └── init-org.el      # Org 模式相关的全部设定
+#+END_QUOTE
+*** 模块化实现的要点
+模块化要做的其实非常简单，我们要做的其实就是把某一个更改编辑器某定部分（例如，插件管理，显示层，快捷键绑定等）的配置代码写入一个独立的文件中并在末尾为其添加(provide 'modul-name) (这里我们的模块名为 init-packages )使其可以在入口文件中被调用，然后再在入口文件中将其引用既可。
+
+在入口文件中添加 (add-to-list 'load-path "~/.emacs.d/lisp/") 这可以让 Emacs 找到需要加载的模块所处的位置。
+*** Major 与 Minor Mode 详解
+每一个文件类型都对应一个Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，然后而 Minor Mode 则提供其余的增强性的功能（例如 linum-mode ）。
+
+在 Emacs 中，Major Mode 又分为三种，
+   - text-mode ，用于编辑文本文件
+   - special-mode ，特殊模式（很少见）
+   - prog-mode ，所有的编程语言的父模式
+
+在每一个模式（mode）中它的名称与各个变量还有函数都是有特定的命名规则，比如所有的模式都被命名为 ModeName-mode ，里面所设置的快捷键则为 ModeName-mode-key-map，而所有的钩子则会被命名为 ModeName-mode-hook 。
+
+* 第四天：配置文件模块化（下）以及使用优化 
+** 配置文件模块化（下）
+*** 什么是features
+在 Emacs 中每一个 feature 都是一个 Elisp 符号，用于代表一个 Lisp 插件（Package）
+当一个插件调用 (provide 'symbol_name) 函数时，Emacs 就会将这个符号加入到features 的列表中去
+*** load-file , load , require , autoload 之间的区别
+- load-file 用于打开某一个指定的文件，用于当你不想让 Emacs 来去决定加载某个配置文件时（ .el 或者 .elc 文件）。
+
+- load 搜索 load-path 中的路径并打开第一个所找到的匹配文件名的文件。此方法用于你预先不知道文件路径的时候。
+
+- require 加载还未被加载的插件。首先它会查看变量 features 中是否存在所要加载的符号如果不存在则使用上面提到的 load 将其载入。（有点类似于其他编程语言中的import ）
+
+- autoload 用于仅在函数调用时加载文件，使用此方法可以大大节省编辑器的启动时间。
+
+** 更好的默认设置
+** Dired Mode
+Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的所有操作。
+
+使用 C-x d 就可以进入 Dired Mode，这个模式类似于图形界面系统中的资源管理器。你可以在其中查看文件和目录的详细信息，对他们进行各种操作，甚至复制粘贴缓冲区中的内容。下面是一些常用的操作（下面的所有键均需在 Dired Mode 下使用），
+
+   - + 创建目录
+   - g 刷新目录
+   - C 拷贝
+   - D 删除
+   - R 重命名
+   - d 标记删除
+   - u 取消标记
+   - x 执行所有的标记
+* 第五天：打造前端开发神器
+** '的补全问题
+在 Emacs Lisp 中我们有时候只需要一个 ' 但是 Emacs 很好心的帮我们做了补全，但这并不是我们需要的。我们可以通过下面的代码来让使 Emacs Lisp 在 Emacs 中的编辑变得更方便（可以将其添加至 init-default.el 配置文件中）。
+
+#+BEGIN_SRC lisp
+(sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+(sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
+
+;; 也可以把上面两句合起来
+(sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "'" nil :actions nil)
+#+END_SRC
+在添加配置代码后重启 Emacs 使其生效。当然这个方法你也可以运用在其他的各个 MajorMode 中，如果你不想 Emacs 对某些符号进行类似的自动匹配补全。
+** show-paren-mode的优化
+可以使鼠标在括号上是高亮其所匹配的另一半括号，然而我们想要光标在括号内时就高亮包含内容的两个括号，使用下面的代码就可以做到这一点。
+#+BEGIN_SRC lisp
+(define-advice show-paren-function (:around (fn) fix-show-paren-function)
+  "Highlight enclosing parens."
+  (cond ((looking-at-p "\\s(") (funcall fn))
+        (t (save-excursion
+             (ignore-errors (backward-up-list))
+             (funcall fn)))))
+#+END_SRC
+** web-mode 
+*** 安装
+#+BEGIN_SRC lisp
+(defvar xinyang/packages '(
+                           ;; 你其他的插件在这里
+                           web-mode
+                           ) "Default packages")
+#+END_SRC
+
+*** 匹配所有的.html文件
+#+BEGIN_SRC lisp
+(setq auto-mode-alist
+      (append
+       '(("\\.js\\'" . js2-mode))
+       '(("\\.html\\'" . web-mode))
+       auto-mode-alist))
+#+END_SRC
+* 第十一天：Spacemacs简介及安装
+** 视频地址如下：
+- [[https://pan.baidu.com/s/1eRTHBLC][百度网盘地址]]
+- [[http://v.youku.com/v_show/id_XMTYxMzYyNjc4MA==.html][优酷地址]]
+- [[https://youtu.be/etLqMM5nmqI][Youtoube地址]]
+** 本节内容概要：
+- 如何安装Spacemacs
+- 一些简单的配置，以及package管理
+- 管理自己的配置
+** 安装Spacemacs
+克隆github上的仓库，命令如下：
+
+#+begin_src shell
+  cd ~
+mv .emacs.d .emacs.d.bak
+mv .emacs .emacs.bak
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+#+end_src
+
+在克隆完成后直接运行 Emacs. 在第一次使用 Spacemacs 时需要下载一些 Package, 然后在 Bootstrap 完成之后你需要进行如下一些配置:
+
+- 使用哪种编辑方式, 包括 vim 方式(默认) 以及 emacs 方式.
+- 使用哪种 Spacemacs distribution. 包括标准版(默认)以及基础版. 区别在于标准版包含非常多的功能, 而基础版只包含核心功能.
+
+在完成以上两个配置之后, 就会在 HOME 目录生成一个 ~/.spacemacs 配置文件. 然后Spacemacs 会进行进一步的初始化, 下载更多的需要的 Package. 如果你需要使用emacs-china 的配置源, 此时可以终止 emacs, 然后在~/.spacemacs 中的 dotspacemacs/user-init 函数中加入以下代码:
+
+#+begin_src lisp
+  (setq configuration-layer--elpa-archives
+      '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+	("org-cn"   . "http://elpa.zilongshanren.com/org/")
+	("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+#+end_src
+
+** 使用.spacemacs.d 目录管理配置
+如果你需要更方便的管理你自己的配置, 可以创建 ~/.spacemacs.d 目录, 然后将 ~/.spacemacs 文件移动到该目录中并重命名为 init.el.
+
+在 Spacemacs 中的操作方式如下:
+
+- 按下 SPC f j 打开 dired 目录
+- 按下按键 + , 创建 ~/.spacemacs.d 目录
+- 将光标移动到 .spacemacs 文件上, 按下 R, 将该文件移动到 .spacemacs.d 目录中
+- 进入 .spacemacs.d 目录, 将光标移动到 .spacemacs 文件上, 按下 R, 将该文件重命名为 init.el
+- 按下 qq 退出 dired
+  
+然后启动 emacs 即可.
+
+使用这种方式管理配置, 你可以将自己的配置集中到 ~/.spacemacs.d 目录中, 更容易进行统一管理. 你也可以将自己的配置 push 到 github 上.
+** 添加内置的layer
+在安装完成 Spacemacs 之后, 按下 SPC f e d 打开 ~/.spacemacs 文件, 修改 dotspacemacs-configuration-layers 变量的值, 将 auto-completion, better-defaults, emacs-lisp, git, markdown, org, spell-checking, syntax-checking 等 layer 加入列表.
+
+然后退出 emacs 再重启, 或者按下 SPC f e R 安装需要的 package.
+** 一些简单的配置
+*** 启动时全屏
+在 dotspacemacs/init 函数中, 将 dotspacemacs-fullscreen-at-startup 变量设置为 t即可. 代码如下:
+
+#+begin_src lisp
+  ;; If non nil the frame is maximized when Emacs starts up.
+;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
+;; (default nil) (Emacs 24.4+ only)
+dotspacemacs-maximized-at-startup t
+#+end_src
+
+*** ivy layer
+将 ivy 加入 dotspacemacs-configuration-layers 列表中. 按下 CTRL s 使用 swiper 可以进行搜索.
+
+*** 删除安装的 package
+只需要将需要删除的 package 名称加入到 dotspacemacs-excluded-packages 变量中, 在
+下一次启动 emacs 时即会删除该 package. 示例代码如下:
+
+#+begin_src lisp
+  ;; A list of packages and/or extensions that will not be install and loaded.
+dotspacemacs-excluded-packages '(vi-tilde-fringe)
+#+end_src
+
+*** 安装package
+在 Spacemacs 中安装 package 时最好不要使用 package-install, 因为这样安装的 package 会在下一次启动时被删除.
+
+Spacemacs 提供了一个方式, 你只需将需要安装的 package 加入到 dotspacemacs-additional-package 变量中即可, 示例代码如下:
+
+#+begin_src lisp
+  ;; List of additional packages that will be installed without being
+;; wrapped in a layer. If you need some configuration for these
+;; packages, then consider creating a layer. You can also put the
+;; configuration in `dotspacemacs/user-config'.
+dotspacemacs-additional-packages '(youdao-dictionary)
+#+end_src
+
+*** 配置customize-group
+如果使用 customize-group 对配置进行了修改, 你可以以下代码将生成的 custom.el 配置文件纳入 ~/.spacemacs.d 目录中进行统一管理:
+
+#+begin_src lisp
+  (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
+(load custom-file 'no-error 'no-message)
+#+end_src
+
+*** 修改主题
+只需修改 dotspacemacs-themes 变量的值, 将主题加入列表即可. 在列表中靠前的主题会优先使用. 示例代码如下:
+
+#+begin_src lisp
+;; List of themes, the first of the list is loaded when spacemacs starts.
+;; Press <SPC> T n to cycle to the next theme in the list (works great
+;; with 2 themes variants, one dark and one light)
+dotspacemacs-themes '(
+		      monokai
+		      ;; spacemacs-dark
+		      ;; spacemacs-light
+		      ;; solarized-light        
+		      solarized-dark
+		      ;; leuven
+		      ;; monokai
+		      ;; zenburn
+		      )
+#+end_src
+
+* 第十二天：创建你的第一个Spacemacs Layer
+** 视频地址如下：
+
+- [[http://pan.baidu.com/s/1mi1vZTI][百度网盘地址]]
+- [[http://v.youku.com/v_show/id_XMTYyODgxNjU0OA==.html][优酷地址]]
+- [[https://youtu.be/qQqpWWjub6A][YouTube地址]]
+  
+** 本节内容概要：
+
+- 如何更新 Spacemacs, 同步官方 develop 分支及注意事项
+- Layer 的 variables 变量及使用方法
+- 如何创建自己的 Layer
+- 如何定制 modeline
+- evlified state
+  
+** 如何更新Spacemacs
+可以通过 git 的方式来更新代码, 假设我们使用的是 develop 分支:
+
+#+begin_src shell
+git checkout develop
+git fetch upstream
+git merge upstream/develop
+#+end_src
+
+一般来说, 如果你不熟悉 emacs 并且你的 Spacemacs 配置能够正常工作, 则不需要频繁的更新代码, 以避免更新之后配置不能使用.
+
+** variables 变量
+每一个 layer 都可以配置一些变量, 可以通过 SPC h SPC 然后输入 layer 名称, 点击对应的选项即可打开该 layer 的 README.org 文件. 然后按下 SPC f j 进入 dired 模式, 选择 config.el 文件打开, 该文件中即定义了该 layer 的变量.
+
+例如 better-default layer 的变量如下:
+
+#+begin_src lisp
+  (defvar better-defaults-move-to-beginning-of-code-first t
+  "when t, first stroke of C-a will move the cursor to the beginning of code.
+When nil, first stroke will go to the beginning of line.
+Subsequent strokes will toggle between beginning of line and beginning of code.")
+
+(defvar better-defaults-move-to-end-of-code-first nil
+  "when t, first stroke of C-e will move the cursor to the end of code (before comments).
+When nil, first stroke will go to the end of line (after comments).
+Subsequent strokes will toggle between end of line and end of code.")
+#+end_src
+
+要配置使用这些变量, 可以在启用 layer 时使用如下的代码:
+
+#+begin_src lisp
+  (better-defaults :variables
+		 better-defaults-move-to-end-of-code-first t)
+#+end_src
+
+** 定制 modeline
+在 emacs25.1 中, 该版本的 modeline 和以前版本不同, 可以通过如下方式将 modeline 修改为以前的显示形状:
+
+在 dotspacemacs/user-config 中加入如下代码:
+
+#+begin_src lisp
+  (setq ns-use-srgb-colorspace nil)
+#+end_src
+
+** 创建自己的layer
+假设我们需要创建一个 layer, 名叫 zilongshanren, 并且在 layer 下包含一个名叫 youdao-dictionary 的 package.
+
+首先利用 spacemacs 提供的函数创建 layer. 按下 M-x 并且输入 configuration-layer/create-layer, 然后选择路径 ~/.spacemacs.d, 确定创建 README, 然后我们就可以看到 layer 创建成功.
+
+每一个 layer 的结构如下:
+
+#+begin_quote
+[layer_name]
+  |__ [local]
+  | |__ [package 1]
+  | |     ...
+  | |__ [package n]
+  |-- layers.el
+  |__ packages.el
+  |__ funcs.el
+  |__ config.el
+  |__ keybindings.el
+
+[] = directory
+#+end_quote
+
+即每一个 layer 目录下都可以包含 layers.el, packages.el 等文件, 以及一个名叫 local 的目录.
+
+每一个文件的内容描述如下:（文件按此顺序加载）
+
+| 文件名         | 用处                                                                                   |
+| layers.el      | 声明一些额外的layer依赖                                                                |
+| packages.el    | 一些layer使用到的package以及相关配置函数                                               |
+| funcs.el       | 定义一些layer层次的函数，即全局函数                                                    |
+| config.el      | layer的配置，此处定义的配置可以在.spacemacs中申明时进行配置，也可以定义emacs的默认配置 |
+| keybindings.el | 快捷键配置                                                                                  |
+
+现在我们可以把 youdao-dictionary 加入到 layer 中, 编辑 packages.el:
+
+#+begin_src lisp
+  ;; 添加 package
+(defconst zilongshanren-packages
+  '(youdao-dictionary)
+  )
+
+;; 初始化 package
+;; 可以使用 , d m 快捷键, 然后按下 e 展开宏
+(defun zilongshanren/init-youdao-dictionary ()
+  (use-package youdao-dictionary
+    :defer t
+    :init
+    (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
+    )
+  )
+#+end_src
+
+编辑 config.el 文件:
+
+#+begin_src lisp
+  ;; 开启行号显示
+(global-linum-mode t)
+
+;; 定义快捷键
+(global-set-key (kbd "M-s o") 'occur-dwim)
+
+;; 将 occur 的 buffer 中的光标移动方式修改为 HJKL
+(evilified-state-evilify-map occur-mode-map
+  :mode occur-mode)
+#+end_src
+
+编辑 keybindings.el 文件:
+
+#+begin_src lisp
+  ;; dwin = do what i mean.
+(defun occur-dwim ()
+  "Call `occur' with a sane default."
+  (interactive)
+  (push (if (region-active-p)
+	    (buffer-substring-no-properties
+	     (region-beginning)
+	     (region-end))
+	  (let ((sym (thing-at-point 'symbol)))
+	    (when (stringp sym)
+	      (regexp-quote sym))))
+	regexp-history)
+  (call-interactively 'occur))
+#+end_src
+
+然后将 zilongshanren 加到 dotspacemacs-configuration-layers 变量中, 即可让 layer 配置生效

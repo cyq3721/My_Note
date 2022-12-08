@@ -1,0 +1,179 @@
+#+title: Emacs-最好的Python编辑器
+#+author:cyq
+#+data:<2021-05-22 Sat>
+* 简介
+  在此教程中，您将学习使用 Emacs 进行 Python 开发，包括如何：
+
+  - 在选定的平台上安装 Emacs
+  - 设置 Emacs 初始化文件以配置 Emacs
+  - 为 Emacs 构建基本的 Python 配置
+  - 编写 Python 代码以探索 Emacs 功能
+  - 在 Emacs 环境中运行和测试 Python 代码
+  - 使用集成的 Emacs 工具调试 Python 代码
+  - 使用 Git 添加源控制功能
+
+* Installation and Basics
+** Installation
+** Basic Emacs2
+*** 快速创建Python program
+   1. cttl-x ctrl-f to open a new file
+   2. type sieve.py to name file(创建名为：sieve.py的文件)
+   3. Hit Enter
+   4. Emacs may ask you to confirm your choice
+*** 输入Python程序
+    #+begin_export python
+MAX_PRIME = 100
+sieve = [True] * MAX_PRIME
+for i in range(2, MAX_PRIME):
+  if sieve[i]:
+    print(i)
+      for j in range(i * i, MAX_PRIME, i):
+        sieve[j] = False
+    #+end_export
+**** 使用Emacs作为Python编辑器的特点
+     - 根据Python不同的关键字，Emacs会高亮显示变量及其内容
+     - 会自动的对for，if等声明的内容进行缩进
+     - 按下tab键，会进行合适的缩进。
+     - 会高亮括号没有配对的行
+*** Emacs的一些术语
+    - 启动Emacs时看到的窗口称为frame（框架）
+    - 每个Emacs frame（框架）里的窗格称为窗口（windwow），每个框架中可以打开多个窗口
+    - 每个窗口中显示的内容称为缓冲区（buffer），buffer是用户与Emacs互动的地方
+    - minibuffer，在当前frame的底部，输入命令的地方。
+* Emacs的初始化文件（.emacs)initialization file
+** initialization file 的三个地方
+    1. In home user folder for the file .emacs
+    2. 如果在home user folder中找不到.emacs文件，那么会继续在这个目录找 .emacs.el文件
+    3. 如果前面两个文件都没找到，那么会去home folder中的 .emacs.d目录中寻找init.el文件。
+** create ~/.emacs.d/init.el
+    - Hit Ctrl+X Ctrl+F.
+    - Type in the mini-buffer.~/.emacs.d/init.el
+    - Hit Enter.
+    - Emacs may ask you to confirm your choice. If so, then hit Enter again
+* Customization Packages(自定义插件）
+** PyPl
+   和Python有关的所有插件都能在[[https://pypi.org][PyPl]]中找到资料。
+** 自定义init.el
+   #+begin_src lisp
+			      ;; .emacs.d/init.el
+
+			      ;; ===================================
+			      ;; MELPA Package Support
+			      ;; ===================================
+			      ;; Enables basic packaging support
+			      (require 'package)     ;;tell emacs to use packages
+
+			      ;; Adds the Melpa archive to the list of available repositories
+			      (add-to-list 'package-archives
+					   '("melpa" . "http://melpa.org/packages/") t)  ;;把melpa添加进package源
+
+			      ;; Initializes the package infrastructure
+			      (package-initialize)　　;;初始化插件管理系统
+
+			      ;; If there are no archived package contents, refresh them
+			      (when (not package-archive-contents)
+				(package-refresh-contents))
+
+		    　　　;;====================================
+			 ;; Installs packages 
+			 ;;====================================
+			 ;; myPackages contains a list of package names
+
+			 (defvar myPackages
+			   '(better-defaults　　　;; Set up some better Emacs defaults
+			     elpy          　　;; Emacs Lisp Python Environment
+			     flycheck
+			     py-autopep8                     ;; Run autopep8 on save
+			     blacken                   ;; Black formatting on save
+                         ein                             ;; Emacs IPython Notebook
+			     material-theme                  ;; Theme
+			     )
+			   )
+
+			 ;; Scans the list in myPackages
+			 ;; If the package listed is not already installed, install it
+			 (mapc #'(lambda (package)
+				   (unless (package-installed-p package)
+				     (package-install package)))
+			       myPackages)
+
+		    ;; ===================================
+		    ;; Basic Customization
+		    ;; ===================================
+
+		    (setq inhibit-startup-message t)    ;; Hide the startup message
+		    (load-theme 'material-light t)            ;; Load material theme
+		    (global-linum-mode t)               ;; Enable line numbers globally
+
+		    ;; User-Defined init.el ends here
+
+	       ;; ====================================
+	       ;; Development Setup
+	       ;; ====================================
+	       ;; Enable elpy
+	       (elpy-enable)
+
+     ;; Use IPython for REPL
+     (setq python-shell-interpreter "jupyter"
+	   python-shell-interpreter-args "console --simple-prompt"
+	   python-shell-prompt-detect-failure-warning nil)
+     (add-to-list 'python-shell-completion-native-disabled-interpreters
+		  "jupyter")
+
+
+	  ;; Enable Flycheck
+	  (when (require 'flycheck nil t)
+	    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+	    (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+     ;; Enable autopep8
+     (require 'py-autopep8)
+     (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+	       ;; User-Defined init.el ends here
+
+   #+end_src
+** elpy模式Emacs for Python Development With elpy
+   Emacs is ready out of the box to edit Python code. The library file provides python-mode, which enables basic indentation and syntax highlighting support. However, this built-in package doesn’t provide much else. To properly compete with Python-specific IDEs (Integrated Development Environments), you’ll add more capabilities.python.el
+
+   The elpy package (Emacs Lisp Python Environment) provides a near-complete set of Python IDE features, including:
+
+   - Automatic indentation
+   - Syntax highlighting
+   - Auto completion
+   - Syntax checking
+   - Python REPL integration
+   - Virtual environment support
+
+*** elpy下的一个重要的命令CTRL-C CTRL-C
+    When you use this command, Emacs will do the following:
+    - Create a new buffer named *Python*
+    - Open your Python interpreter and connect it to that buffer
+    - Create a new window under your current code window to display the buffer
+    - Send the code to the interpreter to execute
+
+   You can scroll through the *Python* buffer to see which interpreter was run and how the code was started. You can even type commands at the prompt () at the bottom.>>>
+
+*** 配置elpy(elpy-config)
+    alt-x elpy-config
+
+** Additional Python Language FeaturesG
+除了以上实现的一些基本的ＩＤＥ功能之外，在Ｐｙｔｈｏｎ开发环境中还有很多其他语法功能，　在接下去的教程中，会提到三个：
+　　- Syntax checking with flycheck
+　　- Code formatting with PEP 8 and black
+   - Integration with Jupyter and IPytho
+
+* Integration With Jupyter and IPython(整合Jupyter and IPython）
+
+Emacs can also work with Jupyter Notebooks and the IPython REPL. If you don’t already have Jupyter installed, then check out Jupyter Notebook: An Introduction. Once Jupyter is ready to go, add the following lines to your after the call to enable :init.elelpy
+
+package ein ---Emacs Ipython Notebook
+
+This will update Emacs to use IPython rather than the standard Python REPL. Now when you run your code with Ctrl+C Ctrl+C, you’ll see the IPython REPL:
+
+IPython running in Emacs
+While this is pretty useful on its own, the real magic is in the Jupyter Notebook integration. As always, you need to add a bit of configuration to enable everything. The ein package enables an IPython Notebook client in Emacs. You can add it to your like so:init.el
+
+You can now start a Jupyter server and work with Notebooks from within Emacs.
+
+To start the server, use the command Alt+X ein:jupyter-server-start. Then provide a folder in which to run the server. You’ll see a new buffer showing the Jupyter Notebooks available in the folder selectedqq

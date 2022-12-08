@@ -1,0 +1,44 @@
+#+title:Python基础教程（第三版）
+* 第1章 快速上手：基础知识
+** 进入python的交互环境
+ 1. mac OS 或 linux/Unix下
+    终端下输入python（python3）
+ 2. 图形界面
+    终端输入IDLE，启动idle图形界面的解释器
+** 算法
+** 数和表达式
+*** 基本的运算：
+ | 运算符 | 作用             |
+ | //     | 整除（结果取整） |
+ | %      | 取余数           |
+ | **     | 乘方（求幂）           |
+** 变量（variable）
+使用python变量前，必须先赋值（assignment），because python变量没有默认值
+** 获取用户输入（input（））
+
+
+用法：
+#+BEGIN_SRC python
+input("The meaning of life: ")
+#+END_SRC
+** 函数
+*** 内置函数
+内置函数的例子：
+- power（2，3）      //表示2的3次方
+- abs(-10)          //求绝对值
+- sqrt（9）         //求平方根
+** 模块
+可将模块视为扩展，通过将其导入可以扩展python的功能。 
+*** 导入模块 import module
+**** import的实例
+import math    //导入数学模块math
+math.floor(32.9)   //floor()是math模块中的函数
+**** import的工作原理
+使用import导入模块，再以module.function的方式使用模块中的函数。
+*** import的变种 from module import function
+ 使用这个变种，可以在调用函数时不指定模块前缀。
+*** _future _ 模块
+对于python当前不支持，但未来将成为标准组成部分的功能，可以从这个模块导入
+** 保存并执行程序
+- 扩展名 .py
+- IDLE

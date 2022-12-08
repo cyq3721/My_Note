@@ -1,0 +1,280 @@
+#+yauthor: CHEN
+#+title: Emacs平时记录
+#+STARTUP: hidestars
+
+* 插件
+| 插件名称       | 功能                                                          |
+| company-mode   | 自动补全                                                      |
+| which-key-mode | c-x等的按键提示                                               |
+| embark         | find-file命令，在minibuffer中显示文件详细属性(gnu elpa中下载) |
+|                |                                                               |
+
+* 快捷键
+| 快捷键   | 功能                                                           |
+| c-h f    | 查看function（函数），比如可以查看company-mode，能查到详细资料 |
+| c-h m    | 查看emacs在此时，开始了多少minor-mode                          |
+| m-x info | 查看emacs的相关文档                                            |
+* 常用的配置命令
+#+BEGIN_QUOTE
+; 开启全局 Company 补全
+(global-company-mode 1)
+
+;; 关闭工具栏，tool-bar-mode 即为一个 Minor Modeq
+
+(tool-bar-mode -1)
+
+;; 关闭文件滑动控件
+(scroll-bar-mode -1)
+
+;; 显示行号
+(global-linum-mode 1)
+
+;; 更改光标的样式（不能生效，解决方案见第二集）
+(setq cursor-type 'bar)
+
+;; 关闭启动帮助画面
+(setq inhibit-splash-screen 1)
+
+;; 关闭缩进 (第二天中被去除)
+;; (electric-indent-mode -1)
+
+;; 更改显示字体大小 16pt
+;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
+(set-face-attribute 'default nil :height 160)
+
+;; 快速打开配置文件
+(defun open-init-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
+(global-set-key (kbd "<f2>") 'open-init-file)
+
+;;禁止自动备份
+(setq make-backup-files nil)
+#+END_QUOTE
+
+在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加 载配置文件。重新加载配置文件你需要在当前配置文件中使用 M-x load-file 双击两次 回车确认默认文件名，或者使用 M-x eval-buffer 去执行当前缓冲区的所有 Lisp 命令。 你也可以使用 C-x C-e 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。 当然你也可以将这些函数绑定为快捷键。
+
+* 关于elisp
+- setq  给变量赋值
+  (setq my-name "bastien")
+- defun  建立函数
+- insert  输出打印（相当于print）
+- (switch-to-buffer-other-window  "*test*")  在emacs中新建一个window（窗格）， 文件名为*test*。注意，此处的window可以用fram取代，frame是新建个新的emacs窗口。
+- progn  建立顺序执行的程序段
+- (setq list '("aaa" "bbb" "ccc" "......"))  建立列表
+- car  取出列表的第一个值
+- cdr  取出列表中除去第一个值以外的所有值
+- push 把数据存入列表（先进后出，存入方式同堆栈））
+- mapcar 用列表中的每个值作为函数的参数，例如（mapcar 'hello list)   hello是函数名，list是列表名
+- goto-char 移动光标
+- point-min 光标在buffer的头部  （goto-char (point-min)) 移动光标的buffer的开头
+* 自动换行
+ - M-x toggle-truncate-lines切换换行与不换行
+ - M-x customize-option，输入truncate-partial-width-windows，将出来的设置页面中的参数改为off，然后保存(Save for future sessions)
+ - M-x auto-fill-mode也是切换换行模式，不过这是要在文章内容里插入回车符号
+* html-mode简单使用<2021-10-31 Sun>
+摘录自[[https://blog.csdn.net/chuchenqiu4433/article/details/100969702][html-mode简单使用（from CSDN）]]
+
+Emacs 默认为我们提供了一个编写 html 文件的模式 -- html-mode 。这给我们带来了不小的方便。当然，你也可以尝试功能更加强大的 html-helper-mode 。
+
+** 开始
+
+当我们打开一个 .html 格式的文件时，emacs 已经自动进入 HTML 模式了，这时你应该可以看到 底部状态条上显示 HTML 字样。 如果没有自动进入，你也可以使用 M-x html-mode 。 Emacs 为我们提供了一个简单的 HTML 模板，C-c C-t html ，然后输入title回车就可以调用这个模板了。M-x html-autoview-mode(C-c C-s)，可以在Emacs保存HTML文档时打开浏览器浏览效果。不过我更喜欢在浏览器中打开着编写的网页，保存后按F5就可以查看效果了。
+
+** 隐藏和显示HTML标记
+
+有时候，我们编写html文件时，整个窗口都是高亮显示的标记，你会不会感觉到眼花呢？想要隐藏这些标记很简单，html-mode 里边只需要 C-c Tab 便可以将这些标记隐藏起来，当要显示它们时，再次按 C-c Tab 就可以了。不用担心隐藏的标记会被我们不小心删除掉，当光标移动到隐藏的标记位置时，Mini-buffer中会显示出来。
+
+** 快捷键
+
+- p { margin-bottom: 0.21cm; }
+- C-c C-f : 光标移动到当前所在位置的下一个HTML 标签。
+- C-c C-b : 光标移到到当前所在位置的上一个HTML 标签。
+- C-c <left>/<right> : 跳到该标签的开始/ 结束。
+- C-c DEL : 删除标签。 C-c 1~6 : 插入标题h1~h6 。
+- C-c Enter : 插入段落标记 <p> 。
+- C-c / ：闭合b 标签。比如可以结合上一条使用，就会自动插入</p> 。
+- C-c C-c h : 插入超级链接标记。
+- C-c C-c n : 插入anchor （锚标），便于在文档其他位置跳转到该位置。
+- 需要在Mini-buffer 中输入锚标名称。
+- C-c C-c u : 插入无序列表标记<ul><li></ul> 。
+- C-c C-c o : 插入有序列表标记<ol><li></ol> 。
+- C-c C-c p : 插入标记<li> 。
+- C-c C-c - : 插入水平线 <hr> 。
+- C-c C-c i : 插入图像引用标记 <img> 。
+- C-c C-j : 插入换行符<br> 。
+  
+** 特殊字符输入
+
+有时需要在html文本中显示html标记，比如<p>，不能直接输入。可以这样： C-c C-n < ，然后输入 p ，然后再 C-c C-n >;。其实 C-c C-n 后输入的字符都不会被html解析而直接输出了。
+
+转载于:https://my.oschina.net/xphouziyu/blog/1787799
+
+* 日志
+** 2021-6（使用org-mode搭建网站）
+*** 使用org-mode 搭建网站 [[http://www.zhangjiee.com/blog/2019/build-site-with-org-mode.html]]
+
+   一些主流的平台（github，gitlab），主流的博客工具（Jekyll，Hugo）都是支持 org-mode 的，把他当做 markdown 来用即可，还有专门针对 org-mode 的博客工具：[[http://renard.github.io/o-blog/][o-blog]]，[[https://github.com/novoid/lazyblorg][lazyblorg]]。
+
+   对于 org-mode，原生提供了将 org-mode 转换成 html 的函数 org-html-publish-to-html 对了，还有将 org-mode 转换成 markdown 的函数 org-md-export-to-markdown 。
+
+   在此基础上封装了 ox-publish 包，使得只需要简单的写一些规则，批量的将 org-mode 输出到指定目录下的 html 文件，如下：
+   #+begin_src elisp
+(require 'ox-publish)
+(setq org-html-validation-link nil)
+
+(setq org-publish-project-alist
+      '(
+        ;; notes component
+        ("site-orgs"
+         :base-directory "~/site/org"
+         :base-extension "org"
+         :html-link-home "index.html"
+         :publishing-directory "~/site-html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 5
+         :auto-preamble t
+         :auto-sitemap t
+         :sitemap-filename "sitemap.org"
+         :sitemap-title "Sitemap"
+         )
+        ;; static component
+        ("site-static"
+         :base-directory "~/site/static/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/site-html/static/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+        ;; publish component
+        ("site" :components ("site-orgs" "site-static"))
+        ))
+   #+end_src
+
+   代码很容易理解，一部分处理 org 文件，一部分处理静态文件，发布只需要执行 org-publish ，选择对应的项目即可。
+
+2. 使用org-mode撰写jekyll博客    [[https://jsuper.github.io/emacs/using-org-mode-to-write-jekyll-post.html]]
+
+   - Jekyll 是什么？
+     Jekyll是一个采用Ruby编写的, 简单的、面向博客的静态网站生成工具。它能够将一系列文本文件（Markdown和Textile）转换成一个完整的，可以发布的静态页面。大名鼎鼎的代码托管商Github的Github pages就是采用的Jekyll做引擎。也就意味着，你可以免费使用Github的服务器来搭建属于你自己的项目WIKI，博客或者是网站等。关于Jekyll的详细使用，请参考官方文档Jekyll.
+
+   - 怎样使用org-mode来写Jekyll的博文？
+    Jekyll博客本身是不支持对org-mode的文件进行转换的，不过我们通过将 org-mode文件发布成html之后，将其扔到jekyll博客的 _posts 目录下，其就可以进行处理了。org-mode支持将org-mode文件转换成多种格式的文档的，如：latex，pdf，html等等。
+*** 重设环境变量的应用；
+#+begin_src  elisp
+(setenv "HOME" "C:/Users/cyq/OneDrive")
+(load "~/emacs配置文件/.emacs.d/init.el")
+#+end_src
+- setenv 设置环境变
+- load
+*** 让不同级别的标题采用不同大小的字体
+其实定制一下 org-level-1, org-level-2 等face的 height 属性就可以了（不过如果你用了其它theme的话， 要在加载这些theme之后再执行一遍下面这些配置，或者你把它们放在 org-mode-hook 中去执行）:
+#+BEGIN_QUOTE
+(set-face-attribute 'org-level-1 nil :height 1.6 :bold t)
+(set-face-attribute 'org-level-2 nil :height 1.4 :bold t)
+(set-face-attribute 'org-level-3 nil :height 1.2 :bold t)))
+#+END_QUOTE
+** 2021-10(使用steven purcell的配置)
+*** steven purcell的配置
+   该配置对于web开发的支持度很高，支持的语言如下：
+     - Haskell / Purescript / Elm / OCaml
+     - Ruby / Ruby on Rails
+     - SQL
+     - CSS / LESS / SASS / SCSS
+     - Javascript / Typescript / Coffeescript
+     -HTML / HAML / Markdown / Textile / ERB
+     - Common Lisp (with Slime)
+     -Python
+     - Rust
+     - Clojure (with Cider and nRepl)
+     - PHP
+     - Erlang
+
+*** install
+    #+begin_quote
+    e https://github.com/purcell/emacs.d.git ~/.emacs.d
+    #+end_quote
+
+*** Updates
+    #+begin_quote
+    M-x package-list-packages, then U followed by x.
+    #+end_quotey
+
+*** Changeing themes and adding your own customization
+    To add your own customization, use M-x customize, M-x customize-themes etc. and/or create a file:  ~/.emacs.d/lisp/init-local.el which looks like this:
+#+begin_quote
+... your code here ...
+
+(provide 'init-local)
+
+#+end_quote
+
+** 2021-10(移植purcell配置的minibuffer效果)
+安装插件embark，marginalia，配置代码如下：
+   #+begin_src lisp
+   (use-package marginalia
+  :ensure t
+  :config
+  (marginalia-mode))
+
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :config
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t
+  :after (embark consult)
+  :demand t ; only necessary if you have the hook below
+  ;; if you want to have consult previews as you move around an
+  ;; auto-updating embark collect buffer
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+   #+end_src
+** 2021-10-31 查询html-mode用法
+*** 删除tag
+    将光标放在要删除的tag上，按C-c C-d， 会把开始标签和结束标签都删掉，
+    需要注意的是，如果HTML tag不匹配的话，可能会删错。
+*** 光标跳转到开始标签或结束标签处
+    - C-c C-f (sgml-skip-tag-forward)
+    - C-c C-b (sgml-skip-tag-backward)
+*** 预览网页
+    C-c C-v（browse-url-of-buffer）
+*** 隐藏tag标签
+    C-c Tab， 再按一次则是恢复，这类似于以文本方式预览
+*** 插入tag
+    | tag           | hotkey    | commandname          |
+    |---------------+-----------+----------------------|
+    | h1            | C-c 1     | html-headline-1      |
+    | h2            | C-c 2     | html-headline-2      |
+    | p             | C-c enter | html-paragraph       |
+    | hr            | C-c C-c - | html-horizontal-rule |
+    | ul            | C-c C-c u | html-unordered-list  |
+    | li            | C-c C-c l | html-list-item       |
+    | a             | C-c C-c h | html-href-anchor     |
+    | img           | C-c C-c i | html-image           |
+    | 交互式插入tag | C-c C-o   | sgml-tag不匹配的话   |
+    | 插入闭合tag   | C-c /     | sgml-close-tag      |
+*** 特殊字符的输入
+    有时需要在html文本中显示html标记，比如<p>，不能直接输入。可以这样： C-c C-n < ，然后输入 p ，然后再 C-c C-n >;。其实 C-c C-n 后输入的字符都不会被html解析而直接输出了。

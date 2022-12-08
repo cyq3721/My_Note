@@ -1,0 +1,59 @@
+#+title:  用emacs编辑PHP
+#+author: CYQ
+* php-mode
+** overview（概述）
+ php-mode 项目主页：[[https://github.com/emacs-php/php-mode]]
+
+  顾名思义，php-mode 是编辑 PHP 文件的 major mode。 多年来有多个不同的版本，当现在主要集中在 GitHUb 托管的分支上。
+** php-mode 的安装（install）
+php-mode 可以通过多种不同的方式进行安装，但我强烈建议使用从 Melpa 下载的最新安装包进行安装
+
+Melpa 上的版本会经常性的升级一些功能和更新一些bug，同时支持新版本 PHP 中的新增功能
+
+#+begin_quote
+ 注意：
+ Ubuntu和Debian的软件包档案可能包含一个名为php-elisp的软件库的版本。这已经
+ 非常过时了，不应该被使用。
+ 源源上的版本也已经过时，应该避免使用。
+#+end_quote
+
+安装完成之后， 添加如下的代码到 emacs 的 init 文件中。
+
+#+begin_src php
+  (use-package php-mode
+     :commands php-mode
+     :mode "\\.php\\'")
+#+end_src
+
+这几行配置代码会暂时不加载 php-mode，直到打开一个 php 文件，这样能够加快 php 的启动速度，同时，这几行代码也告诉 emacs 在打开“.php” 文件时切换到 php-mode，即把 php 文件和 php-mode 关联起来。
+
+
+使用这个方式也同样可以关联.inc和.module 文件，配置代码如下：
+#+begin_src php
+     (use-package php-mode
+         :commands php-mode
+         :mode (("\\.php\\'" . php-mode)
+                ("\\.inc\\'" . php-mode)
+                ("\\.module\\'" . php-mode)))
+#+end_src
+
+用同样的方式也可以关联其它文件扩展名。
+
+现在 php-mode 已经安装并被正确的加载，是时候看看它能做什么了。
+
+** 第一步
+和原始的emacs相比，php-mode提供了一些额外功能：
+- 语法高亮功能
+- 代码的自动缩进
+- 使用php-current-class跳转到当前类
+- 查找php关键字和php函数的文档
+- 使用php-beginning-of-defun 和php-end-of-defun在函数段的开始和结束之间进行导航
+- 使用php-run-builtin-web-server启动php服务器
+- 使用php-send-region评估代码区域并在名字为*PHP*的buffer中显示输出。
+
+我们将在这章下面的课程当中详细的探讨这些功能。
+** 几个有用的快捷键
+php-mode自带很多内置的快捷键，他们大致分为3类
+- 围绕当前文件移动的导航快捷键
+- 查找文档、查找函数定义和引用的快捷键
+- 编辑代码或更改当前代码缩进设置的快捷键

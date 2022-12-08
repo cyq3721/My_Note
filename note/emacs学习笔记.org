@@ -1,0 +1,36 @@
+#+title: emacs学习笔记
+#+author: CHEN
+#+: 2017-7-20
+
+* Setup安装
+* Package Manage 包管理器
+ - m-x packagej-list-packages
+ - use-package
+* config配置
+ - 个人喜好 ： ~/.emacs.d/init.el -(org-babel)-> ~/.emacs.d/config.org
+ - 配置文件下载 ：
+   - [[https://crackwallsports.github.io/testwebsite/articles/Emacs/init.el][init.el]]
+   - [[https://crackwallsports.github.io/testwebsite/articles/Emacs/config.org][config.org]]
+* Basic基础
+** UI用户界面
+  - Menu菜单栏：屏幕顶部突出 显示的条
+  - Frame 框架
+    + Window窗口
+      - Buffer缓冲区：关联文件
+  - Mode Line 模式行（状态栏）：每个窗口中横贯底部的高两条，提供当前缓冲区的信息
+  - Echo Area：模式行下面底部的区域显示相关信息
+  - Mode Line
+     + [[https://github.com/Malabarba/smart-mode-line][smart-mode-line]]
+** Mode 模式
+  - 主要模式 major-mode：  主要的编辑行为 仅用于当前缓冲区 仅有一个活动的主模式
+  - 次要模式 minor-mode： 提供了一些与任何特定的主要模式无关的特性或功能 可多个
+* emacs 的配置
+** 配置文件
+emacs的配置文件在 ~/.emacs中进行配置，重启emacs是配置生效，或者在打开~/.emacs的时候执行命令
+m-x eval-buffer，可以是配置立即生效。
+** 配置插件
+在配置文件中输入代码：
+#+begin_quote
+(add-to-list 'load-path' ~/.emacs.d/lisp")
+(require 'pluginname')
+#+end_quote

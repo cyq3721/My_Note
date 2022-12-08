@@ -1,0 +1,344 @@
+#+title: mysql菜鸟教程
+#+author: chen
+#+data:[2019-06-05 Wed]
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+
+* 什么是数据库
+*数据库* （database））是按照数据结构来组织、存储和管理数据的仓库。我们使用关系型数据库（RDBMS）来存储和管理大量数据。所谓的关系型数据库是建立在关系模型基础上的数据库
+* RDBMS关系数据库管理系统（Relational Database Management System）的特点
+
+- 数据以表格的形式出现
+- 每行为各种记录的名称
+- 每列为记录名称所对应的数据域
+- 许多的行和列组成一张表单
+- 若干的表单组成database
+* RDBMS术语
+
+- 数据库 ：数据库是一些关联表的集合。
+- 数据表：表是数据的矩阵。在一个数据库中的表看起来像要一个简单的电子表格。
+- 列：一列（数据元素）包含了相同的数据，例如邮政编码数据
+- 行：一行（=元组，或记录）是一组相关的数据，例如一条用户订阅的数据。
+- 冗余：存储两倍数据，冗余降低了性能，但提高了数据的安全性。
+- 主键：主键是唯一的。一个数据表中只能包含一个主键。你可以使用主键来查询数据。
+- 外键：外键用于关联两个表。
+- 复合键：复合键（组合键）将多个列作为一个索引键，一般用于复合索引。
+- 索引：使用索引可快速访问数据库表中的特定信息。索引是对数据库表中一列或多列的值进行排序的一种结构。类似于书籍的目录。
+- 参照完整性: 参照的完整性要求关系中不允许引用不存在的实体。与实体完整性是关系模型必须满足的完整性约束条件，目的是保证数据的一致性。
+- 表头(header): 每一列的名称;
+- 列(col): 具有相同数据类型的数据的集合;
+- 行(row): 每一行用来描述某条记录的具体信息;
+- 值(value): 行的具体信息, 每个值必须与该列的数据类型相同;
+- 键(key): 键的值在当前列中具有唯一性。
+
+
+MySQL 为关系型数据库(Relational Database Management System), 这种所谓的"关系型"可以理解为"表格"的概念, 一个关系型数据库由一个或数个表格组成, 如图所示的一个表格:
+[[file:pic/mysql菜鸟教程_pic01.jpg
+]]
+* MySQL数据库
+MySQL 是一个关系型数据库管理系统，由瑞典 MySQL AB 公司开发，目前属于 Oracle 公司。MySQL 是一种关联数据库管理系统，关联数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。
+
+- MySQL 是开源的，所以你不需要支付额外的费用。
+- MySQL 支持大型的数据库。可以处理拥有上千万条记录的大型数据库。
+- MySQL 使用标准的 SQL 数据语言形式。
+- MySQL 可以运行于多个系统上，并且支持多种语言。这些编程语言包括 C、C++、Python、Java、Perl、PHP、Eiffel、Ruby 和 Tcl 等。
+- MySQL 对PHP有很好的支持，PHP 是目前最流行的 Web 开发语言。
+- MySQL 支持大型数据库，支持 5000 万条记录的数据仓库，32 位系统表文件最大可支持 4GB，64 位系统支持最大的表文件为8TB。
+- MySQL 是可以定制的，采用了 GPL 协议，你可以修改源码来开发自己的 MySQL 系统。
+
+* Linux/UNIX 上安装 MySQL
+** Linux平台上推荐使用RPM包来安装Mysql,MySQL AB提供了以下RPM包的下载地址：
+- MySQL - MySQL服务器。你需要该选项，除非你只想连接运行在另一台机器上的MySQL服务器。
+- MySQL-client - MySQL 客户端程序，用于连接并操作Mysql服务器。
+- MySQL-devel - 库和包含文件，如果你想要编译其它MySQL客户端，例如Perl模块，则需要安装该RPM包。
+- MySQL-shared - 该软件包包含某些语言和应用程序需要动态装载的共享库(libmysqlclient.so*)，使用MySQL。
+- MySQL-bench - MySQL数据库服务器的基准和性能测试工具。
+
+安装前，我们可以检测系统是否自带安装 MySQL:
+#+BEGIN_QUOTE
+rpm -qa | grep mysql
+#+END_QUOTE
+
+** 安装 MySQL
+CentOS 7 版本中 MySQL数据库已从默认的程序列表中移除，所以在安装前我们需要先去官网下载 Yum 资源包，下载地址为：[[https://www.runoob.com/mysql/mysql-install.html][https://dev.mysql.com/downloads/repo/yum/]]
+
+#+begin_quote
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum update
+yum install mysql-server
+#+end_quote
+
+ 权限设置：
+ #+begin_quote
+chown -R mysql:mysql /var/lib/mysql
+ #+end_quote
+
+ 初始化 MySQL：
+ #+begin_quote
+mysqld --initialize
+ #+end_quote
+
+ 启动 MySQL：
+ #+begin_quote
+systemctl start mysqld
+ #+end_quote
+
+ 查看 MySQL 运行状态：
+ #+begin_quote
+systemctl status mysqld
+ #+end_quote
+
+** MySQL 的替代品（MariaDB）
+此外,你也可以使用 MariaDB 代替，MariaDB 数据库管理系统是 MySQL 的一个分支，主要由开源社区在维护，采用 GPL 授权许可。开发这个分支的原因之一是：甲骨文公司收购了 MySQL 后，有将 MySQL 闭源的潜在风险，因此社区采用分支的方式来避开这个风险。
+
+MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。
+
+#+begin_quote
+yum install mariadb-server mariadb 
+#+end_quote
+
+mariadb 数据库的相关命令：
+#+begin_quote
+systemctl start mariadb  #启动MariaDB
+systemctl stop mariadb  #停止MariaDB
+systemctl restart mariadb  #重启MariaDB
+systemctl enable mariadb  #设置开机启动
+#+end_quote
+** 使用 MySQL Client(Mysql客户端) 执行简单的SQL命令
+你可以在 MySQL Client(Mysql客户端) 使用 mysql 命令连接到 MySQL 服务器上，默认情况下 MySQL 服务器的登录密码为空，所以本实例不需要输入密码。
+命令如下：
+#+BEGIN_QUOTE
+[root@host]# mysql
+#+END_QUOTE
+
+以上命令执行后会输出 mysql>提示符，这说明你已经成功连接到Mysql服务器上，你可以在 mysql> 提示符执行SQL命令：
+#+BEGIN_QUOTE
+mysql> SHOW DATABASES;
++----------+
+| Database |
++----------+
+| mysql    |
+| test     |
++----------+
+#+END_QUOTE
+
+2 rows in set (0.13 sec)
+** Mysql安装后需要做的
+Mysql安装成功后，默认的root用户密码为空，你可以使用以下命令来创建root用户的密码：
+#+BEGIN_QUOTE
+[root@host]# mysqladmin -u root password "new_password";
+#+END_QUOTE
+
+现在你可以通过以下命令来连接到Mysql服务器：
+#+BEGIN_QUOTE
+[root@host]# mysql -u root -p
+Enter password:*******
+#+END_QUOTE
+
+注意：在输入密码时，密码是不会显示了，你正确输入即可。
+
+* 登录 MySQL
+当 MySQL 服务已经运行时, 我们可以通过 MySQL 自带的客户端工具登录到 MySQL 数据库中, 首先打开命令提示符, 输入以下格式的命名:
+#+BEGIN_QUOTE
+mysql -h 主机名 -u 用户名 -p
+#+END_QUOTE
+
+参数说明：
+-h : 指定客户端所要登录的 MySQL 主机名, 登录本机(localhost 或 127.0.0.1)该参数可以省略;
+-u : 登录的用户名;
+-p : 告诉服务器将会使用一个密码来登录, 如果所要登录的用户名密码为空, 可以忽略此选项。
+
+如果我们要登录本机的 MySQL 数据库，只需要输入以下命令即可：
+#+BEGIN_QUOTE
+mysql -u root -p
+#+END_QUOTE
+按回车确认, 如果安装正确且 MySQL 正在运行, 会得到以下响应:
+#+BEGIN_QUOTE
+Enter password:
+#+END_QUOTE
+若密码存在, 输入密码登录, 不存在则直接按回车登录。登录成功后你将会看到 Welcome to the MySQL monitor... 的提示语。
+然后命令提示符会一直以 mysq> 加一个闪烁的光标等待命令的输入, 输入 exit 或 quit 退出登录。
+
+* MySQL 添加用户
+如果你需要添加 MySQL 用户，你只需要在 mysql 数据库中的 user 表添加新用户即可。
+以下为添加用户的的实例，用户名为guest，密码为guest123，并授权用户可进行 SELECT, INSERT 和 UPDATE操作权限：
+#+BEGIN_QUOTE
+root@host# mysql -u root -p
+Enter password:*******
+mysql> use mysql;
+Database changed
+
+mysql> INSERT INTO user 
+          (host, user, password, 
+           select_priv, insert_priv, update_priv) 
+           VALUES ('localhost', 'guest', 
+           PASSWORD('guest123'), 'Y', 'Y', 'Y');
+Query OK, 1 row affected (0.20 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT host, user, password FROM user WHERE user = 'guest';
++-----------+---------+------------------+
+| host      | user    | password         |
++-----------+---------+------------------+
+| localhost | guest | 6f8c114b58f2ce9e |
++-----------+---------+------------------+
+1 row in set (0.00 sec)
+#+END_QUOTE
+
+* 管理MySQL的命令
+以下列出了使用Mysql数据库过程中常用的命令：
+** 选择数据库 —— USE 数据库名 :
+#+BEGIN_QUOTE
+选择要操作的Mysql数据库，使用该命令后所有Mysql命令都只针对该数据库。
+mysql> use RUNOOB;
+Database changed
+SHOW DATABASES: 
+列出 MySQL 数据库管理系统的数据库列表。
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| RUNOOB             |
+| cdcol              |
+| mysql              |
+| onethink           |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| wecenter           |
+| wordpress          |
++--------------------+
+10 rows in set (0.02 sec)
+#+END_QUOTE
+** SHOW TABLES:
+显示指定数据库的所有表，使用该命令前需要使用 use 命令来选择要操作的数据库。
+#+BEGIN_QUOTE
+mysql> use RUNOOB;
+Database changed
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_runoob |
++------------------+
+| employee_tbl     |
+| runoob_tbl       |
+| tcount_tbl       |
++------------------+
+#+END_QUOTE
+** SHOW COLUMNS FROM 数据表:
+显示数据表的属性，属性类型，主键信息 ，是否为 NULL，默认值等其他信息。
+#+BEGIN_QUOTE
+mysql> SHOW COLUMNS FROM runoob_tbl;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| runoob_id       | int(11)      | NO   | PRI | NULL    |       |
+| runoob_title    | varchar(255) | YES  |     | NULL    |       |
+| runoob_author   | varchar(255) | YES  |     | NULL    |       |
+| submission_date | date         | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+#+END_QUOTE
+** SHOW INDEX FROM 数据表:
+显示数据表的详细索引信息，包括PRIMARY KEY（主键）。
+#+BEGIN_QUOTE
+mysql> SHOW INDEX FROM runoob_tbl;
++------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table      | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| runoob_tbl |          0 | PRIMARY  |            1 | runoob_id   | A         |           2 |     NULL | NULL   |      | BTREE      |         |               |
++------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+1 row in set (0.00 sec)
+#+END_QUOTE
+
+** SHOW TABLE STATUS LIKE [FROM db_name] [LIKE 'pattern'] \G: 
+该命令将输出Mysql数据库管理系统的性能及统计信息。
+#+BEGIN_QUOTE
+mysql> SHOW TABLE STATUS  FROM RUNOOB;   # 显示数据库 RUNOOB 中所有表的信息
+
+mysql> SHOW TABLE STATUS from RUNOOB LIKE 'runoob%';     # 表名以runoob开头的表的信息
+mysql> SHOW TABLE STATUS from RUNOOB LIKE 'runoob%'\G;   # 加上 \G，查询结果按列打印
+#+END_QUOTE
+
+
+* MySQL PHP语法
+MySQL 可应用于多种语言，包括 PERL, C, C++, JAVA 和 PHP，在这些语言中，MySQL 在 PHP 的 web 开发中是应用最广泛。在本教程中我们大部分实例都采用了 PHP 语言。如果你想了解 MySQL 在 PHP 中的应用，可以访问我们的 PHP 中使用 Mysqli 介绍。PHP 提供了多种方式来访问和操作Mysql数据库记录。PHP MySQL 函数格式如下：
+
+#+begin_src  php
+mysqli_function(value,value,...);
+#+end_src
+
+以上格式中 function部分描述了mysql函数的功能，如:
+
+#+begin_src php
+mysqli_connect($connect);
+mysqli_query($connect,"SQL 语句");
+mysqli_fetch_array()；
+mysqli_close()；
+#+end_src
+
+实例：
+#+begin_src php
+<?php
+$retval = mysqli_function(value, [value,...]);
+if( !$retval )
+{
+   die ( "相关错误信息" );
+}
+// 其他 MySQL 或 PHP 语句
+?>
+#+end_src
+
+** 连接MySQL
+*** 使用mysql二进制方式连接
+可以使用MySQL二进制方式进入到mysql命令提示符下来连接MySQL数据库。
+
+实例：
+#+begin_src shell
+  [root@host]# mysql -u root -p
+
+  Enter password:******
+#+end_src
+
+在登录成功后会出现 mysql> 命令提示窗口，你可以在上面执行任何 SQL 语句。 以上命令执行后，登录成功输出结果如下:
+#+begin_quote
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2854760 to server version: 5.0.9
+
+Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
+#+end_quote
+
+退出 mysql> 命令提示窗口可以使用 exit 命令，如下所示：
+
+#+begin_quote
+mysql> exit
+Bye
+#+end_quote
+
+*** 使用PHP脚本连接MySQL
+PHP 提供了 mysqli_connect() 函数来连接数据库。该函数有 6 个参数，在成功链接到 MySQL 后返回连接标识，失败返回 FALSE 。
+
+语法：
+#+begin_src php
+mysqli_connect(host, username, password, dbname,port, socket);
+#+end_src
+
+参数说明：
+| 参数      | 描述                                  |
+| host      | 可选。 主机名或ip地址                 |
+| username  | 可选。  MySQL 用户名                  |
+| passoword | 可选。 MySQL密码                      |
+| dbname    | 可选。 默认使用的数据库               |
+| port      | 可选。 连接MySQL服务器的端口号        |
+| socket    | 可选。 规定socket或要使用的已命名pipe |
+
+你可以使用 PHP 的 mysqli_close() 函数来断开与 MySQL 数据库的链接。该函数只有一个参数为 mysqli_connect() 函数创建连接成功后返回的 MySQL 连接标识符。
+
+语法：
+#+begin_src php
+bool mysqli_close ( mysqli $link )
+#+end_src
+
+*提示：* 通常不需要使用 mysqli_close()，因为已打开的非持久连接会在脚本执行完毕后自动关闭。

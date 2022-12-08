@@ -1,0 +1,332 @@
+#+title:《Master Emacs in 21 Days》- Spacemacs Rocks 第二季
+#+author: chen
+#+data:2017-8
+* 前言
+#+BEGIN_QUOTE
+在这一季中我们计划用 21 天学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以 运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
+#+END_QUOTE
+* 第一天：准备开始
+** 说在最前面
+如果你第一次听说 Emacs 你可以在性感的 Emacs（Emacs is Sexy）一文中找到使用它的理 由！我相信你一定会被它的强大所吸引。
+
+如果你还没有安装 Emacs 可以在 Mac OS X 安装链接以及 Window 安装链接找到它。本文 我们使用的为 Emacs 25.0.x Pretest 版本，一些配置在 Emacs 24 中可能并不适用。
+
+在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可 以通过使用 C-h t （同时按住 Ctrl 与 h 键，接着按 t 键 t 在这里代表 tutorial） 在 Emacs 中直接将其打开。
+
+Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读这篇教程（Learn X in Y Minutes） 后很快地了解它的基础用法。
+** 基础操作
+因为 Control 键在 Emacs 中极为常用，所以为了更方便地使用 Emacs 的键位修改，需要 对其做出修改。建议将大写锁定键（Caps Lock）替换为 Control 键。这里是一个可以参考 的把大写锁定键替换为 Control 键的教程：移动 Control 键 (Moving The Ctrl Key)。如 果这个的教程不适用于你的操作系统，请自行搜索其它的修改方式。
+
+*** 常见符号所代表的意义如下：
+- M(eta)，在 Mac 下为 Option 键
+- s(uper)，在 Mac 环境下为左 Command 键
+- S(Shift)
+- C(trl)
+
+*** 光标的移动是编辑器中最常用的操作所以必须熟知。
+- C-f 为前移一个字符， f 代表 forward。
+- C-b 为后移一个字符， b 代表 backward。
+- C-p 为上移至前一行， p 代表 previous。
+- C-n 为上移至下一行， n 代表 next。
+- C-a 为移至行首， a 代表 ahead。
+- C-e 为移至行尾， e 代表 end。
+
+*** 常用的文件操作快捷键组合也必须熟记。
+- C-x C-f 为打开目标文件， f 代表 find/file
+- C-x C-s 为保存当前缓冲区（Buffer）， s 代表 save
+*** 基础操作总结
+C-x 是 Emacs 的快捷键中常用的前缀命令。这些前缀命令常常代表了一系列有关联的指 令，十分重要，请特别牢记。其它常见的还有 C-c, C-h 。打断组合键为 C-g ，它 用于终端取消之前的指令。快捷键就是用预先绑定好的方式告诉 Emacs 去执行指定的命令。 （之后会介绍到更多有关绑定的内容）
+
+** 内置功能
+Emacs 功能强大，但是部分功能默认情况下并未开启。下面就有几个例子，
+*** 编辑器内显示行号可使用 M-x linum-mode 来开启。
+*** 获取帮助
+
+Emacs 是一个富文档编辑器（Self document, extensible editor）而下面的三种方法在学 习 Emacs 的过程中也非常重要。他们分别是，
+
+C-h k 寻找快捷键的帮助信息
+C-h v 寻找变量的帮助信息
+C-h f 寻找函数的帮助信息
+
+** 学习基础 Elisp
+请务必完成这篇教程（Learn X in Y Minutes）来了解 Elisp 的使用（阅读时间大约 15 分钟），你也可以在这里找到它的中文版。Emacs Lisp 为一个函数式的语言，所以它全部 功能都是由函数来实现的。
+
+下面为一些简单的例子
+#+BEGIN_QUOTE
+;; 2 + 2\\
+(+ 2 2)
+
+;; 2 + 3 * 4\\
+(+ 2 (* 3 4))
+
+;; 定义变量\\
+(setq name "username")\\
+(message name) ; -> "username"
+
+;; 定义函数\\
+(defun func ()\\
+  (message "Hello, %s" name))
+
+;; 执行函数\\
+(func) ; -> Hello, username
+
+;; 设置快捷键\\
+(global-set-key (kbd "<f1>") 'func)
+
+;; 使函数可直接被调用可添加 (interactive)\\
+(defun func ()\\
+  (interactive)\\
+
+  (message "Hello, %s" name))
+#+END_QUOTE
+** 开始Hacking
+*** 前言
+在开始配置之前让我们先来区别 Emacs 中 Major Mode 与 Minor Mode 的区别。Major Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法高亮、缩进、快捷键绑定等。 而 Minor Mode 是除去 Major Mode 所提供的核心功能以外的额外编辑功能（辅助功能）。 例如在下面的配置文件中 tool-bar-mode 与 linum-mode 等均为 Minor Mode*。
+
+简单来说就是，一种文件类型同时只能存在一种 Major Mode 但是它可以同时激活一种或多 种 Minor Mode。如果你希望知道当前的模式信息，可以使用 C-h m 来显示当前所有开启 的全部 Minor Mode 的信息。
+*** 简单的编辑器自定义
+编辑配置文件~/.emacs.d/init.el即可
+#+BEGIN_SRC 
+;;关闭工具栏，tool-bar-mode 即为一个Minor Mode
+(tool-bar-mode -1)
+
+;;关闭滚动条
+(scroll-bar-mode -1)
+
+;;显示行号
+(global-linum-mode 1)
+
+;;关闭启动帮助画面
+(setq inhibit-splash-screen 1)
+
+;;自定义函数，快速打开配置文件
+(defun open-init-file()
+   (interactive)    --------这句代码用来激活自定义函数
+   (find-file "~/.emacs.d/init.el"))
+;;绑定快捷键
+(global-set-key (kbd "<f2>") 'open-init-file) 
+#+END_SRC
+*** 使配置生效
+在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加 载配置文件。重新加载配置文件你需要在当前配置文件中使用 M-x load-file 双击两次 回车确认默认文件名，或者使用 M-x eval-buffer 去执行当前缓冲区的所有 Lisp 命令。 你也可以使用 C-x C-e 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。 当然你也可以将这些函数绑定为快捷键。
+*** 默认的插件管理
+**** company插件
+他是一个用于代码补全的插件。它的名字代表补全一切的意思（ Comp lete Any thing）
+**** 全局开启company
+#+BEGIN_SRC 
+; 开启全局 Company 补全
+(global-company-mode 1)
+#+END_SRC
+n* 第二天：高级自定义
+** emacs 也很美
+*** 说在最前面
+ 如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的 An Introduction to Programming in Emacs Lisp 。（也可以 M-x info 然后选择 Emacs Lisp Intro）
+
+ 我们先解决前一天中遇到的一些问题。首先是在对象是一个缓冲区局部变量（Buffer-local variable）的时候，比如这里的 cursor-type ，我们需要区分 setq 与 setq-default ： setq 设置当前缓冲区（Buffer）中的变量值， setq-default 设 置的为全局的变量的值（具体内容可以在 StackOverflow 找到）。下面是一个例子，用于 设置光标样式的方法。
+
+#+BEGIN_SRC lisp 
+ (setq-default cursor-type 'bar)
+#+END_SRC
+
+ 今天我们需要将第一天关闭的自动缩进 (electric-indent-mode) 从配置文件中去除，它 是 Emacs 24.4 中加入的新特性，你可以在这篇文章中找到更多关于它的内容。我们之前关 闭它是因为，它存在不理想的缩进效果（在 Emacs Lisp 中用分号做注释时 fancy-comment 会造成很远的缩进，其实解决方法是使用 Emacs Lisp 推荐的两个分号而 不是一个 ;; ，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
+
+ 因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显 得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 init.el~ 。（ ~ 为后 缀的文件为自动生成的备份文件）我们可以使用下面的方法将其关闭。
+
+#+BEGIN_SRC lisp
+ (setq make-backup-files nil)
+#+END_SRC
+
+ 关于分屏的使用，如果你已经读过 Emacs 自带的教程，现在你应该已经掌握了基本的分屏 操作方法了。关于分屏的更多内容你可以在这里找到。
+
+#+BEGIN_QUOTE
+ C-x 1 仅保留当前窗口
+ C-x 2 将当前窗口分到上边
+ C-x 3 将当前窗口分到右边
+#+END_QUOTE
+
+使用下面的配置来加入最近打开过文件的选项让我们更快捷的在图形界面的菜单中打开最近 编辑过的文件。
+#+BEGIN_src lisp
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-item 10)
+
+;; 这个快捷键绑定可以用之后的插件 counsel 代替
+;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+#+END_src
+
+使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，即当你选中一段文字 之后输入一个字符会替换掉你选中部分的文字。
+#+BEGIN_SRC lisp
+(delete-selection-mode 1)
+#+END_SRC
+
+下面的这些函数可以让你找到不同函数，变量以及快捷键所定义的文件位置。因为非常常用 所以我们建议将其设置为与查找文档类似的快捷键（如下所示），
+
+- find-function （ C-h C-f ）
+- find-variable （ C-h C-v ）
+- find-function-on-key （ C-h C-k ）
+在我们进入下一个部分之间让我们来看看使用 ~/.emacs.d/init.el 与 ~/.emacs 的区 别（更多关于他们区别的讨论可在这里找到）。简单来说请使用前者，因为它有下面的两个 优点:
+
+- 它可以更好将所有 Emacs 相关的文件整合在一个目录内（干净的 HOME ，网盘备份等优点）
+- 更好的版本控制
+*** 配置插件源
+在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 MELPA （Milkypostman's Emacs Lisp Package Archive）。它有非常多的插件（3000 多个插件）。 一个插件下载的次数多并不能说明它非常有用，也许这个插件是其他的插件的依赖。在这里 你可以找到其安装使用方法。添加源后，我们就可以使用 M-x package-list-packages 来查看所有 MELPA 上的插件了。在表单中可以使用 I 来标记安装 D 来标记删除， U 来更新，并用 X 来确认。
+
+你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。 你可以将你需要的插件名字写在 my/packages 中，Emacs 在启动时会自动下载未被安装 的插件。
+
+#+BEGIN_SRC lisp
+(when (>= emacs-major-version 24)
+     (require 'package)
+     (package-initialize)
+     (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+		      ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
+
+;; 注意 elpa.emacs-china.org 是 Emacs China 中文社区在国内搭建的一个 ELPA 镜像
+
+ ;; cl - Common Lisp Extension
+ (require 'cl)
+
+ ;; Add Packages
+ (defvar my/packages '(
+		;; --- Auto-completion ---
+		company
+		;; --- Better Editor ---
+		hungry-delete
+		swiper
+		counsel
+		smartparens
+		;; --- Major Mode ---
+		js2-mode
+		;; --- Minor Mode ---
+		nodejs-repl
+		exec-path-from-shell
+		;; --- Themes ---
+		monokai-theme
+		;; solarized-theme
+		) "Default packages")
+
+ (setq package-selected-packages my/packages)
+
+ (defun my/packages-installed-p ()
+     (loop for pkg in my/packages
+	   when (not (package-installed-p pkg)) do (return nil)
+	   finally (return t)))
+
+ (unless (my/packages-installed-p)
+     (message "%s" "Refreshing package database...")
+     (package-refresh-contents)
+     (dolist (pkg my/packages)
+       (when (not (package-installed-p pkg))
+	 (package-install pkg))))
+
+ ;; Find Executable Path on OS X
+ (when (memq window-system '(mac ns))
+   (exec-path-from-shell-initialize))
+#+END_SRC
+
+关于上面这段配置代码有几个知识点，首先就是这段配置文件中用到了 loop for ... in ，它来自 cl 即 Common Lisp 扩展。 for , in, collect 均为 cl-loop 中的 保留关键字。下面是一些简单的 cl-loop 的使用示例：
+
+#+BEGIN_SRC lisp
+;; 遍历每一个缓冲区（Buffer）
+(cl-loop for buf in (buffer-list)
+	 collect (buffer-file-name buf))
+
+;; 寻找 729 的平方根（设置最大为 100 为了防止无限循环）
+(cl-loop for x from 1 to 100
+	 for y = (* x x)
+	 until (>= y 729)
+	 finally return (list x (= y 729)))
+#+END_SRC
+
+其次就是它使用到了 quote, 它其实就是我们之前常常见到的 ' （单引号）的完全体。 因为它在 Lisp 中十分常用，所以就提供了简写的方法。
+
+#+BEGIN_SRC lisp
+;; 下面两行的效果完全相同的
+(quote foo)
+'foo
+#+END_SRC
+
+quote 的意思是不要执行后面的内容，返回它原本的内容（具体请参考下面的例子）
+
+#+BEGIN_SRC lisp
+(print '(+ 1 1)) ;; -> (+ 1 1)
+(print (+ 1 1))  ;; -> 2
+#+END_SRC
+
+* 第十一天：Spacemacs简介及安装
+** 视频地址如下：
+- [[https://pan.baidu.com/s/1eRTHBLC][百度网盘地址]]
+- [[http://v.youku.com/v_show/id_XMTYxMzYyNjc4MA==.html][优酷地址]]
+- [[https://youtu.be/etLqMM5nmqI][Youtoube地址]]
+** 本节要点：
+- 如何安装Spacemacs
+- 一些简单的配置，以及package管理
+- 管理自己的配置
+** 安装Spacemacs
+克隆github上的仓库，命令如下：
+
+#+begin_src shell
+  cd ~
+mv .emacs.d .emacs.d.bak
+mv .emacs .emacs.bak
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+#+end_src
+
+在克隆完成后直接运行 Emacs. 在第一次使用 Spacemacs 时需要下载一些 Package, 然后在 Bootstrap 完成之后你需要进行如下一些配置:
+
+- 使用哪种编辑方式, 包括 vim 方式(默认) 以及 emacs 方式.
+- 使用哪种 Spacemacs distribution. 包括标准版(默认)以及基础版. 区别在于标准版包含非常多的功能, 而基础版只包含核心功能.
+
+在完成以上两个配置之后, 就会在 HOME 目录生成一个 ~/.spacemacs 配置文件. 然后Spacemacs 会进行进一步的初始化, 下载更多的需要的 Package. 如果你需要使用emacs-china 的配置源, 此时可以终止 emacs, 然后在~/.spacemacs 中的 dotspacemacs/user-init 函数中加入以下代码:
+
+#+begin_src lisp
+  (setq configuration-layer--elpa-archives
+      '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+	("org-cn"   . "http://elpa.zilongshanren.com/org/")
+	("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+#+end_src
+
+** 使用.spacemacs.d 目录管理配置
+如果你需要更方便的管理你自己的配置, 可以创建 ~/.spacemacs.d 目录, 然后将 ~/.spacemacs 文件移动到该目录中并重命名为 init.el.
+
+在 Spacemacs 中的操作方式如下:
+
+- 按下 SPC f j 打开 dired 目录
+- 按下按键 + , 创建 ~/.spacemacs.d 目录
+- 将光标移动到 .spacemacs 文件上, 按下 R, 将该文件移动到 .spacemacs.d 目录中
+- 进入 .spacemacs.d 目录, 将光标移动到 .spacemacs 文件上, 按下 R, 将该文件重命名为 init.el
+- 按下 qq 退出 dired
+  
+然后启动 emacs 即可.
+
+使用这种方式管理配置, 你可以将自己的配置集中到 ~/.spacemacs.d 目录中, 更容易进行统一管理. 你也可以将自己的配置 push 到 github 上.
+
+** 添加内置的layer
+在安装完成 Spacemacs 之后, 按下 SPC f e d 打开 ~/.spacemacs 文件, 修改 dotspacemacs-configuration-layers 变量的值, 将 auto-completion, better-defaults, emacs-lisp, git, markdown, org, spell-checking, syntax-checking 等 layer 加入列表.
+
+然后退出 emacs 再重启, 或者按下 SPC f e R 安装需要的 package.
+
+** 一些简单的配置
+*** 启动时全屏
+在 dotspacemacs/init 函数中, 将 dotspacemacs-fullscreen-at-startup 变量设置为 t即可. 代码如下:
+
+#+begin_src lisp
+  ;; If non nil the frame is maximized when Emacs starts up.
+;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
+;; (default nil) (Emacs 24.4+ only)
+dotspacemacs-maximized-at-startup t
+#+end_src
+
+*** ivy layer
+将 ivy 加入 dotspacemacs-configuration-layers 列表中. 按下 CTRL s 使用 swiper 可以进行搜索.
+
+
+*** 删除安装的 package
+只需要将需要删除的 package 名称加入到 dotspacemacs-excluded-packages 变量中, 在
+下一次启动 emacs 时即会删除该 package. 示例代码如下:
+
+#+begin_src lisp
+  ;; A list of packages and/or extensions that will not be install and loaded.
+dotspacemacs-excluded-packages '(vi-tilde-fringe)
+#+end_src
+
+
+

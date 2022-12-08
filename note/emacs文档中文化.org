@@ -1,0 +1,321 @@
+#+title:emacs文档中文化
+#+author: CHEN
+#+tags: mode相关(m) function函数相关(f) variable变量相关(v) pacakge插件相关(p) org相关(o) Python相关(P)
+#+startup:indent
+#+data:<2021-05-01 Sat>
+
+* emacs插件相关
+** COMPANY-MODE(自动补全模式) :MODE相关:
+
+  EMACS中模块化的自动补全框架
+*** 说明(DESCRIPTION)
+   COMPANY是一个自动完成框架模块，检索候选项的模块是BACKENDS（后端），提供显示的是FRONTENDS（前端）。
+
+   COMPANY 和许多后端配合使用，如‘COMANY-ETAGS’。 这些后端分散在独立的文件中，并能独立的使用。
+
+   通过命令：M-X GLOBAL-COMPANY-MODE, 在所有的BUFFER中全局开启COMPANY-MODE。 更多的信息请阅读‘COMPANY-MODE’的文档（C-H F COMPANY-MODE RET）。
+
+   如果你想启用一个特定的后端，请使用命令：‘COMPANY-BEGIN-BACKEND’  来交互（INTERACTIVELY）的调用，例如： M-X COMPANY-ABBREV   会提示你插入一个缩写 
+   
+*** 概要
+   COMPANY这个单词是EMACS中 COMPLETION FRAMEWORK的合体。 这个名称表示可以自动补全所有东西。 它使用可选前端和后端去取得并显示自动补全的候选项。 
+
+   它附带了一些后端，比如ELISP, CLANG, SEMANTIC, ECLIM, ROPEMACS, ISPELL, CMAKE, BBDB, YASNIPPET, DABBREV, ETAGS, GTAGS, FILES, KEYWORDS 还有一些其它的。
+
+   CAPF后端提供一个标准的COMPLETION-AT-POINT-FUNCTION（在光标处补全）的便利。从而能够配合所有的MAJOR MODE 定义合适的COMPLETION FUNCTION（补全函数）
+
+   使用命令 M-X GLOBAL-COMANY-MODE开启全局COMPANY-MODE，可以参看文档“COMPANY-MODE”来获得更进一步的信息。 （C-H F （COMPANY-MODE））。
+
+   如果你想启用一个指定的后端， 可以使用交互命令：COMPANY-BEGIN-BACKENDS. 
+
+   如果想书写你自己的BACKEND，可以参考文档“COMPANY-BACKENDS", 里面有一个简单的例子”FOO“
+#+BEGIN_SRC ELISP
+
+(DEFUN COMPANY-MY-BACKEND (COMMAND &OPTIONAL ARG &REST IGNORED)
+  (INTERACTIVE (LIST 'INTERACTIVE))
+  (PCASE COMMAND
+    (`INTERACTIVE (COMPANY-BEGIN-BACKEND 'COMPANY-MY-BACKEND))
+    (`PREFIX (COMPANY-GRAB-SYMBOL))
+    (`CANDIDATES (LIST "FOOBAR" "FOOBAZ" "FOOBARBAZ"))
+    (`META (FORMAT "THIS VALUE IS NAMED %S" ARG))))
+
+#+END_SRC
+
+   有时，把几个后端混合在一起是一个很好的方案。 
+*** 使用
+   安装好之后，使用M-X COMPANY-MODE 来启用COMPANY-MODE。 在输入几个字母之后会自动出现补全。 使用M-N OR M-P进行选择， 使用回车或TAB间完成补全。
+ 
+   使用C-S，C-R AND C-O，在补全候选项之间进行搜索，使用 M — （DIGIT）快速选择头10个候选项中的一个。
+
+   使用如下的配置，在所有的BUFFER中启用COMPANY-MODE
+   #+BEGIN_SRC ELISP
+   (ADD-HOOK 'AFTER-INIT-HOOK 'GLOBAL-COMPANY-MODE)
+   #+END_SRC
+
+   当补全候选项出现后，使用<F1>可以显示选中的候选项的相关文档，或者使用C-W查看相关源码。 不过，不是所有的BACK-ENDS都支持这个功能。
+
+   使用M-X CUSTOMIZE-VARIABLE RET， 再输入COMPANY-BACKENDS ，可以查看或修改已经启用的BACK-ENDS列表。
+   
+   对于指定BACK-ENDS的信息，同样可以查看各种文件里的注释。
+
+** SMARTPARENS :MODE相关:
+   使用M-X DESCRIBE-FUNCTION RET COMPANY-MODE. 可以查看更多信息
+  SMARTPARENS是EMACS中处理括号自动智能匹配的一个MINOR MODE。 它尝试把几个现成的实用插件混合成一个。 通过兼容和扩展的方式去处理括号、分隔符、标签和类似的符号。这样的实用插件包括：AUTOPAIR、TEXTMATE、WRAP-REGION、ELECTRIC-PAIR-MODE、PAREDIT和一些其他的。
+*** 开始启用SMARTPARENS
+   一般要用在EMACS24.3以上的版本，但是只要是24.0版本以上，大部分都能工作的很好。
+
+   通过MELPA安装SMARTPARENS，通过以下命令来开启默认配置：
+   #+BEGIN_SRC ELISP
+   (REQUIRE 'SMARTPARENS-CONFIG)
+   #+END_SRC
+
+   你现在可以通过命令 M-X SMARTPARENS-MODE 来使用SMARTPARENS。 也可以通过以下命令在特定MODE中自动启用：
+   #+BEGIN_SRC ELISP
+   (ADD-HOOK 'JS-MODE-HOOK #' SMARTPARENS-MODE)
+   #+END_SRC
+   
+   你可以尝试使用 SMARTPARENS-STRICT-MODE， 它会强制进行成对的匹配。 所以，像 KILL-LINE 这样的命令可以让你的代码保持工整的格式。
+
+   在EMACS中，M-X SP-CHEAT-SHEET ，可以通过实例的方式向你展示所有可以获取的SMARTPARENS中的交互命令。
+
+*** 语言支持（LANGUAGE SUPPORT）
+   SMARTPARENS的默认配置能在大部分的语言中工作的很好
+
+** NEOTREE(类似于资源管理器的树形插件）  :PACAKGE插件相关:
+*** INSTALLATION（安装）
+**** 通过-ELPA
+   YOU CAN INSTALL THE PLUGIN USING THE PACKAGES ON MELPA. MAKE SURE YOU HAVE SOMETHING LIKE THE FOLLOWING IN YOUR EMACS STARTUP FILE (~/.EMACS.D/INIT.EL, OR ~/.EMACS)
+   #+BEGIN_SRC ELISP
+    (ADD-TO-LIST 'PACKAGE-ARCHIVES
+                 '("MELPA" . "HTTP://MELPA.ORG/PACKAGES/"))
+   #+END_SRC
+
+TO MAKE THAT TAKE EFFECT, EITHER EVALUATE THAT ELISP EXPRESSION OR RESTART EMACS.
+
+THEN USE M-X PACKAGE-LIST-PACKAGES, SELECT NEOTREE FROM THE LIST BY PRESSING I, THEN PRESS X TO EXECUTE THE CHANGES. AT THAT POINT, THE PACKAGE WILL BE INSTALLED.
+**** 通过源代码SOURCE
+CLONE PROJECT:
+#+BEGIN_QUOTE
+$ CD /SOME/PATH
+$ GIT CLONE HTTPS://GITHUB.COM/JAYPEI/EMACS-NEOTREE.GIT NEOTREE
+$ CD NEOTREE
+$ GIT CHECKOUT DEV
+#+END_QUOTE
+
+ADD CONFIG TO EMACS:
+#+BEGIN_QUOTE
+(ADD-TO-LIST 'LOAD-PATH "/SOME/PATH/NEOTREE")
+(REQUIRE 'NEOTREE)
+(GLOBAL-SET-KEY [F8] 'NEOTREE-TOGGLE)
+#+END_QUOTE
+*** NEOTREE的快捷键
+    ONLY IN NEOTREE BUFFER(只在NEOTREE BUFFER中使用):
+- N NEXT LINE, 
+- P PREVIOUS LINE。
+- SPC OR RET OR TAB OPEN CURRENT ITEM IF IT IS A FILE. FOLD/UNFOLD CURRENT ITEM IF IT IS A DIRECTORY.
+- U GO UP A DIRECTORY
+- G REFRESH
+- A MAXIMIZE/MINIMIZE THE NEOTREE WINDOW
+- H TOGGLE DISPLAY HIDDEN FILES
+- O RECURSIVELY OPEN A DIRECTORY
+- C-C C-N CREATE A FILE OR CREATE A DIRECTORY IF FILENAME ENDS WITH A ‘/’
+- C-C C-D DELETE A FILE OR A DIRECTORY.
+- C-C C-R RENAME A FILE OR A DIRECTORY.
+- C-C C-C CHANGE THE ROOT DIRECTORY.
+- C-C C-P COPY A FILE OR A DIRECTORY.
+** YASNIPPET  :PACAKGE插件相关:
+*** 简介
+    YASNIPPET是EMACS的一个模板系统。 它允许你使用缩写，并且能通过模板函数进行自动扩展。 可以绑定的语言模板包括：
+   
+    - C
+    - C++
+    - C#
+    - PERL
+    - PYTHON
+    - RUBY
+    - SQL
+    - LATEX
+    - HTML
+    - CSS
+
+    SNIPPET语法是从TEXTMATE'S 语法发展而来，你甚至可以导入大部分的TEXTMATE 模板
+*** 安装
+**** 从GITHUM 直接CLONE
+    #+BEGIN_QUOTE
+      CD ~/.EMACS.D/PLUGINS
+      GIT CLONE --RECURSIVE HTTPS://GITHUB.COM/JOAOTAVORA/YASNIPPET
+    #+END_QUOTE
+
+    把以下语句添加到.EMACS文件中
+    #+BEGIN_SRC LISP
+     (ADD-TO-LIST 'LOAD-PATH
+              "~/.EMACS.D/PLUGINS/YASNIPPET")
+     (REQUIRE 'YASNIPPET)
+     (YAS-GLOBAL-MODE 1)
+    #+END_SRC
+
+    添加你自己的SNIPPETS到文件 ~/.EMACS.D/SNIPPETS 或者调用YAS-NEW-SNIPPET
+**** INSTALL WITH PACKAGE-INSTALL
+    使用M-X LIST-PACKAGES 安装PACKAGES。 MELPA确保SNAPSHOT OF YASNIPPET为最新版本。
+*** USE YAS-MINOR-MODE ON A PER-BUFFER BASIS
+   把YASNIPPET当作非全局的MINOR MODE使用， 不需要调用 YAS-GLOBAL-MODE; 使用YAS-RELOAD-ALL 加载SNIPPET 表格，然后从你需要开启YASNIPPET的MAJOR-MODES的HOOKS（钩子）中调用 YAS-MINOR-MODE
+    
+  #+BEGIN_QUOTE
+    (YAS-RELOAD-ALL)
+    (ADD-HOOK 'PROG-MODE-HOOK #'YAS-MINOR-MODE)
+  #+END_QUOTE
+*** WHERE ARE THE SNIPPETS
+   YASNIPPET 不再直接绑定SNIPPETS， 但是非常容易找到。
+   1. YASNIPPET-SNIPPETS
+      一个收藏SNIPPET的PACKAGE ，由 ANDREACROTTI维护。通过命令：M-X PACKAGE-INSTALL RET YASNIPPET-SNIPPETS 进行安装
+   2. YASMATE
+      一个专门用于把TEXTMATE绑定的SNIPPET转化为YASNIPPETS绑定的SNIPPETS的工具。 为了使用这些SNIPPETS，必须先运行该工具，先参考工具文档，然后，把变量YAS-SNIPPET-DIRS的值指定为 .../YASMATE/SNIPPETS的子目录（SUBDIR）
+** exec-path-from-shell :pacakge插件相关:Python相关:
+This is a package from melpa.org
+
+** Description
+On OS X (and perhaps elsewhere) the $PATH environment variable and
+`exec-path' used by a windowed Emacs instance will usually be the
+system-wide default path, rather than that seen in a terminal
+window.
+
+This library allows the user to set Emacs' `exec-path' and $PATH
+from the shell path, so that `shell-command', `compile' and the
+like work as expected.
+
+It also allows other environment variables to be retrieved from the
+shell, so that Emacs will see the same values you get in a terminal.
+
+If you use a non-POSIX-standard shell like "tcsh" or "fish", your
+shell will be asked to execute "sh" as a subshell in order to print
+out the variables in a format which can be reliably parsed.  "sh"
+must be a POSIX-compliant shell in this case.
+
+Note that shell variables which have not been exported as
+environment variables (e.g. using the "export" keyword) may not be
+visible to `exec-path-from-shell'.
+
+** Installation:
+
+ELPA packages are available on Marmalade and MELPA.  Alternatively,
+place this file on a directory in your `load-path', and explicitly
+require it.
+
+*** Usage:
+
+    (require 'exec-path-from-shell) ;; if not using the ELPA package
+    (exec-path-from-shell-initialize)
+
+Customize `exec-path-from-shell-variables' to modify the list of
+variables imported.
+
+If you use your Emacs config on other platforms, you can instead
+make initialization conditional as follows:
+
+    (when (memq window-system '(mac ns))
+      (exec-path-from-shell-initialize))
+
+Alternatively, you can use `exec-path-from-shell-copy-envs' or
+`exec-path-from-shell-copy-env' directly, e.g.
+
+    (exec-path-from-shell-copy-env "PYTHONPATH")
+* emacs函数相关
+** REQUIRE    :FUNCTION函数相关:
+  #+BEGIN_QUOTE
+  REQUIRE IS A BUILT-IN FUNCTION IN ‘C SOURCE CODE’.
+
+(REQUIRE FEATURE &OPTIONAL FILENAME NOERROR)
+
+  PROBABLY INTRODUCED AT OR BEFORE EMACS VERSION 15.
+
+IF FEATURE FEATURE IS NOT LOADED, LOAD IT FROM FILENAME.
+IF FEATURE IS NOT A MEMBER OF THE LIST ‘FEATURES’, THEN THE FEATURE IS
+NOT LOADED; SO LOAD THE FILE FILENAME.
+
+IF FILENAME IS OMITTED, THE PRINTNAME OF FEATURE IS USED AS THE FILE
+NAME, AND ‘LOAD’ WILL TRY TO LOAD THIS NAME APPENDED WITH THE SUFFIX
+‘.ELC’, ‘.EL’, OR THE SYSTEM-DEPENDENT SUFFIX FOR DYNAMIC MODULE
+FILES, IN THAT ORDER.  THE NAME WITHOUT APPENDED SUFFIX WILL NOT BE
+USED.  SEE ‘GET-LOAD-SUFFIXES’ FOR THE COMPLETE LIST OF SUFFIXES.
+
+THE DIRECTORIES IN ‘LOAD-PATH’ ARE SEARCHED WHEN TRYING TO FIND THE
+FILE NAME.
+
+IF THE OPTIONAL THIRD ARGUMENT NOERROR IS NON-NIL, THEN RETURN NIL IF
+THE FILE IS NOT FOUND INSTEAD OF SIGNALING AN ERROR.  NORMALLY THE
+RETURN VALUE IS FEATURE.
+
+THE NORMAL MESSAGES AT START AND END OF LOADING FILENAME ARE
+SUPPRESSED.
+#+END_QUOTE
+  
+  REQUIRE 是 ‘C SOURCE CODE’的内置函数，用法如下：
+
+#+BEGIN_SRC LISP
+(REQUIRE FEATURE &OPTIONAL FILENAME NOERROR)
+#+END_SRC
+
+  大概是从EMACS15或更早引入。 如果需要的插件FEATURE没有加载，那么从指定的路径FILENAME中寻找并加载。 （如果需要的插件FEATURE不在EMACS的插件列表中，那么说明插件没有被加载，所以会从指定的路径中寻找加载）。
+
+  如果FILENAME这个路径被遗漏了，那么插件的打印名会作为FILENAME。调用 ‘LOAD’命令会尝试按照以下顺序加载这个FILENAME并加上一个后缀‘.ELC' 或'.EL'. 或者是系统依赖的动态文件的后缀名， 
+
+** yas-global-mode :function函数相关:
+yas-global-mode is an autoloaded interactive compiled Lisp function in yasnippet.el .
+
+使用方法：
+#+begin_src elisp
+(yas-global-mode &optional ARG)
+#+end_src
+
+** org-meta-return 函数 （插入新的标题）  :function函数相关:org相关:
+在‘org.el’中定义，默认绑定‘M-RET’，作用是在标题（列表）行，按住alt后回车，会直接插入同级标题（列表）。
+* emacs变量相关
+** linum-format :variable变量相关:
+linum-format is a variable defined in ‘linum.el’.
+Its value is "%4d │ "
+Original value was dynamic
+
+Documentation:
+Format used to display line numbers.
+Either a format string like "%7d", ‘dynamic’ to adapt the width
+as needed, or a function that is called with a line number as its
+argument and should evaluate to a string to be shown on that line.
+See also ‘linum-before-numbering-hook’.
+You can customize this variable.
+
+* org-mode相关
+** CSS for Org-exproted HTML :org相关:
+原文链接： [[https://gongzhitaao.org/orgcss/]]
+
+** truncate-lines（配置自动换行） :variable变量相关:org相关:
+  这个变量用来设置自动换行。
+     - nil    自动换行
+     - t      不换行
+
+  注意：如果变量‘truncate-partial-width-windows’不是取值为：nil ，那么 truncate-lines 会被变量‘truncate-partial-width-windows’覆盖，  
+
+* 程序设计环境相关
+** python-shell-completion-native-disabled-interpreters :variable变量相关:Python相关:
+python-shell-completion-native-disabled-interpreters is a variable defined in ‘python.el’.
+Its value is ("pypy" "ipython3")
+Original value was ("pypy" "ipython")
+
+Documentation:
+List of disabled interpreters.
+When a match is found, native completion is disabled.
+
+You can customize this variable.
+
+This variable was introduced, or its default value was changed, in
+version 25.1 of Emacs.
+
+truncate-lines is a variable defined in ‘C source code’.
+** emacs 在mac下配置python3环境和使用库 :Python相关:
+** py-shell-name（变量）
+python-mode中指定python编译器是python2还是python3，可通过c-h v ret py-shell-name 查询后修改
+** python库的安装
+m-x shell 进入shell，用pip3 install 库名，安装python库
+
+
+
+

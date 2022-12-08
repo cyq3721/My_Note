@@ -1,0 +1,421 @@
+#+TITLE: 李炎烣PHP教程
+#+AUTHOR： CHEN
+#+time：<2019-12-18 Wed>
+#+STARTUP：indent
+* PHP概要
+** 本章要点
+1. PHP基础知识
+2. PHP的环境配置
+3. 安装三款主流程序
+4. PHP开发工具的选择
+5. 一个简单的示例
+** PHP基础知识
+*** PHP介绍
+   PHP是一种目前最流行的服务端Web程序开发语言之一。PHP主要的特点是语法简单易于学习、功能强大、灵活易用。在融合了现代编程语言的一些最佳特性后，PHP、Apache和MySQL的组合已成为Web服务器的一种配置标准。学习PHP的过程是十分轻松、快捷的。可以说PHP已经成为Web脚本技术的先驱，并且会继续引领Web技术的潮流。
+
+  PHP，一个嵌套的缩写名称，是英文超级文本预处理语言（PHP:Hypertext Preprocessor）的缩写。PHP 是一种 HTML 内嵌式的语言，PHP与微软的ASP颇有几分相似，都是一种在服务器端执行的嵌入HTML文档的脚本语言，语言的风格有类似于C语言，现在被很多的网站编 程人员广泛的运用。PHP 独特的语法混合了 C、Java、Perl 以及 PHP 自创新的语法。它可以比 CGI 或者 Perl 更快速的执行动态网页。用PHP做出的动态页面与其他的编程语言相比，PHP是将程序嵌入到HTML文档中去执行，执行效率比完全生成HTML标记的 CGI要高许多；与同样是嵌入HTML文档的脚本语言JavaScript相比，PHP在服务器端执行，充分利用了服务器的性能；PHP执行引擎还会将用 户经常访问的PHP程序驻留在内存中，其他用户再一次访问这个程序时就不需要重新编译程序了，只要直接执行内存中的代码就可以了，这也是PHP高效率的体 现之一。PHP具有非常强大的功能，所有的CGI或者JavaScript的功能PHP都能实现，而且支持几乎所有流行的数据库以及操作系统。
+
+   PHP 最初是1994年Rasmus Lerdorf创建的，刚刚开始只是一个简单的用Perl语言编写的程序，用来统计他自己网站的访问者。后来又用C语言重新编写，包括可以访问数据库。在 1995年以Personal Home Page Tools (PHP Tools) 开始对外发表第一个版本，Lerdorf写了一些介绍此程序的文档，并且发布了PHP1.0。在这早期的版本中，提供了访客留言本、访客计数器等简单的功 能。以后越来越多的网站使用了PHP，并且强烈要求增加一些特性，比如循环语句和数组变量等等，在新的成员加入开发行列之后，在1995年 中，PHP2.0发布了。第二版定名为PHP/FI(Form Interpreter)。PHP/FI加入了对mSQL的支持，从此建立了PHP在动态网页开发上的地位。到了1996年底，有15000个网站使用 PHP/FI；时间到了1997年中，使用PHP/FI的网站数字超过五万个。而在1997年中，开始了第三版的开发计划，开发小组加入了 Zeev Suraski 及 Andi Gutmans，而第三版就定名为PHP3。2000年，PHP4.0又问世了，其中增加了许多新的特性。
+
+*** PHP的特性
+　　1.  开放的源代码：所有的PHP源代码事实上都可以得到。
+　　2.  PHP是免费的。
+　　3.  PHP的便捷性 : PHP十分便捷
+　　4.  基于服务器端：由于PHP是运行在服务器端的脚本,可以运行在UNIX、LINUX、WINDOWS下。
+　　5.  嵌入HTML：因为PHP可以嵌入HTML语言，所以学习起来并不困难。
+　　6.  简单的语言：PHP坚持脚本语言为主，与Java和C++不同。
+　　7.  效率高：PHP消耗相当少的系统资源。
+　　8.  图像处理：用PHP动态创建图像
+　　9.  面向对象：在php4,php5 中，面向对象（OOP技术）方面都有了很大的改进，现在php完全可以用来开发大型商业程序。
+
+*** PHP4
+   2000年5月22日，在正式宣布开发新版本之后大约18个 月，发布了PHP 4.0。许多人都认为PHP 4的发布是这种语言在企业级开发环境下的正式亮相，这个观点也由于PHP的迅速普及得到了佐证。仅仅在发布后的几个月内，Netcraft（http://www.netcraft.com/）估计就有超过360万 个站安装了PHP。
+
+PHP 4添加了以下几项对该语言的企业级改进：
+1. 改进了资源处理。可扩展性是版本3.x的主要缺点之一，这主要是因为设计者低估了这种语言，没考虑到它会大量用于大规模应用程序。最初并没 有打算用这种语言开发企业级网站，但后来确实有这样的尝试，这就使得开发人员开始重新考虑这种语言的机制。
+2. 面向对象的支持。版本4在一定程度上加入了面向对象的功能，尽管一般认为实现得不怎么样。不过，对于使用传统面向对象程序设计（OOP）语言的用户来说，这个新特性在吸引这些用户方面起到了非常重要的作用。除了对象重载和运行时类信息，PHP还支持标准类和对象开发方法。
+3. 内置的会话处理支持。版本3.x通过第三方包PHPLIB（http://phplib.sourceforge.net）来支持HTTP会话处理，在版本4中HTTP会话处理则是内置的功能。这个特性使得开发人员可以相当高效轻松地跟踪用户活动和偏好。。
+4. 加密。MCrypt（http://mcrypt.sourceforge.net）库引入到默认发行包中，为用户提供了完全加密和散列加密，使用的加密算法包括Blowfish、MD5、SHA1和三重DES等。
+5. ISAPI支持。对ISAPI的支持使用户能够将PHP与微软的IIS Web服务器结合使用。
+6. 内置COM/DCOM支持。对Windows用户来说，另一个好处是PHP 4能够访问和实例化COM对象。这项功能扩展了与Windows应用程序的互操作性。
+7. 内置Java支持。这也是PHP在互操作性方面的一大进步，版本4.0支持PHP应用程序绑定Java对象。
+8. 与Perl兼容的正则表达式（PCRE）库。Perl语言一直在字符串解析领域雄霸天下，占据着统治地位。开发人员知道，如果想让PHP得到广泛认可，强大的正则表达式功能会起到重要作用。他们的做法只是集成Perl的功能，而不是重新开发，并将PCRE库的包集成在PHP的默认发行包中。
+
+
+   除了这些特性外，版本4还添加了几百项功能，大大提升了这种语言的能力。本书中，我们将讨论其中大部分功能。
+
+   在PHP语言的发展历程上，PHP 4代表着一次巨大的飞跃。这个新版本带来的新功能、强大能力和可扩展性对开发新手和老手都产生了不小的震动。但PHP开发团队并不满足于长时间只拥有这一项成果，于是不久以后他们就开始着手开展另一个里程碑式的任务，要推出一门领导Web脚本领域的语言：PHP 5。
+
+*** PHP5
+版本5是PHP语 言发展历程中的另一座分水岭。虽然前面的主要版本已经增加了许多库，版本5则在现有的功能上又进行了许多改进，并且增加了成熟的编程语言架构才有的一些特性。
+1. 极大地提高了面向对象能力。PHP的面向对象架构得到了改进，这是版本5最突出的特点。版本5增加了很多功能，如显式构造函数和析构函数、对象克隆、类抽象、变量作用域和接口等。另外，PHP在对象管理方面也有重大改进。第6章和第7章将详细介绍这些内容。
+2. try/catch异常处理。具有讽刺意味的是，在结构化编程语言中，设计错误处理策略本身却非常容易出错，而且很难保持一致。为了解决这个问题，版本5开始支持异常处理。在许多语言中，如C++、C#、Python和Java等，异常处理长期以来一直都是错误管理方面的中流砥柱，它为建立标准化的错误报告逻辑提供了一种绝佳的方法。
+3. 改进的XML和Web服务支持。现在的XML支持建立在libxml2库基础上，还引入一个很新但非常有前途的扩展包来解析和处理XML，即SimpleXML。此外，PHP 5还支持SOAP扩展。第20章将介绍这两个新扩展，并介绍一些很棒的第三方Web服务扩展。
+4. 对SQLite的内置支持。开发人员总是乐于提供更多选择，他们为功能强大但很简洁的SQLite数据库服务器（http://www.sqlite.org/）提供了支持。如果开发人员需要一些重量级数据库产品中才有的特性，同时不希望带来相应的管理开销，SQLite就能为这些开发人员提供一个方便的解决方案。第22章将介绍PHP为这个强大的数据库引擎提供的支持。
+
+*** PHP6
+1. Unicode支持。增加了本地Unicode支持，使得构建和维护多语言应用程序变得容易的多。
+2. 安全改进。已经做了大量有关安全性的改进，基于这些改进，应该能显著遏制安全相关问题的泛滥，说实话，这些问题不能归于语言，而应归咎于只会东拼西凑的没有经验的程序员。
+3. 新语言特性和构造。增加了许多新的语法特征，其中最突出的就是64位整数类型、经过“改造”的用于多维数组的foreach循环构造。以及对标签的break的支持。
+** 环境配置
+  1. Windows/Linux, Apache , php , mysql
+  2. Linux下安装方式(Lamp环境)
+      - 原码包安装方式
+      - Rpm包安装方式
+      - Linux下集成软件包xmapp
+  3. Windows下安装方式
+      - Appserv  官网: http://www.appservnetwork.com/
+      - phpStudy
+      - Wamp
+      - Xmapp
+[[/Users/cyq/OneDrive/my_note(emacs版)/note/pic/李炎烣PHP教程_pic_01.jpg]]
+我们这里采用Appserv来安装
+** 安装第一Guest项目、安装disucz论坛、安装ecshop网店
+去http://www.discuz.com下载论坛程序，然后安装
+去http://www.ecshop.com 下载网店程序，然后安装
+** 开发工具
+Zend Studio 7.2.0
+** 示例程序
+请查看orderform.php和postorder.php两个文件的源代码，并且执行它。
+
+** 学习注意点：
+1. 不用刻意的记单词，记不住的查手册
+2. 第一阶段不要深入理解很多知识点的原理，而是以完成项目为目标
+* 基本语法
+** 本章要点
+1. Zend Studio两个小问题
+2. 在Web页面中嵌入PHP代码
+3. 标识符与变量、常量
+4. 访问表单变量
+** Zend Studio两个小问题
+   1. 新建文档的模板设置：
+      Window -> Preferences -> PHP -> Editor -> Templates -> New simple PHP file  //这个可以修改每次新建文件的起始代码
+   2. 自动提示代码速度很慢：
+      Window -> Preferences -> PHP -> Editor -> Content Assist ->Auto Activation   //将代码自动提示的速度500设置成50
+** 在Web页面中嵌入PHP代码
+*** 脚本格式
+**** 最常用
+    #+BEGIN_QUOTE
+<?php
+	echo "<p>我的第一个PHP程序!</p>";
+?>
+    #+END_QUOTE
+
+这是一段PHP服务器端脚本，经过服务器解释执行后生成HTML文件！
+
+**** 其他几种格式如下：
+  -  简短风格：
+  #+BEGIN_QUOTE
+	<? echo "<p>My PHP!</p>"; ?>
+  #+END_QUOTE
+
+  - Script风格：
+  #+BEGIN_QUOTE
+	<script language="php">echo "<p>My PHP!</p>"; </script>
+  #+END_QUOTE
+
+  - ASP风格：
+  #+BEGIN_QUOTE
+  <% echo "<p>My PHP!</p>"; %>   
+  #+END_QUOTE
+这种风格，默认情况下是被禁止的，需修改asp_tags选项，在PHP.ini里。
+*** 注释
+    - 单行//    
+    - 多行/**/    
+    - shell #
+
+*** 向浏览器中输出：
+	echo()、print()、printf()、sprintf()
+
+*** echo、print、printf三者的差异
+echo、print、printf本身是函数，即函数()。 但这里的输出函数可以省略括号，用空格+所需显示的字符串或变量。
+  - echo和print功能几乎相同，而echo运行速度上比print稍稍快一点。因为print有返回值。 echo不返回任何值(void),print返回的是整型(integer)。
+  - printf()和sprintf()是C语言模式，例如:printf("我今天买了%d套视频光盘",5); 
+    他们之间的不同点是,printf返回的是整型(integer)，而sprintf返回的字符串(string)。
+    printf可以在浏览器直接输出，而sprintf需要echo将它输出。
+
+** 标识符与变量
+标识符是变量的名称，关于标识符，PHP定义了一些简单的规则：
+   - 标识符可以是任何长度，而且可以由任何字母、数字、下划线组成。
+   - 标识符不能以数字开始。
+   - 在PHP中，标识符是区分大小写的。
+   - 一个变量名称可以与一个函数名称相同。
+*** 变量赋值：
+$sum=0;
+$total=1.22;	
+$sum=$total;
+
+*** 变量的数据类型
+PHP支持如下所示的基本数据类型：
+- Integer(整数)
+- Float(浮点数，也叫Double,双精度)
+- String(字符串)
+- Boolean(布尔)
+- Array(数组)
+- Object(对象).
+
+*** 类型强度
+PHP是一种非常弱的类型语言。在大多数编程语言中，变量只能保存一种类型的数据，而且这个类型必须在使用变量之前声明。而在PHP中，变量的类型是由赋值给变量的值确定的。
+
+*** 类型转换
+使用类型转换，可以将一个变量或值转换成另一种类型。
+$sum=0;
+$total=(float)$sum;
+
+*** 检测变量
+大部分的可变函数都是用来测试一个函数的类型的。PHP中有两个最常见的函数，分别是gettype()和settype()。
+这两个函数返回的string类型，也就是变量的类型字符串。
+
+   - isset()和unset()用来判断一个变量是否存在，返回的是布尔值true或false。 
+   - empty()用来判断一个变量的值是否为空，如果为空则为true否则为false。
+
+换句话说，""、0、"0"、NULL、FALSE、array()、var $var; 以及没有任何属性的对象都将被认为是空的.
+
+PHP还提供了一些特定类型的测试函数。每一个函数都使用一个变量座位其参数，并且返回true或false。
+is_array()、is_double()、is_float()、is_real()、is_long()、is_int()、is_integer()、is_string()、is_object()、is_resource()、is_null()、is_numeric() 
+
+可以通过调用一个函数来实现转换变量数据类型的目的。
+intval()、floatval()、strval();
+
+*** 理解变量的作用域
+- 作用域是指在一个脚本中某个变量在哪些地方可以使用或可见。
+- 内置超级全局变量可以在脚本的任何地方使用和可见。
+- 常量，一旦被声明，将可以在全局可见。也就是说，他们可以在函数内外使用。
+- 在一个脚本中声明的全局变量在整个脚本中是可见的，但不是在函数内部。
+- 函数内部使用的变量声明为全局变量时，其名称要与全局变量名称一致。
+- 在函数内部创建并被声明为静态的变量无法在函数外部可见，但是可以在函数的多次多次执行过程中保持改值
+- 在函数内部创建的变量对函数来说是本地的，而当函数终止时，该变量也就不存在了。
+
+*** 超级全局变量：
+- $GLOBALS    所有全局变量数组
+- $_SERVER	   服务器环境变量数组
+- $_GET		   通过GET方法传递给该脚本的变量数组
+- $_POST		   通过POST方法传递给该脚本的变量数组
+- $_COOKIE      cookie变量数组
+- $_FILES			与文件上载相关的变量数组
+- $_ENV			环境变量数组
+- $_REQUEST     所有用户输入的变量数组
+- $_SESSION	    会话变量数组
+
+*** 常量
+常量一旦被定义之后，就不能再次更改。
+define("TOTAL",199);
+
+除了自定义常量外，PHP还预定了许多常量。了解这些常量的简单方法就是运行phpinfo()命令。
+变量和常量的另一个差异在于常量只可以保存布尔值、整数、浮点数或字符串数据。这些类型都是标量数据。
+
+** 访问表单变量
+在PHP脚本中，可以以PHP变量的形式访问每一个表单域，其中PHP变量名称必须与表单域的名称一致。你可以很容易识别PHP的变量名称，因为他们都是以$符号开始的。（漏掉这个$符号是一个常见的编程错误。）
+根据PHP版本和设置的不同，通过变量，可以有3种方法来访问表单数据。这些方法并没有正式的名称，因此我们给他们定义了3个昵称，分别是简短风格、中等风格和冗长风格。在任何情况下，一个页面上提交给PHP脚本的每一个表单域在PHP脚本中都是可以使用的。
+
+ #+BEGIN_QUOTE
+$userName								//简短风格
+$_POST["userName"]  					//中等风格   $_Get["QQName"];
+$HTTP_POST_VARS["userName"]		//冗长风格	$_
+ #+END_QUOTE
+- 简短风格：非常方便，但容易引起混淆，不推荐
+- 中等风格：4.1.0版后支持，推荐的
+- 冗长风格：最详细，但它已经过时，长远角度看，以后会被剔除
+
+** 字符串连接：使用点就可以连接".";
+* 操作符与控制结构
+** 学习要点：
+    1. 字符串插入
+    2. 操作符
+    3. 控制结构
+** 字符串插入
+为了给开发人员处理字符串值提供最大的灵活性，PHP为字面插入和内容插入提供了一种方法。
+**** 双引号
+双引号提供了最大的灵活性，原因是变量和转移序列都会得到相应的解析。
+ #+BEGIN_QUOTE
+<?php
+	$userName = "吴祁";
+	echo "His name is $userName";
+	echo "<br />";
+//中文会出现一些问题
+	echo "他的名字叫$userName，他19岁了,已经长大成人了！";  	
+	echo "<br />";
+	//可以采用字符串连接的方式解决
+	echo "他的名字叫".$userName."，他19岁了,已经长大成人了！"
+//转义字符可以得到解析
+	echo "虽然他的QQ号有很多女生，\n但一个都不属于他";
+?>
+ #+END_QUOTE
+
+**** 单引号
+单引号会按照声明的原样解释，解析字符串时，变量和转义序列都不会进行解析。
+ #+BEGIN_QUOTE
+<?php 
+	echo '吴祁的变量名为：$userName,转义字符\n在单引号中无效'
+?>
+ #+END_QUOT
+
+* 数组
+** 学习要点：
+1. 什么是数组
+2. 自定义键数组
+3. 数组里的数组
+4. 数组的排序
+5. 数组的指针操作
+6. 统计数组个数
+7. 将数组转换成标量变量
+
+** 什么是数组
+传统上把数组(array)定义为一组有某种共同特性的元素，包括相似性和类型。每个元素由一个特殊的标识符来区分，称之为键(key)；而每个键对应一个值(value)。
+** 创建数组的两种方式
+*** 第一种：索引数组初始化
+$userNames=array('李彦宏','周鸿祎','马云','俞敏洪','李开复','吴祁');
+这是索引数组初始化：
+数字索引的初始值是从0 开始计算的：
+userNames[0]---userName s[5]，代表这6个人的名字。
+*** 第二种：函数创建数组
+通过range()函数自动创建一个数组
+$numbers=range(1,10) $letters=range('a','z')
+可以加第三个参数$numbers=range(1,10,2)，第三个参数表示步长
+
+*** 访问数组的内容：
+要访问一个变量的内容，可以直接使用其名称。如果该变量是一个数组，可以使用变量名称和关键字或索引的组合来访问其内容。
+$numbers[0]、$numbers[1]、$numbers[2];等。
+*** 改变数组的值：
+$numbers[0]="Lee";
+
+*** 使用循环访问数组
+由于数组使用有序的数字作为索引，所以使用一个for 循环就可以很容易地显示数组的内容：
+**** for循环
+ #+BEGIN_QUOTE
+for ($i=0;$i<10;$i++) {
+echo $numbers[$i];
+}
+ #+END_QUOTE
+
+**** foreach循环
+也可以使用foreach 循环来遍历数组：
+ #+BEGIN_QUOTE
+foreach ($numbers as $value) {
+echo $value;
+}
+ #+END_QUOTE
+
+*** 测试是否为数组变量：is_array();
+*** print_r 函数：打印关于变量的易于理解的信息
+** 自定义键数组（相关数组）
+*** 初始化相关数组
+$ages=array('吴祁'=>19,'李炎恢'=>27,'胡心鹏'=>23);
+*** 访问数组元素
+$ages["吴祁"];
+$ages["李炎恢"];
+$ages["胡心鹏"];
+*** 追加数组：首先，创建只有一个元素的数组，然后追加两个元素。
+$ages=array("吴祁"=>19);
+$ages["李炎恢"]=27;
+$ages["胡心鹏"]=23;
+*** 直接添加数组：无需创建，直接添加，添加第一个元素自动建立数组。
+$ages["吴祁"]=19;
+$ages["李炎恢"]=27;
+$ages["胡心鹏"]=23;
+*** 相关数组的循环
+**** 使用foreach循环
+使用循环语句：因为相关数组的索引不是数字，因此无法使用for 循环语句中使用一个简单的计数器对数组进行操作。但是可以使用foreach 循环或list()和each()结构：
+ #+BEGIN_QUOTE
+foreach ($ages as $key=>$value) {
+echo $key."=>".$value."<br />";
+}
+ #+END_QUOTE
+**** 使用each（）结构
+使用each()结构打印$ages 数组的内容：each()函数返回数组的当前元素，并将下一个元素作为当前元素。
+ 
+#+BEGIN_QUOTE
+while (!!$element=each($ages)) {
+echo $element["key"];
+echo "=>";
+echo $element["value"];
+echo "<br />";
+}
+#+END_QUOTE
+* 目录与文件
+** 学习要点：
+   1. 目录操作
+   2. 磁盘、目录和文件计算
+   3. 文件处理
+** 目录操作
+将相关的数据组织为文件和目录等实体，这一直是计算环境的核心概念。出于这个原因，
+程序员需要有一种方法来获得关于文件和目录的重要细节，如位置、大小、最后修改时间、
+最后访问时间和其他确定信息。
+*** 目录操作
+**** basename（）函数 
+解析目录路径：basename()函数返回路径的文件名部分。
+ #+BEGIN_QUOTE
+<?
+$path = 'C:\AppServ\www\Basic6\Demo1.php';
+echo 'path:'.basename($path);
+?>
+#+END_QUOTE
+**** dirname()函数
+获取路径的目录：dirname()函数返回路径目录部分。
+ #+BEGIN_QUOTE
+<?
+$path = 'C:\AppServ\www\Basic6\Demo1.php';
+echo 'path:'.dirname($path);
+?>
+ #+END_QUOTE
+**** pathinfo（）函数 —— 路径信息
+关于路径的信息：pathinfo()函数创建一个关联数组，其中包括：目录名、基本名和扩展名。
+ #+BEGIN_QUOTE
+<?
+$path = 'C:\AppServ\www\Basic6\Demo1.php';
+$array_path = pathinfo($path);
+print_r($array_path);
+?>
+#+END_QUOTE
+**** realpath()函数——确定决定路径
+确定绝对路径：realpath()函数将path 中的所有符号链接和相对路径引用转换为相应的硬链接和绝对路径。
+ #+BEGIN_QUOTE
+<?
+$path = '../index.php';
+echo realpath($path);
+<?
+#+END_QUOTE
+
+** 磁盘、目录和文件计算
+*** 确定文件的大小：filesize()函数返回指定文件字节大小。
+ #+BEGIN_QUOTE
+<?
+$file = 'C:\AppServ\www\Basic6\Demo1.php';
+echo round(filesize($file)/1024,2).'KB';
+?>
+ #+END_QUOTE
+*** 计算磁盘的可用空间：disk_free_space()函数返回指定的目录所在磁盘分区的可用空间。
+ #+BEGIN_QUOTE
+<?
+$drive = 'C:';
+echo round(disk_free_space($drive)/1024/1024,2).'MB';
+?>
+#+END_QUOTE
+*** 计算磁盘的总容量：disk_total_space()函数返回指定的目录所在磁盘分区的总容量。
+ #+BEGIN_QUOTE
+<?
+$drive = 'C:';
+echo round(disk_total_space($drive)/1024/1024,2).'MB';
+?>
+#+END_QUOTE
+*** 确定文件的最后访问时间：fileatime()函数返回文件的最后访问时间，采用的Unix 时间戳格式。
+ #+BEGIN_QUOTE
+<?
+$file = 'C:\AppServ\www\Basic6\Demo1.php';
+echo date("Y-m-d,h:i:s",fileatime($file));
+?>
+#+END_QUOTE
+*** 确定文件的最后改变时间：filectime()函数返回文件的最后改变时间，采用Unix 时间戳格式。
+ #+BEGIN_QUOTE
+<?
+$file = 'C:\AppServ\www\Basic6\Demo1.php';
+echo date("Y-m-d,h:i:s",filectime($file));
+?>
+#+END_QUOTE
+*** 确定文件的最后修改时间：filemtime()函数返回文件的最后修改时间，采用Unix 时间戳格式。
+ #+BEGIN_QUOTE
+<?
+$file = 'C:\AppServ\www\Basic5\Demo1.php';
+echo date("Y-m-d,h:i:s",filemtime($file));
+?>
+#+END_QUOTE

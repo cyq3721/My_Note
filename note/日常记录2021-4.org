@@ -1,0 +1,10 @@
+#+title: 我的日常
+#+author: CYQ
+
+
+* 在office computer中 instll  phpstudy <2021-04-12 周一>
+   - 开启FTP
+     - user: cyq
+     - pass: 1980112
+- 更改网站根目录
+

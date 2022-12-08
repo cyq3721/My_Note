@@ -1,0 +1,450 @@
+#+TITLE: 《LINUX鸟哥私房菜》笔记
+#+AUTHOR: Shadow-Fish
+#+DATA: 2016-7-3
+* 第一章 Linux是什么
+** UNIX系统的原型——Unicode系统
+1969年，Ken Thormpson用汇编（Assembler）写出的一组内核程序，同时包括一些内核工具程序，以及一个小的文件系统（File Server System）。Thompson的这个文件系统有两个重要的概念：
+- 所有的程序或系统装置都是文件。
+- 不管构建编辑器还是附属文件，所写的程序只有 一个目的：就是要有效地完成目标。
+** 1973年，UNIX正式诞生
+Ritchie等人以C语言写出第一个正式UNIX内核。开发背景：
+- Thormpson开发的Unics系统非常好用，但是它是用汇编（Assembler）开发，具有专一性，每次装到不同的机器都要重新写汇编语言，很不方便。
+- Thompson与Ritchie等人合作用更高级的语言来编写Unics系统，当时现成的高级语言只有B语言，但是B语言编译出来的内核性能不好，于是Ritchie将B语言重新写成了C语言，再以C语言重新改写编译Unics的内核，最后发行出UNIX的正式版本。
+- 贝尔实验室隶属于美国电信大厂AT&T公司，AT&T公司当时忙于其它商业活动，对于UNIX不支持也不排斥，UNIX在这个时期的开发者都是贝尔实验室的工程师。
+- UNIX是以C语言开发的，使得UNIX的非常容易被移植到不同的机器上。
+** 1977年，UNIX的重要分支——BSD诞生
+- UNIX与加州柏克莱（Berkeley）大学合作
+- Berkeley大学的Bill Joy拿到UNIX源码后，修改成适合自己机器的版本，并且同时增加了很多工具软件与编译程序，最终将它命名为Berkeley Software Distribution（BSD）。这个BSD是UNIX的重要分支，Bill Joy也是Sun公司的创办者。Sun公司就是以BSD开发的内核进行自己的商业UNIX版本的开发的。
+* 第三章 主机规划和磁盘分区
+** 各硬件设备在linux中的文件名
+| 设备                 | 文件名               |
+| IDE硬盘              | /dev/sd[a-d]         |
+| scs/sata/USB硬盘/u盘 | /dev/sd[a-p]         |
+| USB 鼠标             | /dev/usb/mouse[0-15] |
+| 当前鼠标             | /dev/mouse           |
+* 第五章 首次登入和在线求助 man page
+** X Window 与 命令行模式的切换
+linux默认会提供6个Terminal来让用户登录，切换的方式为[ctrl]+[Alt]+[F1]~[F6]的组合按钮。 系统会将[F1]~[F6]命名为tty1~tty6的操作界面。 
+[F7]回到X窗口。
+** linux的两种登录方式
+- 纯文本界面（运行等级为run level 3）的登录环境。这种环境中可以有tty1~tty6的终端界面，但是没有图形界面。
+- 图形界面（运行等级为run level 5）的登录环境。这种环境中有tty1~tty7。 tty7就是图形界面。
+** 纯文本界面切换到图形界面
+在纯文本界面下执行startx启动X Window（图形界面）。
+成功运行的条件：
+- tty7没有正在运行的窗口软件（即tty7必须是空着的）。
+- 必须已经安装了X Window系统，且X Server是能够顺利运行的。
+- 要有窗口管理器（kde/gnome等）
+- 启动X Window所必须要的服务，例如字型服务器（X Servers, XFS)必须要先启动
+** 修改启动时的登录环境
+修改/etc/inittab这个文件
+** 三个基础指令的操作
+   - 显示时间的指令：date
+     - +%Y-%m-%d
+     - +%H:%M  
+   - 显示日历的指令：cal
+   - 简单好用的计算器：bc
+*** 显示日期的指令：date
+*** 显示日历的指令：cal
+语法： cal ［month］［year］
+*** 简单好用的计算器：bc
+** 几个重要的热键
+   - [tab]
+   - [ctr]l - c
+   - [ctrl] - d
+*** [tab]键
+**** 功能：
+      - 命令补全
+      - 功能补全
+*** [ctrl] - c键
+终止命令
+*** [ctrl] - d键 
+相当于输入exit
+** linux在线帮助系统man page和 info page
+*** man使用说明
+| 代号        | 内容说明                           |
+| NAME        | 简短的指令、数据名称和说明         |
+| SYNOPSIS    | 简短的指令语法简介                 |
+| DESCRIPTION | 较为完整的说明，需要细看           |
+| OPTIONS     | 针对SYNOPSIS部分中，可用的选项说明 |
+| COMMANDS    | 程序执行时可以下达的指令           |
+| FILES       | 程序使用时所需要连接到的数据       |
+| SEE ALSO    | 和这个指令有关的其它说明           |
+| EXAMPLE     | 可以参考的范例                     |
+| BUGS        | 是否有bugs                         |
+*** man的查阅方法
+1. 先查看NAME的项目，大略看一下这个数据的意思
+2. 再仔细看一下DESCRIPTION， 这个部分会提到很多相关的资料与用法， 从这个地方可以学到很多小细节。
+3. 如果对这个命令已经很熟悉了， 可以直接查阅OPTIONS的部分。  可以知道每个选项的意义， 可以执行比较细致的命令内容。
+4. 最后会再看一下跟这个资料有关的还有哪些东西可以使用。
+5. 某些说明内容还会例举有关的文件（FILES部分）来提供我们参考。
+*** 命令后数字的含义
+| 代号 | 代表内容                                                                 |
+|    1 | 用户在shell环境中可以操作的命令或可执行文件                              |
+|    2 | 系统内核可调用的函数与工具等                                             |
+|    3 | 一些常用的函数（function）与函数库（library），大部分为C的函数库（libc） |
+|    4 | 设备文件的说明，通常在/dev下的文件                                       |
+|    5 | 配置文件或者是某些文件的格式                                             |
+|    6 | 游戏（game）                                                             |
+|    7 | 惯例与协议等，例如linux文件系统、网络协议、ASCII code等说明              |
+|    8 | 系统管理员可用的管理命令                                                 |
+|    9 | kernal有关的文件                                                             |
+上述1、5、8三个号码特别重要。
+*** man中的操作
+| 按键        | 操作       |
+| 空格        | 向下翻一页 |
+| [page down] | 向下翻一页y   |
+** 正确的关机
+- 将数据同步写入硬盘：sync
+- 常用关机指令：shutdown
+- 重启，关机：reboot、halt、poweroff
+*** sync
+万一你的系统因为某些特殊情况造成丌正常关机 (例如停电 戒者是丌小心踢到 power)时,由亍数据尚未被写入硬盘当中,哇!所以就会造成数据的更新丌正常啦! 那要怎举办呢?这个时候就需要 sync 这个命令进行数据的写入啦! 直接在文字接口下输入 sync,那样在内存中尚未被更新的数据,就会被写入硬盘中!所以,这个命令在系统关机或重新启之前, 非常重要喔!最好多执行几次!
+
+虽然目前的 shutdown/reboot/halt 等等命令均已经在关机前执行了 sync 这个工具的呼叫, 丌过,多 做几次总是比较放心点~呵呵~
+** 切换执行等级init
+- run level 0:：关机
+- run level 3：纯文本模式
+- run level 5：图形接口模式
+- run level 6：重新启动
+* 第六章 Linux的文件权限与目录配置
+** 用户和用户组
+1. 文件所有者
+2. 用户组
+3. linux中任何3文件都有user、group、other三种身份的权限
+*** 记录用户和用户组信息的的文件
+1. 记录root用户的信息
+   /etc/passwd
+2. 记录普通用户的信息
+   /etc/shadow
+3. 记录用户组的信息
+   /etc/group
+上述三个文件是linux系统里账号、密码、用户组信息的集中地，不能随便删除。 
+** linux文件权限概念
+*** linux文件属性
+**** 概述
+文件属性分为7列，分别为：
+  - 文件类型和权限（permission）
+  - 连接数
+  - 所有者
+  - 用户组
+  - 文件容量
+  - 修改日期
+  - 文件名
+**** 文件目录类型
+- [d]  目录
+- [-]  文件
+- [l]  连接文件（linkfile）
+- [b]  设备文件中可供存储的接口设备
+- [c]  设备文件里的串行端口设备， 如键盘、鼠标等
+**** 权限
+- r  4 可读
+- w  2 可写
+- x  1 可执行
+** 改变文件属性与权限
+- chgrp —— 改变文件所属用户组
+- chown —— 改变文件所有者
+  *用法* chown [选项] [拥有者]:[用户组] 文件/文件夹
+- chmod —— 改变文件的权限
+      + *示例：*   chmod [-R] 文件或目录     （-R参数用于目录，更改目录内所有文件的权限）
+     + 数字法修改权限
+          chmod 775 /etc/pass
+    +  符号法修改权限
+          chmod  u+x，g=rx，o-w
+          chmod a=rwx
+** 目录和文件权限的意义
+** linux文件种类与扩展名
+** linux目录配置
+*** linux 目录标准：FHS（Filesystem Hierarchy Standard）
+规范特定目录下应该要放置什么样的数据
+* 第七章 Linux文件与目录管理
+** 目录与路径
+  - . 或 ./ 指当前目录
+  - ..或../ 指上一层目录
+*** 相对路径和绝对路径
+    - 绝对路径：路径的写法『一定由根目录 / 写起』，例如： /usr/share/doc 这个目录。
+    - 相对路径：路径的写法『不是由 / 写起』，例如由 /usr/share/doc 要到 /usr/share/man 底下时，可以写成： 『cd ../man』这就是相对路径的写法啦！相对路径意指『相对於目前工作目录的路径！』
+*** 关于执行文件路径的变量：$PATH
+我们知道查看文件属性的命令ls的完整文件名为：/bin/ls（这是绝对路径）。  为什么我们可以在任何目录执行/bin/ls命令呢？这是因为环境变量PATH的帮助。
+
+当我们执行要一个命令的时候，如ls命令时，系统会按照PATH的设置去每个PATH定义的目录下查询可执行文件ls，如果在PATH定义的目录中含有多个文件名为ls的可执行文件，那么先查询到的同名命令先被执行。
+
+*** 执行echo $PATH 可以查看所有定义的路径。
+查看PATH：echo $PATH
+*** 修改环境变量PATH
+以添加mongodb server为列
+**** 修改方法一：
+export PATH=/usr/local/mongodb/bin:$PATH
+//配置完后可以通过echo $PATH查看配置结果。
+生效方法：立即生效
+有效期限：临时改变，只能在当前的终端窗口中有效，当前窗口关闭后就会恢复原有的path配置
+用户局限：仅对当前用户
+**** 修改方法二：
+通过修改.bashrc文件:
+vim ~/.bashrc 
+//在最后一行添上：
+export PATH=/usr/local/mongodb/bin:$PATH
+生效方法：（有以下两种）
+- 1、关闭当前终端窗口，重新打开一个新终端窗口就能生效
+- 2、输入“source ~/.bashrc”命令，立即生效
+有效期限：永久有效
+用户局限：仅对当前用户
+ 
+**** 修改方法三:
+通过修改profile文件:
+vim /etc/profile
+/export PATH //找到设置PATH的行，添加
+export PATH=/usr/local/mongodb/bin:$PATH
+生效方法：系统重启
+有效期限：永久有效
+用户局限：对所有用户
+**** 修改方法四:
+通过修改environment文件:
+vim /etc/environment
+在PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"中加入“:/usr/local/mongodb/bin”
+生效方法：系统重启
+有效期限：永久有效
+用户局限：对所有用户
+
+*** Mac OS 下修改环境变量
+Mac下面的环境变量设置和Linux差不多，一般为这几个文件（左边的先加载）：
+#+BEGIN_QUOTE
+/etc/profile /etc/paths ~/.bash_profile ~/.bash_login ~/.profile ~/.bashrc
+#+END_QUOTE
+
+etc目录下面的是系统级的配置，~目录下的是用户配置，用户配置文件只会加载一个（.bashrc除外），不存在的可以自己新建；下面小编说说用户环境变量怎么设置，系统变量类似哦。
+** 目录的相关命令
+   - cd    切换目录
+   - pwd   显示当前目录
+      -p参数：显示当前的实际文件路径，而非使用连接（link）的路径
+   - mkdir 新建一个目录
+   - rmdir 删除一个空目录
+      -p参数：连同上层的空目录一起删除** 文件和目录管理
+   - ls    查看目录和文件
+-----
+   - cp    复制
+     - a参数： 连同权限一同复制
+     - r参数： 复制目录
+   - rm    删除
+     - f参数：强制删除，忽略不存在的文件，不出现警告信息。
+     - i参数：互动模式，删除前会询问用户是否操作。
+     - r参数：递归删除，删除目录，比较危险的参数。
+   - mv    移动或更改文件名
+-----
+   - cat   从第一行开始显示文件内容
+   - tac   从最后一行开始显示文件内容（文件倒写）
+   - nl    显示时，输出行号
+   - more  分页显示文件内容
+   - less  分页显示，可以前后翻页
+   - head  只看头几行
+   - tail  只看结尾几行
+-----
+   - head    取出前面几行
+     head [-n number] 文件
+   - tail    取出后面几行，用法和head一样
+-----
+   - touch 修改文件时间或创建新文件
+** touch 命令
+*** 文件的时间参数
+- mtime（modification time） 
+  当文件的“内容数据”更改时，就会更新这个时间。 内容数据指的是文件的内容，而不是文件的属性或权限。 默认情况下显示的文件的mtime。
+- ctime（status time）
+  当文件的“状态”（status）改变时，就会更新这个时间，比如，权限与属性被更改了，都会更新这个时间
+- atime（access time）
+  当文件“内容被取用“时，就会更新这个读取时间（access）。 比如，使用cat去读取文件内容，就会更新文件的atime了。
+* 第八章 Linux磁盘与文件系统管理
+** 认识EXT2文件系统
+*** 关于硬盘的一些基本概念
+- 扇区（Sector） 最小的物理存储单位，每个扇区为512bytes；
+- 柱面（Cylinder），将扇区组成一个圆，就是柱面；
+- 分区（partition）柱面组成分区，柱面是分区的最小单位；
+- 第一个扇区最重要， 里面有硬盘主引导记录（MBR）和分区表（partition table），MBR占446bytes，partition table 占64bytes；
+*** 关于分区表（partition table）
+分区表只有64bytes，最多只能存放4条分区的记录， 这四条记录我们称为主（primary）分区或扩展（extended）分区 ，扩展分区还可以再分出逻辑分区（logical），只有主分区和逻辑分区可以被格式化。
+*** data block(数据块)
+在EXT2文件系统中所支持的block大小有1KB，2KB和4KB三种。  在格式化时，block的大小就固定了，且每个block都有编号，以方便inode的记录。  由于block大小的区别， 会导致该文件系统能够支持的最大磁盘容量和最大单一文件容量并不相同。
+- 原则上，block的大小与数量在格式化完就不能够再改变了（除非重新格式化）;
+- 每个block内最多只能够放置一个 文件的的数据;
+- 如果文件大于block的大小，则一个文件会占用多个block数量;
+- 如果文件小于block的大小，则该block的剩余空间就不能够再被使用了（磁盘空间会浪费）
+*** inodetable（inode表格）
+*** Superblock（超级块）
+Superblock是记录整个文件系统相关信息的地方
+*** dumpe2fS 查询ext文件系统的分区详细信息（可查superblock信息）
+** 文件系统的简单操作
+*** df  
+*** du
+查看文件或目录所占用的磁盘空间的大小
+- a 显示该目录及其子目录的所占磁盘空间
+- s 只显示该目录的所占磁盘空间
+- h 用mb，kb，GB等显示
+** 磁盘的分区、格式化、检验与挂载
+*** 磁盘分区：fdisk（不支持2TB以上的分区）
+#+BEGIN_QUOTE
+fdisk -l   列出所有连接的设备，包括没有挂载的
+#+END_QUOTE
+*** 磁盘格式化：mkfs
+#+BEGIN_QUOTE
+  mkfs -t ext3 /home/loopdev
+#+END_QUOTE
+*** 磁盘检验：fsck、badblocks
+*** 硬盘挂载与卸载
+- mount 挂载设备
+  #+BEGIN_QUOTE
+    mount /dev/hdc6   /mnt/hdc6
+  #+END_QUOTE
+- umount 卸载设备
+  #+BEGIN_QUOTE
+   umount /mnt/hdc6
+  #+END_QUOTE
+- dumpe2fs 查看硬盘分区所有信息，包括分区卷标（volume name）
+- 特殊设备loop挂载（iso镜像等）
+  #+BEGIN_QUOTE
+     mount -o loop /root/centos5.2.iso  /mnt/centos_dve
+  #+END_QUOTE
+- 新建大文件以制作loop设备文件用于挂载（利用dd命令制作大文件）
+  #+BEGIN_QUOTE
+     dd if=/dev/zero  of=/home/loopdev  bs=1M  count=512
+  #+END_QUOTE
+** 内存交换空间（swap）的构建（p238）
+*** 要点
+- fdisk 分区
+- partprobe 让内核更新分区表
+- mkswap 构建swap
+- free 查看内存使用和swap的使用
+- swapon 加载swap
+- swapoff 关闭swap
+*** 使用上的限制
+- 2.4.10后，单一swap没有2GB的限制
+- 最多仅能创建32个swap
+- x86_64 最大内存寻址到64GB，所以swap总量最大仅能达到64GB
+** 设置开机挂载/etc/fstab 以及 /etc/mtab
+
+** 利用GNU的parted进行分区（支持2TB以上的分区）(详见p244)
+*** 查看分区表资料 
+#+BEGIN_QUOTE
+  parted /dev/hdc print
+#+END_QUOTE
+
+* 第九章 文件与文件系统的压缩和打包
+** 文件压缩
+*** 文件压缩原理
+** 常见压缩格式
+| 格式      | 说明                          |
+| *.Z       | compress程序压缩文件          |
+| *.gz      | gzip程序压缩文件              |
+| *.bz2     | bzip2程序压缩的文件           |
+| *.tar     | tar程序打包的数据，没有压缩   |
+| *.tar.gz  | tar程序打包，并经过gzip的压缩 |
+| *.tar.bz2 | tar程序打包，并经过bz2的压缩             |
+
+** 常见的压缩程序
+*** gzip
+**** 参数
+- d  解压
+- v  显示压缩比等信息
+默认下，压缩后，原始文件会消失
+**** zcat
+读取压缩文件的内容
+*** bzip2
+*** tar打包程序
+- tar -jcv -f 打包压缩（bz2格式）
+- tar -jxv -f 解压文档
+- tar -jtv -f 查询打包文档
+**** tar参数
+- j    bzip2方式压缩/解压缩
+- z    gzip方式压缩/解压缩
+- c    创建打包文档
+- t    查看打包文档
+- x    解压缩打包文档
+- C（大写）  在特定的目录解压缩
+- p    保留备份文档的权限和属性
+* 第十章 认识与学习BASH
+** Bash shell 的功能
+- 命令编修能力（history）
+- 命令与文件补全功能（[tab]
+  - 接在一串命令的第一个字的后面，为命令补全
+  - 接在一串命令的第二个字的后面，为文件补全
+- 命令别名设定（alias）
+  #+BEGIN_QUOTE
+   alias lm='ls -la'
+  #+END_QUOTE
+  - 工作控制、前景背景控制（job control， foreground， background）
+- 程序化脚本（shell scripts）
+- 通配符（Wildcard）
+** bash Shell的内置命令：type
+type [-tpa] name
+#+BEGIN_QUOTE
+不加任何参数时，type会显示出name是外部命令还是bash内置命令
+-t 会显示以下关键字：
+       file： 外部命令
+       alias： 命令别名 
+       builtin： bash内置命令
+-a 将PATH变量定义的路径中，将所有含name的命令都列出来，包含alias
+#+END_QUOTE
+
+** 反斜杠\和几个组合键
+- 转义符号，如\回车， 不是执行命令，而是换行。
+- 几个组合键
+| 组合键 | 功能                 |
+| ctrl+u | 从光标向前删除指令串 |
+| ctrl+k | 从光标向后删除指令串 |
+| ctrl+a | 将光标移动到指令头部 |
+| ctrl+e | 将光标移动到指令尾部          |
+** Shell中的变量
+*** 变量的调用
+#+BEGIN_QUOTE
+echo $variable 
+或
+echo ${variable}
+#+END_QUOTE
+* elisp语言
+** 一个Hello World例子
+自从 K&R 以来，hello world 程序历来都是程序语言教程的第一个例子。我也用一个 hello world 的例子来演示 emacs 里执行 elisp 的环境。下面就是这个语句：
+#+BEGIN_QUOTE
+(message "hello world")
+#+END_QUOTE
+
+前面我没有说这个一个程序，这是因为，elisp 不好作为可执行方式来运行（当然也不是不可能），所有的 elisp 都是运行在 emacs 这个环境下。
+
+首先切换到 *scratch* 缓冲区里，如果当前模式不是 lisp-interaction-mode，用 M-x lisp-interaction-mode 先转换到 lisp-interaction-mode。然后输入前面这一行语句。在行尾右括号后，按 C-j 键。如果 Minibuffer 里显示 hello world，光标前一行也显示 "hello world"，那说明你的操作没有问题。我们就可以开始 elisp 学习之旅了。
+
+注：elisp 里的一个完整表达式，除了简单数据类型（如数字，向量），都是用括号括起来，称为一个 S-表达式。让 elisp 解释器执行一个 S-表达式除了前一种方法之外，还可以用 C-x C-e。它们的区别是，C-x C-e 是一个全局按键绑定，几乎可以在所有地方都能用。它会将运行返回值显示在 Minibuffer 里。这里需要强调一个概念是返回值和作用是不同的。比如前面 message 函数它的作用是在 Minibuffer 里显示一个字符串，但是它的返回值是 "hello world" 字符串。
+** 基础知识
+这一节介绍一下elisp编程中一些最基本的概念，比如如何定义函数，程序的控制结构，变量的使用和作用域等等。
+*** 函数和变量
+- elisp中定义一个函数的形式：
+#+BEGIN_QUOTE
+(defun function-name (arguments-list)
+  "document string"
+  body)
+#+END_QUOTE
+
+比如：
+#+BEGIN_QUOTE
+(defun hello-world (name)
+  "Say hello to user whose name is NAME."
+  (message "Hello, %s" name))
+#+END_QUOTE
+
+期中函数中的document string部分是可以省略的。但是建议为你的函数（除了最简单，不作为接口的）都加上文档字符串。这样将来别人使用你的扩展或者别人阅读你的代码或者自己进行维护都提供很大的方便。
+
+在 emacs 里，当光标处于一个函数名上时，可以用 C-h f 查看这个函数的文档。比如前面这个函数，在 *Help* 缓冲区里的文档是：
+#+BEGIN_QUOTE
+hello-world is a Lisp function.
+(hello-world name)
+
+Say hello to user whose name is name.
+#+END_QUOTE
+
+如果你的函数是在文件中定义的。这个文档里还会给出一个链接能跳到定义的地方。要运行一个函数，最一般的方式是：
+#+BEGIN_QUOTE
+(function-name arguments-list)
+#+END_QUOTE
+
+比如前面这个函数：
+#+BEGIN_QUOTE
+(hello-world "Emacser")                 ; => "Hello, Emacser"
+#+END_QUOTE
+
+

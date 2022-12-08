@@ -1,0 +1,715 @@
+#+title: Html & CSS 设计与构建网站
+#+author: Chen
+#+data: 2017-7
+#+LANGUAGE: zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+* 第1章 结构(Structure)
+** 本章概要
+- 理解结构
+- 学习标记
+- 标签和元素
+** 什么是html
+HTML 不是一门编程语言，而是一种用于定义内容结构的标记语言。HTML 由一系列的元素（elements）组成，这些元素可以用来包围不同部分的内容，使其以某种方式呈现或者工作。 一对标签（ tags）可以为一段文字或者一张图片添加超链接，将文字设置为斜体，改变字号，等等。
+** html元素详解
+- html的一个示例：
+#+begin_src html
+<p>我的猫</P>
+#+end_src
+*** html 元素
+  1. 开始标签（Opening tag）：包含元素的名称（本例为 p），被大于号、小于号所包围。表示元素从这里开始或者开始起作用 —— 在本例中即段落由此开始。
+  2. 结束标签（Closing tag）：与开始标签相似，只是其在元素名之前包含了一个斜杠。这表示着元素的结尾 —— 在本例中即段落在此结束。初学者常常会犯忘记包含结束标签的错误，这可能会产生一些奇怪的结果。
+  3. 内容（Content）：元素的内容，本例中就是所输入的文本本身。
+  4. 元素（Element）：开始标签、结束标签与内容相结合，便是一个完整的元素。
+*** 元素属性
+- 在属性与元素名称（或上一个属性，如果有超过一个属性的话）之间的空格符。
+- 属性的名称，并接上一个等号。
+- 由引号所包围的属性值。
+*** 嵌套元素
+也可以将一个元素置于其他元素之中 —— 称作嵌套。
+*** 空元素
+不包含任何内容的元素称为空元素。比如 <img> 元素
+#+begin_src html
+<img src="images/firefox-icon.png" alt="测试图片">
+#+end_src
+本元素包含两个属性，但是并没有 </img> 结束标签，元素里也没有内容。这是因为图像元素不需要通过内容来产生效果，它的作用是向其所在的位置嵌入一个图像。
+** 元素的属性（Attribute）
+#+begin_src html
+<p class="editor-note">我的猫</p>
+#+end_src
+属性包含了关于元素的一些额外信息，这些信息本身不应显现在内容中。本例中，class 是属性名称，editor-note 是属性的值 。class 属性可为元素提供一个标识名称，以便进一步为元素指定样式或进行其他操作时使用。
+
+- 属性应该包含：
+    - 在属性与元素名称（或上一个属性，如果有超过一个属性的话）之间的空格符。
+    - 属性的名称，并接上一个等号。
+    - 由引号所包围的属性值。
+** HTML文档详解
+以上介绍了一些基本的 HTML 元素，但孤木不成林。现在来看看单个元素如何彼此协同构成一个完整的 HTML 页面。
+#+begin_src html 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>测试页面</title>
+  </head>
+  <body>
+    <img src="images/firefox-icon.png" alt="测试图片">
+  </body>
+</html>
+#+end_src
+
+- <!DOCTYPE html> — 文档类型。混沌初分，HTML 尚在襁褓（大约是 1991/92 年），DOCTYPE 用来链接一些 HTML 编写守则，有点像自动校正等。然而现在已经没有人关心这些，只是因为历史原因必须将它们保留，但没有实际作用。现在你只需要知道这些就可以。
+- <html></html> — <html> 元素。这个元素包含了整个页面的内容，有时也被称作根元素。
+- <head></head> — <head> 元素。这个元素放置的内容不是展现给用户的，而是包含例如面向搜索引擎的搜索关键字（keywords）、页面描述、CSS 样式表和字符编码声明等。
+- <meta charset="utf-8"> — 这个元素指定了当前文档使用 UTF-8 字符编码 ，UTF-8 包括绝大多数人类已知语言的字符。基本上 UTF-8 可以处理任何文本内容，还可以避免以后出现某些问题，我们没有任何理由再选用其他编码。
+- <title></title> — <title> 元素。这个元素设置页面的标题，显示在浏览器标签页上，同时作为收藏网页的描述文字。
+- <body></body> — <body> 元素。这个元素包含期望让用户在访问页面时看到的内容，可以是文本、图像、视频、游戏、可播放的音轨或其他内容。
+
+* 第2章 文本 
+** 标题和段落
+*** <h1> ~ <h6>  
+ 6个标题，字号由大到小
+*** <p>…… </p>  
+段落标签，段落之间保持一定的段落间距
+** 粗体和斜体
+- <b> </b> 粗体
+- <i> </i>  斜体
+** 上标和下标
+- <sup> </sup>  上标 
+- <sub> </sub>   下标
+** 换行和水平线
+- <br />  换行
+- <hr />  水平线
+** 结构化标记和语义化标记
+*** 加粗和强调
+- <strong>
+- <em>
+*** 引用
+- <blockquote>
+- <q>
+* 第3章 列g表(Lists)
+** 有序列表
+- <ol>
+- <li>
+** 无序列表
+- <ul>
+- <li>
+
+示例：
+#+begin_src html 
+<p>Mozilla 是一个全球社区，这里聚集着来自五湖四海的</p>
+    
+<ul> 
+  <li>技术人员</li>
+  <li>思考者</li>
+  <li>建造者</li>
+</ul>
+
+<p>我们致力于……</p>
+#+end_src
+
+** 定义列表
+- <dl> 定义列表
+- <dt> 包含被定义的术语
+- <dd> 包含定义
+#+begin_src html
+<dl>
+        <dt>Sashimi</dt>
+        <dd>Sliced raw fish that is served with condimets such as shredded daikon radish or ginger root, wasabi and soysauce </dd>
+       <dt>Scale</dt>
+       <dd>A device used to accurately measure the weight of ingredients</dd>
+</dl>
+#+end_src
+* 第4章 链接(Links)
+链接非常重要 — 它们赋予 Web 网络属性。要植入一个链接，我们需要使用一个简单的元素 — <a> — a 是 "anchor" （锚）的缩写。
+** 创建链接
+1. 选择一些文本。比如 “Mozilla 宣言”。
+2. 将文本包含在 <a> 元素内，就像这样：
+#+begin_src html
+<a>Mozilla 宣言</a>
+#+end_src
+
+3. 为此 <a> 元素添加一个 href 属性，就像这样：
+#+begin_src html
+<a href="">Mozilla 宣言</a>
+#+end_src
+
+4. 把属性的值设置为所需网址：
+#+begin_src  html
+<a href="https://www.mozilla.org/zh-CN/about/manifesto/">Mozilla 宣言</a>
+#+end_src
+
+
+如果网址开始部分省略了 https:// 或者 http://，可能会得到错误的结果。在完成一个链接后，可以试着点击它来确保指向正确。
+** email链接
+
+#+BEGIN_SRC  html
+<a href="mailto:……">   </a>
+#+END_SRC 
+** target=“_blank" ———— 在新窗口打开链接
+** 链接到当前页面的某个位置
+利用元素的id属性进行定位
+** 链接到其它页面的的某个位置
+* 块级元素和内联元素
+- 块级元素总是另起一行显示
+- 内联元素不会另起一行显示
+* 第5章 图像(Images)
+** <img>
+- src
+- alt
+- title
+** 图像的宽度和高度
+- height
+- width
+** 图像的对齐 align
+*** 水平对齐 
+- left
+- right
+*** 垂直对齐 
+- top
+- middle
+- button
+** 图形和图形说明(html5)
+- <figrue>
+  用来包含图像以及对图像的说明，并且这两项是相互关联的。只要图像说明是相同的，就可以在<figure>元素中添加多个图像。
+- <figcaption>
+给图像添加说明。
+** 使用图像的三条规则
+- 使用正确的格式保存图像
+- 以正确的大小保存图像
+- 以像素来衡量图像
+* 第6章 表格(table)
+** 表格的基本结构
+#+BEGIN_SRC  html
+<table>
+   <tr>
+      <td></td>
+        ……
+      <td></td>
+   </tr>
+</table>
+#+END_SRC
+** 列或行的标题
+- <th>  th和td的用法一样，作用是表示行或列的标题
+** 跨列
+- colspan=”2“  —— 跨两列
+** 跨行
+- rowspan=”2“  —— 跨两行
+** 长表格
+三种元素有助于区分表格的主体内容、第一行和最后一行（他们可以包含不同的内容）
+- <thead> 表格的标题
+- <tbody> 表格的主体
+- <tfoot> 表格的脚注
+** 表格小结
+- table元素用来向网页中添加表格
+- 表格是逐行绘制的，行由tr元素创建
+- 每行都有一定数量的单元格，由td创建（th表示标题）
+- rowspan跨行，colspan跨列
+- 对于长表格，可将表格分为 thead、tbody、foot三个部分
+
+* 第7章 表单(Forms)
+** 表单
+控件
+- text input  添加单行文本框
+- radio button 单选按钮
+- checkboxes 多选框
+- password input 密码框
+- text area 文本域
+- drop-down boxes 下拉列表
+- submit button 提交按钮
+- image button 类似于提交按钮，但是可以提交图片
+- 上传文件
+** 表单结构
+*** <form>
+  - action
+  - method
+      - get
+      - post
+  - id
+*** <input> 创建多种不同的表单控件
+  - type 决定控件类型
+    - type=”text” --------------- 单行文本框
+    - type=”password“ ----------- 密码框
+    - type=“radio” -------------- 单选
+    - type=“checkbox” ----------- 复选
+    - type=“file“ --------------- 文件上传
+    - type=”submit“ ------------- 提交
+    - type=”image“ -------------- 可以提交图像
+    - type=“email”
+    - type=“url“
+    - type=”search“
+  - name 每个控件都有一个name属性
+  - maxlenght 输入字符的最大数量（多行文本）
+*** <textarea> 文本域
+*** 下拉列表框 select
+- <option>  指定选择项
+  - value   指定选择项的值
+  - selected 指定页面加载时选中的项
+*** 多选框
+*** 按钮和隐藏空间
+- button  引入这个元素为了更好的显示按钮
+*** 标签表单控件 label
+每个表单控件最好使用相应的<label>来代替简单的文本，这样，表单的使用体验更好
+*** 组合表单元素
+- <filedset>
+- <legend>
+** html5表单验证
+required="required"
+通常情况下，表单验证是由javascript完成，html5引入了验证机制，由浏览器完成。
+** html5日期控件
+<input type="date">
+** html5邮件和url输入控件
+* 第8章 其它标记(Extra Markup)
+** doctype（文档类型）
+** <!--  --> html中的注释
+** id属性
+每个html元素都可以附带id属性，id属性对页面上的元素做唯一的标识，同一个页面中，id属性的值是唯一的。
+** class属性
+使用相同的css设置的元素，可以定义一个相同的class类属性
+** id和class的区别
+id属性的值是唯一的，不能重复，class属性的值可以重复，可以把多个元素归于同一个class类。
+** 块级元素
+另起一行显示的元素为块级元素
+** 内联元素
+在同一行内显示的元素为内联元素
+** 将文本和元素集中在一个块级元素中
+<div>
+** 将文本和元素集中在一个内联元素中
+<span> 用于css控制同一行中的格式
+** 内联框架<iframe>
+在网页中分割一个小窗口，在这个小窗口可以放置另一个网页，嵌入google map是内联框架的一个常用的应用。
+** 页面信息<meta>
+meta位于head内，包含所在页面的信息，主要是提供信息给搜索引擎，方便搜索
+** 转义字符
+
+* 第9章 Flash、视频和音频(Flash,video & Audio)
+** html5添加视频的准备
+1. 至少提供以下两种的视频格式
+   - h264： IE、safari
+   - WebM: android、chrom、firefox、opera
+** <video>
+- src
+- poster 播放前显示图像
+- width、height
+- controls 提供默认的播放器控件
+- autoplay 文件自动播放
+- loop  文件自动循环播放
+* 第10章 CSS简介(Introducing CSS)
+CSS允许你创建一些规则，来指定元素中的内容将会如何显示。例如，你可以指定页面的背景为奶油色，所有段落都使用Arial字体并以灰色显示，或者所有的一级标题为蓝色、斜体、times字体。
+** 本章概要
+- 介绍CSS原理(Introduce you how CSS works)
+- 如何编写CSS规则(Teach you how to write CSS rules)
+- 展示CSS规则在Html页面上的应用(Show you how CSS rules apply to HTML pages)
+** 理解CSS：设想元素周围有一个盒子
+理解CSS工作原理的关键在于能够设想每个HTML元素周围都有一个盒子。CSS允许你创建规则，来控制每个盒子（以及盒子中的内容）的呈现方式。
+** CSS讲样式规则与HTML元素相关联
+** CSS规则
+一条CSS规则包含两个部分：
+- 选择器
+- 声明
+#+BEGIN_src css
+p {font-family: Arial;}
+#+END_src
+p代表选择器，表明要引用规则的元素。同一条规则可以应用在多个元素上，各个元素用逗号隔开。大括号内的内容代表声明，表示应该如何显示选择器指明的元素。声明分两部分：属性和值，以冒号分隔。
+
+** CSS属性会影响元素的显示方式
+可以在一条声明内指定多个属性，各属性之间用分号隔开
+#+BEGIN_src css
+h1, h2, h3  { font-family: Arial ; color: yellow; }
+#+END_src
+ 上面这条规则表明所有的<h1>、<h2>、<h3>元素以黄色的Arial字体显示。**属性**表明你想要改变元素的哪些方面。例如：颜色、字体、宽度、高度、和边框等。**值**用来指定想要在所选属性上应用的设置。
+** 使用外部CSS
+**** <link>
+在HTML文档中，<link>元素可以用来告诉浏览器在何处寻找用于定义页面样式的CSS文件。它是一个空元素（也就是说它不需要结束标签），而且位于<head>元素中。<link>元素可以使用一下三个属性：
+- href（该属性表明CSS文件的路径）
+- type（该属性表明页面所链接文档的类型，值为：text/css）
+- rel （该属性表明HTML页面和被链接文件的关系。当链接到一个css文件时，值为stylesheet）一个HTML页面可以使用多个CSS样式表，这时页面就需要为所使用的每个CSS文件添加一个<link>元素。使用外部CSS的例子：
+#+BEGIN_src html
+<!DOCTYPE html>
+ <html> 
+ <head>
+ <title>Using External CSS</title>
+ <link href=“css/styles.css” type=“text/css” rel=“stylesheet” />
+#+END_src
+	
+** 使用内部CSS
+*** <style>
+可以在HTML页面中添加CSS规则，需要将它们置于<style>元素内，<style>元素通常位于页面的<head>元素中。<style>元素使用type属性来表明是css样式，其值为text/css	.
+#+begin_src html
+<head>
+  <style type="text/css">
+    h1 {
+    color: grey;
+    font-family:arial;}
+  </style>
+</head>
+#+end_src
+** CSS选择器
+   CSS选择器区分大小写。
+*** 常用的选择器：
+- 通用选择器   { } 应用文档中的所有元素，用法： * { }
+- 类选择器  .note { }匹配这样的元素：元素的class属性的值与此选择器点（或句点）符号后面的部分相同。用法：.note { }应用于元素中的note属性 p.note { }只应用于p元素的note属性
+- 类型选择器        h1, h2, h3 { }匹配名称与选择器相同的元素。用法：h1, h2, h3 { }应用于<h1>, <h2>, <h3>元素
+#+BEGIN_QUOTE
+注意与类选择的差异，类型选择器匹配的是某元素的属性
+#+END_QUOTE
+- ID选择器   #introduction { }匹配这样的元素：元素的id属性的值与此选择器#后面的部分相同。用法：#introduction { }
+- 子元素选择器  li>a \{ }匹配指定元素的直接子元素用法：li>a { }只应用于<li>中嵌套的<a>元素
+- 后代选择器   p a { }匹配指定元素的后代元素（不仅仅是直接子元素）用法：p a { }应用于所有位于<p>元素中的<a>元素，不论它们之间是否有嵌套关系
+- 相邻兄弟选择器 h1+p { }匹配相邻的兄弟元素用法：h1+p { }应用于<h1>后的第一个<p>，对其它的<p>不起作用
+- 普通兄弟选择器 h1 p { }应用于<h1>后的所有的<p>
+** CSS规则的级联
+- 就近原则
+- 具体性原则
+- 重要性原则
+** 使用外部样式表
+* 第11章 颜色
+** 本章概要
+	- 如何指定颜色，三种常用的方式来指定颜色
+	- 颜色术语
+	- 对比度，确保文本的可读性
+	- 背景色
+** 前景色 color
+color属性用于指定元素中的文本的颜色，可以采用以下三种方法来指定任何颜色：
+1. RGB值 这种方式从组成一种颜色分别需要多少的红色、绿色、蓝色的角度来表示颜色。例如：rgb（100，100，90）。 注：每种颜色最大255 。
+2. 十六进制编码 ——#ee3e80
+3. 颜色名称 浏览器可以识别147中预定义的颜色名称，例如DarkCyan
+** 颜色解析
+*** CSS3：透明度 （opacity，rgba）
+- opacity属性用于指定元素的透明度，该属性的值介于0.0~1.0之间（0.5表示50%的透明度）
+- rgba中的a表示alpha值，同opacity一样表示透明度，具体的数值用法也一样。rgba只应用于元素本身。不会作用于子元素。
+** 第12章  文本
+*** 字体术语
++ 衬线字体（serif） 便于阅读，通常用于长篇文本
++ 无衬线字体（sans-serif） 通常用于非常小的文本（显示清晰）
++ 等宽字体（monospace） 可以精确的对齐，常用于显示代码
+*** 常用的字体
+- monospace（等宽字体）
+- cursive （草书字体）
+- fantasy（虚幻字体，常用语标题）
+** 扩大字体选用范围的技术
+*** 字体选用 font-family
+*** 字体大小 font-size
+指定字体大小的常用方法：
+- 像素（px）
+- 百分数（文本在浏览器中的默认大小是16px，75%相当于12px）
+- em值（1em相当于字母m的宽度）
+*** 字体刻度
+*** 选用更多字体（@font-face）
+@font-face通过指定字体的下载地址来调用字体
+** 字体格式
+*** 粗体（font-weight）
+- normal 普通粗细
+- bold 粗体显示
+*** 斜体（font-style）
+- normal 普通
+- italic 斜体
+- oblique 倾斜显示
+*** 大写和小写（text-transform）
+- uppercase（大写显示）
+- lowercase（小写显示）
+- capitalize（首字母大写）
+*** 下划线和删除线（text-decoration）
+- none删除装饰线
+- underline文本底部实线
+- overline文本顶部实线
+- line-through一条实线穿过文本
+*** 行间距（line-height）
+line-height用来设置文本行的整体高度，so font-size和line-hieght差别就在于行间距。
+行间距的初始值最好设定在1.4em-1.5em之间，最好用em值来表示line-height属性。
+*** 字幕间距和单词间距（letter-spacing，word-sapcing）
+当标题或语句全都采用大写形式时，letter-spacing属性可以用来增加字距。如果是普通文本，那么增加或减少字距都会降低文本的可读性.
+*** 水平对齐方式（text-align）
+- left 左对齐
+- right 右对齐
+- center居中显示
+- justify两端对齐
+*** 垂直对齐方式（vertical-align）
+*** 文本缩进（text-indent）
+经常采用像素活em值表示缩进量。可以使用负值
+*** CSS3 投影（text-shadow）
+- 第一个长度值表示阴影向左或向右延伸的距离。
+- 第二个长度值表示阴影向上或向下延伸的距离。
+- 第三个长度值为可选项，用于指定投影的模糊程度。
+- 最后一项是投影的颜色值。
+*** 首字母或首行文本（）：first-letter，：first-line
+属于伪元素
+* 第12章 文本 
+** Typeface Terminology（字体术语）
+*** SERIF(用于大段的文字)  ----衬线字体
+    Serif fonts have extra details on the ends of the main strokes of the letters. These details are known as serifs.
+
+    In print, serif fonts were traditionally used for long passages of text because they were considered easier to read.
+*** SANS-SERIF(用于小字体)  ----无衬线字体
+    Sans-serif fonts have straight ends to letters, and therefore have a much cleaner design
+
+    Screens have a lower rersloution than print. So, if the text is small, Sans-serif fonts can be clearer to read
+*** MONOSPACE(常用于代码)  ----等宽字体
+    Every letter in a monospace(or fixed-width)font its the same width. (Non-monospace fonts have different widths.)
+
+    Monospace fonts are commonly used for code because they align nicely , making the text   easier to follow.
+*** weight(粗细)
+    - light
+    - medium
+    - bold
+    - black
+*** style(样式)
+    - normal
+    - italic
+    - oblique
+*** stretch
+    - condensed
+    - regular
+    - extended
+** Choosing a typeface for your website
+    常用的字体：
+   - serif
+   - monospace
+   - cursive（花体字）
+   - fantasy（虚幻字体）
+** Specifying typeface(指定字体)font-family
+   使用font-family来指定字体的大小
+   #+begin_src css
+   <style type="text/css">
+      body {
+             font-family: Georgia, Times, serif;}
+     h1, h2 {
+             font-family: Arial, Verdana, sans-serif;}
+     .credits {
+             font-family: "Courier New", Courier, 
+             monospace;}
+ </style>
+</head>
+<body>
+ <h1>Briards</h1
+   #+end_src
+  
+** 字体大小--font-size
+   The font-size property enables you to specify a size for the font. There are several ways to specify the size of a font. The most common are:
+   - pixels
+   - percentages
+     浏览器中文字默认size为16px，so a size of 75% 相当于12px
+   - ems
+     An em is equivalent to the width of letter m. (1em相当于字母m的宽度)
+** type scales（字体尺度）
+   You may have noticed that programs such as Word, Photosho and InDesign offer the same sizes of text.
+ #+begin_quote
+This is because they are set according to a scale or ratio that was developed by European typographers in the sixteenth century.
+
+It is considered that this scale for type is pleasing to the eye and it has therefore changed little in the last 400 years. For this reason, when you are designing pages, using sizes from this scale will help them look more attractive.
+
+On the next page, you can see how to achieve this scale using pixels, percentages, and ems. Print designers often refer to the size of text in terms of points rather than pixels (hence the use of pt in the scale on the right). A pixel roughly equates to a point because a point corresponds to 1/72 of an inch, and most computer displays have a resolution of 72 dots per inch.
+
+The default size of text in a browser is 16 pixels. So if you use percentages or ems, you calculate the size of text you want based on the default size of the text used in browsers. For example, you could scale down to 12 pixels for body copy and scale up to 24 pixels for headings. Recently, some web designers have started to leave the body text at the default size of 16 pixels and adjust the other font sizes using a scale that keeps the relative proportions of this one.
+
+When you first see body text at 16 pixels, it might seem quite arge. Once you get used to the larger type, however, most people find it far easier to read; and going back to a page where main type is 12 pixels will often then look quite small. 
+#+end_quote
+** Understanding font formats(理解字体格式)
+   不同的浏览器支持不同的字体格式，为了兼容所有的浏览器， 需要提供字体的多个变体。如果没有某种字体的所有格式，可以将这种字体上传到Font Squirrel的网站，可以转换字体格式。
+** 字体粗细 （font-weight）
+   这个属性允许你创建粗体字。
+   有两个属性值
+   - bold  --粗体
+   - normal  --正常
+** 字体样式（font-style）创建斜体字
+   - normal
+   - italic   --斜体（手写体风格）
+   - oblique  --稍微倾斜一定角度
+
+* 第13章 盒子(box)
+** 本章概要
+- 控制盒子的大小(Controlling the dimensions of your boxes)
+- 创建盒子周围的边框(Create borders around boxes)
+- 设置盒子的外边距和内边距
+** 盒子的大小(Box Dimensions)（width，height）
+指定盒子大小的最常用的方式是像素、百分数或em值。使用百分数时盒子的大小与浏览器窗口大小有关，如果这个盒子是嵌套在另一个盒子里的，那么就是相对于外部盒子的大小。现在，为了适应不同大小的屏幕，越来越多的使用百分数和em值作为度量单位。
+
+When you use percentages, the size of the box is relavive to the size of the browser windw or ,if the box is encased within another box, it is a percentage of the size of the containing box.
+（当你使用百分比时，尺寸和浏览器窗口的大小有关，如果这个盒子是嵌套在另一个外部盒子里的， 这个百分比就相对于外部盒子的尺寸进行计算。）
+
+When you use ems, the size of the box is based on the size of text wthin it . Designers have recently started tu use percentages and ems more for measurements as they try to create designs that are flexbile across devices which have different-sized screens.
+(当你使用ems时，盒子的尺寸基于盒子里文字的大小。设计者最近经常使用百分比和ems来设计，以适应不同尺寸的屏幕。)
+** 宽度限制（min-width,max-width）(LIMITING WIDTH)
+设定在浏览器较窄时，盒子可以显示的最小宽度和在浏览器较宽时，盒子可以伸展的最大宽度。
+** 高度限制（min-height,max-height）
+** 内容溢出（overflowing content）
+overflow的两个属性：
+- hidden 直接把溢出的内容隐藏
+- scroll 在盒子上添加滚动条，以便用户查看溢出的内容
+** 边框内外边距
+  - 边框（border）
+    边框将一个盒子与另外的盒子隔开
+  - 外边距（margin）
+    两个相邻盒子的边框的间距
+  - 内边距（padding）
+    盒子边框和内部内容之间的距离
+** 边框宽度（border-width）
+控制边框的宽度，可以使用像素值，也可以使用以下三个预设值：thin、medium、chick。
+
+边框的四条边可以单独控制：
+- border-top-width: 2px solid grey;(宽度 样式 颜色)
+- border-right-width
+- border-bottom-width
+- border-left-width
+
+可以直接在border-width中直接设置四个边框的宽度，如：border-width：2px 1px 1px 2px；
+（上，右，下，左）
+** 边框样式（border-style）
+border-style属性的取值：
+- solid  实线
+- dotted 一串方形点
+- dashed 一条虚线
+- double 两条实线
+- groove 雕入页面的效果
+- ridge 在页面上凸起的效果
+- inset 嵌入页面的效果
+- outset 突出屏幕的效果
+** 边框颜色（border-color）
+** 让盒子 居中显示
+- 左右居中：margin-left属性和margin-right属性的值设置为auto
+
+- 也可以在包含盒子的元素中添加一个text-align属性，值设为center
+** padding（内边距）
+   :PROPERTIES:
+   :ORDERED:  t
+   :END:
+   The padding property allows you to specify how much space should appear between the content of an elemetnt and its border.
+
+   The value of this property is most often specified in pixels (although it is also possible to use percentages or ems).  If a percentage is used, the padding is a percentage of the browser window (or of the containing box if it is inside another box).
+#+begin_quote
+   Please note: If a width is specified for a box, padding is added onto the width of the box. (注意：如果对一个盒子指定了width，那么内边距padding的尺寸将会叠加到盒子的width上)
+#+end_quote
+
+    You can specify different values for each side if a box using:
+    #+begin_quote
+   1. 可以单独设置每条边 ： padding-top  padding-right  padding-bottom  padding-left
+   2. 也可以用简短的方式整体设置：padding: 10px 10px 5px 3px;  
+      (top, right, bottom, left)
+    #+end_quote
+** margin（外边距）
+   The margin property controls
+** Change inline/block display
+*** display属性
+   The display property allows you to turn an inline element into a block-level element or vice versa, and can also be used to hide an element from the page.
+
+   The values this property can take are :
+**** inline
+   This causes a block-level element to act like an inline element.
+**** block
+   This causes a block-level element.
+**** inline-block
+   This causes a block-level element to flow like an inline element, while retaining other  features of a block-level element. 
+**** none
+   This hides an element from the page. In this case, the element acts as though it is not on the page at all (althouth a user could still see the content of the box if they used the view source option in their browse)
+** 边框图像（待查）
+** 盒子的投影（box-shadow）（待查）
+** box 总结
+*** box边框的设置
+    - 边框宽度（两种设置方式）
+         1. 单独控制四条边：
+             - border-top-width: 2px solid grey;(宽度 样式 颜色)
+             - border-right-width
+             - border-bottom-width
+             - border-left-width
+         2. 整体设置四条边的宽度
+	 - border-width：2px 1px 1px 2px；
+	 - 四个属性值的解释：上  右   下   左
+    - 边框样式border-style
+    - 边框颜色border-color
+*** summary
+    - css treats each html element as if it has its own box.
+    - You can use css to control the dimensions of a box.
+    - You can also control the borders, margin and padding for each box with css.
+    - It is possible to hide elements using the display and visibility properties.
+    - Block-level boxes can be made into inline boxes, and inline boxes made into block-level boxes.
+    - legibility can be improved by controlling the width of boxes containing text and the leading.
+    - css3 has introduced the ablility to create image borders and tounded borders.
+* 第14章 列表、表格和表单
+** bullet point styles(列表符号样式)
+*** list-style-type属性的取值
+**** unordered lists(无序列表)
+     - none
+     - disc
+     - circle
+     - square
+**** ordered lists
+     - decimal
+       1   2   3
+     - decimal-leading-zero
+       01   02    03
+     - lower-alpha
+       a   b   c
+     - uper-alpha
+       A   B   C
+     - lower-roman
+       i    ii    iii
+     - upper-roman
+       I   II   III
+** images for bullets(使用图片作为符号)
+*** list-style-image属性
+list-style-image: url("images/star.png");  
+* 第15章 布局
+** 本章概要
+- 控制元素的位置
+- 创建网站布局
+- 针对不同大小的屏幕进行设计
+  控制每个元素在页面中的位置以及如何创建具有魅力的页面布局，主要内容：
+- 通过一般的流动、相对定位、绝对定位和浮动来研究元素定位的不同方式。
+- 理解各种设备有着许多不同的屏幕大小和分辨率，了解这些差别会对设计过程过程产生什么影响。
+- 学习固定宽度和流体布局的区别以及它们的创建方式。
+- 了解设计人员如何利用网格使他们的页面设计看起来更加专业。
+** 关于元素定位的核心概念（Key concepts in positioning elements)
+*** 构建块 (building blocks)
+css采用盒子模型来处理每个HTML元素。盒子可以是一个“块级”盒子，也可以是一个“内联”盒子
+** 包含元素
+我们通常将若干个元素集中在一个<div>元素（或其它块级元素）中，例如，你可能将站点标头位置的所有元素（比如徽标和主导航）集中起来，而包含这组元素的<div>元素就称为包含元素。
+** 控制元素的位置
+- CSS中有三种控制页面布局的定位机制：
+  - 普通流
+    每个块级元素都换行显示，以至于页面中的每个项目都显示在前一个项目的下面。
+  - 相对定位
+    将一个元素从它在普通流中所处的位置上移动，在原来的位置向上、向下、向左、向右移动，这种移动不会影响周围元素的位置，他们还是定位于普通流的位置。
+  - 绝对定位
+    绝对定位的元素的位置相对于它的包含元素。它完全脱离了普通流，不会影响到周围任何元素的位置。 使用绝对定位的元素随着页面的滚动而移动
+
+- 固定定位
+  固定定位是绝对定位的一种形式，与相对于包含元素定位不同，它是将元素相对于浏览窗口进行定位。 固定定位的元素不会影响周围元素的位置，而且当页面上下滚动时，它不会移动。
+
+- 浮动元素
+  浮动一个元素可以让其脱离普通流，并定位到其包含盒子的最左边或最右边的位置。这个浮动的元素会成为一个周围可以浮动其他内容的块级元素。
+
+#+BEGIN_QUOTE
+任何元素从普通流脱离时，盒子都会产生重叠。你可以使用z-index属性来控制将哪个盒子显示在上层。
+#+END_QUOTE
+** 普通流
+普通流中，每个块级元素在下一个元素的上方，这是浏览器默认的处理方式，可以不必使用CSS来描述，但是，还是存在相应的语法：
+ #+BEGIN_SRC css
+position:static
+ #+END_SRC
+** 相对定位（position：relative）
+相对定位的元素以其在普通流中的位置为起点进行移动。使用位移属性（top或bottom以及left或right）指定该元素需要从其在普通流中的位置移动多少距离。
+#+BEGIN_SRC css
+p.example {
+   position:relative;
+   top: 10px;
+   left: 100px;
+}
+#+END_SRC
+** 绝对定位（position：ablolute）
+盒子的位移属性（top，bottom，left，right）用于指定元素相对于它的包含元素的位置。
+#+BEGIN_SRC css
+h1 {
+   position: absolute;
+   top: 0px;
+   left: 500px;
+   width:250px;
+}
+#+END_SRC
+** 固定定位（position：fixed）
+固定定位是绝对定位的一种。 元素相对于浏览器窗口进行定位。当用户滚动页面时，这类元素的位置保持不变。
+** 重叠元素（z-index）
+如果盒子出现重叠，后出现的元素将位于上层。可以通过z-index属性控制元素的层次。
+** 浮动元素（float）
+* 第16章 图像
+* 第17章 HTML5布局
+* 第18章 建站过程和设计方法
+* 第19章 实用信息

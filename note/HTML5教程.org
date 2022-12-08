@@ -1,0 +1,71 @@
+#+title:HTML5教程（W3school）
+#+author: chen
+#+data:2018-6
+
+* HTML5简介
+** 什么是HTML5
+- HTML5 将成为 HTML、XHTML 以及 HTML DOM 的新标准。
+- HTML 的上一个版本诞生于 1999 年。自从那以后，Web 世界已经经历了巨变。
+- HTML5 仍处于完善之中。然而，大部分现代浏览器已经具备了某些 HTML5 支持。
+** HTML5是如何起步的
+HTML5 是 W3C 与 WHATWG 合作的结果。
+#+BEGIN_QUOTE
+编者注：W3C 指 World Wide Web Consortium，万维网联盟。
+编者注：WHATWG 指 Web Hypertext Application Technology Working Group。
+#+END_QUOTE
+WHATWG 致力于 web 表单和应用程序，而 W3C 专注于 XHTML 2.0。在 2006 年，双方决定进行合作，来创建一个新版本的 HTML。为 HTML5 建立的一些规则：
+- 新特性应该基于 HTML、CSS、DOM 以及 JavaScript。
+- 减少对外部插件的需求（比如 Flash）
+- 更优秀的错误处理
+- 更多取代脚本的标记
+- HTML5 应该独立于设备
+- 开发进程应对公众透明
+** 新特性
+HTML5 中的一些有趣的新特性：
+- 用于绘画的 canvas 元素
+- 用于媒介回放的 video 和 audio 元素
+- 对本地离线存储的更好的支持
+- 新的特殊内容元素，比如 article、footer、header、nav、section
+- 新的表单控件，比如 calendar、date、time、email、url、search
+** 浏览器支持
+   最新版本的 Safari、Chrome、Firefox 以及 Opera 支持某些 HTML5 特性。Internet Explorer 9 将支持某些 HTML5 特性。
+* HTML 5 视频
+<video src="movie.ogg" controls="controls">
+</video>
+#+END_QUOTE
+- controls:
+  属性供添加播放、暂停和音量控件。
+- 包含宽度和高度属性也是不错的主意。
+- <video> 与 </video> 之间插入的内容是供不支持 video 元素的浏览器显示的：
+*** 实例
+#+BEGIN_QUOTE html
+<video src="movie.ogg" width="320" height="240" controls="controls">
+Your browser does not support the video tag.
+</video>
+#+END_QUOTE
+上面的例子使用一个 Ogg 文件，适用于Firefox、Opera 以及 Chrome 浏览器。要确保适用于 Safari 浏览器，视频文件必须是 MPEG4 类型。
+
+video 元素允许多个 source 元素。source 元素可以链接不同的视频文件。浏览器将使用第一个可识别的格式：
+*** 实例
+#+BEGIN_QUOTE html
+<video width="320" height="240" controls="controls">
+  <source src="movie.ogg" type="video/ogg">
+  <source src="movie.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+#+END_QUOTE
+
+** <video> 标签的属性
+
+- autoplay	取值autoplay	如果出现该属性，则视频在就绪后马上播放。
+- controls	取值controls	如果出现该属性，则向用户显示控件，比如播放按钮。
+- height	取值pixels	设置视频播放器的高度。
+- loop	取值loop	如果出现该属性，则当媒介文件完成播放后再次开始播放。
+- preload	取值preload	 如果出现该属性，则视频在页面加载时进行加载，并预备播放。如果使用 "autoplay"，则忽略该属性。
+
+
+- src    取值url	要播放的视频的 URL。
+- width  取值pixels	设置视频播放器的宽度。
+
+
+
