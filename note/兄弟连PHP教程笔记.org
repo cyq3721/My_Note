@@ -3,7 +3,7 @@
 #+data:[2018-12-05 Wed]
 #+html_head: <link rel="stylesheet"  type="text/css" href="./css/worg-classic.css" />
 
-* 第一章 LAMP网站构建
+* 第1章 LAMP网站构建
 ** 本章指引
 本章对动态网站构建做了比较全面的介绍，可以使读者对建站有一个宏观的了解，例如，动态网站隶属于哪一种架构的软件、开发它都需要掌握哪些Web构件，并对每个Web构件在动态网站开发中扮演的角色、运行原理及运行的条件做了说明。本章还从不同角度对比介绍了不同的网站开发平台，其中对LAMP平台（Linux、Apache、MySQL和PHP的组合），从版本发展、行业应用、市场优势和产品特q性等方面做了重点介绍。LAMP组合是日后动态网站软件构建的发展趋势，通过本章的学习，读者能够了解LAMP平台，并为PHP的学习提前准备需要了解的内容。如果要掌握如何构建一个专业的动态网站，请不要跳过本章。本章不包含任何程序代码，专业技术词语也并不是很多，阅读起来容易理解。所以，请将这一章全部读完吧！本章不仅有你必须掌握的专业术语，也会对你后期的学习大有帮助，可以指引你在Web开发方面的学习方向。
 ** 介绍Web给你认识
@@ -56,7 +56,7 @@ W3C推行的主要规范有HTML、CSS、XML、XHTML和DOM
 - 服务器接受请求并返回http响应
 - 释放tcp连接
 - 客户端浏览器解析HTML
-* 第二章 Html的设计和应用
+* 第2章 Html的设计和应用
 ** 网页制作概述
 - HTML是Web页面描述性语言，主要用来在Web上发布信息，以及简单地布局。
 - CSS是层叠样式表，是网页页面排版样式标准，能够将格式和结构分离，使浏览器的界面更加友好。
@@ -282,3 +282,108 @@ s- <caption>  表格标题
  </select>
 #+end_src
 multiple表示多选
+
+* 第3章 层叠样式表
+** 本章指引
+HTML使用标签将内容放到网页上，也可以使用元素和属性来控制简单的文档外观。 如果希望更全面的控制Web页面的外观和布局， 则需要使用层叠样式表（简称CSS）。CSS规范的工作原理在于允许用户制定一些规则，描述文档中元素内容的表现形式，通过设置不同规则控制页面中每一个元素的外观，包括字体的颜色和大小、线的宽度和颜色、页面中各项之间的空白量，以便使页面看上去更令人感兴趣。
+
+ CSS是和HTML一起工作的，用来弥补HTML对网页格式化功能的不足。 既可以将HTML和CSS写在同一文件中，也可以分开编写，都是纯文本文件，也都是通过浏览器解析的。
+** CSS简介
+CSS是Cascading Style Sheets（层叠样式表）的缩写，是一种用来表现HTML或XML等文件样式的计算机语言。
+
+    - 所谓样式表，是样式化HTML的一种方法。 HTML是文档的内容，而样式表式文档的表现，或者说外观
+    - 所谓层叠，就是将一组样式在一起层叠使用，控制某一个或多个HTML元素，按样式表中的属性一次显示。
+
+ 一张样式表可以用于多个页面，甚至整个站点，因此CSS具有良好的易用性和扩展性。CSS特点如下：
+     - 控制页面中每一个元素（精确定位）
+     - 对HTML语言处理样式的最好补充
+     - 把内容和格式处理相分离，减少工作量
+
+我们可以将CSS定义在HTML文档的每个标记里，或者以<style>标记嵌入在HTML文档中，也可以在外部附加文档作为外加文档。
+
+实例：
+#+begin_src  css
+  <!doctype html>
+<html>
+  <head>
+    <title>CSS_Test</title>
+    <meta charset="utf-8" />
+    <style>
+     p {
+       font-size: 30px;
+       color: yellow;
+       border: 2px solid blue;
+       text-align: center;
+       background: green;
+     }
+    </style>
+  </head>
+  <body>
+    <p>Linux</p>
+    <p>Apache</p>
+    <p>MySQL</p>
+    <p>PHP</p>
+  </body>
+</html>
+
+#+end_src
+
+** CSS规则的组成
+CSS的规则主要由“选择器” 和 “声明” 两部分组成， 选择器指定声明应用于哪个或哪些元素。
+#+begin_src css
+  p {text-indent: 3em}  /*p为选择器*/
+#+end_src
+
+声明则是用于定义样式的元素，用于设置HTML元素的样式。 如果声明和选择器一起使用，就需要将声明的部分用 { }组织在一起。 声明中可以用多个样式属性，为通过选择器找到HTML元素叠加样式。 每个样式元素都是以冒号隔开的两部分组成（属性：值）。 属性是希望影响的所选元素的特性，每个属性带一个值，共同地描述选择器应该如何呈现。 样式规则组成如下：
+
+#+begin_src  css
+  选择器  {属性1: 值1 ;  属性2: 值2 ; 属性n: 值n；}  /*声明和选择器一起使用*/
+#+end_src
+
+属性和值之间使用冒号：连接，多个属性的复合样式声明之间应该使用分号（；）隔开，最后一个属性的值后面可以不用分号。 如果同一个样式属性出现两次以上，则使用后者。 以下代码定义了h1和h2元素的颜色以及字体大小属性。
+#+begin_src css
+  <head>
+       <title>CSS简单实例</title>
+       <style type="text/css">
+              h1 {font-size: x-large; color:red}
+              h2 {font-size: large; color:blue}
+      </style>
+ </head>
+#+end_src
+
+如果直接在html元素中使用style属性声明样式， 则不需要使用{}，而是直接使用多个层叠样式元素声明在sytle属性的双引号中即可。 见如下实例：
+
+#+begin_src css
+  <h1 style="font-size: x-large; color: red">标题</h1>
+#+end_src
+
+*** css的注释
+#+begin_src css
+  /*这里的内容为注释，不能嵌套使用*/
+#+end_src
+
+*** 长度单位
+有很多样式属性的值都有长度单位，例如fontsize、width、height、border-width等。 一个长度的值由可选的正号或负号接着的一个数字、表示单位的两个字母组成， 长度的值和单位字母之间没有空格隔开。 例如1.3 em就不是有效的长度值，1.3em是有效的。一个为0的长度不需要两个字母的单位声明。 无论是相对值还是绝对值长度， css都支持。常用的单位
+
+     - em （font-size：2em）一个大致与一个字符高度相同的单位。
+     - px （font-size：12px） 以像素为单位。
+     - pt （font-size：12pt） 以磅为单位。
+     - % （font-size：80%） 以百分比为单位。
+     - 其他单位还包括pc（活字）、cm（厘米）、mm（毫米）和in（英寸）
+
+*** 颜色单位和URL值
+有很多样式属性的值都有颜色单位，例如color、background-color、border-color等。 颜色值是一个关键字或一个RGB格式的数字。 关键字通常有16个：aqua、black、blue、fuchsia、gray、green、lime、maroon、navy、olive、purple、red、silver、teal、white和yellow。 RGB颜色可以有以下4种形式
+     - #rrggbb（如#00cc00）
+     - #rgb （如#0c0）
+     - rgb（x，x，x） x是一个0-255的整数， （如rgb（0，204，0））
+     - rgb（y%,y%,y%） y是一个0% - 100%的数 （如rgb（0%，80%，0%））
+
+ 另外，指定背景图片还需要使用一个URL值。 URL的格式为：url（addr），其中addr是一个rul值，可以用单引号也可以用双引号，也可以不加引号，并且在url之前或之后可以包含空格。 在url中的括号、逗号、空格、单引号或双引号必须避开反斜杠。 不完整的url会被理解为样式表的源代码，而不是html的源代码，样例如下：
+ #+begin_src css
+   body {background:url(xsphp.gif)}         /*不用引号*/
+   body {background:url(http://www.lampbrother.net/xsphp.gif)}   /*绝对url*/
+   body {background:url('xsphp.gif')}      /*使用单引号*/
+   body {background:url("xsphp.gif")}   /*使用双引号*/
+ #+end_src
+
+** 在html文档中放置CSS的几种方式
