@@ -388,4 +388,9 @@ CSS的规则主要由“选择器” 和 “声明” 两部分组成， 选择�
 
 ** 在html文档中放置CSS的几种方式
 *** 内联样式表
-可以使用style属性内联，该属性可以应用于任意body元素，包括body本身
+可以使用style属性内联，该属性可以应用于任意body元素，包括body本身。实例如下：
+#+begin_src css
+  <p style="color:red;font-family:serif"> 这段样式是红色的serif字，如果字体可用的话。</p>
+#+end_src
+*** 嵌入一张样式表
+使用<style>元素嵌入到HTML文档中使用，<style>元素需要放在HTML文档的head部分。
