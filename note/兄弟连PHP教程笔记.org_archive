@@ -1,0 +1,22 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file c:/Users/cyq37/Documents/GitHub/My_Note/note/兄弟连PHP教程笔记.org
+
+
+* 链接到外部的样式表
+:PROPERTIES:
+:ARCHIVE_TIME: 2022-12-14 周三 17:12
+:ARCHIVE_FILE: c:/Users/cyq37/Documents/GitHub/My_Note/note/兄弟连PHP教程笔记.org
+:ARCHIVE_OLPATH: 第3章 层叠样式表/在html文档中放置CSS的几种方式
+:ARCHIVE_CATEGORY: 兄弟连PHP教程笔记
+:END:
+如果多个文档都使用同一样式表，那么外部样式表会更合适，通过link元素链接到html文档中。实例如下：
+#+begin_src html
+  <link rel="stylesheet" href="style.css" type="text/css" />
+#+end_src
+可选的type属性用于把指定媒体类型，允许浏览器忽略它们不支持的样式表类型。 rel属性用于定义链接的文件和html文档间的关系。
+
+*注意：*
+     - 如果同时使用内联样式表个嵌入样式表，并设置了相同的属性，则内联样式表的优先级更高。
+             
