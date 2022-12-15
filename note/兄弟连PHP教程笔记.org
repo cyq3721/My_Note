@@ -394,3 +394,44 @@ CSS的规则主要由“选择器” 和 “声明” 两部分组成， 选择�
 #+end_src
 *** 嵌入一张样式表
 使用<style>元素嵌入到HTML文档中使用，<style>元素需要放在HTML文档的head部分。
+*** 链接到外部的样式表
+如果多个文档都要使用同一样式表，那么外部样式表会更合适。 一张外部的样式表，可以通过link元素链接到html中。
+#+begin_src html
+  <link rel="stylesheet" href="style.css" type="text/css" />
+#+end_src
+可选的type属性用于指定媒体类型，允许浏览器忽略他们不支持的样表表类型。 rel属于用于定义链接的文件和html文档之间的关系，该属性的stylesheet指定一个固定或首选的样式。 而href属性则用来指定样式文件的位置，可以是相对也可以是绝对的URL。 外部样式表文件要以扩展名.css命名。 样式表仅仅由样式规则或声明组成
+#+begin_src css
+  p {margin:2em}
+#+end_src
+
+*注意：* 如果同时使用内联样式表和嵌入式样式表，并设置了相同的属性，则内联样式表的优先级高，而同时使用嵌入式样式表和外部样式表并设置相同属性时，则优先级由出现的先后顺序决定。
+** CSS选择器
+常用的样式选择器有：
+- Html选择器
+- 类选择器
+- ID选择器
+- 组合选择器
+- 关联选择器
+- 伪类和伪元素
+*** HTML选择器
+Html标签，即HTML的标签，用来改变一个指定标签的样式。 任何HTML元素都可以是一个CSS选择器，用于找到和选择器同名的HTML元素。如：
+#+begin_src css
+  p {text-indent: 3em}
+  h1 {color:red}
+#+end_src
+*** 类选择器
+同一个选择器能有不同的类（class），因而允许同一个元素有不同的样式。如：
+#+begin_src css
+  p.dark-row {background-color: #EAEAEA;}
+  p.light-row {background-color: #F8F8F8;}
+  #+end_src
+这些类可以在html标签中使用class属性引用，如
+#+begin_src html
+  <p class="dark-row">第一段</p>
+  <p class="light-row">第二段</p>
+#+end_src
+类的申明也可以不需要相关的html元素，只用定义类选择器事去点.前面的html标记即可，如
+#+begin_src css
+  .note {font-size: small}  /*可以用于任何元素*/
+#+end_src
+*** ID选择器

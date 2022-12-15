@@ -15,6 +15,7 @@ $ emacs
 - SPC f e d 快速打开配置文件 .spacemacs
 - SPC f e R 同步配置文件
 - SPC q R 重启emacs
+- 
 ** 帮助文档
 - SPC h d   查看discribe相关的文档
 - SPC h d f (c-h f) 查看指定函数的帮助文档 
