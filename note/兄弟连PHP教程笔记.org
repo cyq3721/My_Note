@@ -436,4 +436,55 @@ Html标签，即HTML的标签，用来改变一个指定标签的样式。 任�
   .note {font-size: small}  /*可以用于任何元素*/
 #+end_src
 *** ID选择器
+在html页面中，id属性指定了某个单一元素，id选择器用来对这个单一元素定义单独的样式。 ID选择器的应用和类选择器类似，只要把class换成id即可。区别在于id只能用于唯一的元素，class没有这个限制。 定义ID选择器要在ID名称前面加一个#。实例如下：
+#+begin_export css 
+#main {text-indent: 3em}
 
+<p id="main">文本缩进3em</p>
+#+end_export
+*** 关联选择器
+关联选择器只不过是一个用空格隔开的两个或更多的单一选择器组成的字符串。这些选择器组成的字符串。这些选择器可以指定一般属性，而且因为层叠次序的规则，他们的优先权比单一的选择器要大
+#+begin_src css
+  table a {color: red} /*只针对table标签内内的a元素有效*/
+#+end_src
+*** 组合选择器
+为了减少样式表的重复声明，组合选择器声明是允许的。只要用英文逗号隔开就可以。如下：
+#+begin_src css
+  h1, h2, h3,h4 {color:red; font-family:sans-serif}
+#+end_src
+*** 伪元素选择器
+伪元素选择器是指对同一个HTML元素不同状态的一种定义方式。 例如，对于<a>标签的正常状态、访问的状态、选中的状态、光标移到超链接文本上的状态，就可以使用伪元素选择器来定义。 语法结构如下：
+#+begin_src css
+  HTML标签: 伪元素 {属性：值;}
+#+end_src
+每个伪元素都已英文的:开头，后面的伪元素名称根据作用不同有各自固定的写法。而冒号前面需要指定使用伪元素的HTML标签， 目前只有<a>或<p>标签可用。指定超链接元素以不同的方式显示链接（links）、光标移动到超链接上（hover links）、已访问链接（visited links）和可以激活链接（active links）时，定位伪元素可以给出link、hover、visited或active。 一个已访问的链接可以定义为不同的颜色显示，甚至不同的字体大小风格。如下：
+#+begin_src css
+  a:link {color:red;}
+  a:hover {color:yellow; font-size:125%;}
+  a:active {color:blue; font-size:125%;}
+  a:visited {color:green; font-size:85%}
+#+end_src
+
+*注意：*多个css选择器同时作用在同一个HTML元素上时，声明不同的属性具有继承关系。如果声明的是相同属性，则以优先级高的选择器为主，主要选择器的优先级关系如下：
+#+begin_quote
+关联选择器>ID选择器>类选择器>HTML选择器
+#+end_quote
+** CSS常见的样式属性和值
+CSS中的样式属性比较多，经常使用的属性可以分为这么几类：字体、文本、背景、边框、列表以及其他一些样式属性。
+*** 字体属性
+| 属性         | 描述     | 属性值                                          |
+| font-famlily | 字体     | 使用字体名称，如Times、serif等                  |
+| font-size    | 字体大小 | 可以使用绝对大小、相对大小、长度或百分比        |
+| font-sytle   | 字体风格 | normal（普通）、italic（斜体）或oblique（倾斜） |
+| font-weitht  | 字体加粗 | normal、bold、bolder或lighter等                 |
+| font-variant | 字体变形 | normal或small-caps（小型小写字母                        |
+*** 颜色属性
+使用color属性
+*** 背景属性
+包括背景颜色、背景图像、背景重复、背景附件、背景位置等属性。
+| 属性                  | 描述     | 属性值                                |
+| background-color      | 背景颜色 |                                       |
+| background-image      | 背景图像 | 图片url或none                         |
+| background-repeat     | 背景重复 | repeat、repeat-x、repeat-y、no-repeat |
+| background-attachment | 背景附件 | scroll（滚动）或fixed（固定）         |
+| background-position   | 背景位置 | 横向的关键字（left，center，right），纵向的关键字（top，center，bottom），百分比和长度也可用来安排背景图像的位置 |
