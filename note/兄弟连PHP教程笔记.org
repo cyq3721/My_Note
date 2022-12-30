@@ -488,3 +488,16 @@ CSS中的样式属性比较多，经常使用的属性可以分为这么几类�
 | background-repeat     | 背景重复 | repeat、repeat-x、repeat-y、no-repeat |
 | background-attachment | 背景附件 | scroll（滚动）或fixed（固定）         |
 | background-position   | 背景位置 | 横向的关键字（left，center，right），纵向的关键字（top，center，bottom），百分比和长度也可用来安排背景图像的位置 |
+
+* 第7章 PHP的基本语法
+** PHP能做什么
+1. 收集表单数据
+2. 生成动态网页
+3. 字符串处理
+4. 动态输出图像
+5. 服务器端文件系统操作
+6. 编写数据库支持的网页
+7. 会话跟踪控制
+8. 处理xml文件
+9. 支持利用大量的网络协议
+10. 服务器端的其他相关操作
