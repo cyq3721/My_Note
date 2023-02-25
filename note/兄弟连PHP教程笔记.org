@@ -789,5 +789,12 @@ SQL语言的4个部分：
   #+begin_src sql
       mysql -h 服务器地址 -u 用户名 -p 密码
   #+end_src
-
+*** 创建新用户并授权
+#+begin_quote
+GRANT 权限 ON 数据库.数据表 TO 用户名@登陆主机 IDENTIFIED BY “密码”
+#+end_quote
+说明：
+  - @“%”            表示全网所有的主机，这存在安全隐患。
+  - @localhost      表示只允许本机登陆。
+*** 创建数据库
 
