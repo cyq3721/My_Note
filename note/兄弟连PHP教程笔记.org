@@ -796,5 +796,47 @@ GRANT 权限 ON 数据库.数据表 TO 用户名@登陆主机 IDENTIFIED BY “�
 说明：
   - @“%”            表示全网所有的主机，这存在安全隐患。
   - @localhost      表示只允许本机登陆。
-*** 创建数据库
-
+*** 创建、删除数据库
+- 创建
+#+begin_src sql
+    CREATE DATABASE 数据库名；
+#+end_src
+- 删除
+ #+begin_src sql
+     DROP DATABASE 数据库名；
+ #+end_src
+*** 查看数据库
+查看所有数据库
+#+begin_src sql
+    SHOW DATABASES;
+#+end_src
+*** 使用数据库
+#+begin_src sql
+    USE 数据库名；
+#+end_src
+** 数据表内容的简单管理
+*** 向数据表插入行记录（INSERT）
+#+begin_quote
+INSERT INTO book(bookname,publisher,author,price) VALUES("细说PHP”，‘电子工业出版社’，‘骆高峰’,89.00);
+#+end_quote
+*** 从MySQL数据表中查询数据记录（SELECT）
+#+begin_quote
+SELECT id，bookname, publisher, author, price FROM book;
+#+end_quote
+*** 更改数据表中的记录（UPDATE）
+#+begin_quote
+UPDATE book SET price=79 WHERE id=2;
+#+end_quote
+说明： 若没有WHERE条件限制，则更改所有行。
+*** 删除数据表中的记录（DELETE）
+#+begin_quote
+DELETE FROM book WHERE ic=‘1’;
+#+end_quote
+说明：若没有WHERE条件限制， 则删除所有行。
+* 第19章 MySQL数据表的设计
+** 数据表Table
+数据表是数据库中的基本对象元素，以记录（行）和字段（列）组成的二维结构用于存储数据。
+数据表由表结构和表内容两部分组成，先建立表结构，然后才能输入数据。
+** 数据值和列类型
+数值的分类： 数值型、字符型、日期型、空值等。
+列的分类：数值类、字符类、日期/时间类
