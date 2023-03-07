@@ -1,7 +1,7 @@
-88#+title:《PHP和MySQL Web开发》
+#+title:《PHP和MySQL Web开发》
 #+author: chen
 #+STARTUP: indent
-2#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
 #+data:2017-8
 
 * 第一章 PHP快速入门 
@@ -26,6 +26,11 @@
 - Boolean
 - Array
 - Object
+- NULL(空)
+- resource（资源）
+- callable 可以传递给其他函数的函数
+** 类型强度
+PHP是弱类型语言（动态类型语言），变量的类型由赋给变量的值决定。
 ** date函数
 - 用法：date('H:i, jS F');
 - 说明：
@@ -70,6 +75,18 @@ define ('TIREPRICE' , 100);
    - ' （单引号）成为 '
    - < （小于）成为 <
    - > （大于）成为 >
+** 错误抑制操作符@
+用法：
+#+begin_src php
+  $a = @(57/0)   //抑制了除数为0的错误。
+#+end_src
+如果在php.ini中启用了PHP的track_errors特性，错误信息将会保存在全局变量$php_errormsg中。
+** 执行操作符
+是一对反向单引号(` `)，将反向单引号之间的命令当做服务器命令来执行。表达式的值就是命令的执行结果。具体实例如下：
+#+begin_src php
+  $out = `ls -la`;
+  echo '<pre>.$out.</pre>';
+#+end_src
 ** PHP的数据类型
 - integer
 - float
@@ -96,6 +113,7 @@ switch ($find){
       echo "   ";
 }
 #+END_SRC
+** 输出格式控制number_format($val, 位数)
 
 ** declare结构
 * 第2章 数据的存储与检索

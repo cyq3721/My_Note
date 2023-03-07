@@ -4,6 +4,20 @@
 * 笔记随记
 ** mmm-mode
  在一个 buffer 中同时使用多个 major mode， 在不同的区域拥有不同的对应键绑定、变量、缩进…… 如果有嵌入 html的 javascript、css php，就可以用 mmm-mode
+** 关于MySQL的几个操作
+- 查看数据库  show databases;
+- 查看数据库中的所有数据表    show tables;
+- 查看某个特定表的详细信息    describe books；
+** MySQL标示符
+database（数据库）、 table（表）、 Column（列）、 index（索引）、 alias（别名 ）、 视图、 存储过程
+
+数据库是映射到具有文件结构的目录，而表则映射到文件，从移植性看，建议所有标示符采用小写。
+
+目录和包含数据的文件的位置需要再配置中设置，可以使用mysqladmin命令来检查他们在系统重的位置，用法如下：
+#+begin_src sql
+      mysqladmin -h host -u root -p
+#+end_src
+再查询datadir变量
 
 * Todo代办事项
 ** TODO 最近事项 [5/5]
