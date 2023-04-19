@@ -761,6 +761,83 @@ truncate table test_table;
 #+begin_quote
 drop table if exists test_table;
 #+end_quote
+* 第11章 使用PHP从Web访问MySQL
+** 本章主要内容
+- Web数据库架构及工作原理
+- 从Web查询数据库的基本步骤
+- 设置数据库连接
+- 获取可用数据库信息
+- 选择要使用的数据库
+- 查询数据库
+- 断开数据库连接
+- 写入新信息
+- 使用prepared statement
+- 使用PHP与数据库交互的其它接口
+- 使用通用数据库接口：PDO
+** web数据库架构及工作原理
+1. 用户Web浏览器发出针对特定页面的HTTP请求。例如，用户可能在Book-O-Rama站点发起搜索Michael Morgan编写的所有图书的请求，搜索结果页面是results.php
+2. Web服务器接收到针对results.php的请求，读取该文件，并将文件传给PHP引擎处理
+3. PHP引擎开始接卸该脚本。 脚本中有一个连接数据库的命令，执行查询命令（执行图书搜索操作）。 PHP打开MySQL服务器连接，并且发送查询命令
+4. MySQL数据库接收到数据库查询指令，执行该指令并将结果返回给PHP引擎。
+5. PHP执行脚本结束，将查询结果格式化为HTML，发送HTML至Web服务器。
+6. Web服务器将HTML返回给用户浏览器
+** 从Web查询数据库
+*** 步骤
+任何可以从Web访问数据库的脚本都会执行如下的基本步骤：
+1. 检查和过滤来自用户的输入数据
+2. 创建和设置数据库连接
+3. 查询数据库
+4. 读取查询结果
+5. 向用户展示搜索结果
+*** 检查并过滤输入数据
+过滤掉关键字前后可能存在的空格。使用trim（）函数去除输入数据前后的空格。
+
+检查是否输入了搜索条件
+#+begin_src php
+  if(!$searchtype || !$searchterm){
+      echo '<p>You have not entered search details. <br />/
+          Please go back and try again. </p>' ;
+      exit;
+  }
+#+end_src
+*** 设置数据库连接
+连接MySQL数据库的PHP基础函数库是mysqli。 i表示优化版本，未优化版本为mysql
+**** 面向对象的语法：
+#+begin_src php
+  @$db = new mysqli('localhost', '用户名', '密码');
+#+end_src
+备注：在MAC中本机地址用127.0.0.1， 使用localhost可能会无法连接， 调用$db对象访问数据库。
+**** 面向过程的语法：
+#+begin_src php
+  @$db = mysqli_connect('localhost', '用户名', '密码');
+#+end_src
+**** 两者的差别
+面向过程的版本以mysqli_开始，并且要求将从mysqli_connect()函数返回的资源句柄作为参数在面向过程版本函数中传递。 对于数据库连接，这是一个例外，因为可以由mysqli对象的构造函数实现。
+**** 数据库连接有效性检查（面向对象和面向过程相同）
+#+begin_src php
+  if(mysqli_connect_errno()){
+      echo '<p>Error: Could not connect to database <br />
+              Please try again later. </p>';
+      exit;
+  }
+#+end_src
+备注：该函数返回一个资源，而不是对象。 该资源代表到数据库的链接，如果用面向过程的方式，需要将该资源传递给所有mysqli函数。
+* 第12章 MySQL高级管理
+** 本章概要
+- 深入理解权限系统
+- 提升MySQL数据库安全
+- 获得数据库更多信息
+- 使用索引加速查询
+- 优化数据库
+- 备份和恢复
+- 实现复制
+** 深入理解权限系统
+当执行一个GRANT语句时， 它将影响存在于特殊数据库的表， 该数据库名为mysql。 权限信息保存在该数据库的7张表中。 基于此设计，在授权时必须关注对mysql数据库访问权限的控制。
+
+以管理员身份登录数据库，使用如下语句查看mysql数据库信息：
+#+begin_src php
+      use mysql；
+#+end_src
 * 第19章 与文件系统和服务器交互
 ** 17.1 上传文件
 *** php.ini中关于文件上传的配置设置
