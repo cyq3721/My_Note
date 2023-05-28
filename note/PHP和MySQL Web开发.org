@@ -723,6 +723,69 @@ TO user_name [IDENTIFIED BY 'password']
 | create routine | 存储过程         | 允许用户创建存储过程和函数                                                                                                |
 | execute        | 存储过程         | 允许用户运行存储过程和函数                                                                                                |
 | alter routine  | 存储过程         | 允许用户修改存储过程和函数的定义                                                                                                          |
+常规用户的权限大多数都是相对无害的。 通过重命名表，alert权限可以用来绕过权限系统设置， 但是大多数用户需要它。  安全常常是可用性与安全性的折中。
+**** 特殊权限
+| 权限  | 描述                                     |
+| all   | 授予所有的权限，也可以写成all privileges |
+| usage | 不授予权限。 这将创建一个用户并允许他登陆， 但是不允许进行任何操作。  通常在以后会授予该用户更多的权限。 使用grant和usage语句创建用户并授予权限等同于create user 语句 |
+*** revoke命令 -- 收回权限
+和grant命令相反，从一个用户收回权限。 语法上于grant相似。
+#+begin_src sql
+  revoke privileges [(columns)]
+  ON item
+  FROM user_name;
+#+end_src
+如果已经给出了with grant option 字句， 可以按如下方式撤销权限（以及所有其它权限）
+#+begin_src sql
+  revoke all privileges ， grant option
+  FROM user_name;
+#+end_src
+*** 使用GRANT和REVOKE示例
+- 创建一个管理员
+  #+begin_src sql
+    grant all
+    on *.*
+    to 'fred' identified by 'mnb123'
+    with grant option;
+  #+end_src
+  以上命令授予了用户名为fred、密码为mnb123的用户使用所有数据库的所有权限、并允许他向其他人授予这些权限。
+- 如果不希望用户在系统中存在，可以用用如下方式撤销授权
+  #+begin_src sql
+    revoke all privileges, grant option
+    from 'fred';
+  #+end_src
+- 创建一个没有任何权限的常规用户
+  #+begin_src sql
+    grant usage
+    on books.*
+    to 'sally'@'localhost';
+  #+end_src
+- 授予权限
+  #+begin_src sql
+    grant select,insert,update,delete,index,alter,create,drop
+    on books.*
+    to 'sally'@'localhost'
+  #+end_src
+- 当不再使用数据库时，可以按如下方式撤销所有权限
+  #+begin_src sql
+    revoke all
+    on books.*
+    from 'sally'@'localhost';
+  #+end_src
+** 设置Web用户
+要通过PHP连接到MySQL，需要为PHP脚本创建一个用户。 这里，同样使用最少权限原则。
+在大多数情况下，PHP脚本只需要能执行选择（select）、插入（insert）、删除（delete）和更新（update）操作， 因此可以按如下方式设定这些权限：
+#+begin_src sql
+  grant select,insert,delete,update
+  on books.*
+  to 'bookorama' identified by 'bookorama123';
+#+end_src
+如果使用了主机托管服务，通常可以获得基于用户类型的数据库权限。 典型的，可以提供相同用户名和密码以用于命令行（建立表等）操作和Web脚本连接（查询数据库）。 对命令行和Web连接使用相同的用户名和密码是不够安全的。 可以建立其它具有相同权限级别的用户，操作如下：
+#+begin_src sql
+  grant select,insert,update,delete,index,alter,create,drop
+  on books.*
+  to 'bookorama'@'localhost' identified by 'bookorama123';
+#+end_src
 * 第10章 使用MySQL数据库
 ** 本章主要内容
 - SQL是什么

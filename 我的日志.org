@@ -1,0 +1,27 @@
+#+title:MyLog（我的日志）
+#+author:CYQ
+;;#+html_head: <link rel="stylesheet" type="text/css" href="./note/css/worg.css" />
+* myqsql数据库
+** mysql 8.0 建立用户和设置权限
+8.0版本建立用户和设置权限不能放在一起，要分开，否则会报错
+#+begin_quote
+-- 创建一个数据库
+CREATE DATABASE us_demo_dev DEFAULT CHARACTER SET utf8mb4 ;
+
+-- 创建一个user
+create user 'frank'@'%' IDENTIFIED BY '123456';
+
+-- 授权 那么多的权限
+GRANT  SELECT,INSERT ,UPDATE ,DELETE ,DROP,ALTER ,INDEX  ON  us_demo_dev.*  TO  'frank'@'%';
+-- 刷新权限
+flush privileges;
+
+-- 查看权限
+SHOW GRANTS FOR 'frank'@'%';
+
+
+-- 回收权限 
+REVOKE SELECT, INSERT, UPDATE, DELETE, DROP, INDEX, ALTER  ON `us_demo_dev`.* from `frank`@`%` ;
+
+
+#+end_quote

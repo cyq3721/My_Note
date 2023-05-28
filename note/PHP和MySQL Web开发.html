@@ -1,0 +1,3163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-05-28 Sun 09:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>《PHP和MySQL Web开发》</title>
+<meta name="author" content="chen" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">《PHP和MySQL Web开发》</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2a92bd0">1. 第一章 PHP快速入门</a>
+<ul>
+<li><a href="#orgfbd8d22">1.1. 使用php标记</a></li>
+<li><a href="#orgb44ff68">1.2. PHP中的空格</a></li>
+<li><a href="#orgc56aca1">1.3. PHP中的注释</a></li>
+<li><a href="#org8070834">1.4. PHP的数据类型</a></li>
+<li><a href="#org280d026">1.5. 类型强度</a></li>
+<li><a href="#org4b30f33">1.6. date函数</a></li>
+<li><a href="#org8c3c160">1.7. 声明和使用常量</a></li>
+<li><a href="#org184c038">1.8. PHP中的比较操作符</a></li>
+<li><a href="#org35250a1">1.9. PHP中的逻辑操作符</a></li>
+<li><a href="#org6ee9b2e">1.10. 三元操作符 （ ？ ： ）</a></li>
+<li><a href="#org93e3094">1.11. 数字格式函数number<sub>format</sub>() 【来自php的math库】</a></li>
+<li><a href="#orga71388d">1.12. htmlspecialchars()函数</a></li>
+<li><a href="#orgf4ff15d">1.13. 错误抑制操作符@</a></li>
+<li><a href="#orge4bd036">1.14. 执行操作符</a></li>
+<li><a href="#org6726c96">1.15. PHP的数据类型</a></li>
+<li><a href="#org1c64c66">1.16. 常量的声明define</a>
+<ul>
+<li><a href="#org11b3372">1.16.1. 常量的声明</a></li>
+<li><a href="#org81843d8">1.16.2. 常量的使用</a></li>
+<li><a href="#org40dd9f1">1.16.3. switch …… case语句 （同C语言）</a></li>
+</ul>
+</li>
+<li><a href="#orgf8f3453">1.17. 输出格式控制number<sub>format</sub>($val, 位数)</a></li>
+<li><a href="#orgd8ade44">1.18. declare结构</a></li>
+</ul>
+</li>
+<li><a href="#org1e569a7">2. 第2章 数据的存储与检索</a>
+<ul>
+<li><a href="#orged05775">2.1. 本章主要内容</a></li>
+<li><a href="#orge10b041">2.2. 保存数据以便后期使用</a></li>
+<li><a href="#orge6a5ee4">2.3. 存储和检索订单</a></li>
+<li><a href="#org49651e7">2.4. 文件处理</a>
+<ul>
+<li><a href="#org1ce1769">2.4.1. 写入文件</a></li>
+<li><a href="#orgcd9fb3d">2.4.2. 读出文件</a></li>
+</ul>
+</li>
+<li><a href="#org6f56571">2.5. 打开文件</a>
+<ul>
+<li><a href="#org94a1ebc">2.5.1. 选择文件模式</a></li>
+<li><a href="#org4841248">2.5.2. 使用fopen（）打开文件</a></li>
+<li><a href="#org5b9844a">2.5.3. 写文件</a></li>
+<li><a href="#org4277011">2.5.4. fgets() fgetss() fgetcsv()</a></li>
+<li><a href="#orgf463a46">2.5.5. 通过FTP或HTTP打开文件</a></li>
+<li><a href="#orgdeaa560">2.5.6. 解决打开文件时可能遇到的问题</a></li>
+<li><a href="#orgbebc3c9">2.5.7. 文件的锁定flock（）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org68ca7c2">3. 第3章 使用数组</a>
+<ul>
+<li><a href="#orgcc127d4">3.1. 本章内容</a></li>
+<li><a href="#org2e11109">3.2. 数字索引数组p</a>
+<ul>
+<li><a href="#org9c34445">3.2.1. 数字索引数组的初始化</a></li>
+<li><a href="#org4969236">3.2.2. 访问数组内容</a></li>
+<li><a href="#orgba2419d">3.2.3. 使用循环访问数组</a></li>
+</ul>
+</li>
+<li><a href="#orgc740974">3.3. 使用不同索引的数组（相关数组）</a>
+<ul>
+<li><a href="#org6a49d7d">3.3.1. 初始化相关数组1</a></li>
+<li><a href="#org6151374">3.3.2. 初始化相关数组2</a></li>
+<li><a href="#org321c49d">3.3.3. 访问相关数组</a></li>
+<li><a href="#org69f6d4a">3.3.4. 使用循环语句访问数组元素（foreach、list、each）</a></li>
+<li><a href="#org09e58a4">3.3.5. 数组操作符</a></li>
+<li><a href="#org849b301">3.3.6. 多维数组</a></li>
+<li><a href="#orgffb6527">3.3.7. 数组的排序</a></li>
+<li><a href="#org5d9c7ea">3.3.8. 多维数组的排序</a></li>
+<li><a href="#org35d64d0">3.3.9. 对数组进行重新排序（随机）</a></li>
+<li><a href="#org1aba24d">3.3.10. 从文件载入数组</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org7f2f319">4. 第4章 字符串操作和正则表达式</a>
+<ul>
+<li><a href="#orge77f637">4.1. 本章要点</a></li>
+<li><a href="#orgf5ea4a1">4.2. 创建一个智能表单邮件</a>
+<ul>
+<li><a href="#org714c2c4">4.2.1. mail（）函数</a></li>
+</ul>
+</li>
+<li><a href="#org555a3eb">4.3. 字符串的格式化</a>
+<ul>
+<li><a href="#org2f35602">4.3.1. 字符串的整理：chop（）、ltrim（）和trim（）</a></li>
+<li><a href="#org1ad90f6">4.3.2. 格式化字符串以便显示</a></li>
+<li><a href="#org191d560">4.3.3. 格式化字符串以便存储：addslashes（）和stripslashes（）</a></li>
+<li><a href="#orgf7ae2a5">4.3.4. 字符串连接和字符串的分割</a></li>
+<li><a href="#orge08bba0">4.3.5. 格式化字符串以便存储：addslashes（）和stripslashes（）</a></li>
+</ul>
+</li>
+<li><a href="#org219946c">4.4. 字符串的比较</a>
+<ul>
+<li><a href="#org6094f19">4.4.1. 字符串的排序：strcmp（）、strcasecmp（）和strnatcmp（）</a></li>
+<li><a href="#orge602dbf">4.4.2. 使用strlen（）计算字符串长度</a></li>
+</ul>
+</li>
+<li><a href="#orgd6222bd">4.5. 字符串函数匹配和替换字符串</a>
+<ul>
+<li><a href="#org4563f27">4.5.1. 在字符串中查找字符串</a></li>
+<li><a href="#orgdb9b95f">4.5.2. 查找子字符串的位置</a></li>
+<li><a href="#org6bf3b03">4.5.3. 替换字符串</a></li>
+</ul>
+</li>
+<li><a href="#org3ad45c5">4.6. 正则表达式介绍</a>
+<ul>
+<li><a href="#org153eb13">4.6.1. 基础知识</a></li>
+<li><a href="#org68f2668">4.6.2. 字符集7和类</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgb274341">5. 第5章 代码重用与函数编写</a>
+<ul>
+<li><a href="#org953adb7">5.1. 本章内容</a></li>
+<li><a href="#org05d400e">5.2. 代码重用的好处</a></li>
+<li><a href="#org819ab67">5.3. 使用require（）和include（）函数</a>
+<ul>
+<li><a href="#org2cc9a26">5.3.1. 两者的差异</a></li>
+<li><a href="#orga752227">5.3.2. require<sub>once</sub>()和include<sub>once</sub>()</a></li>
+</ul>
+</li>
+<li><a href="#org31b0962">5.4. 理解作用域</a></li>
+<li><a href="#orgbc8769a">5.5. 参数的引用传递和值传递</a></li>
+<li><a href="#orga8948a5">5.6. 使用return关键字</a></li>
+<li><a href="#orge5268d3">5.7. 关于本章实例 &#x2013;home.html&#x2013; 的笔记</a>
+<ul>
+<li><a href="#org4c01b18">5.7.1. 在html文件内部编写css</a></li>
+<li><a href="#orgb4ad7ab">5.7.2. 表格table的处理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgdc61677">6. 第6章 面向对象的php</a>
+<ul>
+<li><a href="#org54c33cf">6.1. 本章主要内容</a></li>
+<li><a href="#orgb253d32">6.2. 理解面向对象的概念</a>
+<ul>
+<li><a href="#orgba8872c">6.2.1. 类和对象</a></li>
+<li><a href="#orgdcd6719">6.2.2. 多态性</a></li>
+<li><a href="#org05ce903">6.2.3. 继承</a></li>
+<li><a href="#org5280e7b">6.2.4. 在PHP中创建类、属性和操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgb74701a">7. 第7章 错误和异常处理</a>
+<ul>
+<li><a href="#org4e063d3">7.1. 本章主要内容</a></li>
+<li><a href="#org18cd2e4">7.2. 异常处理的概念</a></li>
+</ul>
+</li>
+<li><a href="#org16b5949">8. 第8章 设计web数据库</a>
+<ul>
+<li><a href="#org921dc4b">8.1. 本章主要内容</a></li>
+<li><a href="#orgafbbcdc">8.2. 关系数据库的概念和术语</a>
+<ul>
+<li><a href="#orgfcb880a">8.2.1. 表</a></li>
+<li><a href="#orgb4a8ea1">8.2.2. 列</a></li>
+<li><a href="#orgbf2c677">8.2.3. 行</a></li>
+<li><a href="#orgf854cd5">8.2.4. 值</a></li>
+<li><a href="#orgc7879ef">8.2.5. 键（主键和外键）</a></li>
+<li><a href="#org98dba50">8.2.6. 模式</a></li>
+<li><a href="#orgb68d671">8.2.7. 关系</a></li>
+</ul>
+</li>
+<li><a href="#org7d8a63f">8.3. 考虑真实的建模对象</a></li>
+<li><a href="#orga68090a">8.4. 避免保存冗余数据</a></li>
+<li><a href="#org242ce1f">8.5. 表格类型的总结</a></li>
+</ul>
+</li>
+<li><a href="#org44e2d2e">9. 第9章 创建Web数据库</a>
+<ul>
+<li><a href="#org828285c">9.1. 本章概要</a></li>
+<li><a href="#orgf4a068a">9.2. 使用MySQL监视程序</a></li>
+<li><a href="#orge06ea20">9.3. 登录到MySQL</a></li>
+<li><a href="#orgc21a149">9.4. 创建数据库和用户</a>
+<ul>
+<li><a href="#org9148cf8">9.4.1. 创建数据库</a></li>
+</ul>
+</li>
+<li><a href="#org0d29dc9">9.5. 设置用于与权限</a></li>
+<li><a href="#orga01d5fe">9.6. MySQL权限系统介绍</a>
+<ul>
+<li><a href="#org92bcf8e">9.6.1. 最少权限原则</a></li>
+<li><a href="#org9b8a42f">9.6.2. 创建用户：GRANT命令</a></li>
+<li><a href="#org61d1df4">9.6.3. 权限的类型和级别</a></li>
+<li><a href="#orge35c64e">9.6.4. revoke命令 &#x2013; 收回权限</a></li>
+<li><a href="#org5e04481">9.6.5. 使用GRANT和REVOKE示例</a></li>
+</ul>
+</li>
+<li><a href="#org8bede68">9.7. 设置Web用户</a></li>
+</ul>
+</li>
+<li><a href="#orge4164a5">10. 第10章 使用MySQL数据库</a>
+<ul>
+<li><a href="#org60e9dc6">10.1. 本章主要内容</a></li>
+<li><a href="#orgf2b70c0">10.2. SQL是什么</a></li>
+<li><a href="#orge13f4ab">10.3. 在数据库中插入数据</a>
+<ul>
+<li><a href="#orgecd9191">10.3.1. insert语句</a></li>
+</ul>
+</li>
+<li><a href="#orgf866adc">10.4. 在数据库中获取数据</a>
+<ul>
+<li><a href="#org93f07ba">10.4.1. select语句</a></li>
+<li><a href="#orgb42c13d">10.4.2. 按条件获取数据</a></li>
+<li><a href="#orgc37c665">10.4.3. 从多个表中获取数据</a></li>
+<li><a href="#orgd145af4">10.4.4. 清空数据表</a></li>
+<li><a href="#orgb1fada0">10.4.5. 删除数据表</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org75ce753">11. 第11章 使用PHP从Web访问MySQL</a>
+<ul>
+<li><a href="#org9e89107">11.1. 本章主要内容</a></li>
+<li><a href="#orge61bb9c">11.2. web数据库架构及工作原理</a></li>
+<li><a href="#orgf3e7743">11.3. 从Web查询数据库</a>
+<ul>
+<li><a href="#org9234c0d">11.3.1. 步骤</a></li>
+<li><a href="#orgd026e07">11.3.2. 检查并过滤输入数据</a></li>
+<li><a href="#org3c924a7">11.3.3. 设置数据库连接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org7b180c7">12. 第12章 MySQL高级管理</a>
+<ul>
+<li><a href="#orgd8cd448">12.1. 本章概要</a></li>
+<li><a href="#org684e3ee">12.2. 深入理解权限系统</a></li>
+</ul>
+</li>
+<li><a href="#org023588a">13. 第19章 与文件系统和服务器交互</a>
+<ul>
+<li><a href="#orgbac6788">13.1. 17.1 上传文件</a>
+<ul>
+<li><a href="#org9624b16">13.1.1. php.ini中关于文件上传的配置设置</a></li>
+<li><a href="#org8368fd1">13.1.2. 文件上传的html表单</a></li>
+<li><a href="#org4d1046b">13.1.3. 处理文件的php脚本</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org2343cfb">14. 第11章 使用PHP从Web访问MySQL数据库</a>
+<ul>
+<li><a href="#orge1954cb">14.1. 从Web查询数据库的基本步骤</a></li>
+<li><a href="#org3c9dcb9">14.2. 检查与过滤用户输入数据</a>
+<ul>
+<li><a href="#orgf60d7b6">14.2.1. 过滤开始和结尾处的空格（trim（）函数）</a></li>
+<li><a href="#org953844f">14.2.2. 格式化字符串，以便输入到数据库（addslashes（））</a></li>
+</ul>
+</li>
+<li><a href="#org0af2038">14.3. 和数据库建立连接</a>
+<ul>
+<li><a href="#org059dd31">14.3.1. 面向对象的方法</a></li>
+<li><a href="#org7d3f893">14.3.2. 面向过程的方法</a></li>
+</ul>
+</li>
+<li><a href="#orge61e778">14.4. 查询数据库</a>
+<ul>
+<li><a href="#org2dc6563">14.4.1. 建立查询语句；</a></li>
+<li><a href="#org69d45ab">14.4.2. 执行查询；</a></li>
+<li><a href="#orge508e71">14.4.3. 检索查询结果</a></li>
+</ul>
+</li>
+<li><a href="#orgd9712e2">14.5. 断开数据库连接</a>
+<ul>
+<li><a href="#orgfeee010">14.5.1. 释放数据库的连接</a></li>
+<li><a href="#orga08924e">14.5.2. 断开数据库连接</a></li>
+</ul>
+</li>
+<li><a href="#org2bd7c3f">14.6. 将新信息写入数据库</a></li>
+</ul>
+</li>
+<li><a href="#orgc76987b">15. 第23章 在PHP中使用会话控制</a>
+<ul>
+<li><a href="#org63ac9c0">15.1. 本章主要内容</a></li>
+<li><a href="#org8f09b11">15.2. 什么是会话控制</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2a92bd0" class="outline-2">
+<h2 id="org2a92bd0"><span class="section-number-2">1.</span> 第一章 PHP快速入门</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgfbd8d22" class="outline-3">
+<h3 id="orgfbd8d22"><span class="section-number-3">1.1.</span> 使用php标记</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+以&lt;?php 开始，以?&gt;为结束
+</p>
+</div>
+</div>
+<div id="outline-container-orgb44ff68" class="outline-3">
+<h3 id="orgb44ff68"><span class="section-number-3">1.2.</span> PHP中的空格</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+所有的间隔字符（换行、回车、空格、tab），都被认为是空格，多个空格放在一起，只会认为是一个空格。
+</p>
+</div>
+</div>
+<div id="outline-container-orgc56aca1" class="outline-3">
+<h3 id="orgc56aca1"><span class="section-number-3">1.3.</span> PHP中的注释</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+两种注释：
+</p>
+<pre class="example" id="orgcf8c292">
+1. c语言风格的多行注释
+   ／* ……
+      ……
+   */ 
+2. c++风格的单行注释
+   ／／……
+</pre>
+</div>
+</div>
+<div id="outline-container-org8070834" class="outline-3">
+<h3 id="org8070834"><span class="section-number-3">1.4.</span> PHP的数据类型</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>integer</li>
+<li>float</li>
+<li>string</li>
+<li>Boolean</li>
+<li>Array</li>
+<li>Object</li>
+<li>NULL(空)</li>
+<li>resource（资源）</li>
+<li>callable 可以传递给其他函数的函数</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org280d026" class="outline-3">
+<h3 id="org280d026"><span class="section-number-3">1.5.</span> 类型强度</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+PHP是弱类型语言（动态类型语言），变量的类型由赋给变量的值决定。
+</p>
+</div>
+</div>
+<div id="outline-container-org4b30f33" class="outline-3">
+<h3 id="org4b30f33"><span class="section-number-3">1.6.</span> date函数</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>用法：date('H:i, jS F');</li>
+<li>说明：
+<ul class="org-ul">
+<li>H 是24小时格式的小时；</li>
+<li>i 是分钟（两位数）；</li>
+<li>j 是该月的日期，不需要补0；</li>
+<li>s 是顺序后缀（比如th）；</li>
+<li>F 是月份的全称；</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8c3c160" class="outline-3">
+<h3 id="org8c3c160"><span class="section-number-3">1.7.</span> 声明和使用常量</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>常量值一旦被设定后，就不能再更改。使用define函数定义常量。</li>
+</ul>
+<pre class="example" id="orga6427c0">
+define ('TIREPRICE' , 100);
+</pre>
+<ul class="org-ul">
+<li>常量的引用</li>
+</ul>
+<p>
+引用常量不需要$, 直接使用常量的名称。
+</p>
+</div>
+</div>
+<div id="outline-container-org184c038" class="outline-3">
+<h3 id="org184c038"><span class="section-number-3">1.8.</span> PHP中的比较操作符</h3>
+<div class="outline-text-3" id="text-1-8">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">操作符</td>
+<td class="org-left">名称</td>
+</tr>
+
+<tr>
+<td class="org-left">==</td>
+<td class="org-left">等于</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>=</code></td>
+<td class="org-left">恒等于</td>
+</tr>
+
+<tr>
+<td class="org-left">！=</td>
+<td class="org-left">不等于</td>
+</tr>
+
+<tr>
+<td class="org-left">！==</td>
+<td class="org-left">不恒等（比较操作）</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;&gt;</td>
+<td class="org-left">不等</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;</td>
+<td class="org-left">小于</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;=</td>
+<td class="org-left">小于等于</td>
+</tr>
+
+<tr>
+<td class="org-left">&gt;</td>
+<td class="org-left">大于</td>
+</tr>
+
+<tr>
+<td class="org-left">&gt;=</td>
+<td class="org-left">大于等于</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org35250a1" class="outline-3">
+<h3 id="org35250a1"><span class="section-number-3">1.9.</span> PHP中的逻辑操作符</h3>
+<div class="outline-text-3" id="text-1-9">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">操作符</td>
+<td class="org-left">名称</td>
+<td class="org-left">使用方法</td>
+<td class="org-left">结果</td>
+</tr>
+
+<tr>
+<td class="org-left">!</td>
+<td class="org-left">非</td>
+<td class="org-left">！$b</td>
+<td class="org-left">如果$b是false，则返回true</td>
+</tr>
+
+<tr>
+<td class="org-left">&amp;&amp;</td>
+<td class="org-left">与</td>
+<td class="org-left">$a &amp;&amp; $b</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">and</td>
+<td class="org-left">与</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">与&amp;&amp;相同，但优先级较低</td>
+</tr>
+
+<tr>
+<td class="org-left">or</td>
+<td class="org-left">或</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">与两竖相同，优先级低</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org6ee9b2e" class="outline-3">
+<h3 id="org6ee9b2e"><span class="section-number-3">1.10.</span> 三元操作符 （ ？ ： ）</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+（$grade &gt;= 50 ? 'Passed' : 'Failed'）
+</p>
+</div>
+</div>
+<div id="outline-container-org93e3094" class="outline-3">
+<h3 id="org93e3094"><span class="section-number-3">1.11.</span> 数字格式函数number<sub>format</sub>() 【来自php的math库】</h3>
+<div class="outline-text-3" id="text-1-11">
+<ul class="org-ul">
+<li>number<sub>format</sub>($totalamout , 3) —— 小数点后保留3位</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga71388d" class="outline-3">
+<h3 id="orga71388d"><span class="section-number-3">1.12.</span> htmlspecialchars()函数</h3>
+<div class="outline-text-3" id="text-1-12">
+<ul class="org-ul">
+<li>htmlspecialchars() 函数把预定义的字符转换为 HTML 实体。</li>
+<li>预定义的字符是：
+<ul class="org-ul">
+<li>&amp; （和号）成为 &amp;</li>
+<li>" （双引号）成为 "</li>
+<li>' （单引号）成为 '</li>
+<li>&lt; （小于）成为 &lt;</li>
+<li>&gt; （大于）成为 &gt;</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf4ff15d" class="outline-3">
+<h3 id="orgf4ff15d"><span class="section-number-3">1.13.</span> 错误抑制操作符@</h3>
+<div class="outline-text-3" id="text-1-13">
+<p>
+用法：
+</p>
+<div class="org-src-container">
+<pre class="src src-php">$a = @(57/0)   //抑制了除数为0的错误。
+</pre>
+</div>
+<p>
+如果在php.ini中启用了PHP的track<sub>errors特性</sub>，错误信息将会保存在全局变量$php<sub>errormsg中</sub>。
+</p>
+</div>
+</div>
+<div id="outline-container-orge4bd036" class="outline-3">
+<h3 id="orge4bd036"><span class="section-number-3">1.14.</span> 执行操作符</h3>
+<div class="outline-text-3" id="text-1-14">
+<p>
+是一对反向单引号(` `)，将反向单引号之间的命令当做服务器命令来执行。表达式的值就是命令的执行结果。具体实例如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-php">$out = `ls -la`;
+echo '&lt;pre&gt;.$out.&lt;/pre&gt;';
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6726c96" class="outline-3">
+<h3 id="org6726c96"><span class="section-number-3">1.15.</span> PHP的数据类型</h3>
+<div class="outline-text-3" id="text-1-15">
+<ul class="org-ul">
+<li>integer</li>
+<li>float</li>
+<li>string</li>
+<li>boolean</li>
+<li>array</li>
+<li>object</li>
+<li>NULL</li>
+<li>resource</li>
+<li>callable</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1c64c66" class="outline-3">
+<h3 id="org1c64c66"><span class="section-number-3">1.16.</span> 常量的声明define</h3>
+<div class="outline-text-3" id="text-1-16">
+</div>
+<div id="outline-container-org11b3372" class="outline-4">
+<h4 id="org11b3372"><span class="section-number-4">1.16.1.</span> 常量的声明</h4>
+<div class="outline-text-4" id="text-1-16-1">
+<p>
+define ('TIREPRICE', 100);
+</p>
+</div>
+</div>
+<div id="outline-container-org81843d8" class="outline-4">
+<h4 id="org81843d8"><span class="section-number-4">1.16.2.</span> 常量的使用</h4>
+<div class="outline-text-4" id="text-1-16-2">
+<p>
+不需要使用$符号，直接用变量名称。
+</p>
+</div>
+</div>
+<div id="outline-container-org40dd9f1" class="outline-4">
+<h4 id="org40dd9f1"><span class="section-number-4">1.16.3.</span> switch …… case语句 （同C语言）</h4>
+<div class="outline-text-4" id="text-1-16-3">
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #4f97d7; font-weight: bold;">switch</span> <span style="color: #4f97d7;">(</span>$find<span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">case</span> <span style="color: #2d9574;">"a"</span> :
+      echo <span style="color: #2d9574;">"   "</span>;
+  <span style="color: #4f97d7; font-weight: bold;">case</span> <span style="color: #2d9574;">"b"</span> :
+      echo <span style="color: #2d9574;">"   "</span>;
+  <span style="color: #4f97d7; font-weight: bold;">default</span> :
+      echo <span style="color: #2d9574;">"   "</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf8f3453" class="outline-3">
+<h3 id="orgf8f3453"><span class="section-number-3">1.17.</span> 输出格式控制number<sub>format</sub>($val, 位数)</h3>
+</div>
+
+<div id="outline-container-orgd8ade44" class="outline-3">
+<h3 id="orgd8ade44"><span class="section-number-3">1.18.</span> declare结构</h3>
+</div>
+</div>
+<div id="outline-container-org1e569a7" class="outline-2">
+<h2 id="org1e569a7"><span class="section-number-2">2.</span> 第2章 数据的存储与检索</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orged05775" class="outline-3">
+<h3 id="orged05775"><span class="section-number-3">2.1.</span> 本章主要内容</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>保存内容以便后期使用</li>
+<li>打开文件</li>
+<li>创建文件并写入文件</li>
+<li>关闭文件</li>
+<li>读文件</li>
+<li>给文件加锁</li>
+<li>其它有用的文件操作函数</li>
+<li>更好的方式：数据管理系统</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge10b041" class="outline-3">
+<h3 id="orge10b041"><span class="section-number-3">2.2.</span> 保存数据以便后期使用</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+存储数据有两种基本方法：保存到普通文件（flat file）和保存到数据库中
+</p>
+</div>
+</div>
+<div id="outline-container-orge6a5ee4" class="outline-3">
+<h3 id="orge6a5ee4"><span class="section-number-3">2.3.</span> 存储和检索订单</h3>
+</div>
+<div id="outline-container-org49651e7" class="outline-3">
+<h3 id="org49651e7"><span class="section-number-3">2.4.</span> 文件处理</h3>
+<div class="outline-text-3" id="text-2-4">
+</div>
+<div id="outline-container-org1ce1769" class="outline-4">
+<h4 id="org1ce1769"><span class="section-number-4">2.4.1.</span> 写入文件</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<ul class="org-ul">
+<li>打开文件</li>
+<li>将数据写入文件</li>
+<li>关闭文件</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgcd9fb3d" class="outline-4">
+<h4 id="orgcd9fb3d"><span class="section-number-4">2.4.2.</span> 读出文件</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<ul class="org-ul">
+<li>打开文件</li>
+<li>从文件中读出数据</li>
+<li>关闭文件</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org6f56571" class="outline-3">
+<h3 id="org6f56571"><span class="section-number-3">2.5.</span> 打开文件</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+使用fopen（）函数，指定文件模式。
+</p>
+</div>
+<div id="outline-container-org94a1ebc" class="outline-4">
+<h4 id="org94a1ebc"><span class="section-number-4">2.5.1.</span> 选择文件模式</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+打开文件的三种模式：
+</p>
+
+<ul class="org-ul">
+<li>打开文件为只读、只写或者读和写</li>
+<li>如果是写入文件，可以选择覆盖原文件，或者在原文件末尾追加新文件，还可
+以选择在该文件存在的前提下，终止程序的执行</li>
+<li>如果希望在一个区分来二进制方式和纯文本方式的系统写上一个文件，还必须
+指定采用的方式。</li>
+</ul>
+
+<p>
+fopen（）支持以上三种的组合。
+</p>
+</div>
+</div>
+<div id="outline-container-org4841248" class="outline-4">
+<h4 id="org4841248"><span class="section-number-4">2.5.2.</span> 使用fopen（）打开文件</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<pre class="example">
+$fp=fopen("$DOCUMENT_ROOT/../orders/orders.txt", 'w');
+</pre>
+<p>
+说明：
+</p>
+<ul class="org-ul">
+<li>第一个参数代表文件路径（相对路径）| r    | 只读     |</li>
+</ul>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">r+</td>
+<td class="org-left">只读</td>
+</tr>
+
+<tr>
+<td class="org-left">w</td>
+<td class="org-left">只写</td>
+</tr>
+
+<tr>
+<td class="org-left">w+</td>
+<td class="org-left">只写</td>
+</tr>
+
+<tr>
+<td class="org-left">x</td>
+<td class="org-left">谨慎写</td>
+</tr>
+
+<tr>
+<td class="org-left">x+</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">a</td>
+<td class="org-left">追加</td>
+</tr>
+
+<tr>
+<td class="org-left">a+</td>
+<td class="org-left">追加</td>
+</tr>
+
+<tr>
+<td class="org-left">b</td>
+<td class="org-left">二进制</td>
+</tr>
+</tbody>
+</table>
+<ul class="org-ul">
+<li>解决打开文件时可能遇到的问题
+<ul class="org-ul">
+<li>打开文件时可能会遇到文件权限问题， 需要对文件赋予权限</li>
+<li>使用@符号抑制错误，使用@抑制错误后，需要自己编写错误处理代码，应对</li>
+</ul></li>
+</ul>
+<p>
+错。如果已经在php.ini中启用了php的track<sub>errors特性</sub>，错误相信将被保存在
+全变量$php<sub>errormsg中</sub>。
+</p>
+</div>
+</div>
+<div id="outline-container-org5b9844a" class="outline-4">
+<h4 id="org5b9844a"><span class="section-number-4">2.5.3.</span> 写文件</h4>
+<div class="outline-text-4" id="text-2-5-3">
+<ol class="org-ol">
+<li>fwrite（）函数</li>
+</ol>
+<p>
+使用fwrite（）或者fputs（），fputs（）是fwrite（）的别名函数。fwrite（）的调用方式如下：
+</p>
+<blockquote>
+<p>
+fwrite($fp, $outputstring);
+</p>
+</blockquote>
+<p>
+将保存在$outputstring中的字符串写入到$fp指向的文件中。
+</p>
+
+<ol class="org-ol">
+<li>file<sub>put</sub><sub>contents</sub>()</li>
+</ol>
+<p>
+这个函数是fwrite（）的替换函数， 可以不需要调用fopen（）函数打开文件，就将字符串写入， 调用方式如下：
+</p>
+<blockquote>
+<p>
+int file<sub>put</sub><sub>contents</sub>( string filename,
+                             string data,
+                             [ int flags,
+                               resource context ]
+                             )
+</p>
+</blockquote>
+
+<ol class="org-ol">
+<li>fwrite()的参数</li>
+</ol>
+<p>
+fwrite()的原型：
+</p>
+<blockquote>
+<p>
+int fwrite ( resource handle, string string [, int length ]);
+</p>
+</blockquote>
+<p>
+第三个参数length是写入的最大字符数。  如果给出这个参数，fwrite（）将向handle指向的文件写入字符串，写入长度为length。 
+</p>
+
+<ol class="org-ol">
+<li>strlen（）函数</li>
+</ol>
+<p>
+获取字符串的长度
+</p>
+</div>
+</div>
+<div id="outline-container-org4277011" class="outline-4">
+<h4 id="org4277011"><span class="section-number-4">2.5.4.</span> fgets() fgetss() fgetcsv()</h4>
+<div class="outline-text-4" id="text-2-5-4">
+<ul class="org-ul">
+<li>fgets()每次读取一行数据</li>
+<li>fgetss()可以过滤字符串中的php和html标记</li>
+<li>fgetcsv() 读取一行，将结果返回数组</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf463a46" class="outline-4">
+<h4 id="orgf463a46"><span class="section-number-4">2.5.5.</span> 通过FTP或HTTP打开文件</h4>
+</div>
+<div id="outline-container-orgdeaa560" class="outline-4">
+<h4 id="orgdeaa560"><span class="section-number-4">2.5.6.</span> 解决打开文件时可能遇到的问题</h4>
+<div class="outline-text-4" id="text-2-5-6">
+<ul class="org-ul">
+<li>文件权限问题</li>
+</ul>
+<p>
+chmod 777 创建最高的读写权限
+</p>
+</div>
+</div>
+<div id="outline-container-orgbebc3c9" class="outline-4">
+<h4 id="orgbebc3c9"><span class="section-number-4">2.5.7.</span> 文件的锁定flock（）</h4>
+<div class="outline-text-4" id="text-2-5-7">
+<ul class="org-ul">
+<li>避免两个客户同时打开同一个文件产生问题，使用文件锁定锁定文件。</li>
+<li>flock（文件，锁定模式，可选）</li>
+<li>锁定模式</li>
+</ul>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">操作值</td>
+<td class="org-left">意义</td>
+</tr>
+
+<tr>
+<td class="org-left">LOCK<sub>SH</sub></td>
+<td class="org-left">读操作锁定，文件可以共享，其它人可以读该文件</td>
+</tr>
+
+<tr>
+<td class="org-left">LOCK<sub>EX</sub></td>
+<td class="org-left">写操作锁定，此时文件不被共享，其它人无法读取</td>
+</tr>
+
+<tr>
+<td class="org-left">LOCK<sub>UN</sub></td>
+<td class="org-left">释放已有的锁定</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org68ca7c2" class="outline-2">
+<h2 id="org68ca7c2"><span class="section-number-2">3.</span> 第3章 使用数组</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgcc127d4" class="outline-3">
+<h3 id="orgcc127d4"><span class="section-number-3">3.1.</span> 本章内容</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>数字索引数组</li>
+<li>非数字索引数组</li>
+<li>数组操作符</li>
+<li>多维数组</li>
+<li>数组排序</li>
+<li>数组函数</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2e11109" class="outline-3">
+<h3 id="org2e11109"><span class="section-number-3">3.2.</span> 数字索引数组p</h3>
+<div class="outline-text-3" id="text-3-2">
+</div>
+<div id="outline-container-org9c34445" class="outline-4">
+<h4 id="org9c34445"><span class="section-number-4">3.2.1.</span> 数字索引数组的初始化</h4>
+<div class="outline-text-4" id="text-3-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="org3d60f69"></a>索引默认从0开始<br /></li>
+<li><a id="orgb0b4004"></a>初始化方式1:<br />
+<div class="outline-text-5" id="text-3-2-1-2">
+<div class="org-src-container">
+<pre class="src src-php">$products = array('tires', 'oil' 'spark plugs');
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orge7ed1e3"></a>初始化方式2：（php5.4开始支持）<br />
+<div class="outline-text-5" id="text-3-2-1-3">
+<div class="org-src-container">
+<pre class="src src-php"">$products = ['tires', 'oil' 'spark plugs'];
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgfd4657e"></a>array（）结构简介<br />
+<div class="outline-text-5" id="text-3-2-1-4">
+<p>
+array()是一个语言结构，不是函数。  可以简单将数组复制给另一个数组。
+</p>
+</div>
+</li>
+<li><a id="org7e03b64"></a>使用rang（）函数自动创建数字数组<br />
+<div class="outline-text-5" id="text-3-2-1-5">
+<div class="org-src-container">
+<pre class="src src-php">$number = range(1,10);     //创建一个1-10的数字数组
+$odds = range(1,10,2);     //创建一个1-10之间的偶数数组
+$letters = range('a','z'); //创建一个a-z的字符数组
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org4969236" class="outline-4">
+<h4 id="org4969236"><span class="section-number-4">3.2.2.</span> 访问数组内容</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+使用$products[0],$products[1]……来访问数组$products的内容。php的数组不需要预先初始化或创建，在第一次使用的时候会自动创建。使用$products[n]可以直接扩充数组。
+</p>
+</div>
+</div>
+<div id="outline-container-orgba2419d" class="outline-4">
+<h4 id="orgba2419d"><span class="section-number-4">3.2.3.</span> 使用循环访问数组</h4>
+<div class="outline-text-4" id="text-3-2-3">
+</div>
+<ol class="org-ol">
+<li><a id="orge3571ce"></a>使用for循环访问数组<br />
+<div class="outline-text-5" id="text-3-2-3-1">
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span>$i=<span style="color: #a45bad;">0</span>;$i&lt;<span style="color: #a45bad;">3</span>;$i++<span style="color: #4f97d7;">){</span>
+    echo <span style="color: #2d9574;">"$products[$i]"</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgbf51944"></a>使用foreach访问数组<br />
+<div class="outline-text-5" id="text-3-2-3-2">
+<div class="org-src-container">
+<pre class="src src-php">foreach ($products as $current){
+    echo $current." ";
+}
+// 说明：每次循环都取出数组中的值，并保存到变量$current中，一直到数组的最后一个元素，结束循环
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgc740974" class="outline-3">
+<h3 id="orgc740974"><span class="section-number-3">3.3.</span> 使用不同索引的数组（相关数组）</h3>
+<div class="outline-text-3" id="text-3-3">
+</div>
+<div id="outline-container-org6a49d7d" class="outline-4">
+<h4 id="org6a49d7d"><span class="section-number-4">3.3.1.</span> 初始化相关数组1</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<div class="org-src-container">
+<pre class="src src-php">$price = array('tires'=&gt;100, 'oil'=&gt;10, 'spark plugs'=&gt;4);
+</pre>
+</div>
+<p>
+说明：相关数组由键和相对应的值组成。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6151374" class="outline-4">
+<h4 id="org6151374"><span class="section-number-4">3.3.2.</span> 初始化相关数组2</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<div class="org-src-container">
+<pre class="src src-php">$price[‘tire’] = 20;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org321c49d" class="outline-4">
+<h4 id="org321c49d"><span class="section-number-4">3.3.3.</span> 访问相关数组</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<div class="org-src-container">
+<pre class="src src-php">$price['tire'];
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org69f6d4a" class="outline-4">
+<h4 id="org69f6d4a"><span class="section-number-4">3.3.4.</span> 使用循环语句访问数组元素（foreach、list、each）</h4>
+<div class="outline-text-4" id="text-3-3-4">
+</div>
+<ol class="org-ol">
+<li><a id="orgabf3aff"></a>foreach循环<br />
+<div class="outline-text-5" id="text-3-3-4-1">
+<div class="org-src-container">
+<pre class="src src-php">foreach($price as $key =&gt; $value)
+   echo $key.'=&gt;' .$value.&lt;br&gt;';
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org7f0c27e"></a>each（）结构<br />
+<div class="outline-text-5" id="text-3-3-4-2">
+<div class="org-src-container">
+<pre class="src src-php">while($element = each($price))
+{
+  echo $element['key'];
+  echo '-';
+  echo $element['value'];
+  echo '&lt;br&gt;';
+}
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgc1d7f26"></a>说明：<br />
+<div class="outline-text-5" id="text-3-3-4-3">
+<ul class="org-ul">
+<li>each()一次返回一个包含两个元素的数组，一个元素是被执行数组的索引，一个</li>
+</ul>
+<p>
+元素是该索引对应的值，利用each（）的这个特性，可以配合list（）函数来访
+问数组：
+list($product,$price) = each($prices);
+</p>
+
+<p>
+再利用循环，可以遍历所有的数组元素：
+while(list($product,$price) = each($prices))
+{
+   echo "$product - $price&lt;br&gt;";
+}
+</p>
+
+<ul class="org-ul">
+<li>each()将改变数组的指针位置，若要再次使用该数组，需要使用reset（）函
+数，如reset($prices),将数组$prices的指针回到初始位置。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org09e58a4" class="outline-4">
+<h4 id="org09e58a4"><span class="section-number-4">3.3.5.</span> 数组操作符</h4>
+</div>
+<div id="outline-container-org849b301" class="outline-4">
+<h4 id="org849b301"><span class="section-number-4">3.3.6.</span> 多维数组</h4>
+<div class="outline-text-4" id="text-3-3-6">
+<p>
+数字索引的多维数组，可以直接使用嵌套的for循环来访问
+</p>
+</div>
+</div>
+<div id="outline-container-orgffb6527" class="outline-4">
+<h4 id="orgffb6527"><span class="section-number-4">3.3.7.</span> 数组的排序</h4>
+<div class="outline-text-4" id="text-3-3-7">
+</div>
+<ol class="org-ol">
+<li><a id="org7e8b266"></a>使用sort函数——按升序排列（大写字母排在小写字母的前面）<br />
+<div class="outline-text-5" id="text-3-3-7-1">
+<div class="org-src-container">
+<pre class="src src-php">$products = array('tires', 'oil', 'spark plugs');
+sort($products);
+</pre>
+</div>
+<p>
+sort()将对数组内的三个元素按照字母升序排列
+</p>
+</div>
+</li>
+<li><a id="org51ce0ac"></a>关于sort（）的说明<br /></li>
+<li><a id="org67d640e"></a>使用asort（）函数和ksort（）函数对相关数组排序<br />
+<div class="outline-text-5" id="text-3-3-7-3">
+<ul class="org-ul">
+<li>asort（）按值排序</li>
+<li>ksort（）按索引排序</li>
+</ul>
+</div>
+</li>
+<li><a id="org6506d9f"></a>反向排序<br />
+<div class="outline-text-5" id="text-3-3-7-4">
+<ul class="org-ul">
+<li>rsort（）</li>
+<li>arsort（）</li>
+<li>krsort（）</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org5d9c7ea" class="outline-4">
+<h4 id="org5d9c7ea"><span class="section-number-4">3.3.8.</span> 多维数组的排序</h4>
+<div class="outline-text-4" id="text-3-3-8">
+</div>
+<ol class="org-ol">
+<li><a id="org56854fc"></a>用户定义排序<br /></li>
+<li><a id="orgfec5dfa"></a>反向用户排序<br /></li>
+</ol>
+</div>
+<div id="outline-container-org35d64d0" class="outline-4">
+<h4 id="org35d64d0"><span class="section-number-4">3.3.9.</span> 对数组进行重新排序（随机）</h4>
+<div class="outline-text-4" id="text-3-3-9">
+</div>
+<ol class="org-ol">
+<li><a id="org5e61bf1"></a>使用shuffle（）函数<br />
+<div class="outline-text-5" id="text-3-3-9-1">
+<p>
+实现随机功能
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org1aba24d" class="outline-4">
+<h4 id="org1aba24d"><span class="section-number-4">3.3.10.</span> 从文件载入数组</h4>
+<div class="outline-text-4" id="text-3-3-10">
+<ul class="org-ul">
+<li>用file（）载入文件，返回一个数组，文件的每一行为一个数组元素；</li>
+<li>count（）用来计算数组中的元素个数;</li>
+<li>explode()分割字符串，返回一个数组；</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org7f2f319" class="outline-2">
+<h2 id="org7f2f319"><span class="section-number-2">4.</span> 第4章 字符串操作和正则表达式</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orge77f637" class="outline-3">
+<h3 id="orge77f637"><span class="section-number-3">4.1.</span> 本章要点</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>字符串的格式化</li>
+<li>字符串的连接和分割</li>
+<li>字符串的比较</li>
+<li>使用字符串函数匹配和替换自字符串</li>
+<li>使用正则表达式</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf5ea4a1" class="outline-3">
+<h3 id="orgf5ea4a1"><span class="section-number-3">4.2.</span> 创建一个智能表单邮件</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+<div id="outline-container-org714c2c4" class="outline-4">
+<h4 id="org714c2c4"><span class="section-number-4">4.2.1.</span> mail（）函数</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<ul class="org-ul">
+<li>几个参数：目的地邮件地址，邮件主题，邮件内容，第四个参数可选，可以用来发送有</li>
+</ul>
+<p>
+效的额外的邮件头
+</p>
+<ul class="org-ul">
+<li>示例：</li>
+</ul>
+<p>
+mail($toaddress, $subject, $mailcontent, $fromaddress);
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org555a3eb" class="outline-3">
+<h3 id="org555a3eb"><span class="section-number-3">4.3.</span> 字符串的格式化</h3>
+<div class="outline-text-3" id="text-4-3">
+</div>
+<div id="outline-container-org2f35602" class="outline-4">
+<h4 id="org2f35602"><span class="section-number-4">4.3.1.</span> 字符串的整理：chop（）、ltrim（）和trim（）</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<ul class="org-ul">
+<li>trim（）——去除字符串开始位置和结束位置的空格，并将结果返回。默认情况
+下除去的字符是换行符和回车符（\n和\r），水平和垂直制表符（\t和\x0b）。</li>
+<li>ltrim（）——去除字符串开始位置的空格</li>
+<li>rtrim（）——去除字符串结束位置的空格</li>
+<li>chop()是rtrim（）的别名</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1ad90f6" class="outline-4">
+<h4 id="org1ad90f6"><span class="section-number-4">4.3.2.</span> 格式化字符串以便显示</h4>
+<div class="outline-text-4" id="text-4-3-2">
+<ul class="org-ul">
+<li>使用html格式化：nl2br（）函数：用字符串作为输入参数，用xhtml中的&lt;br
+/&gt;标记代替字符串中的换行符</li>
+<li>为打印输出而格式化字符串</li>
+<li>改变字符串中字母的大小写</li>
+</ul>
+<p>
+strtoupper（）——将字符串转变为大写
+strtolower（）——将字符串转变为小写
+ucfirst（）——如果字符串的第一个字符是字母，将该字母转化为大写
+ucwords（）——将字符串中的每个单词的第一个字母转化为大写。
+</p>
+</div>
+</div>
+<div id="outline-container-org191d560" class="outline-4">
+<h4 id="org191d560"><span class="section-number-4">4.3.3.</span> 格式化字符串以便存储：addslashes（）和stripslashes（）</h4>
+<div class="outline-text-4" id="text-4-3-3">
+<p>
+重新格式化字符串，以便存入数据库。对于字符串来说，某些字符是有效的，当
+时将它们插入数据库时可能会引起一些问题，比如引号（单引号、双引号）、反
+斜杠和null字符，数据库会将这些字符解释成控制符。为了将这些字符进行转义，
+需要在它们前面加一个反斜杠（这个规则对所有特殊字符通用）。addslashes（）
+和stripslashes（）就是专门用来进行这样的格式化处理
+</p>
+
+<p>
+addslashes（）——添加反斜杠标记
+stripslashes（）——去除反斜杠标记
+</p>
+</div>
+</div>
+<div id="outline-container-orgf7ae2a5" class="outline-4">
+<h4 id="orgf7ae2a5"><span class="section-number-4">4.3.4.</span> 字符串连接和字符串的分割</h4>
+<div class="outline-text-4" id="text-4-3-4">
+</div>
+<ol class="org-ol">
+<li><a id="org20e0b3e"></a>explode（）、implode（）和join（）<br />
+<div class="outline-text-5" id="text-4-3-4-1">
+<ul class="org-ul">
+<li>explode（）——根据指定的分隔符分割字符串</li>
+<li>implode（）和join（）实现与explode（）相反的效果</li>
+</ul>
+</div>
+</li>
+<li><a id="org6b408db"></a>使用strtok（）函数<br /></li>
+<li><a id="orga67a6f4"></a>substr（）函数<br />
+<div class="outline-text-5" id="text-4-3-4-3">
+<p>
+截取字符串
+<b>用法：</b>
+string substr（string string， int start，【int length】）；
+</p>
+
+<p>
+第二个参数代表起始位置，若为0，代表从头部开始。
+</p>
+
+<p>
+第三个参数可选，代表截取的长度，若省略，将从起始处截取到结尾，若是负数，
+从起始处往头部截取。
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orge08bba0" class="outline-4">
+<h4 id="orge08bba0"><span class="section-number-4">4.3.5.</span> 格式化字符串以便存储：addslashes（）和stripslashes（）</h4>
+<div class="outline-text-4" id="text-4-3-5">
+<p>
+重新格式化字符串，以便存入数据库（主要是自动处理引号、斜杠、NULL字符等）
+</p>
+
+<p>
+magic<sub>quotes</sub><sub>gpc这个配置将自动开启格式化</sub>。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org219946c" class="outline-3">
+<h3 id="org219946c"><span class="section-number-3">4.4.</span> 字符串的比较</h3>
+<div class="outline-text-3" id="text-4-4">
+</div>
+<div id="outline-container-org6094f19" class="outline-4">
+<h4 id="org6094f19"><span class="section-number-4">4.4.1.</span> 字符串的排序：strcmp（）、strcasecmp（）和strnatcmp（）</h4>
+<div class="outline-text-4" id="text-4-4-1">
+<ul class="org-ul">
+<li>strcmp()——比较两个字符串</li>
+</ul>
+<p>
+int strcmp（string str1，string str2）；
+</p>
+
+<p>
+str1和str2相等，返回0
+str1排在str2的后面（大于），返回一个正数
+小于，返回一个负数
+</p>
+</div>
+</div>
+<div id="outline-container-orge602dbf" class="outline-4">
+<h4 id="orge602dbf"><span class="section-number-4">4.4.2.</span> 使用strlen（）计算字符串长度</h4>
+</div>
+</div>
+<div id="outline-container-orgd6222bd" class="outline-3">
+<h3 id="orgd6222bd"><span class="section-number-3">4.5.</span> 字符串函数匹配和替换字符串</h3>
+<div class="outline-text-3" id="text-4-5">
+</div>
+<div id="outline-container-org4563f27" class="outline-4">
+<h4 id="org4563f27"><span class="section-number-4">4.5.1.</span> 在字符串中查找字符串</h4>
+<div class="outline-text-4" id="text-4-5-1">
+<ul class="org-ul">
+<li>strstr（）</li>
+<li>strchr（）</li>
+<li>strrchr（）</li>
+<li>stristr（）</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgdb9b95f" class="outline-4">
+<h4 id="orgdb9b95f"><span class="section-number-4">4.5.2.</span> 查找子字符串的位置</h4>
+<div class="outline-text-4" id="text-4-5-2">
+<ul class="org-ul">
+<li>strpos（）</li>
+<li>strrpos（）</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6bf3b03" class="outline-4">
+<h4 id="org6bf3b03"><span class="section-number-4">4.5.3.</span> 替换字符串</h4>
+<div class="outline-text-4" id="text-4-5-3">
+<ul class="org-ul">
+<li>str<sub>replace</sub>()</li>
+</ul>
+<blockquote>
+<p>
+srt<sub>replace</sub>("\r\n","",$name); //防止header注入。
+</p>
+</blockquote>
+<ul class="org-ul">
+<li>substr<sub>replace</sub>()</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org3ad45c5" class="outline-3">
+<h3 id="org3ad45c5"><span class="section-number-3">4.6.</span> 正则表达式介绍</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+PHP支持两种风格的正则表达式语法：POSIS和Perl（POSIX正则表达式更容易掌
+握，但是不是二进制安全的）
+</p>
+</div>
+<div id="outline-container-org153eb13" class="outline-4">
+<h4 id="org153eb13"><span class="section-number-4">4.6.1.</span> 基础知识</h4>
+<div class="outline-text-4" id="text-4-6-1">
+</div>
+<ol class="org-ol">
+<li><a id="org11001e1"></a>分隔符<br />
+<div class="outline-text-5" id="text-4-6-1-1">
+<ul class="org-ul">
+<li>最常用的分隔符是 / , <i>shop/这个正则表达式的作用是匹配shop，正则表达式中使用/，需要使用\来转义。如/http:\</i>\//</li>
+<li>分隔符后可以添加模式修饰符；如/shop/!，表示不区分大小写的方式匹配shop</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org68f2668" class="outline-4">
+<h4 id="org68f2668"><span class="section-number-4">4.6.2.</span> 字符集7和类</h4>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb274341" class="outline-2">
+<h2 id="orgb274341"><span class="section-number-2">5.</span> 第5章 代码重用与函数编写</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org953adb7" class="outline-3">
+<h3 id="org953adb7"><span class="section-number-3">5.1.</span> 本章内容</h3>
+<div class="outline-text-3" id="text-5-1">
+<ul class="org-ul">
+<li>代码重用的好处</li>
+<li>使用require（）和include（）函数</li>
+<li>函数介绍</li>
+<li>定义函数</li>
+<li>使用参数</li>
+<li>理解作用域</li>
+<li>返回值</li>
+<li>参数的饮用调用和值调用</li>
+<li>实现递归</li>
+<li>使用命名空间</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org05d400e" class="outline-3">
+<h3 id="org05d400e"><span class="section-number-3">5.2.</span> 代码重用的好处</h3>
+<div class="outline-text-3" id="text-5-2">
+<ul class="org-ul">
+<li>成本</li>
+<li>可靠性</li>
+<li>一致性</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org819ab67" class="outline-3">
+<h3 id="org819ab67"><span class="section-number-3">5.3.</span> 使用require（）和include（）函数</h3>
+<div class="outline-text-3" id="text-5-3">
+</div>
+<div id="outline-container-org2cc9a26" class="outline-4">
+<h4 id="org2cc9a26"><span class="section-number-4">5.3.1.</span> 两者的差异</h4>
+<div class="outline-text-4" id="text-5-3-1">
+<p>
+唯一的区别在于函数失败后require（）函数将给出一个致命的错误。而include
+只是给出一个警告。
+</p>
+</div>
+</div>
+<div id="outline-container-orga752227" class="outline-4">
+<h4 id="orga752227"><span class="section-number-4">5.3.2.</span> require<sub>once</sub>()和include<sub>once</sub>()</h4>
+<div class="outline-text-4" id="text-5-3-2">
+<p>
+这两个是变体函数，确保文件只被引用一次
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org31b0962" class="outline-3">
+<h3 id="org31b0962"><span class="section-number-3">5.4.</span> 理解作用域</h3>
+</div>
+<div id="outline-container-orgbc8769a" class="outline-3">
+<h3 id="orgbc8769a"><span class="section-number-3">5.5.</span> 参数的引用传递和值传递</h3>
+</div>
+<div id="outline-container-orga8948a5" class="outline-3">
+<h3 id="orga8948a5"><span class="section-number-3">5.6.</span> 使用return关键字</h3>
+</div>
+<div id="outline-container-orge5268d3" class="outline-3">
+<h3 id="orge5268d3"><span class="section-number-3">5.7.</span> 关于本章实例 &#x2013;home.html&#x2013; 的笔记</h3>
+<div class="outline-text-3" id="text-5-7">
+</div>
+<div id="outline-container-org4c01b18" class="outline-4">
+<h4 id="org4c01b18"><span class="section-number-4">5.7.1.</span> 在html文件内部编写css</h4>
+<div class="outline-text-4" id="text-5-7-1">
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">&lt;style type=</span><span style="color: #2d9574;">"text/css"</span><span style="color: #bc6ec5; font-weight: bold;">&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">    h1 </span><span style="color: #4f97d7;">{</span>
+      <span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #000000; background-color: #ffffff;">white</span>;      //&#25991;&#23383;&#39068;&#33394;
+      <span style="color: #4f97d7; font-weight: bold;">text-align</span>:center;
+
+    <span style="color: #4f97d7;">}</span>
+
+    <span style="color: #bc6ec5; font-weight: bold;">.menu </span><span style="color: #4f97d7;">{</span>
+      <span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #000000; background-color: #ffffff;">white</span>;
+      <span style="color: #4f97d7; font-weight: bold;">font-size</span>:<span style="color: #a45bad;">24pt</span>;
+      <span style="color: #4f97d7; font-weight: bold;">text-align</span>:center;
+      <span style="color: #4f97d7; font-weight: bold;">font-wight</span>:bold;
+    <span style="color: #4f97d7;">}</span>
+    <span style="color: #bc6ec5; font-weight: bold;">td </span><span style="color: #4f97d7;">{</span>
+      <span style="color: #4f97d7; font-weight: bold;">background</span>:<span style="color: #ffffff; background-color: #000000;">black</span>;    //&#32972;&#26223;&#39068;&#33394;
+    <span style="color: #4f97d7;">}</span>
+    <span style="color: #bc6ec5; font-weight: bold;">p.foot </span><span style="color: #4f97d7;">{</span>
+      <span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #000000; background-color: #ffffff;">white</span>;
+      <span style="color: #4f97d7; font-weight: bold;">text-align</span>:center;
+    <span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb4ad7ab" class="outline-4">
+<h4 id="orgb4ad7ab"><span class="section-number-4">5.7.2.</span> 表格table的处理</h4>
+<div class="outline-text-4" id="text-5-7-2">
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">table</span> <span style="color: #7590db;">width</span>=<span style="color: #2d9574;">"100%"</span> <span style="color: #7590db;">cellpadding</span>=<span style="color: #2d9574;">"12"</span> <span style="color: #7590db;">cellspacing</span>=<span style="color: #2d9574;">"0"</span> <span style="color: #7590db;">border</span>=<span style="color: #2d9574;">"0"</span>&gt;
+      &lt;<span style="color: #bc6ec5; font-weight: bold;">tr</span> <span style="color: #7590db;">bgcolor</span>=<span style="color: #2d9574;">"black"</span>&gt;
+        &lt;<span style="color: #bc6ec5; font-weight: bold;">td</span> <span style="color: #7590db;">align</span>=<span style="color: #2d9574;">"left"</span>&gt;&lt;<span style="color: #bc6ec5; font-weight: bold;">img</span> <span style="color: #7590db;">src</span>=<span style="color: #2d9574;">"./img/s-logo.gif"</span> <span style="color: #7590db;">alt</span>=<span style="color: #2d9574;">"TLA logo"</span>
+                              <span style="color: #7590db;">height</span>=<span style="color: #2d9574;">"70"</span> <span style="color: #7590db;">width</span>=<span style="color: #2d9574;">"70"</span>&gt;&lt;/<span style="color: #bc6ec5; font-weight: bold;">td</span>&gt;
+        &lt;<span style="color: #bc6ec5; font-weight: bold;">td</span>&gt;
+          &lt;<span style="color: #bc6ec5; font-weight: bold;">h1</span> =<span style="color: #2d9574;">"white"</span>&gt;<span style="font-weight: bold; text-decoration: underline;">TLA Consulting</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">h1</span>&gt;
+        &lt;/<span style="color: #bc6ec5; font-weight: bold;">td</span>&gt;
+        &lt;<span style="color: #bc6ec5; font-weight: bold;">td</span> <span style="color: #7590db;">align</span>=<span style="color: #2d9574;">"right"</span>&gt;&lt;<span style="color: #bc6ec5; font-weight: bold;">img</span> <span style="color: #7590db;">src</span>=<span style="color: #2d9574;">"./img/s-logo.gif"</span> alt=TLA logo<span style="color: #2d9574;">" height="</span>70<span style="color: #2d9574;">" width="</span>70<span style="color: #2d9574;">" &gt;&lt;/td&gt;</span>
+<span style="color: #2d9574;">      &lt;/tr&gt;</span>
+<span style="color: #2d9574;">    &lt;/table&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdc61677" class="outline-2">
+<h2 id="orgdc61677"><span class="section-number-2">6.</span> 第6章 面向对象的php</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org54c33cf" class="outline-3">
+<h3 id="org54c33cf"><span class="section-number-3">6.1.</span> 本章主要内容</h3>
+<div class="outline-text-3" id="text-6-1">
+<ul class="org-ul">
+<li>面向对象的概念</li>
+<li>类、属性和操作</li>
+<li>类属性</li>
+<li>类常量</li>
+<li>类方法的调用</li>
+<li>继承</li>
+<li>访问修饰符</li>
+<li>静态方法</li>
+<li>类型提示</li>
+<li>延迟静态绑定</li>
+<li>对象克隆</li>
+<li>抽象类</li>
+<li>类设计</li>
+<li>设计的实现</li>
+<li>高级的面向对象功能</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb253d32" class="outline-3">
+<h3 id="orgb253d32"><span class="section-number-3">6.2.</span> 理解面向对象的概念</h3>
+<div class="outline-text-3" id="text-6-2">
+</div>
+<div id="outline-container-orgba8872c" class="outline-4">
+<h4 id="orgba8872c"><span class="section-number-4">6.2.1.</span> 类和对象</h4>
+</div>
+<div id="outline-container-orgdcd6719" class="outline-4">
+<h4 id="orgdcd6719"><span class="section-number-4">6.2.2.</span> 多态性</h4>
+</div>
+<div id="outline-container-org05ce903" class="outline-4">
+<h4 id="org05ce903"><span class="section-number-4">6.2.3.</span> 继承</h4>
+</div>
+<div id="outline-container-org5280e7b" class="outline-4">
+<h4 id="org5280e7b"><span class="section-number-4">6.2.4.</span> 在PHP中创建类、属性和操作</h4>
+<div class="outline-text-4" id="text-6-2-4">
+</div>
+<ol class="org-ol">
+<li><a id="orgd275573"></a>类的结构<br />
+<div class="outline-text-5" id="text-6-2-4-1">
+<p>
+<b>类的定义：</b>
+class classname
+{
+}
+</p>
+</div>
+</li>
+<li><a id="org54f2abb"></a>构造函数<br />
+<div class="outline-text-5" id="text-6-2-4-2">
+<p>
+构造函数的名称必须是_<sub>construct</sub>( );
+</p>
+
+<p>
+<b>示例</b>
+class classname
+{
+      function __<sub>construct</sub>
+}
+</p>
+</div>
+</li>
+<li><a id="org67cdc3e"></a>析构函数<br />
+<div class="outline-text-5" id="text-6-2-4-3">
+<p>
+名称必须是_<sub>destruct</sub>()，不能带任何参数
+</p>
+</div>
+</li>
+<li><a id="org67d5118"></a>类的实例化<br />
+<div class="outline-text-5" id="text-6-2-4-4">
+<p>
+在声明一个类后，需要创建一个对象（一个特定的个体，即类的一个成员）并使
+用这个对象。这个过程就是创建一个类的实例或实例化一个类。
+</p>
+
+<p>
+使用关键词new来实例化一个类。
+</p>
+</div>
+</li>
+<li><a id="org3c91e7e"></a>使用类的属性<br />
+<div class="outline-text-5" id="text-6-2-4-5">
+<ul class="org-ul">
+<li>在类自身中，使用$this指针来访问属性</li>
+<li>类的外部访问接口
+<ul class="org-ul">
+<li>_get()函数返回类中的属性的值；</li>
+<li>_set()函数设置类中属性的值；</li>
+</ul></li>
+</ul>
+
+<p>
+<b>应用实例：</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-c++"><span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">classname</span>
+<span style="color: #4f97d7;">{</span>
+     <span style="color: #4f97d7; font-weight: bold;">public</span> $attribute;
+     <span style="color: #ce537a; font-weight: bold;">function</span> <span style="color: #7590db;">___get</span><span style="color: #bc6ec5;">(</span>$name<span style="color: #bc6ec5;">)</span>
+    <span style="color: #bc6ec5;">{</span>
+         <span style="color: #4f97d7; font-weight: bold;">return</span> $this-&gt;$name;
+    <span style="color: #bc6ec5;">}</span>
+
+     <span style="color: #ce537a; font-weight: bold;">function</span> <span style="color: #7590db;">__set</span><span style="color: #bc6ec5;">(</span>$name, $value<span style="color: #bc6ec5;">)</span>
+    <span style="color: #bc6ec5;">{</span>
+         $this-&gt;$name = $value;
+    <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+$a = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">classname</span><span style="color: #4f97d7;">()</span>;
+$a-&gt;$attribute = <span style="color: #a45bad;">5</span> ; <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">&#35813;&#35821;&#21477;&#38388;&#25509;&#35843;&#29992;_set()&#20989;&#25968;</span>
+$a-&gt;$attribute <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#35813;&#35821;&#21477;&#38388;&#25509;&#35843;&#29992;_get()&#20989;&#25968;</span>
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org6f20fd2"></a>使用private和public关键字控制访问<br />
+<div class="outline-text-5" id="text-6-2-4-6">
+<ul class="org-ul">
+<li>默认是public（公有），公有的属性或方法可以在类的内部和外部进行访问，可</li>
+</ul>
+<p>
+以被继承。
+</p>
+<ul class="org-ul">
+<li>private（私有），只能在类的内部进行访问，不会被继承。</li>
+<li>protected（保护），只能在类的内部进行访问，可以被继承</li>
+</ul>
+</div>
+</li>
+<li><a id="orgdd50c10"></a>类的操作和调用<br /></li>
+<li><a id="orgcbddf72"></a>在php中实现继承<br />
+<div class="outline-text-5" id="text-6-2-4-8">
+<p>
+使用extends实现继承
+class b extends a
+{
+     ……
+}
+</p>
+</div>
+</li>
+<li><a id="orgcc3513e"></a>通过继承使用private和proteted访问修饰符控制可见性<br /></li>
+<li><a id="orgfa9fe81"></a>重载<br /></li>
+<li><a id="orgca1feaa"></a>理解多重继承<br />
+<div class="outline-text-5" id="text-6-2-4-11">
+<p>
+php不支持多重继承，每个子类只能有一个父类。
+</p>
+</div>
+</li>
+<li><a id="orge518076"></a>实现接口<br />
+<div class="outline-text-5" id="text-6-2-4-12">
+<p>
+php通过接口来实现多重继承
+</p>
+</div>
+</li>
+<li><a id="orgff60ba7"></a>PHP面向对象的高级功能<br />
+<ol class="org-ol">
+<li><a id="orgc7b8ca5"></a>使用Per-class常量(用::来调用）<br />
+<div class="outline-text-6" id="text-6-2-4-13-1">
+<p>
+可以在不初始化类的情况下，调用类中的常量
+<b>实例</b>
+class Math()
+{
+     const pi = 3.14159;
+}
+$pi = Math::pi;
+</p>
+</div>
+</li>
+<li><a id="org2e42cf3"></a>实现静态方法<br />
+<div class="outline-text-6" id="text-6-2-4-13-2">
+<p>
+static关键字，实现static方法，等价与Per-Class常量的思想。
+<b>实例</b>
+class Math
+{
+      static function squared($input)
+{
+             return $input*$input;
+}
+$result = Math::squared(8);
+}
+</p>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb74701a" class="outline-2">
+<h2 id="orgb74701a"><span class="section-number-2">7.</span> 第7章 错误和异常处理</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org4e063d3" class="outline-3">
+<h3 id="org4e063d3"><span class="section-number-3">7.1.</span> 本章主要内容</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>异常处理的概念</li>
+<li>异常控制结构：try &#x2026; throw&#x2026; catch</li>
+<li>Exception类</li>
+<li>用户自定义异常</li>
+<li>异常和PHP的其他错误处理机制</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org18cd2e4" class="outline-3">
+<h3 id="org18cd2e4"><span class="section-number-3">7.2.</span> 异常处理的概念</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+异常处理的基本思想是代码在try代码块被调用执行。
+</p>
+
+<p>
+例如：
+try
+{
+     // code goes here
+}
+</p>
+
+<p>
+如果try代码块出现某些错误，我们可以执行一个抛出异常的错误。PHP中，异常
+必须手动抛出。
+</p>
+
+<p>
+例如：
+throw new Exception('message' ,code);
+</p>
+
+<p>
+throw 关键字将触发异常处理机制。它是一个语言结构而不是函数，必须给它传
+递一个参数。它要求接收一个对象。在最简单的情况下，可以实例化一个内置的
+Exception类。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org16b5949" class="outline-2">
+<h2 id="org16b5949"><span class="section-number-2">8.</span> 第8章 设计web数据库</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-org921dc4b" class="outline-3">
+<h3 id="org921dc4b"><span class="section-number-3">8.1.</span> 本章主要内容</h3>
+<div class="outline-text-3" id="text-8-1">
+<ul class="org-ul">
+<li>关系数据库的概念和术语</li>
+<li>web数据库的设计</li>
+<li>web数据库的架构</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgafbbcdc" class="outline-3">
+<h3 id="orgafbbcdc"><span class="section-number-3">8.2.</span> 关系数据库的概念和术语</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+关系数据库是最常用的数据库类型
+</p>
+</div>
+<div id="outline-container-orgfcb880a" class="outline-4">
+<h4 id="orgfcb880a"><span class="section-number-4">8.2.1.</span> 表</h4>
+<div class="outline-text-4" id="text-8-2-1">
+<p>
+关系数据库由关系组成，这些关系通常称为表。一个表格就是一个数据的表。
+</p>
+</div>
+</div>
+<div id="outline-container-orgb4a8ea1" class="outline-4">
+<h4 id="orgb4a8ea1"><span class="section-number-4">8.2.2.</span> 列</h4>
+<div class="outline-text-4" id="text-8-2-2">
+<p>
+表中的每一列都有唯一的名称，包含不同的数据。每一列都是一个相关的数据类型。 列也叫做字段或属性。
+</p>
+</div>
+</div>
+<div id="outline-container-orgbf2c677" class="outline-4">
+<h4 id="orgbf2c677"><span class="section-number-4">8.2.3.</span> 行</h4>
+<div class="outline-text-4" id="text-8-2-3">
+<p>
+每一行具有相同的格式，具有相同的属性。行也称为记录或元组（Tuple）
+</p>
+</div>
+</div>
+<div id="outline-container-orgf854cd5" class="outline-4">
+<h4 id="orgf854cd5"><span class="section-number-4">8.2.4.</span> 值</h4>
+<div class="outline-text-4" id="text-8-2-4">
+<p>
+行和列的交点组成一个值。该值必须与该列定义的数据类型相同。
+</p>
+</div>
+</div>
+<div id="outline-container-orgc7879ef" class="outline-4">
+<h4 id="orgc7879ef"><span class="section-number-4">8.2.5.</span> 键（主键和外键）</h4>
+<div class="outline-text-4" id="text-8-2-5">
+<p>
+用来标识数据的列称为键或主键，一个键可能由几列组成。经常使用键作为多个表之间的引用。
+</p>
+</div>
+</div>
+<div id="outline-container-org98dba50" class="outline-4">
+<h4 id="org98dba50"><span class="section-number-4">8.2.6.</span> 模式</h4>
+<div class="outline-text-4" id="text-8-2-6">
+<p>
+数据库整套表的完整设计称为数据库的模式（Schema），模式应该显示表格及表格的列、每个表格的主键和外键。模式不包含任何数据。
+</p>
+</div>
+</div>
+<div id="outline-container-orgb68d671" class="outline-4">
+<h4 id="orgb68d671"><span class="section-number-4">8.2.7.</span> 关系</h4>
+<div class="outline-text-4" id="text-8-2-7">
+<ul class="org-ul">
+<li>用外键表示两个表中数据之间的关系。</li>
+<li>三种基本的关系类型：
+<ul class="org-ul">
+<li>一对一</li>
+<li>一对多</li>
+<li>多对多</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org7d8a63f" class="outline-3">
+<h3 id="org7d8a63f"><span class="section-number-3">8.3.</span> 考虑真实的建模对象</h3>
+</div>
+<div id="outline-container-orga68090a" class="outline-3">
+<h3 id="orga68090a"><span class="section-number-3">8.4.</span> 避免保存冗余数据</h3>
+<div class="outline-text-3" id="text-8-4">
+<p>
+冗余造成的三种异常
+</p>
+<ul class="org-ul">
+<li>修改异常</li>
+<li>插入异常</li>
+<li>删除异常</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org242ce1f" class="outline-3">
+<h3 id="org242ce1f"><span class="section-number-3">8.5.</span> 表格类型的总结</h3>
+<div class="outline-text-3" id="text-8-5">
+<p>
+通常，数据库有两种类型的表组成：
+</p>
+<ul class="org-ul">
+<li>描述现实世界对象的简单表。  这些表也可能包含其他简单对象的键，他们之间有一对一或一对多的关系。</li>
+<li>描述两个世界对象的多对多关系的关联表。</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org44e2d2e" class="outline-2">
+<h2 id="org44e2d2e"><span class="section-number-2">9.</span> 第9章 创建Web数据库</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+<div id="outline-container-org828285c" class="outline-3">
+<h3 id="org828285c"><span class="section-number-3">9.1.</span> 本章概要</h3>
+<div class="outline-text-3" id="text-9-1">
+<ul class="org-ul">
+<li>创建一个数据库</li>
+<li>设置用户权限</li>
+<li>权限系统的介绍</li>
+<li>创建索引</li>
+<li>选择MySQL中的列类型</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf4a068a" class="outline-3">
+<h3 id="orgf4a068a"><span class="section-number-3">9.2.</span> 使用MySQL监视程序</h3>
+<div class="outline-text-3" id="text-9-2">
+<ul class="org-ul">
+<li>命令用；分开</li>
+<li>SQL语句不区分大小写</li>
+<li>数据库和数据表名称区分大小写</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge06ea20" class="outline-3">
+<h3 id="orge06ea20"><span class="section-number-3">9.3.</span> 登录到MySQL</h3>
+<div class="outline-text-3" id="text-9-3">
+<p>
+在mac中 ，进入/usr/local/mysql/bin,  执行: ./mysql -u root -p   登陆 mysql
+命令：
+</p>
+<blockquote>
+<p>
+mysql -h hostname -u username -p
+</p>
+</blockquote>
+
+<p>
+说明：
+</p>
+<ul class="org-ul">
+<li>h 命令选项用于指定连接的主机。 如果服务器是本机，可忽略该参数。</li>
+<li>u 数据库用户名。</li>
+<li>p 告诉服务器需要一个密码来连接</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc21a149" class="outline-3">
+<h3 id="orgc21a149"><span class="section-number-3">9.4.</span> 创建数据库和用户</h3>
+<div class="outline-text-3" id="text-9-4">
+</div>
+<div id="outline-container-org9148cf8" class="outline-4">
+<h4 id="org9148cf8"><span class="section-number-4">9.4.1.</span> 创建数据库</h4>
+<div class="outline-text-4" id="text-9-4-1">
+<blockquote>
+<p>
+create databse dbname;
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="outline-container-org0d29dc9" class="outline-3">
+<h3 id="org0d29dc9"><span class="section-number-3">9.5.</span> 设置用于与权限</h3>
+<div class="outline-text-3" id="text-9-5">
+<p>
+一个MySQL系统可能有许多用户。  为安全起见，root用户通常只用作管理目的。 对于每个需要使用该系统的用户，应该为他们创建一个账号和密码。
+</p>
+</div>
+</div>
+<div id="outline-container-orga01d5fe" class="outline-3">
+<h3 id="orga01d5fe"><span class="section-number-3">9.6.</span> MySQL权限系统介绍</h3>
+<div class="outline-text-3" id="text-9-6">
+</div>
+<div id="outline-container-org92bcf8e" class="outline-4">
+<h4 id="org92bcf8e"><span class="section-number-4">9.6.1.</span> 最少权限原则</h4>
+<div class="outline-text-4" id="text-9-6-1">
+<p>
+最少权限原则可以用来提高任何计算机系统的安全性。 它是一个基本的、 但又非常重要的原则。该原则内容如下：
+</p>
+<blockquote>
+<p>
+一个用户（或者一个进程）应该拥有能够执行分配给他的任务的最低级别的权限。
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org9b8a42f" class="outline-4">
+<h4 id="org9b8a42f"><span class="section-number-4">9.6.2.</span> 创建用户：GRANT命令</h4>
+<div class="outline-text-4" id="text-9-6-2">
+<p>
+GRANT和REVOKE命令分别用来授予和取消MySQL用户的权限， 这些权限分4个级别。  它们分别是：
+</p>
+<ul class="org-ul">
+<li>全局</li>
+<li>数据库</li>
+<li>表</li>
+<li>列</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="orgc6573da"></a>GRANT命令<br />
+<div class="outline-text-5" id="text-9-6-2-1">
+<p>
+用来创建用户并赋予他们权限。GRANT命令的语法：
+</p>
+<blockquote>
+<p>
+GRANT privileges [columns]
+ON item 
+TO user<sub>name</sub> [IDENTIFIED BY 'password']
+[REQUIRE ssl<sub>options</sub>]
+[WITH [GRANT OPTION | limit<sub>options</sub>]]
+</p>
+</blockquote>
+<p>
+说明：
+</p>
+<ul class="org-ul">
+<li>[]中的是可选的</li>
+<li>占位符
+<ul class="org-ul">
+<li>privileges   由逗号分开的一组权限</li>
+<li>columns  是可选的， 可以用它对没一个列指定权限。  也可以使用单列的名称或者用逗号分开的一组列的名称。</li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org61d1df4" class="outline-4">
+<h4 id="org61d1df4"><span class="section-number-4">9.6.3.</span> 权限的类型和级别</h4>
+<div class="outline-text-4" id="text-9-6-3">
+</div>
+<ol class="org-ol">
+<li><a id="org3518055"></a>用户权限<br />
+<div class="outline-text-5" id="text-9-6-3-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">权限</td>
+<td class="org-left">应用于</td>
+<td class="org-left">描述</td>
+</tr>
+
+<tr>
+<td class="org-left">select</td>
+<td class="org-left">表和列</td>
+<td class="org-left">允许用户从表中选择行（记录）</td>
+</tr>
+
+<tr>
+<td class="org-left">insert</td>
+<td class="org-left">表和列</td>
+<td class="org-left">允许用户在表中插入新行</td>
+</tr>
+
+<tr>
+<td class="org-left">update</td>
+<td class="org-left">表和列</td>
+<td class="org-left">允许用户修改现存表里行的值</td>
+</tr>
+
+<tr>
+<td class="org-left">delete</td>
+<td class="org-left">表</td>
+<td class="org-left">允许用户删除现存表的行</td>
+</tr>
+
+<tr>
+<td class="org-left">index</td>
+<td class="org-left">表</td>
+<td class="org-left">允许用户创建和拖动特定表索引</td>
+</tr>
+
+<tr>
+<td class="org-left">alter</td>
+<td class="org-left">表</td>
+<td class="org-left">允许用户改变现存表的结构，例如，可添加列、重命名列或表、修改列的数据类型</td>
+</tr>
+
+<tr>
+<td class="org-left">create</td>
+<td class="org-left">数据库、表、索引</td>
+<td class="org-left">允许用户创建新数据库、表或索引。如果在grant中指定了一个特定的数据库、表或索引，用户就只能够创建他们，即用户必须首先删除它</td>
+</tr>
+
+<tr>
+<td class="org-left">drop</td>
+<td class="org-left">数据库、表、视图</td>
+<td class="org-left">允许用户删除数据库、表或视图</td>
+</tr>
+
+<tr>
+<td class="org-left">event</td>
+<td class="org-left">数据库</td>
+<td class="org-left">允许用户查看、创建、修改以及删除事件调度器中的事件（目前不讨论）</td>
+</tr>
+
+<tr>
+<td class="org-left">trigger</td>
+<td class="org-left">表</td>
+<td class="org-left">允许用户对已授权表执行创建、执行、或删除触发器</td>
+</tr>
+
+<tr>
+<td class="org-left">create view</td>
+<td class="org-left">视图</td>
+<td class="org-left">允许用户查看创建视图的查询</td>
+</tr>
+
+<tr>
+<td class="org-left">proxy</td>
+<td class="org-left">所有对象</td>
+<td class="org-left">允许用户切换到其它用户，类似于UNIX的su命令</td>
+</tr>
+
+<tr>
+<td class="org-left">create routine</td>
+<td class="org-left">存储过程</td>
+<td class="org-left">允许用户创建存储过程和函数</td>
+</tr>
+
+<tr>
+<td class="org-left">execute</td>
+<td class="org-left">存储过程</td>
+<td class="org-left">允许用户运行存储过程和函数</td>
+</tr>
+
+<tr>
+<td class="org-left">alter routine</td>
+<td class="org-left">存储过程</td>
+<td class="org-left">允许用户修改存储过程和函数的定义</td>
+</tr>
+</tbody>
+</table>
+<p>
+常规用户的权限大多数都是相对无害的。 通过重命名表，alert权限可以用来绕过权限系统设置， 但是大多数用户需要它。  安全常常是可用性与安全性的折中。
+</p>
+</div>
+</li>
+<li><a id="org09a2b29"></a>特殊权限<br />
+<div class="outline-text-5" id="text-9-6-3-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">权限</td>
+<td class="org-left">描述</td>
+</tr>
+
+<tr>
+<td class="org-left">all</td>
+<td class="org-left">授予所有的权限，也可以写成all privileges</td>
+</tr>
+
+<tr>
+<td class="org-left">usage</td>
+<td class="org-left">不授予权限。 这将创建一个用户并允许他登陆， 但是不允许进行任何操作。  通常在以后会授予该用户更多的权限。 使用grant和usage语句创建用户并授予权限等同于create user 语句</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orge35c64e" class="outline-4">
+<h4 id="orge35c64e"><span class="section-number-4">9.6.4.</span> revoke命令 &#x2013; 收回权限</h4>
+<div class="outline-text-4" id="text-9-6-4">
+<p>
+和grant命令相反，从一个用户收回权限。 语法上于grant相似。
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">revoke</span> <span style="color: #4f97d7; font-weight: bold;">privileges</span> <span style="color: #4f97d7;">[</span><span style="color: #bc6ec5;">(</span>columns<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">]</span>
+<span style="color: #4f97d7; font-weight: bold;">ON</span> item
+<span style="color: #4f97d7; font-weight: bold;">FROM</span> user_name;
+</pre>
+</div>
+<p>
+如果已经给出了with grant option 字句， 可以按如下方式撤销权限（以及所有其它权限）
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">revoke</span> <span style="color: #4f97d7; font-weight: bold;">all</span> <span style="color: #4f97d7; font-weight: bold;">privileges</span> &#65292; <span style="color: #4f97d7; font-weight: bold;">grant</span> <span style="color: #4f97d7; font-weight: bold;">option</span>
+<span style="color: #4f97d7; font-weight: bold;">FROM</span> user_name;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5e04481" class="outline-4">
+<h4 id="org5e04481"><span class="section-number-4">9.6.5.</span> 使用GRANT和REVOKE示例</h4>
+<div class="outline-text-4" id="text-9-6-5">
+<ul class="org-ul">
+<li><p>
+创建一个管理员
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">grant</span> <span style="color: #4f97d7; font-weight: bold;">all</span>
+<span style="color: #4f97d7; font-weight: bold;">on</span> *.*
+<span style="color: #4f97d7; font-weight: bold;">to</span> <span style="color: #2d9574;">'fred'</span> identified <span style="color: #4f97d7; font-weight: bold;">by</span> <span style="color: #2d9574;">'mnb123'</span>
+<span style="color: #4f97d7; font-weight: bold;">with</span> <span style="color: #4f97d7; font-weight: bold;">grant</span> <span style="color: #4f97d7; font-weight: bold;">option</span>;
+</pre>
+</div>
+<p>
+以上命令授予了用户名为fred、密码为mnb123的用户使用所有数据库的所有权限、并允许他向其他人授予这些权限。
+</p></li>
+<li><p>
+如果不希望用户在系统中存在，可以用用如下方式撤销授权
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">revoke</span> <span style="color: #4f97d7; font-weight: bold;">all</span> <span style="color: #4f97d7; font-weight: bold;">privileges</span>, <span style="color: #4f97d7; font-weight: bold;">grant</span> <span style="color: #4f97d7; font-weight: bold;">option</span>
+<span style="color: #4f97d7; font-weight: bold;">from</span> <span style="color: #2d9574;">'fred'</span>;
+</pre>
+</div></li>
+<li><p>
+创建一个没有任何权限的常规用户
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">grant</span> <span style="color: #4f97d7; font-weight: bold;">usage</span>
+<span style="color: #4f97d7; font-weight: bold;">on</span> books.*
+<span style="color: #4f97d7; font-weight: bold;">to</span> <span style="color: #2d9574;">'sally'</span>@<span style="color: #2d9574;">'localhost'</span>;
+</pre>
+</div></li>
+<li><p>
+授予权限
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">grant</span> <span style="color: #4f97d7; font-weight: bold;">select</span>,<span style="color: #4f97d7; font-weight: bold;">insert</span>,<span style="color: #4f97d7; font-weight: bold;">update</span>,<span style="color: #4f97d7; font-weight: bold;">delete</span>,index,<span style="color: #4f97d7; font-weight: bold;">alter</span>,<span style="color: #4f97d7; font-weight: bold;">create</span>,<span style="color: #4f97d7; font-weight: bold;">drop</span>
+<span style="color: #4f97d7; font-weight: bold;">on</span> books.*
+<span style="color: #4f97d7; font-weight: bold;">to</span> <span style="color: #2d9574;">'sally'</span>@<span style="color: #2d9574;">'localhost'</span>
+</pre>
+</div></li>
+<li><p>
+当不再使用数据库时，可以按如下方式撤销所有权限
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">revoke</span> <span style="color: #4f97d7; font-weight: bold;">all</span>
+<span style="color: #4f97d7; font-weight: bold;">on</span> books.*
+<span style="color: #4f97d7; font-weight: bold;">from</span> <span style="color: #2d9574;">'sally'</span>@<span style="color: #2d9574;">'localhost'</span>;
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org8bede68" class="outline-3">
+<h3 id="org8bede68"><span class="section-number-3">9.7.</span> 设置Web用户</h3>
+<div class="outline-text-3" id="text-9-7">
+<p>
+要通过PHP连接到MySQL，需要为PHP脚本创建一个用户。 这里，同样使用最少权限原则。
+在大多数情况下，PHP脚本只需要能执行选择（select）、插入（insert）、删除（delete）和更新（update）操作， 因此可以按如下方式设定这些权限：
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">grant</span> <span style="color: #4f97d7; font-weight: bold;">select</span>,<span style="color: #4f97d7; font-weight: bold;">insert</span>,<span style="color: #4f97d7; font-weight: bold;">delete</span>,<span style="color: #4f97d7; font-weight: bold;">update</span>
+<span style="color: #4f97d7; font-weight: bold;">on</span> books.*
+<span style="color: #4f97d7; font-weight: bold;">to</span> <span style="color: #2d9574;">'bookorama'</span> identified <span style="color: #4f97d7; font-weight: bold;">by</span> <span style="color: #2d9574;">'bookorama123'</span>;
+</pre>
+</div>
+<p>
+如果使用了主机托管服务，通常可以获得基于用户类型的数据库权限。 典型的，可以提供相同用户名和密码以用于命令行（建立表等）操作和Web脚本连接（查询数据库）。 对命令行和Web连接使用相同的用户名和密码是不够安全的。 可以建立其它具有相同权限级别的用户，操作如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">grant</span> <span style="color: #4f97d7; font-weight: bold;">select</span>,<span style="color: #4f97d7; font-weight: bold;">insert</span>,<span style="color: #4f97d7; font-weight: bold;">update</span>,<span style="color: #4f97d7; font-weight: bold;">delete</span>,index,<span style="color: #4f97d7; font-weight: bold;">alter</span>,<span style="color: #4f97d7; font-weight: bold;">create</span>,<span style="color: #4f97d7; font-weight: bold;">drop</span>
+<span style="color: #4f97d7; font-weight: bold;">on</span> books.*
+<span style="color: #4f97d7; font-weight: bold;">to</span> <span style="color: #2d9574;">'bookorama'</span>@<span style="color: #2d9574;">'localhost'</span>
+identified <span style="color: #4f97d7; font-weight: bold;">by</span> <span style="color: #2d9574;">'bookorama123'</span>;
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orge4164a5" class="outline-2">
+<h2 id="orge4164a5"><span class="section-number-2">10.</span> 第10章 使用MySQL数据库</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-org60e9dc6" class="outline-3">
+<h3 id="org60e9dc6"><span class="section-number-3">10.1.</span> 本章主要内容</h3>
+<div class="outline-text-3" id="text-10-1">
+<ul class="org-ul">
+<li>SQL是什么</li>
+<li>在数据库中插入数据</li>
+<li>表的连接</li>
+<li>使用电子查询</li>
+<li>更新数据库中的记录</li>
+<li>创建后修改表</li>
+<li>创建数据中的记录</li>
+<li>删除表</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf2b70c0" class="outline-3">
+<h3 id="orgf2b70c0"><span class="section-number-3">10.2.</span> SQL是什么</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+全称是Structured Query Language，是访问关系数据库管理系统（RDBMS）的标
+准语言。
+</p>
+
+<p>
+SQL可以用来将数据保存到数据库中，以及从数据库中取回数据。应用与常见数
+据库，如MySQL、Oracle、PostgreSQL、Sybase和Microsoft SQL Server等。
+</p>
+</div>
+</div>
+<div id="outline-container-orge13f4ab" class="outline-3">
+<h3 id="orge13f4ab"><span class="section-number-3">10.3.</span> 在数据库中插入数据</h3>
+<div class="outline-text-3" id="text-10-3">
+</div>
+<div id="outline-container-orgecd9191" class="outline-4">
+<h4 id="orgecd9191"><span class="section-number-4">10.3.1.</span> insert语句</h4>
+<div class="outline-text-4" id="text-10-3-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgc92c33c"></a>insert语句的格式：<br />
+<div class="outline-text-5" id="text-10-3-1-1">
+<blockquote>
+<p>
+insert [into] <i>table</i>  [(<i>colum</i> , <i>colum</i> ,……]  value  (<i>value1</i>, <i>value2</i>, ……);
+</p>
+</blockquote>
+</div>
+</li>
+<li><a id="orgcbdad2b"></a>示例<br />
+<div class="outline-text-5" id="text-10-3-1-2">
+<ul class="org-ul">
+<li><b>在Book-O-Rama的customer表中插入一个记录：</b></li>
+</ul>
+<blockquote>
+<p>
+insert into customers values(Null, 'Julie Smith' , '25 oak Street' , 'Airport West' );
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li><b>备注：</b> Mysql中的字符串应该包含在一对单引号或双引号中。</li>
+
+<li><b>只插入部分列：</b></li>
+</ul>
+<blockquote>
+<p>
+insert into customers(name, city) values ('Melissa Jones' , 'Nar Nar Goon North');
+</p>
+</blockquote>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgf866adc" class="outline-3">
+<h3 id="orgf866adc"><span class="section-number-3">10.4.</span> 在数据库中获取数据</h3>
+<div class="outline-text-3" id="text-10-4">
+</div>
+<div id="outline-container-org93f07ba" class="outline-4">
+<h4 id="org93f07ba"><span class="section-number-4">10.4.1.</span> select语句</h4>
+<div class="outline-text-4" id="text-10-4-1">
+<p>
+<span class="underline">基本格式：</span>
+</p>
+<blockquote>
+<p>
+select [option]  <i>items</i>  [into file<sub>details</sub>]  from <i>tables</i>   [where
+conditions] ……
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgb42c13d" class="outline-4">
+<h4 id="orgb42c13d"><span class="section-number-4">10.4.2.</span> 按条件获取数据</h4>
+<div class="outline-text-4" id="text-10-4-2">
+<p>
+使用where来实现，例如：
+</p>
+<blockquote>
+<p>
+select * form orders where customerid=5;
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgc37c665" class="outline-4">
+<h4 id="orgc37c665"><span class="section-number-4">10.4.3.</span> 从多个表中获取数据</h4>
+</div>
+<div id="outline-container-orgd145af4" class="outline-4">
+<h4 id="orgd145af4"><span class="section-number-4">10.4.4.</span> 清空数据表</h4>
+<div class="outline-text-4" id="text-10-4-4">
+<blockquote>
+<p>
+truncate table test<sub>table</sub>;
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgb1fada0" class="outline-4">
+<h4 id="orgb1fada0"><span class="section-number-4">10.4.5.</span> 删除数据表</h4>
+<div class="outline-text-4" id="text-10-4-5">
+<blockquote>
+<p>
+drop table if exists test<sub>table</sub>;
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org75ce753" class="outline-2">
+<h2 id="org75ce753"><span class="section-number-2">11.</span> 第11章 使用PHP从Web访问MySQL</h2>
+<div class="outline-text-2" id="text-11">
+</div>
+<div id="outline-container-org9e89107" class="outline-3">
+<h3 id="org9e89107"><span class="section-number-3">11.1.</span> 本章主要内容</h3>
+<div class="outline-text-3" id="text-11-1">
+<ul class="org-ul">
+<li>Web数据库架构及工作原理</li>
+<li>从Web查询数据库的基本步骤</li>
+<li>设置数据库连接</li>
+<li>获取可用数据库信息</li>
+<li>选择要使用的数据库</li>
+<li>查询数据库</li>
+<li>断开数据库连接</li>
+<li>写入新信息</li>
+<li>使用prepared statement</li>
+<li>使用PHP与数据库交互的其它接口</li>
+<li>使用通用数据库接口：PDO</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge61bb9c" class="outline-3">
+<h3 id="orge61bb9c"><span class="section-number-3">11.2.</span> web数据库架构及工作原理</h3>
+<div class="outline-text-3" id="text-11-2">
+<ol class="org-ol">
+<li>用户Web浏览器发出针对特定页面的HTTP请求。例如，用户可能在Book-O-Rama站点发起搜索Michael Morgan编写的所有图书的请求，搜索结果页面是results.php</li>
+<li>Web服务器接收到针对results.php的请求，读取该文件，并将文件传给PHP引擎处理</li>
+<li>PHP引擎开始接卸该脚本。 脚本中有一个连接数据库的命令，执行查询命令（执行图书搜索操作）。 PHP打开MySQL服务器连接，并且发送查询命令</li>
+<li>MySQL数据库接收到数据库查询指令，执行该指令并将结果返回给PHP引擎。</li>
+<li>PHP执行脚本结束，将查询结果格式化为HTML，发送HTML至Web服务器。</li>
+<li>Web服务器将HTML返回给用户浏览器</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgf3e7743" class="outline-3">
+<h3 id="orgf3e7743"><span class="section-number-3">11.3.</span> 从Web查询数据库</h3>
+<div class="outline-text-3" id="text-11-3">
+</div>
+<div id="outline-container-org9234c0d" class="outline-4">
+<h4 id="org9234c0d"><span class="section-number-4">11.3.1.</span> 步骤</h4>
+<div class="outline-text-4" id="text-11-3-1">
+<p>
+任何可以从Web访问数据库的脚本都会执行如下的基本步骤：
+</p>
+<ol class="org-ol">
+<li>检查和过滤来自用户的输入数据</li>
+<li>创建和设置数据库连接</li>
+<li>查询数据库</li>
+<li>读取查询结果</li>
+<li>向用户展示搜索结果</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgd026e07" class="outline-4">
+<h4 id="orgd026e07"><span class="section-number-4">11.3.2.</span> 检查并过滤输入数据</h4>
+<div class="outline-text-4" id="text-11-3-2">
+<p>
+过滤掉关键字前后可能存在的空格。使用trim（）函数去除输入数据前后的空格。
+</p>
+
+<p>
+检查是否输入了搜索条件
+</p>
+<div class="org-src-container">
+<pre class="src src-php">if(!$searchtype || !$searchterm){
+    echo '&lt;p&gt;You have not entered search details. &lt;br /&gt;/
+        Please go back and try again. &lt;/p&gt;' ;
+    exit;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3c924a7" class="outline-4">
+<h4 id="org3c924a7"><span class="section-number-4">11.3.3.</span> 设置数据库连接</h4>
+<div class="outline-text-4" id="text-11-3-3">
+<p>
+连接MySQL数据库的PHP基础函数库是mysqli。 i表示优化版本，未优化版本为mysql
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org93d322e"></a>面向对象的语法：<br />
+<div class="outline-text-5" id="text-11-3-3-1">
+<div class="org-src-container">
+<pre class="src src-php">@$db = new mysqli('localhost', '用户名', '密码');
+</pre>
+</div>
+<p>
+备注：在MAC中本机地址用127.0.0.1， 使用localhost可能会无法连接， 调用$db对象访问数据库。
+</p>
+</div>
+</li>
+<li><a id="orgddb5099"></a>面向过程的语法：<br />
+<div class="outline-text-5" id="text-11-3-3-2">
+<div class="org-src-container">
+<pre class="src src-php">@$db = mysqli_connect('localhost', '用户名', '密码');
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgd03a3f8"></a>两者的差别<br />
+<div class="outline-text-5" id="text-11-3-3-3">
+<p>
+面向过程的版本以mysqli<sub>开始</sub>，并且要求将从mysqli<sub>connect</sub>()函数返回的资源句柄作为参数在面向过程版本函数中传递。 对于数据库连接，这是一个例外，因为可以由mysqli对象的构造函数实现。
+</p>
+</div>
+</li>
+<li><a id="org83bed75"></a>数据库连接有效性检查（面向对象和面向过程相同）<br />
+<div class="outline-text-5" id="text-11-3-3-4">
+<div class="org-src-container">
+<pre class="src src-php">if(mysqli_connect_errno()){
+    echo '&lt;p&gt;Error: Could not connect to database &lt;br /&gt;
+            Please try again later. &lt;/p&gt;';
+    exit;
+}
+</pre>
+</div>
+<p>
+备注：该函数返回一个资源，而不是对象。 该资源代表到数据库的链接，如果用面向过程的方式，需要将该资源传递给所有mysqli函数。
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org7b180c7" class="outline-2">
+<h2 id="org7b180c7"><span class="section-number-2">12.</span> 第12章 MySQL高级管理</h2>
+<div class="outline-text-2" id="text-12">
+</div>
+<div id="outline-container-orgd8cd448" class="outline-3">
+<h3 id="orgd8cd448"><span class="section-number-3">12.1.</span> 本章概要</h3>
+<div class="outline-text-3" id="text-12-1">
+<ul class="org-ul">
+<li>深入理解权限系统</li>
+<li>提升MySQL数据库安全</li>
+<li>获得数据库更多信息</li>
+<li>使用索引加速查询</li>
+<li>优化数据库</li>
+<li>备份和恢复</li>
+<li>实现复制</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org684e3ee" class="outline-3">
+<h3 id="org684e3ee"><span class="section-number-3">12.2.</span> 深入理解权限系统</h3>
+<div class="outline-text-3" id="text-12-2">
+<p>
+当执行一个GRANT语句时， 它将影响存在于特殊数据库的表， 该数据库名为mysql。 权限信息保存在该数据库的7张表中。 基于此设计，在授权时必须关注对mysql数据库访问权限的控制。
+</p>
+
+<p>
+以管理员身份登录数据库，使用如下语句查看mysql数据库信息：
+</p>
+<div class="org-src-container">
+<pre class="src src-php">use mysql；
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org023588a" class="outline-2">
+<h2 id="org023588a"><span class="section-number-2">13.</span> 第19章 与文件系统和服务器交互</h2>
+<div class="outline-text-2" id="text-13">
+</div>
+<div id="outline-container-orgbac6788" class="outline-3">
+<h3 id="orgbac6788"><span class="section-number-3">13.1.</span> 17.1 上传文件</h3>
+<div class="outline-text-3" id="text-13-1">
+</div>
+<div id="outline-container-org9624b16" class="outline-4">
+<h4 id="org9624b16"><span class="section-number-4">13.1.1.</span> php.ini中关于文件上传的配置设置</h4>
+<div class="outline-text-4" id="text-13-1-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">指令</td>
+<td class="org-left">描述</td>
+<td class="org-left">默认值</td>
+</tr>
+
+<tr>
+<td class="org-left">file<sub>uploads</sub></td>
+<td class="org-left">是否支持HTTP文件上传</td>
+<td class="org-left">on</td>
+</tr>
+
+<tr>
+<td class="org-left">upload<sub>tmp</sub><sub>dir</sub></td>
+<td class="org-left">文件上传的临时目录。如果没有设置该值，将使用系统默认值。</td>
+<td class="org-left">NULL</td>
+</tr>
+
+<tr>
+<td class="org-left">upload<sub>max</sub><sub>filesize</sub></td>
+<td class="org-left">控制文件上传的最大容量，日过文件大于该值，php将写入0字节大小的占位符文件。</td>
+<td class="org-left">默认值为2m</td>
+</tr>
+
+<tr>
+<td class="org-left">post<sub>max</sub><sub>size</sub></td>
+<td class="org-left">php可以接受的post数据大小的最大值，必须大于上传最大容量</td>
+<td class="org-left">8m</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<ol class="org-ol">
+<li><a id="orgee8dfdb"></a>mac 中的php.ini<br />
+<div class="outline-text-5" id="text-13-1-1-1">
+<p>
+Mac OS X中没有默认的php.ini文件，但是有对应的模版文件php.ini.default，
+位于/etc/php.ini.default ，可以自行拷贝一份进行修改。
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org8368fd1" class="outline-4">
+<h4 id="org8368fd1"><span class="section-number-4">13.1.2.</span> 文件上传的html表单</h4>
+<div class="outline-text-4" id="text-13-1-2">
+<ul class="org-ul">
+<li>文件上传必须使用POST；</li>
+<li>&lt;form&gt;标记中，必须设置属性enctype = "multipart/form-data" ，告诉服务器有常规信息的文件要上传；</li>
+<li>如果没有服务器端的配置控制文件上传的大小，必须有个表单域用来设置上传文件的大小。示例如下：</li>
+</ul>
+<pre class="example">
+&lt;input type="hidden" name="MAX_FILE_SIZE" value="1000000" //单位为字节
+</pre>
+<ul class="org-ul">
+<li>type属性值设置为file，用于上传文件，并设置name属性（在php处理中代表上传文件名称）</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4d1046b" class="outline-4">
+<h4 id="org4d1046b"><span class="section-number-4">13.1.3.</span> 处理文件的php脚本</h4>
+<div class="outline-text-4" id="text-13-1-3">
+<p>
+文件上传后，被保存在php.ini文件的upload<sub>tmp</sub><sub>dir指定的临时目录中</sub>。如果在php脚本结束前没有移动、复制、或重命名该文件，该文件会在脚本结束后自动删除。
+</p>
+
+<p>
+文件上传数据保存在超级全局数组$<sub>FILES中</sub>。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="orgc6e7bda"></a>关于$<sub>FILE全局数组的说明</sub>：<br />
+<div class="outline-text-5" id="text-13-1-3-1">
+<p>
+html代码：&lt;input type="file" name="the<sub>file</sub>" …… /&gt;
+</p>
+<ul class="org-ul">
+<li>name属性的值“the<sub>file</sub>",用于$<sub>FILE数组</sub>，代表上传的文件名</li>
+<li>$<sub>FILE</sub>['the<sub>file</sub>']['tmp<sub>name</sub>'] &#x2014; 上传文件的临时文件的名称和位置</li>
+<li>$<sub>FILE</sub>['the<sub>file</sub>']['name'] &#x2014; 上传文件的初始名称</li>
+<li>$<sub>FILE</sub>['the<sub>file</sub>']['size'] &#x2014; 上传文件的大小</li>
+<li>$<sub>FILE</sub>['the<sub>file</sub>']['type'] &#x2014; 文件的类型，比如text/plain或image/png</li>
+<li>$<sub>FILE</sub>['the<sub>file</sub>']['error'] &#x2014; 与上传相关的错误代码
+<ul class="org-ul">
+<li>0 —— 没有错误</li>
+<li>1 —— 上传的文件太大，超出php.ini的规定值</li>
+<li>2 —— 超出表单元素规定的最大值</li>
+<li>3 —— 文件只是部分上传</li>
+<li>4 —— 文件没有上传</li>
+<li>6 —— 没有指定临时目录</li>
+<li>7 —— 文件写入失败</li>
+<li>8 —— php扩展停止了文件上传过程</li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="orga9e4ac5"></a>文件上传处理<br />
+<div class="outline-text-5" id="text-13-1-3-2">
+<ul class="org-ul">
+<li>$upload<sub>file</sub> = './upload/' . $<sub>FILE</sub>['the<sub>file</sub>']['name'];前一半是上传的路径，后一半是上传的文件名称</li>
+<li>is<sub>upload</sub><sub>file</sub>($<sub>FILE</sub>['the<sub>file</sub>']['tmp<sub>name</sub>']) —— 判断文件是否上传</li>
+<li>move<sub>uploaded</sub><sub>file</sub>($<sub>FILE</sub>['the<sub>file</sub>']['tmp<sub>name</sub>'],$upload<sub>file</sub>) —— 移动临时文件到指定的目录和文件名。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org2343cfb" class="outline-2">
+<h2 id="org2343cfb"><span class="section-number-2">14.</span> 第11章 使用PHP从Web访问MySQL数据库</h2>
+<div class="outline-text-2" id="text-14">
+</div>
+<div id="outline-container-orge1954cb" class="outline-3">
+<h3 id="orge1954cb"><span class="section-number-3">14.1.</span> 从Web查询数据库的基本步骤</h3>
+<div class="outline-text-3" id="text-14-1">
+<ol class="org-ol">
+<li>检查并过滤来自用户的数据。</li>
+<li>建立一个到适当数据库的连接。</li>
+<li>查询数据库。</li>
+<li>获取查询的结果。</li>
+<li>将结果显示给用户。</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org3c9dcb9" class="outline-3">
+<h3 id="org3c9dcb9"><span class="section-number-3">14.2.</span> 检查与过滤用户输入数据</h3>
+<div class="outline-text-3" id="text-14-2">
+</div>
+<div id="outline-container-orgf60d7b6" class="outline-4">
+<h4 id="orgf60d7b6"><span class="section-number-4">14.2.1.</span> 过滤开始和结尾处的空格（trim（）函数）</h4>
+<div class="outline-text-4" id="text-14-2-1">
+<p>
+使用trim函数过滤，trim（）还可以过滤掉指定的字符。
+例如：
+trim（$sdinng,'dkji')——过滤掉dkji
+</p>
+</div>
+</div>
+<div id="outline-container-org953844f" class="outline-4">
+<h4 id="org953844f"><span class="section-number-4">14.2.2.</span> 格式化字符串，以便输入到数据库（addslashes（））</h4>
+<div class="outline-text-4" id="text-14-2-2">
+<p>
+用addslashes（）自动转义 空格、引号、斜杠、NULL等。 防止  数据库把这些字符当做控制字符处理。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0af2038" class="outline-3">
+<h3 id="org0af2038"><span class="section-number-3">14.3.</span> 和数据库建立连接</h3>
+<div class="outline-text-3" id="text-14-3">
+</div>
+<div id="outline-container-org059dd31" class="outline-4">
+<h4 id="org059dd31"><span class="section-number-4">14.3.1.</span> 面向对象的方法</h4>
+<div class="outline-text-4" id="text-14-3-1">
+<p>
+@ $db = new mysqli ( ' 主机名 ' ,   ' 数据库用户名 ' ,   ' 数据库密码
+' ,   ' 数据库名称 ' );
+</p>
+</div>
+</div>
+<div id="outline-container-org7d3f893" class="outline-4">
+<h4 id="org7d3f893"><span class="section-number-4">14.3.2.</span> 面向过程的方法</h4>
+<div class="outline-text-4" id="text-14-3-2">
+<p>
+@ $db = mysqli<sub>connect</sub>  ( ' 主机名 ' ,   ' 数据库用户名 ' ,   ' 数据库密码
+ ' ,   ' 数据库名称 ' );
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orge61e778" class="outline-3">
+<h3 id="orge61e778"><span class="section-number-3">14.4.</span> 查询数据库</h3>
+<div class="outline-text-3" id="text-14-4">
+</div>
+<div id="outline-container-org2dc6563" class="outline-4">
+<h4 id="org2dc6563"><span class="section-number-4">14.4.1.</span> 建立查询语句；</h4>
+<div class="outline-text-4" id="text-14-4-1">
+<blockquote>
+<p>
+$query = " select * from books where $searchtype like ' %$searchterm%
+' ";
+</p>
+</blockquote>
+<p>
+——这里用了模糊查询 like ，和通配符 %
+</p>
+</div>
+</div>
+<div id="outline-container-org69d45ab" class="outline-4">
+<h4 id="org69d45ab"><span class="section-number-4">14.4.2.</span> 执行查询；</h4>
+<div class="outline-text-4" id="text-14-4-2">
+<ol class="org-ol">
+<li><b>面向过程：</b></li>
+</ol>
+<p>
+$result = mysqli<sub>query</sub>($query);
+</p>
+<ol class="org-ol">
+<li><b>面向对象：</b></li>
+</ol>
+<p>
+$result = $db-&gt;query($query)   ——$db是连接数据库是建立的数据库对象，返
+回的是一个对象
+</p>
+</div>
+</div>
+<div id="outline-container-orge508e71" class="outline-4">
+<h4 id="orge508e71"><span class="section-number-4">14.4.3.</span> 检索查询结果</h4>
+<div class="outline-text-4" id="text-14-4-3">
+</div>
+<ol class="org-ol">
+<li><a id="orgf8ef8fe"></a>返回查询结果的行数（即满足条件的数据有几条）<br />
+<div class="outline-text-5" id="text-14-4-3-1">
+<ol class="org-ol">
+<li><b>面向过程：</b></li>
+</ol>
+<p>
+$num<sub>results</sub> = mysqli<sub>num</sub><sub>rows</sub>($result);
+</p>
+<ol class="org-ol">
+<li><b>面向对象：</b></li>
+</ol>
+<p>
+$num<sub>results</sub> = $result-&gt;num<sub>rows</sub>;
+</p>
+</div>
+</li>
+<li><a id="orge53e07e"></a>返回查询到的每一行的数据<br />
+<div class="outline-text-5" id="text-14-4-3-2">
+<ol class="org-ol">
+<li><b>面向过程：</b></li>
+</ol>
+<p>
+$row = $result-&gt;fetch<sub>assoc</sub>();——以数组的形式返回每一行的数据，要放在循
+环内
+</p>
+<ol class="org-ol">
+<li><b>面向对象：</b></li>
+</ol>
+<p>
+$row = mysqli<sub>fetch</sub><sub>assoc</sub>($result);
+</p>
+</div>
+</li>
+<li><a id="org71b8832"></a>显示查询到的数据的字段<br />
+<div class="outline-text-5" id="text-14-4-3-3">
+<p>
+stripslashes($row['isbn']);——数据库字段名就是 返回的每行数据数组$row的
+下标，stripslashes()函数的作用是去除数据库格式。
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgd9712e2" class="outline-3">
+<h3 id="orgd9712e2"><span class="section-number-3">14.5.</span> 断开数据库连接</h3>
+<div class="outline-text-3" id="text-14-5">
+</div>
+<div id="outline-container-orgfeee010" class="outline-4">
+<h4 id="orgfeee010"><span class="section-number-4">14.5.1.</span> 释放数据库的连接</h4>
+<div class="outline-text-4" id="text-14-5-1">
+<ol class="org-ol">
+<li><b>面向对象：</b></li>
+</ol>
+<p>
+$result -&gt;free();
+</p>
+<ol class="org-ol">
+<li><b>面向过程：</b></li>
+</ol>
+<p>
+mysqli<sub>free</sub><sub>result</sub>($result);
+</p>
+</div>
+</div>
+<div id="outline-container-orga08924e" class="outline-4">
+<h4 id="orga08924e"><span class="section-number-4">14.5.2.</span> 断开数据库连接</h4>
+<div class="outline-text-4" id="text-14-5-2">
+<ol class="org-ol">
+<li><b>面向对象：</b></li>
+</ol>
+<p>
+$db-&gt;close();
+</p>
+<ol class="org-ol">
+<li><b>面向过程：</b></li>
+</ol>
+<p>
+mysqli<sub>close</sub>($db);
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org2bd7c3f" class="outline-3">
+<h3 id="org2bd7c3f"><span class="section-number-3">14.6.</span> 将新信息写入数据库</h3>
+</div>
+</div>
+<div id="outline-container-orgc76987b" class="outline-2">
+<h2 id="orgc76987b"><span class="section-number-2">15.</span> 第23章 在PHP中使用会话控制</h2>
+<div class="outline-text-2" id="text-15">
+</div>
+<div id="outline-container-org63ac9c0" class="outline-3">
+<h3 id="org63ac9c0"><span class="section-number-3">15.1.</span> 本章主要内容</h3>
+<div class="outline-text-3" id="text-15-1">
+<ul class="org-ul">
+<li>什么是会话控制</li>
+<li>cookie</li>
+<li>创建一个会话控制</li>
+<li>会话变量</li>
+<li>会话和身份验证</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8f09b11" class="outline-3">
+<h3 id="org8f09b11"><span class="section-number-3">15.2.</span> 什么是会话控制</h3>
+<div class="outline-text-3" id="text-15-2">
+<p>
+http是无状态的协议，没有一个内建机制来维护两个事物之间的状态。当一个用
+户在请求一个页面后再请求另外一个页面时，http将无无法告诉我们这两个请求
+是来自同一个用户。
+</p>
+
+<p>
+会话控制的思想是指能够在网站中根据一个会话跟踪用户。  如果我们可以做到这
+点，就可以很容易的做到对用户登录的支持，并根据其授权级别和个人喜好显示
+相应的内容。我们可以根据会话控制记录该用户的行为。  还可以实现购物车。
+</p>
+
+<p>
+在php4及其以后版本中，php自身包含了会话控制函数。  自从超级全局变量概
+念的引入， 会话控制方法就发生来一些变化。  如今可以使用$<sub>SEEION超级全</sub>
+局变量。
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: chen</p>
+<p class="date">Created: 2023-05-28 Sun 09:05</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
