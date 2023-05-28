@@ -11,7 +11,7 @@ CREATE DATABASE us_demo_dev DEFAULT CHARACTER SET utf8mb4 ;
 -- 创建一个user
 create user 'frank'@'%' IDENTIFIED BY '123456';
 
--- 授权 那么多的权限
+-- 授权 
 GRANT  SELECT,INSERT ,UPDATE ,DELETE ,DROP,ALTER ,INDEX  ON  us_demo_dev.*  TO  'frank'@'%';
 -- 刷新权限
 flush privileges;
