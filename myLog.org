@@ -1,26 +1,9 @@
 #+title:MyLog（我的日志）
 #+author:CYQ
 ;;#+html_head: <link rel="stylesheet" type="text/css" href="./note/css/worg.css" />
-* 笔记随记
-** mmm-mode
- 在一个 buffer 中同时使用多个 major mode， 在不同的区域拥有不同的对应键绑定、变量、缩进…… 如果有嵌入 html的 javascript、css php，就可以用 mmm-mode
-** 关于MySQL的几个操作
-- 查看数据库  show databases;
-- 查看数据库中的所有数据表    show tables;
-- 查看某个特定表的详细信息    describe books；
-** MySQL标示符
-database（数据库）、 table（表）、 Column（列）、 index（索引）、 alias（别名 ）、 视图、 存储过程
-
-数据库是映射到具有文件结构的目录，而表则映射到文件，从移植性看，建议所有标示符采用小写。
-
-目录和包含数据的文件的位置需要再配置中设置，可以使用mysqladmin命令来检查他们在系统重的位置，用法如下：
-#+begin_src sql
-      mysqladmin -h host -u root -p
-#+end_src
-再查询datadir变量
-
 * Todo代办事项
-** TODO 最近事项 [5/5]
+** School Work
+*** TODO 2022-6最近事项 [5/5]
 - [X] 最近核酸检测日程 [2/2]
   - [X] 6-16日 ，9：30 - 10：30 ，初一年级全体师生核酸检测
   - [X] 6-19日， 16：00 - 17:30, 初一初二核算检测
@@ -58,15 +41,21 @@ database（数据库）、 table（表）、 Column（列）、 index（索引�
     - [X] 校门口的三个人：查看两码、指导扫码、报名（压力比较大）
     - [X] 顾丽芳：根据报名做好大数据文件的入场标记，新报名的，在大数据文件中添加报名号，并做好入场标记
     - [X] 4 组的电脑操作员
-  - [X] 13日扫码上报数据到局里
-** TODO 需要解决的问题[100%]
-   - [X] 配置放到OneDrive进行网络同步
-   - [X] 配置spacemacs中的org-mode
-   - [X] 配置python环境
-   - [X] 配置html开发环境
-
-* TODO mylog [5/5]
-
+  - [X] 13日扫码上报数据到局
+*** 2023-8-22起 [0/3]
+- [-] 分班 [1/3]
+  - [X] 原始分班
+  - [ ] 最终分班名单
+  - [ ] 分班查询二维码（微信公众号）
+- [ ] 学籍异动 [0/3]
+  - [ ] 初二教育局统配转入汪宇涵 [0/3]
+    - [ ] 确定班级
+    - [ ] 通知家长入学
+    - [ ] 平台上做转入操作
+  - [ ] 初三1 陈辰心转出
+  - [ ] 几个休学
+- [ ] 苏州市学业水平质量检测初一新生名单上传平台
+* mylog [5/5]
 - [X] 办公室manjaro 开启ssh服务<2022-06-06 Mon>
 - [X] 安装并启用tramp， 用于 emacs 远程编辑服务器上的文件<2022-06-06 Mon>
 - [X] 实现使用 emacs 直接编辑远程文件
@@ -93,8 +82,25 @@ To restart php after an upgrade:
 Or, if you don't want/need a background service you can just run:
   /usr/local/opt/php/sbin/php-fpm --nodaemonize
 
+* 笔记随记
+** mmm-mode
+ 在一个 buffer 中同时使用多个 major mode， 在不同的区域拥有不同的对应键绑定、变量、缩进…… 如果有嵌入 html的 javascript、css php，就可以用 mmm-mode
+** 关于MySQL的几个操作
+- 查看数据库  show databases;
+- 查看数据库中的所有数据表    show tables;
+- 查看某个特定表的详细信息    describe books；
+** MySQL标示符
+database（数据库）、 table（表）、 Column（列）、 index（索引）、 alias（别名 ）、 视图、 存储过程
 
-* 重新开始使用spacemacs
+数据库是映射到具有文件结构的目录，而表则映射到文件，从移植性看，建议所有标示符采用小写。
+
+目录和包含数据的文件的位置需要再配置中设置，可以使用mysqladmin命令来检查他们在系统重的位置，用法如下：
+#+begin_src sql
+      mysqladmin -h host -u root -p
+#+end_src
+再查询datadir变量
+
+** 重新开始使用spacemacs
 
 ** 配置org-mode
 *** 换行
@@ -107,7 +113,7 @@ Or, if you don't want/need a background service you can just run:
 ** 快速插入标题（列表）org-meta-return 函数按键绑定的改变
    在原始的emacs中，这个函数绑定为 ‘M-RET’，但是在spacemace中，'M-RET‘绑定为了被的功能，改为’SPC m M-RET
 
-*  使用 php 读取 excel<2022-04-14 Thu>
+**  使用 php 读取 excel<2022-04-14 Thu>
 ** 使用 PhpspreadsExcel库
 *** 使用 composer 安装 PhpspreadsExcel
 **** 在 mac os 上安转 composer
@@ -155,11 +161,9 @@ done like this:
 
 $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 
-
-* php读取excel写入数据库简要流程<2022-07-17 Sun>
-
-** 制作一个文件上传的表单
-*** 一个实例
+** php读取excel写入数据库简要流程<2022-07-17 Sun>
+*** 制作一个文件上传的表单
+**** 一个实例
 #+begin_src html
   <html>
 <head>
@@ -178,12 +182,12 @@ $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 </html>
 #+end_src
 
-*** 注意项
+**** 注意项
 - <form> 标签的 enctype 属性规定了在提交表单时要使用哪种内容类型。在表单需要二进制数据时，比如文件内容，请使用 "multipart/form-data"。
   
 - <input> 标签的 type="file" 属性规定了应该把输入作为文件来处理。举例来说，当在浏览器中预览时，会看到输入框旁边有一个浏览按钮。
-** 制作上传php脚本（把上传文件保存到指定目录）
-*** 实例源码
+*** 制作上传php脚本（把上传文件保存到指定目录）
+**** 实例源码
 #+begin_src php
   <?php
 if ($_FILES["file"]["error"] > 0)
@@ -199,15 +203,15 @@ else
 }
 ?>
 #+end_src
-*** 源码说明
+**** 源码说明
 - $_FILES["file"]["name"] - 上传文件的名称
 - $_FILES["file"]["type"] - 上传文件的类型
 - $_FILES["file"]["size"] - 上传文件的大小，以字节计
 - $_FILES["file"]["tmp_name"] - 存储在服务器的文件的临时副本的名称
 - $_FILES["file"]["error"] - 由文件上传导致的错误代码
 
-*** 上传限制的实例
-**** 源码
+**** 上传限制的实例
+***** 源码
 #+begin_src php
   <!doctype html>
 <html>
@@ -255,37 +259,36 @@ else
 
 #+end_src
 
-* MAC OS下的PHP环境
-** apache服务的控制命令
+** MAC OS下的PHP环境
+*** apache服务的控制命令
 - sudo systemctl status httpd    查看apache服务状态
 - sudo apachectl start     mac启动 apache
 - apachectl staus          mac 下查看 apache 状态
-**  apache modules 目录的位置
+***  apache modules 目录的位置
 /usr/local/opt/php/lib/httpd/modules
-** php扩展的目录
+*** php扩展的目录
 /usr/lib/php/extensions
-** 安装扩展 
-*** 通过pecl安装 php 扩展
+*** 安装扩展 
+**** 通过pecl安装 php 扩展
 #+begin_quote
 $ curl -O https://pear.php.net/go-pear.phar
 $ sudo php -d detect_unicode=0 go-pear.phar
 #+end_quote
-*** 查看 pecl 的相关配置
+**** 查看 pecl 的相关配置
 #+begin_quote
 $ pecl config-show
 #+end_quote
 这个命令可以查看 php 默认的扩展目录
-* manjaro 开启ssh服务
+** manjaro 开启ssh服务
 systemctl enable sshd.service 开机启动
 systemctl start sshd.service 立即启动
 systemctl restart sshd.service 立即重启
 
-** ssh 登陆远程服务器
+*** ssh 登陆远程服务器
 ssh 用户名@服务器地址
 
-
-* 教务管理系统数据库(cssyz)log
-** 学生基本信息表（cssyz_student_bassic)
+** 教务管理系统数据库(cssyz)log
+*** 学生基本信息表（cssyz_student_bassic)
 - student_name
 - student_identification
 - student_grade
@@ -293,5 +296,4 @@ ssh 用户名@服务器地址
 - student_number
 - exame_number
 
-
-* 配置图片显示插件 image+
+** 配置图片显示插件 image+

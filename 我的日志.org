@@ -1,6 +1,12 @@
 #+title:MyLog（我的日志）
 #+author:CYQ
 ;;#+html_head: <link rel="stylesheet" type="text/css" href="./note/css/worg.css" />
+* My School Work
+** 9月开学前
+*** 分班 [/]
+[] 原始分班
+[] 最终名单
+[] 微信公众号查询分班结果
 * myqsql数据库
 ** mysql 8.0 建立用户和设置权限
 8.0版本建立用户和设置权限不能放在一起，要分开，否则会报错
