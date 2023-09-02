@@ -160,9 +160,10 @@ Enter password:
 然后命令提示符会一直以 mysq> 加一个闪烁的光标等待命令的输入, 输入 exit 或 quit 退出登录。
 
 * MySQL 添加用户
+** 方法1：在user表中添加
 如果你需要添加 MySQL 用户，你只需要在 mysql 数据库中的 user 表添加新用户即可。
 以下为添加用户的的实例，用户名为guest，密码为guest123，并授权用户可进行 SELECT, INSERT 和 UPDATE操作权限：
-#+BEGIN_QUOTE
+#+BEGIN_QUOTE sql
 root@host# mysql -u root -p
 Enter password:*******
 mysql> use mysql;
@@ -187,10 +188,24 @@ mysql> SELECT host, user, password FROM user WHERE user = 'guest';
 1 row in set (0.00 sec)
 #+END_QUOTE
 
+** 方法2：grant命令
+另外一种添加用户的方法为通过SQL的 GRANT 命令，以下命令会给指定数据库TUTORIALS添加用户 zara ，密码为 zara123 。
+#+begin_src sql
+root@host# mysql -u root -p
+Enter password:*******
+mysql> use mysql;
+Database changed
+
+mysql> GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP
+    -> ON TUTORIALS.*
+    -> TO 'zara'@'localhost'
+    -> IDENTIFIED BY 'zara123';
+#+end_src
+
 * 管理MySQL的命令
 以下列出了使用Mysql数据库过程中常用的命令：
 ** 选择数据库 —— USE 数据库名 :
-#+BEGIN_QUOTE
+#+BEGIN_QUOTE src
 选择要操作的Mysql数据库，使用该命令后所有Mysql命令都只针对该数据库。
 mysql> use RUNOOB;
 Database changed
@@ -215,7 +230,7 @@ mysql> SHOW DATABASES;
 #+END_QUOTE
 ** SHOW TABLES:
 显示指定数据库的所有表，使用该命令前需要使用 use 命令来选择要操作的数据库。
-#+BEGIN_QUOTE
+#+BEGIN_QUOTE src
 mysql> use RUNOOB;
 Database changed
 mysql> SHOW TABLES;
@@ -255,9 +270,8 @@ mysql> SHOW INDEX FROM runoob_tbl;
 
 ** SHOW TABLE STATUS LIKE [FROM db_name] [LIKE 'pattern'] \G: 
 该命令将输出Mysql数据库管理系统的性能及统计信息。
-#+BEGIN_QUOTE
+#+BEGIN_QUOTE sql
 mysql> SHOW TABLE STATUS  FROM RUNOOB;   # 显示数据库 RUNOOB 中所有表的信息
-
 mysql> SHOW TABLE STATUS from RUNOOB LIKE 'runoob%';     # 表名以runoob开头的表的信息
 mysql> SHOW TABLE STATUS from RUNOOB LIKE 'runoob%'\G;   # 加上 \G，查询结果按列打印
 #+END_QUOTE
