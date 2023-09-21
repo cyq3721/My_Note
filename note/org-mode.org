@@ -1,5 +1,6 @@
 #+TITLE: org-mode 笔记
 #+AUTHOR: Shadow-Fish
+#+startup: indent
 #DATA: 2017-5
 
 * 简介
@@ -316,7 +317,7 @@ C-c C-e\\
 
 2. 标签的特点
    org的标签自动按照大纲树继承，即子标题自动继承父标题的标签。 使用:tag:表示，例如:
-   #+begin_quote
+   #+begin_quote 
    * meeting  :work:
    ** title   :boss:
    *** TODO prepare list  :action:
