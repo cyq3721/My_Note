@@ -86,7 +86,7 @@ C-h f 寻找函数的帮助信息
 简单来说就是，一种文件类型同时只能存在一种 Major Mode 但是它可以同时激活一种或多 种 Minor Mode。如果你希望知道当前的模式信息，可以使用 C-h m 来显示当前所有开启 的全部 Minor Mode 的信息。
 *** 简单的编辑器自定义
 编辑配置文件~/.emacs.d/init.el即可
-#+BEGIN_SRC 
+#+BEGIN_SRC  lisp
 ;;关闭工具栏，tool-bar-mode 即为一个Minor Mode
 (tool-bar-mode -1)
 
