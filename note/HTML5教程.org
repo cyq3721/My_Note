@@ -73,3 +73,9 @@ HTML5新增了一些标签，更加符合我们的思维方式，更人性化。
 结构性标签（construct tag）主要负责Web的上下文结构的定义，确保html文档的完整性，是网页的文档结构更加明确。
 *** section
 用于表达文档的一部分或一章，或者一章内的一节。
+#+begin_src html
+  <section>
+    <h1>新章节的标题</h1>
+    ……
+  </section>
+#+end_src

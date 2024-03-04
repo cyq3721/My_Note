@@ -3,7 +3,6 @@
 #+STARTUP: indent
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
 #+data:2017-8
-
 * 第一章 PHP快速入门 
 ** 使用php标记
 以<?php 开始，以?>为结束
@@ -39,11 +38,19 @@ PHP是弱类型语言（动态类型语言），变量的类型由赋给变量�
   - j 是该月的日期，不需要补0；
   - s 是顺序后缀（比如th）；
   - F 是月份的全称；
+** 理解标示符
+标示符是变量的名称。 （函数和类的名称也是标示符） 。
+- 标示符可以是任何长度， 可以由任何字母、数字、下划线组成。
+- 标示符不能以数字开头。
+- 标示符区分大小写
+- 变量名名可以与函数名相同， 这一点容易引起混淆， 虽然是允许的， 但应当尽量避免。。函数名不能同名。  
 ** 声明和使用常量
 - 常量值一旦被设定后，就不能再更改。使用define函数定义常量。
-#+BEGIN_EXAMPLE
-define ('TIREPRICE' , 100);
-#+END_EXAMPLE
+#+begin_src php
+define ('TIREPRICE' , 100);  
+#+end_src
+
+
 - 常量的引用
 引用常量不需要$, 直接使用常量的名称。
 ** PHP中的比较操作符
@@ -516,7 +523,7 @@ class classname
 *示例*
 class classname
 {
-      function ___construct
+      function ___construct（）
 }
 **** 析构函数
 名称必须是__destruct()，不能带任何参数
