@@ -123,6 +123,20 @@ switch ($find){
 ** 输出格式控制number_format($val, 位数)
 
 ** declare结构
+php的另一种控制结构是declare结构， 它并没有像其它结构一样在日常编程中经常使用。 常见的控制结构的常见形式如下：
+#+begin_src php
+  declare (directive){
+      //block
+  }
+#+end_src
+
+这种结构用来设置代码块的执行指令， 也就是， 关于后续代码如何运行的规则。 目前，PHP提供了两个执行指令， ticks和encoding
+- ticks
+  插入指令ticks=n ， 就可以使用ticks。 它允许在代码内部每执行n行代码后运行特定函数， 这对于性能调优和调试来说是非常有用的。
+- encoding 用来设置脚本的编码
+  #+begin_src php
+    declare(encoding = 'UTF-8');
+  #+end_src
 * 第2章 数据的存储与检索
 ** 本章主要内容
 
