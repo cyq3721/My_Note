@@ -9,7 +9,7 @@
 [[./note/manjaro.org][Manjaro Linux日常记录]]
 ** emacs相关
      [[./note/《学习emacs》笔记.org][《学习emacs》笔记]]
-     [[./note/emacs学习笔记.org][femacs学习笔记]]
+     [[./note/emacs学习笔记.org][emacs学习笔记]]
      [[./note/emacs插件.org][emacs插件]]
      [[./note/emacs平时记录.org][emacs平时记录]]
      [[./note/org-mode.org][org-mode笔记]]

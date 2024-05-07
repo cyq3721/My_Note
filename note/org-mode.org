@@ -28,7 +28,7 @@ Emacs23以后已经默认包含有org-mode。
 #+END_QUOTE
 
 * 基本教程
-** 文档结构
+** 文档结构 
 *** 标题
 - 【* 】一级标题
 - 【** 】二级标题依次类推
@@ -52,8 +52,7 @@ Emacs23以后已经默认包含有org-mode。
 -  有序列表项以‘1.’、‘1)’或者开头。
 -  描述列表用‘::’将项和描述分开。
 - 【C-c -】循环改变项标志符
-**** 脚注
-
+**** 脚注[fn:1]
 - 【c-c c-x f】 光标在开头是根据参数创建脚注，在文中时在当前位置插入一个新的脚注，在脚注上时跳转到定义
 - 【c-c c-c】 在定义个引用直接进行跳转
 
@@ -205,7 +204,7 @@ org-mode的文档在导出到html时，有一个挺烦人的问题就是 abc_def
 
 (set-face-attribute 'org-level-1 nil :height 1.6 :bold t)
 (set-face-attribute 'org-level-2 nil :height 1.4 :bold t)
-(set-face-attribute 'org-level-3 nil :height 1.2 :bold t)))
+(set-face-attribute 'org-level-3 nil :height 1.2 :bold t)
 
 也可以直接打开该theme的el源文件修改.
 ** 修改org的标记样式
@@ -363,4 +362,8 @@ C-c C-e\\
 
 C-c / m 或 C-c \ 标准检索， 按照tag进行检索
 C-c a m 按标签搜索多个文件 需要把文件加入全局agenda
+
+* Footnotes
+
+[fn:1] 脚注测试
 
