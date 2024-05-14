@@ -844,63 +844,59 @@ REVOKE SELECT, INSERT, UPDATE, DELETE, DROP, INDEX, ALTER  ON `us_demo_dev`.* fr
 #+end_quote
 ** 创建数据库表
 *** Book-O-Rama 数据库模式
-Customers(CustomerID,
-* 第10章 使用MySQL数据库
-** 本章主要内容
-- SQL是什么
-- 在数据库中插入数据
-- 表的连接
-- 使用电子查询
-- 更新数据库中的记录
-- 创建后修改表
-- 创建数据中的记录
-- 删除表
-** SQL是什么
-全称是Structured Query Language，是访问关系数据库管理系统（RDBMS）的标
-准语言。
+**** 模式
+#+begin_quote
+Customers(CustomerID, Name, Address, City)
+Orders(OrderID, CustomerID, Amount, Date)
+Books(ISBN, Author, Title, Price)
+Order_Items(OrderID, ISBN, Quantity)
+Book_Reviews(ISBN, Review)
+#+end_quote
+**** 脚本代码
+#+begin_src sql
+create table Customers(
+       CustomerID int unsigned not null auto_increment primary key,
+       Name char(50) not null,
+       Address char(100) not null,
+       City char(30) not null
+);
+create table Orders(
+       OrderID int unsigned not null auto_increment primary key,
+       CustomerID int unsigned not null,
+       Amount float(6,2),
+       Date date not null,
+       foreign key(CustomerID) references Customers(CustomerID)
+);
+create table Books(
+       ISBN char(13) not null primary key,
+       Author char(50),
+       Title char(100),
+       Price float(4,2)
+);
+create table Order_Items(
+       OrderID int unsigned not null,
+       ISBN char(13) not null,
+       Quantity tinyint unsigned,
 
-SQL可以用来将数据保存到数据库中，以及从数据库中取回数据。应用与常见数
-据库，如MySQL、Oracle、PostgreSQL、Sybase和Microsoft SQL Server等。
-** 在数据库中插入数据
-*** insert语句
-**** insert语句的格式：
-#+begin_quote
-insert [into] /table/  [(/colum/ , /colum/ ,……]  value  (/value1/, /value2/, ……);
-#+end_quote
-**** 示例
-- *在Book-O-Rama的customer表中插入一个记录：*
-#+begin_quote
-insert into customers values(Null, 'Julie Smith' , '25 oak Street' , 'Airport West' );
-#+end_quote
+       primary key(orderid,ISBN),
+       foreign key (OrderID) references Orders(OrderID),
+       foreign key (ISBN) references Boosk(ISBN)
+);
+create table Book_reviews(
+       ISBN char(13) not null primary key;
+       Review text,
 
-- *备注：* Mysql中的字符串应该包含在一对单引号或双引号中。
+       foreign key (ISBN) references Books(ISBN)
+);
 
-- *只插入部分列：*
-#+begin_quote
-insert into customers(name, city) values ('Melissa Jones' , 'Nar Nar Goon North');
-#+end_quote
-** 在数据库中获取数据
-*** select语句
-_基本格式：_
-#+begin_quote
-select [option]  /items/  [into file_details]  from /tables/   [where
-conditions] ……
-#+end_quote
-*** 按条件获取数据
-使用where来实现，例如：
-#+begin_quote
-select * form orders where customerid=5;
-#+end_quote
-*** 从多个表中获取数据
-***  清空数据表
-#+begin_quote
-truncate table test_table;
-#+end_quote
-***  删除数据表
-#+begin_quote
-drop table if exists test_table;
-#+end_quote
-
+#+end_src
+**** 关键字解释
+- NOT NULL
+  表示必须有一个值， 如果没有指定， 则表示可以为空NULL。
+- Auto_increment
+  是一个特殊的MySQL特性，可以在整数列上使用，意义为在表中插入行时，如果该字段为空，那么MySQL将自动产生一个唯一的标识符（自动增加1）
+- primary key
+  表示主键， 只适用于单列主键
 * 第11章 使用PHP从Web访问MySQL
 ** 本章主要内容
 - Web数据库架构及工作原理
