@@ -1018,33 +1018,67 @@ Mac OS X中没有默认的php.ini文件，但是有对应的模版文件php.ini.
 位于/etc/php.ini.default ，可以自行拷贝一份进行修改。
 
 *** 文件上传的html表单
-- 文件上传必须使用POST；
+#+begin_src html
+  
+    <!doctype html>
+  <html>
+      <head>
+          <title>Upload a File</title>
+          <meta charset="utf-8" />
+      </head>
+      <body>
+          <div align="center">
+              <h1>Upload a File</h1>
+              <form action="upload.php" method="post" enctype="multipart/form-data">      /* 文件上传表单 */
+                  <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />        /*用隐藏域设置上传文件最大大小*/
+                  <label for="The_file">Upload a file:</label>
+                  <input type="file" name="the_file" id="the_file" />
+                  <input type="submit" value="Upload File" />
+              </form>
+          </div>
+      </body>
+  </html>
+
+#+end_src
+文件上传表单必须使用POST， 不能使用GET， 该表单的其它特性包括：
 - <form>标记中，必须设置属性enctype = "multipart/form-data" ，告诉服务器有常规信息的文件要上传；
-- 如果没有服务器端的配置控制文件上传的大小，必须有个表单域用来设置上传文件的大小。示例如下：
-#+BEGIN_SRC 
-<input type="hidden" name="MAX_FILE_SIZE" value="1000000" //单位为字节
+- 如果没有服务器端的配置控制文件上传的大小，必须有个表单域用来设置上传文件的大小。可以使用如下的隐藏域来指定：
+#+BEGIN_SRC html
+<input type="hidden" name="MAX_FILE_SIZE" value="1000000" >//单位为字节
 #+END_SRC
 - type属性值设置为file，用于上传文件，并设置name属性（在php处理中代表上传文件名称）
+- 指定的大小是可以上传文件的最大大小（以字节为单位）。 上述代码指定为1000000字节（1MB）。根据应用需要，可以调整该值设置。 如果使用MAX_FILE_SIZE作为隐藏的表单域， 它将覆盖服务，器端的最大大小设置（如果其值小于upload_max_filesize和post_max_size设置）。
+- 需要类型为file的输入框
+  #+begin_src html
+    <input type="file" name="the_file" id="the_file" />
+  #+end_src
+- 可以选择任何文件名称， 但是必须记住， 将在处理上传文件的PHP脚本中使用该名称访问文件。
 *** 处理文件的php脚本
 文件上传后，被保存在php.ini文件的upload_tmp_dir指定的临时目录中。如果在php脚本结束前没有移动、复制、或重命名该文件，该文件会在脚本结束后自动删除。
 
-文件上传数据保存在超级全局数组$_FILES中。
+需要在PHP脚本中处理的数据保存在超级全局数组$_FILES中。 $_FILES数组项将通过HTML表单的<file> 标记名称来保存。 假设表单元素名称为the_file：
 **** 关于$_FILE全局数组的说明：
-html代码：<input type="file" name="the_file" …… />
+html代码：
+#+begin_src html
+<input type="file" name="the_file" …… />  
+#+end_src
+
 - name属性的值“the_file",用于$_FILE数组，代表上传的文件名
-- $_FILE['the_file']['tmp_name'] --- 上传文件的临时文件的名称和位置
-- $_FILE['the_file']['name'] --- 上传文件的初始名称
-- $_FILE['the_file']['size'] --- 上传文件的大小
-- $_FILE['the_file']['type'] --- 文件的类型，比如text/plain或image/png
-- $_FILE['the_file']['error'] --- 与上传相关的错误代码
-  + 0 —— 没有错误
-  + 1 —— 上传的文件太大，超出php.ini的规定值
-  + 2 —— 超出表单元素规定的最大值
-  + 3 —— 文件只是部分上传
-  + 4 —— 文件没有上传
-  + 6 —— 没有指定临时目录
-  + 7 —— 文件写入失败
-  + 8 —— php扩展停止了文件上传过程
+
+-关于$_FILE[]数组：
+   - $_FILE['the_file']['tmp_name'] --- 上传文件的临时文件的名称和位置
+   - $_FILE['the_file']['name'] --- 上传文件的初始名称
+   - $_FILE['the_file']['size'] --- 上传文件的大小
+   - $_FILE['the_file']['type'] --- 文件的类型，比如text/plain或image/png
+   - $_FILE['the_file']['error'] --- 与上传相关的错误代码
+        + 0 —— 没有错误
+        + 1 —— 上传的文件太大，超出php.ini的规定值
+        + 2 —— 超出表单元素规定的最大值
+        + 3 —— 文件只是部分上传
+        + 4 —— 文件没有上传
+        + 6 —— 没有指定临时目录
+        + 7 —— 文件写入失败
+        + 8 —— php扩展停止了文件上传过程
 **** 文件上传处理
 - $upload_file = './upload/' . $_FILE['the_file']['name'];前一半是上传的路径，后一半是上传的文件名称
 - is_upload_file($_FILE['the_file']['tmp_name']) —— 判断文件是否上传
