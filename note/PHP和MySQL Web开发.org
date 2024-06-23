@@ -634,21 +634,68 @@ throw new Exception('message' ,code);
 throw 关键字将触发异常处理机制。它是一个语言结构而不是函数，必须给它传
 递一个参数。它要求接收一个对象。在最简单的情况下，可以实例化一个内置的
 Exception类。
-* 数据库（插入）
-** 什么是数据库？
-数据库（Database）是按照数据结构来组织、存储和管理数据的仓库。每个数据库都有一个或多个不同的 API 用于创建，访问，管理，搜索和复制所保存的数据。
+* 第18章 MySQL数据库概述（兄弟连内容插入）
+MySQL是小型关系型数据库管理系统。
+** 数据库的应用
+数据库是计算机应用系统中一种专门管理数据资源的系统。管理这个数据库的软件就称为数据库管理系统. 一个数据系统（database system） 可以分为数据（database）和数据库管理系统（database management system，DBMS）
+** 结构化查询语言SQL
+数据库操作指令称为SQL（structured Query Language）语言，即结构和查询语言，是一种专门用于查询和修改数据库中的数据，以及对数据库进行管理和维护的标准化语言。
 
-我们也可以将数据存储在文件中，但是在文件中读写数据速度相对较慢。
-
-所以，现在我们使用关系型数据库管理系统（RDBMS）来存储和管理大数据量。所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。
-
-RDBMS 即关系数据库管理系统(Relational Database Management System)的特点：
-
-1.数据以表格的形式出现
-2.每行为各种记录名称
-3.每列为记录名称所对应的数据域
-4.许多的行和列组成一张表单
-5.若干的表单组成database
+SQL语言的4个部分：
+- 数据定义语言DDL
+- 数据操作语言DML
+- 数据查询语言DQL
+- 数据控制语言DCL
+** MySQL的常见操作
+*** 数据库的连接和关闭
+- 连接数据库
+  #+begin_src sql
+      mysql -h 服务器地址 -u 用户名 -p 密码
+  #+end_src
+*** 创建新用户并授权
+#+begin_quote
+GRANT 权限 ON 数据库.数据表 TO 用户名@登陆主机 IDENTIFIED BY “密码”
+#+end_quote
+说明：
+  - @“%”            表示全网所有的主机，这存在安全隐患。
+  - @localhost      表示只允许本机登陆。
+*** 创建、删除数据库
+- 创建
+#+begin_src sql
+    CREATE DATABASE 数据库名；
+#+end_src
+- 删除
+ #+begin_src sql
+     DROP DATABASE 数据库名；
+ #+end_src
+*** 查看数据库
+查看所有数据库
+#+begin_src sql
+    SHOW DATABASES;
+#+end_src
+*** 使用数据库
+#+begin_src sql
+    USE 数据库名；
+#+end_src
+** 数据表内容的简单管理
+*** 向数据表插入行记录（INSERT）
+#+begin_quote
+INSERT INTO book(bookname,publisher,author,price) VALUES("细说PHP”，‘电子工业出版社’，‘骆高峰’,89.00);
+#+end_quote
+*** 从MySQL数据表中查询数据记录（SELECT）
+#+begin_quote
+SELECT id，bookname, publisher, author, price FROM book;
+#+end_quote
+*** 更改数据表中的记录（UPDATE）
+#+begin_quote
+UPDATE book SET price=79 WHERE id=2;
+#+end_quote
+说明： 若没有WHERE条件限制，则更改所有行。
+*** 删除数据表中的记录（DELETE）
+#+begin_quote
+DELETE FROM book WHERE ic=‘1’;
+#+end_quote
+说明：若没有WHERE条件限制， 则删除所有行。
 * 第8章 设计web数据库
 ** 本章主要内容
 - 关系数据库的概念和术语

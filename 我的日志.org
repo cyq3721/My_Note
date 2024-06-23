@@ -31,3 +31,11 @@ REVOKE SELECT, INSERT, UPDATE, DELETE, DROP, INDEX, ALTER  ON `us_demo_dev`.* fr
 
 
 #+end_quote
+
+* 数据库测试（2024-6）
+** 建立学生数据库 students
+*** 建立数据表 studengs_info
+- stu_name  (学生姓名)
+- stu_school_num  (学号)
+- stu_gender  （性别）
+- stu_idenification  （身份证号）
