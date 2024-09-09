@@ -1,0 +1,20 @@
+#+title: HTML5实战宝典
+#+author: Chen
+#+data: <2024-09-06 Fri>
+#+language:zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+
+* 第1章 HTML5概述
+** 一个新的web开发平台
+hmtl5的出现,掀起了Web时代的新浪潮, 各大浏览器也都纷纷支持html5. html5可以使网页内容更加丰富, 不仅可以显示三维图形, 还可以在不使用Flash插件的基础上实现音频\视频播放等. html5是向下兼容html4的, 它是在html4的基础之上, 加进了一些新的标记、属性、功能的一个新的超文本标记语言。 例如： html5拥有新的html文档结构、新的CSS标准、API等。
+
+html5提供了很多应用程序接口（API）， 例如基于浏览器支持的图形API、地理信息API、本地存储API和视频播放相关的API等。
+** html5为什么受欢迎
+*** 语法特点
+**** 简单的doctype
+   <!doctype html>
+   省略了版本号，更为简洁。
+**** 直观的结构
+在html4中对于网页结构的划分大量使用了div， 需要靠类名、加注释才能很好的解释我们的结构，在html5中可以使用article、footer、header、nav、section等标签来更好地了解我们的结构。
+*** 1.2.2 功能特点
+**** 音频、视频

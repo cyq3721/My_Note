@@ -29,7 +29,6 @@
      [[./note/Emacs绑定键盘的技巧.org][Emacs绑定键盘的技巧]]
      [[./note/elisp.org][elisp笔记]]
      [[./note/emacs-cookbook.org][emacs-cookbook.org]]
-     [[ ./note/用emacs编辑php.org][用emacs编辑php.org]]
      [[./note/writing php with emacs.org][Writing PHP with Emacs]]
 ** vi相关
      [[./note/vi教程.org][vi教程]]
@@ -71,6 +70,5 @@
 * github相关
 [[./note/github%E7%AC%94%E8%AE%B0.org][github笔记]]
 * 平时随笔
-[[./note/日常记录2021-4.org][日常记录
-]]
+[[./note/日常记录2021-4.org][日常记录]]
 
