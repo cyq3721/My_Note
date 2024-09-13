@@ -1,3 +1,4 @@
+
 #+title:shadow-fish‘s Notebook
 #+author: ShadowFish
 #+data:[2018-12-05 Wed]
@@ -39,6 +40,7 @@
 [[./note/《精通HTML5+CSS3+JavaScript网页设计》.org][精通HTML5+CSS3+JavaScript网页设计]]
 [[./note/JavaScript和jQuery.org][JavaScript和jQrery 交互式web前端开发]]
 [[./note/web前端开发.org][web前端开发]]
+[[./note/html5实战宝典.org][HTML5实战宝典]]
 
 ** Web 前端框架
 *** laminas （前身为 Zend framework）文档
