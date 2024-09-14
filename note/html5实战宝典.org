@@ -142,13 +142,9 @@ HTML 中的框架标签 frame、frameset、noframes 对页面的可用性有负�
 **** 结构性标签
 结构性标签（construct tag）主要负责 Web 的上下文结构的定义，确保 HTML 文档的完整性，使网页的文档结构更加明确。这类标签包括以下几个：
 
-1. section 标签用于表达文档的一部分或一章，或者一章内的一节。在 Web 页面应用中，
-该标签也可以用于区域的章节表述。它用来表现普通的文档内容或应用区块，通常由内容及
-其标题组成。但 section 标签并非一个普通的容器元素，它表示一段专题性的内容，一般会
-带有标题。
-
-代码实例：
-#+begin_src html
+1. section 标签用于表达文档的一部分或一章，或者一章内的一节。在 Web 页面应用中，该标签也可以用于区域的章节表述。它用来表现普通的文档内容或应用区块，通常由内容及其标题组成。但 section 标签并非一个普通的容器元素，它表示一段专题性的内容，一般会带有标题。
+   代码实例：
+   #+begin_src html
   <section>
   <h1>新章节的标题</h1>
   <article>
@@ -156,7 +152,7 @@ HTML 中的框架标签 frame、frameset、noframes 对页面的可用性有负�
   <p>第一节的内容......</p>
   </article>
   </section>
-#+end_src
+  #+end_src
 
 2. hgroup 标签对网页或区段（section）的标题进行组合。
    代码实例：
@@ -170,3 +166,48 @@ HTML 中的框架标签 frame、frameset、noframes 对页面的可用性有负�
    #+end_src
 
 3. header 标签相当于页面主体上的头部（页眉），注意区别于 head 标签。这里可以给初学者提供一个判断区别的小技巧：head 标签中的内容往往是不可见的，而 header 标签往往在一对 body 标签之中。
+   #+begin_src html
+         <header>
+         <h1>网页的标题</h1>
+         <nav>上导航部分</nav>
+         </header>
+   #+end_src
+
+4. footer 标签相当于页面的底部（页脚）。通常，人们会在这里标出网站的一些相关信息，例如关于我们、法律申明、邮件信息、管理入口等。
+   代码示例：
+   #+begin_src  html
+  码示例：
+<footer>
+&copy;网页的版权声明。
+</footer>
+   #+end_src
+
+5. nav 标签时专门用于菜单导航、链接导航的标签， 是navigatior的缩写。
+   代码实例：
+   #+begin_src html
+<nav>
+<ul>
+<li><a href="#">首页</a></li>
+<li><a href="#">电视</a></li>
+<li><a href="#">平板</a></li>
+<li><a href="#">路由器</a></li>
+<li><a href="#">笔记本</a></li>
+</ul>
+</nav>
+   #+end_src
+
+6. article 标签用于表示一篇文章的主体内容，一般为文字集中显示的区域。
+   代码实例：
+   #+begin_src html
+     <article>
+<header>
+<h1>文章的标题</h1>
+<time datetime="2015-08-08">2015.08.08</time>
+</header>
+<p>文章的内容</p>
+</article>
+   #+end_src
+
+**** 块级性标签
+
+

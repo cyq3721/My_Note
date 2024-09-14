@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<!-- 2024-09-14 六 15:37 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HTML5实战宝典</title>
+<meta name="author" content="Chen" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">HTML5实战宝典</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8cb17e6">1. 第1章 HTML5概述</a>
+<ul>
+<li><a href="#org7c35652">1.1. 一个新的web开发平台</a></li>
+<li><a href="#org52b651b">1.2. html5为什么受欢迎</a>
+<ul>
+<li><a href="#org938f071">1.2.1. 语法特点</a></li>
+<li><a href="#org8c5fdd6">1.2.2. 1.2.2 功能特点</a></li>
+<li><a href="#org3518712">1.2.3. 对移动端的支持</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgcb61de3">2. 第2章 HTML5规范</a>
+<ul>
+<li><a href="#orgbc84cc1">2.1. 新的文档声明和语法规范</a>
+<ul>
+<li><a href="#org3e2436b">2.1.1. 文档声明</a></li>
+<li><a href="#org1b6b506">2.1.2. 语法规则</a></li>
+</ul>
+</li>
+<li><a href="#org593200a">2.2. 废弃的标签和属性</a>
+<ul>
+<li><a href="#org011e230">2.2.1. 废弃的标签</a></li>
+</ul>
+</li>
+<li><a href="#org0aedeef">2.3. 新的结构标签和属性</a>
+<ul>
+<li><a href="#org5bcfe89">2.3.1. 新的标签</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8cb17e6" class="outline-2">
+<h2 id="org8cb17e6"><span class="section-number-2">1.</span> 第1章 HTML5概述</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org7c35652" class="outline-3">
+<h3 id="org7c35652"><span class="section-number-3">1.1.</span> 一个新的web开发平台</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+hmtl5的出现,掀起了Web时代的新浪潮, 各大浏览器也都纷纷支持html5. html5可以使网页内容更加丰富, 不仅可以显示三维图形, 还可以在不使用Flash插件的基础上实现音频\视频播放等. html5是向下兼容html4的, 它是在html4的基础之上, 加进了一些新的标记、属性、功能的一个新的超文本标记语言。 例如： html5拥有新的html文档结构、新的CSS标准、API等。
+</p>
+
+<p>
+html5提供了很多应用程序接口（API）， 例如基于浏览器支持的图形API、地理信息API、本地存储API和视频播放相关的API等。
+</p>
+</div>
+</div>
+<div id="outline-container-org52b651b" class="outline-3">
+<h3 id="org52b651b"><span class="section-number-3">1.2.</span> html5为什么受欢迎</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-org938f071" class="outline-4">
+<h4 id="org938f071"><span class="section-number-4">1.2.1.</span> 语法特点</h4>
+<div class="outline-text-4" id="text-1-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="org492ebc2"></a>简单的doctype<br />
+<div class="outline-text-5" id="text-1-2-1-1">
+<p>
+&lt;!doctype html&gt;
+省略了版本号，更为简洁。
+</p>
+</div>
+</li>
+<li><a id="org91ff6a6"></a>直观的结构<br />
+<div class="outline-text-5" id="text-1-2-1-2">
+<p>
+在html4中对于网页结构的划分大量使用了div， 需要靠类名、加注释才能很好的解释我们的结构，在html5中可以使用article、footer、header、nav、section等标签来更好地了解我们的结构。
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org8c5fdd6" class="outline-4">
+<h4 id="org8c5fdd6"><span class="section-number-4">1.2.2.</span> 1.2.2 功能特点</h4>
+<div class="outline-text-4" id="text-1-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="org4f48b2f"></a>音频、视频<br />
+<div class="outline-text-5" id="text-1-2-2-1">
+<p>
+在网页中想要实现音频、视频播放，一般都需要引入 Flash 或第三方媒体插件，并且要写很多代码，很烦琐。而在 HTML5 中，只需要写：
+</p>
+<ul class="org-ul">
+<li>音频: &lt;audio src="url" autoplay loop&gt;&lt;/audio&gt;</li>
+<li>视频: &lt;video src="url" width="300" height="200" controls&gt;&lt;/video&gt;</li>
+</ul>
+<p>
+就可以了，可以像使用&lt;img&gt;标签一样来实现音频、视频播放。
+</p>
+</div>
+</li>
+<li><a id="org36f1b74"></a>本地存储<br />
+<div class="outline-text-5" id="text-1-2-2-2">
+<p>
+HTML5 可以帮助浏览器存储一些用户的信息、缓存的数据、应用的使用状态等，这样一来，可以加快访问应用的速度；可以记录用户上一次的使用状态，在重新加载时只加载修改过的状态，节省资源。
+</p>
+</div>
+</li>
+<li><a id="orgb109b23"></a>强大的Canvas<br />
+<div class="outline-text-5" id="text-1-2-2-3">
+<p>
+使用 Canvas 可以达到 Flash 的效果，它可以实现动画设计和游戏开发。
+</p>
+</div>
+</li>
+<li><a id="org5056471"></a>地理信息<br />
+<div class="outline-text-5" id="text-1-2-2-4">
+<p>
+HTML5 中提供了地理位置信息的 API（geolocation），通过浏览器来获取用户当前位置。在获取位置信息前，浏览器会给用户一个提示信息，只有用户同意以后才能使用。通过此特性可以开发基于位置的服务应用。
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org3518712" class="outline-4">
+<h4 id="org3518712"><span class="section-number-4">1.2.3.</span> 对移动端的支持</h4>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcb61de3" class="outline-2">
+<h2 id="orgcb61de3"><span class="section-number-2">2.</span> 第2章 HTML5规范</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgbc84cc1" class="outline-3">
+<h3 id="orgbc84cc1"><span class="section-number-3">2.1.</span> 新的文档声明和语法规范</h3>
+<div class="outline-text-3" id="text-2-1">
+</div>
+<div id="outline-container-org3e2436b" class="outline-4">
+<h4 id="org3e2436b"><span class="section-number-4">2.1.1.</span> 文档声明</h4>
+<div class="outline-text-4" id="text-2-1-1">
+</div>
+<ol class="org-ol">
+<li><a id="org0934b62"></a>&lt;!doctype&gt;的定义<br />
+<div class="outline-text-5" id="text-2-1-1-1">
+<p>
+&lt;!doctype&gt;声明必须位于 HTML5 文档中的第一行，也就是位于&lt;html&gt;标签之前。该标签告知浏览器文档所使用的 HTML 规范。
+</p>
+<ul class="org-ul">
+<li>（1）doctype 声明不属于 HTML 标签；它是一条指令，告诉浏览器编写页面所用的标记的版本。</li>
+<li>（2）在所有 HTML 文档中，规定 doctype 是非常重要的，这样浏览器就能了解预期的文档类型。</li>
+<li>（3）HTML 4.01 中的 doctype 需要对 DTD 进行引用，因为 HTML 4.01 基于 SGML。而HTML 5 不基于 SGML，因此不需要对 DTD 进行引用，但是需要 doctype 来规范浏览器的行为（让浏览器按照它们的方式来运行）。</li>
+</ul>
+</div>
+</li>
+<li><a id="org847a877"></a>&lt;!doctype&gt;的用法<br />
+<div class="outline-text-5" id="text-2-1-1-2">
+<p>
+代码案例：
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #4f97d7; font-weight: bold;">!doctype</span> html&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">html</span> <span style="color: #7590db;">lang</span>=<span style="color: #2d9574;">"en"</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">head</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">meta</span> <span style="color: #7590db;">charset</span>=<span style="color: #2d9574;">"UTF-8"</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">title</span>&gt;<span style="font-weight: bold; text-decoration: underline;">Document</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">title</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">head</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">body</span>&gt;
+HTML5 &#30340;&#20027;&#20307;&#32467;&#26500;&#12290;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org58cbf9a"></a>一个注意点<br />
+<div class="outline-text-5" id="text-2-1-1-3">
+<p>
+&lt;!doctype&gt;对大小写不敏感，而且它没有结束标签。
+</p>
+</div>
+</li>
+<li><a id="orge398842"></a>定义文档信息的元标签<br />
+<div class="outline-text-5" id="text-2-1-1-4">
+<p>
+&lt;meta&gt;位于头部中，它用于提供页面的元信息，用来描述网页的关键词、网页更新的频度，同时也可以为搜索引擎的搜索提供便利。它的属性还定义了与文档相关联的名称/值对（元数据总是以名称/值的形式被成对传递的）。
+</p>
+</div>
+</li>
+<li><a id="orge38bcfb"></a>meta 的属性<br />
+<div class="outline-text-5" id="text-2-1-1-5">
+<ol class="org-ol">
+<li>content属性
+content 属性提供了名称/值4对中的值。该值可以是任何有效的字符串。content 属性始终要和 name 属性或 http-equiv 属性一起使用。</li>
+
+<li><p>
+http-equiv属性
+http-equiv 属性为名称/值对提供了名称。并指示服务器在发送实际的文档之前，先在要传送给浏览器的 MIME 文档头部包含名称/值对。当服务器向浏览器发送文档时，会先发送许多名称/值对。虽然有些服务器会发送许多这种名称/值对，但是所有服务器都至少要发送一个：content-type:text/html。这将告诉浏览器准备接收一个 HTML 文档。使用带有 http-equiv 属性的&lt;meta&gt;标签时，服务器将把名称/值对添加到发送给浏览器的内容头部。例如添加：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">meta</span> <span style="color: #7590db;">http-equiv</span>=<span style="color: #2d9574;">"charset"</span> <span style="color: #7590db;">content</span>=<span style="color: #2d9574;">"iso-8859-1"</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">meta</span> <span style="color: #7590db;">http-equiv</span>=<span style="color: #2d9574;">"expires"</span> <span style="color: #7590db;">content</span>=<span style="color: #2d9574;">"31 Dec 2008"</span>&gt;
+</pre>
+</div></li>
+</ol>
+<p>
+这样发送到浏览器的头部就应该包含：
+</p>
+<ul class="org-ul">
+<li>content-type: text/html</li>
+<li>charset:iso-8859-1</li>
+<li>expires:31 Dec 2008</li>
+</ul>
+<p>
+当然，只有当浏览器可以接收这些附加的头部字段，并能以适当的方式使用它们时，这些字段才有意义。
+</p>
+
+<ol class="org-ol">
+<li><p>
+name属性
+name 属性提供了名称/值对中的名称。HTML 和 XHTML 标签都没有指定任何预先定义的&lt;meta&gt;名称。通常情况下，用户可以自由使用对自己和源文档的读者来说富有意义的名称。例如"keywords" 是一个经常被用到的名称。它为文档定义了一组关键字，某些搜索引擎在遇到这些关键字时，会用这些关键字对文档进行分类。类似的 meta 标签可能对于进入搜索引擎的索引有帮助：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">meta</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">"keywords"</span> <span style="color: #7590db;">content</span>=<span style="color: #2d9574;">"HTML,ASP,PHP,SQL"</span>&gt;
+</pre>
+</div></li>
+</ol>
+
+<p>
+如果没有提供 name 属性，那么名称/值对中的名称会采用 http-equiv 属性的值。
+</p>
+
+<ol class="org-ol">
+<li><p>
+charset属性： 提供编码方式
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">meta</span> <span style="color: #7590db;">charset</span>=<span style="color: #2d9574;">"utf-8"</span>&gt;
+</pre>
+</div></li>
+</ol>
+
+<p>
+UTF-8（8-bit Unicode Transformation Format）是一种针对 Unicode 的可变长度字符编码，也是一种前缀码，又称万国码。它可以用来表示 Unicode 标准中的任何字符，因此，它逐渐成为电子邮件、网页及其他存储或传送文字的应用中，优先采用的编码。
+</p>
+
+<p>
+GB-2312 是计算机可以识别的编码，适用于汉字处理、汉字通信等系统之间的信息交
+换，它共收入汉字 6763 个和非汉字图形字符 682 个。
+</p>
+
+<p>
+GBK 是 GB2312 的扩展版本。
+</p>
+
+<ol class="org-ol">
+<li><p>
+适用于移动端的 meta 标签
+</p>
+<div class="org-src-container">
+<pre class="src src-html">     &lt;<span style="color: #bc6ec5; font-weight: bold;">meta</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">"viewport"</span> <span style="color: #7590db;">content</span>=<span style="color: #2d9574;">"width=device-width,initial-scale=1, maximum-</span>
+<span style="color: #2d9574;">scale=1, minimum-scale=1,user-scalable=no"</span>&gt;
+</pre>
+</div></li>
+</ol>
+
+<p>
+其中 meta 的参数说明如下：
+</p>
+<ul class="org-ul">
+<li>name="viewport"：表示网页窗口。</li>
+<li>content 属性中的值可以有以下几种情况：</li>
+<li>width：控制 viewport 的宽度，可以指定一个具体的值，用于移动端时赋值为 device-</li>
+<li>width，表示它将与设备一样宽。</li>
+<li>height：控制 viewport 的高度，与 width 使用方式一样。</li>
+<li>initial-scale：初始缩放比例，页面第一次加载时的比例。</li>
+<li>maximum-scale：最大缩放比例，取值范围为 0～10.0。</li>
+<li>minimum-scale：最小缩放比例，取值范围为 0～10.0。</li>
+<li>user-scalable：是否允许用户手动缩放。当值为 yes 或 true 时，表示可以缩放；当值为no 或 false 时，表示不能缩放。</li>
+<li>viewport 用来重新设置设备的分辨率，让网页在设备上都正好满屏显示。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org1b6b506" class="outline-4">
+<h4 id="org1b6b506"><span class="section-number-4">2.1.2.</span> 语法规则</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+① 标签要小写。
+② 属性值可以不加""或‘’。
+③ 可以省略某些标签：html、body、head、tbody。
+④ 可以省略某些结束标签：tr、td、li。
+⑤ 单标签不用加结束标签：img、input。
+⑥ 废除的标签：font、center、big。
+⑦ 新添加的标签，请查阅本章 2.3 节。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org593200a" class="outline-3">
+<h3 id="org593200a"><span class="section-number-3">2.2.</span> 废弃的标签和属性</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-org011e230" class="outline-4">
+<h4 id="org011e230"><span class="section-number-4">2.2.1.</span> 废弃的标签</h4>
+<div class="outline-text-4" id="text-2-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="orge624f75"></a>表现性的标签<br />
+<div class="outline-text-5" id="text-2-2-1-1">
+<p>
+HTML 中的有些标签只是为了画面展示而服务的，比如 u 标签，在使用时，想要显示下画线的字体需要用 u 标签包起来，它只是与其他文字显示的状态（样式）不同而已，在HTML5 中像这类的状态（样式）都可以用 CSS 属性编辑，所以将这类标签废弃掉了。与 u标签类似的还有 basefont、big、center、font、s、strike、tt 等标签，它们都可以用相应的CSS 属性来代替。
+</p>
+</div>
+</li>
+<li><a id="org1bbccc8"></a>框架类标签<br />
+<div class="outline-text-5" id="text-2-2-1-2">
+<p>
+HTML 中的框架标签 frame、frameset、noframes 对页面的可用性有负面影响，所以在HTML5 中将它们废弃了，使用 iframe 标签代替，它就像 img 标签一样，写入地址，设置好宽高就可以了
+高就可以了。
+</p>
+</div>
+</li>
+<li><a id="org7690888"></a>局限性标签<br />
+<div class="outline-text-5" id="text-2-2-1-3">
+<p>
+只有部分浏览器支持 Applet（Java 小应用程序）、bgsound（页面添加背景音乐）、blink（可以闪烁的字体）、marquee（滚动字幕）等标签，这些标签在 HTML5 中也被废弃掉了。
+</p>
+</div>
+</li>
+<li><a id="org99f3f1e"></a>其他被废除的标签:<br />
+<div class="outline-text-5" id="text-2-2-1-4">
+<p>
+这是一些很少用到的标签，它们特殊但没有被 W3C 列入规范，所以在 HTML5 中也被废弃了。
+例如：
+</p>
+<ul class="org-ul">
+<li>rb 标签用来设定被标示的元素对象，为 ruby 的子元素，使用 ruby 替代。</li>
+<li>acronym 标签定义首字母缩写，使用 abbr 替代。</li>
+<li>dir 标签定义目录列表，使用 ul 替代。</li>
+<li>isindex 标签显示输入框，使用 form 与 input 相结合的方式替代。</li>
+<li>listing 标签显示静态页面源代码，使用 pre 替代。</li>
+<li>xmp 标签原样输出代码，使用 code 替代。</li>
+<li>plaintex 标签，使用“text/plain”（无格式正文）MIME 类型替代。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org0aedeef" class="outline-3">
+<h3 id="org0aedeef"><span class="section-number-3">2.3.</span> 新的结构标签和属性</h3>
+<div class="outline-text-3" id="text-2-3">
+</div>
+<div id="outline-container-org5bcfe89" class="outline-4">
+<h4 id="org5bcfe89"><span class="section-number-4">2.3.1.</span> 新的标签</h4>
+<div class="outline-text-4" id="text-2-3-1">
+</div>
+<ol class="org-ol">
+<li><a id="org35c3e63"></a>结构性标签<br />
+<div class="outline-text-5" id="text-2-3-1-1">
+<p>
+结构性标签（construct tag）主要负责 Web 的上下文结构的定义，确保 HTML 文档的完整性，使网页的文档结构更加明确。这类标签包括以下几个：
+</p>
+
+<ol class="org-ol">
+<li>section 标签用于表达文档的一部分或一章，或者一章内的一节。在 Web 页面应用中，</li>
+</ol>
+<p>
+该标签也可以用于区域的章节表述。它用来表现普通的文档内容或应用区块，通常由内容及
+其标题组成。但 section 标签并非一个普通的容器元素，它表示一段专题性的内容，一般会
+带有标题。
+</p>
+
+<p>
+代码实例：
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">section</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">h1</span>&gt;<span style="font-weight: bold; text-decoration: underline;">&#26032;&#31456;&#33410;&#30340;&#26631;&#39064;</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">h1</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">article</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">h2</span>&gt;<span style="font-weight: bold; font-style: italic; text-decoration: underline;">&#31532;&#19968;&#33410;&#30340;&#26631;&#39064;</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">h2</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">p</span>&gt;&#31532;&#19968;&#33410;&#30340;&#20869;&#23481;......&lt;/<span style="color: #bc6ec5; font-weight: bold;">p</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">article</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">section</span>&gt;
+</pre>
+</div>
+
+<ol class="org-ol">
+<li><p>
+hgroup 标签对网页或区段（section）的标题进行组合。
+代码实例：
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">hgroup</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">h1</span>&gt;<span style="font-weight: bold; text-decoration: underline;">&#31532;&#20108;&#31456; HTML &#35268;&#33539;</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">h1</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">h2</span>&gt;<span style="font-weight: bold; font-style: italic; text-decoration: underline;">&#31532;&#19968;&#33410; &#26032;&#30340;&#32467;&#26500;&#26631;&#31614;&#21644;&#23646;&#24615;</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">h2</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">h3</span>&gt;<span style="text-decoration: underline;">&#26032;&#30340;&#26631;&#31614;</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">h3</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">h4</span>&gt;<span style="text-decoration: underline;">&#32467;&#26500;&#24615;&#26631;&#31614;</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">h4</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">hgroup</span>&gt;
+</pre>
+</div></li>
+
+<li><p>
+header 标签相当于页面主体上的头部（页眉），注意区别于 head 标签。这里可以给初学者提供一个判断区别的小技巧：head 标签中的内容往往是不可见的，而 header 标签往往在一对 body 标签之中。
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">header</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">h1</span>&gt;<span style="font-weight: bold; text-decoration: underline;">&#32593;&#39029;&#30340;&#26631;&#39064;</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">h1</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">nav</span>&gt;&#19978;&#23548;&#33322;&#37096;&#20998;&lt;/<span style="color: #bc6ec5; font-weight: bold;">nav</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">header</span>&gt;
+</pre>
+</div></li>
+
+<li>footer 标签相当于页面的底部（页脚）。通常，人们会在这里标出网站的一些相关信息，例如关于我们、法律申明、邮件信息、管理入口等。</li>
+</ol>
+<p>
+代码示例：
+</p>
+<div class="org-src-container">
+<pre class="src src-html">  &#30721;&#31034;&#20363;&#65306;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">footer</span>&gt;
+<span style="color: #7590db;">&amp;copy;</span>&#32593;&#39029;&#30340;&#29256;&#26435;&#22768;&#26126;&#12290;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">footer</span>&gt;
+</pre>
+</div>
+
+<ol class="org-ol">
+<li><p>
+nav 标签时专门用于菜单导航、链接导航的标签， 是navigatior的缩写。
+代码实例：
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">nav</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">ul</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;&lt;<span style="color: #bc6ec5; font-weight: bold;">a</span> <span style="color: #7590db;">href</span>=<span style="color: #2d9574;">"#"</span>&gt;&#39318;&#39029;&lt;/<span style="color: #bc6ec5; font-weight: bold;">a</span>&gt;&lt;/<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;&lt;<span style="color: #bc6ec5; font-weight: bold;">a</span> <span style="color: #7590db;">href</span>=<span style="color: #2d9574;">"#"</span>&gt;&#30005;&#35270;&lt;/<span style="color: #bc6ec5; font-weight: bold;">a</span>&gt;&lt;/<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;&lt;<span style="color: #bc6ec5; font-weight: bold;">a</span> <span style="color: #7590db;">href</span>=<span style="color: #2d9574;">"#"</span>&gt;&#24179;&#26495;&lt;/<span style="color: #bc6ec5; font-weight: bold;">a</span>&gt;&lt;/<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;&lt;<span style="color: #bc6ec5; font-weight: bold;">a</span> <span style="color: #7590db;">href</span>=<span style="color: #2d9574;">"#"</span>&gt;&#36335;&#30001;&#22120;&lt;/<span style="color: #bc6ec5; font-weight: bold;">a</span>&gt;&lt;/<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;&lt;<span style="color: #bc6ec5; font-weight: bold;">a</span> <span style="color: #7590db;">href</span>=<span style="color: #2d9574;">"#"</span>&gt;&#31508;&#35760;&#26412;&lt;/<span style="color: #bc6ec5; font-weight: bold;">a</span>&gt;&lt;/<span style="color: #bc6ec5; font-weight: bold;">li</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">ul</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">nav</span>&gt;
+</pre>
+</div></li>
+
+<li><p>
+article 标签用于表示一篇文章的主体内容，一般为文字集中显示的区域。
+代码实例：
+</p>
+<div class="org-src-container">
+<pre class="src src-html">     &lt;<span style="color: #bc6ec5; font-weight: bold;">article</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">header</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">h1</span>&gt;<span style="font-weight: bold; text-decoration: underline;">&#25991;&#31456;&#30340;&#26631;&#39064;</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">h1</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">time</span> <span style="color: #7590db;">datetime</span>=<span style="color: #2d9574;">"2015-08-08"</span>&gt;2015.08.08&lt;/<span style="color: #bc6ec5; font-weight: bold;">time</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">header</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">p</span>&gt;&#25991;&#31456;&#30340;&#20869;&#23481;&lt;/<span style="color: #bc6ec5; font-weight: bold;">p</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">article</span>&gt;
+</pre>
+</div></li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">&#20316;&#32773;: Chen</p>
+<p class="date">Created: 2024-09-14 六 15:37</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
