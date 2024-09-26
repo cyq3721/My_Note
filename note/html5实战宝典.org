@@ -209,5 +209,61 @@ HTML 中的框架标签 frame、frameset、noframes 对页面的可用性有负�
    #+end_src
 
 **** 块级性标签
+块级性标签（block tag）主要完成Web页面区域的划分， 确保内容的有效分隔， 这类标签包括以下几个。
+1. aside
+   标签是用以表达注记、贴士、侧栏、摘要、插入的引用等作为补充主体的内 容。从一个简单页面显示上看，就是侧边栏，可以在左边，也可以在右边。从一个页面的局 部看，就是摘要。
 
+   代码实例：
+   #+begin_src html
+     <aside> <p>作者信息</p> </aside>
+   #+end_src
+2. figure 标签规定独立的流内容(图像、图表、照片等)，通常与 figcaption 联合使用。
+   #+begin_src html
+      <figure>
+     <figcaption>风景图的标题</figcaption>
+     <img src="fengjing.jpg" alt="风景图">
+     </figure>
+   #+end_src
+3. code 标签表示一段代码块
+      #+begin_src html
+        <code>一段电脑代码</code>
+      #+end_src
+4. dialog 标签定义对话框或窗口，配合<dt>、<dd>标签使用。它的属性 open 规定 dialog 元素是活动的，用户可与之交互。      
+   #+begin_src html
+     <table border="1">
+          <tr>
+          <td>周一<dialog open>这是打开的对话窗口</dialog></td> <td>周二</td>
+          <td>周三</td>
+          </tr>
+          <tr>
+          <td>12</td>
+          <td>13</td>
+          <td>14</td>
+          </tr>
+      </table>
+   #+end_src
+5. Canvas 标签。它是一个画布标签，用它可以实现电脑上的画图工具，可以在网页中 画出不同的图形。
+    
+**** 行内标签
+行内语义性标签(in-line tag)主要完成 Web 页面具体内容的引用和表述，是丰富内容 展示的基础，这类标签包括以下几个标签。
+1. meter 标签表示特定范围内的数值，可用于工资、数量、百分比等。max 表示最大 值，min 表示最小值，value 代表当前值
+   #+begin_src html
+     <meter value="6" min="0" max="10">6/10</meter><br>
+     <meter value="0.3">50%</meter>
+   #+end_src
+   
+2. time 标签表示时间值，该元素能够以机器可读的方式对日期和时间进行编码，属性 datetime 强调日期和时间。
+   #+begin_src html
+      <p>
+     <time datetime="2015-09-27">中秋节</time>马上就到了。
+      </p>
+   #+end_src
 
+3. progress 标签用来表示任务的进度条，属性 max 表示最大任务值，属性 value 表示 完成了多少任务
+   #+begin_src html
+      <p>下载进度:</p>
+<progress value="34" max="100"></progress>
+    #+end_src
+    
+**** 多媒体标签
+多媒体标签(multimedia tag)，它可以让网页对视频和音频有着更好的实现，不用再与 其他的插件配合使用。HTML5 中提供了 video 视频标签与 audio 音频标签，详情参照第 8 章 HTML5 对多媒体的支持。
