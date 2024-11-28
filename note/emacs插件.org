@@ -280,3 +280,71 @@ C-c M-m  自动适应当前frame大小
 C-c C-x C-s 保存当前图片
 
 
+
+* emmet-mode
+
+This is a fork of zencoding-mode to support Emmet's feature set.
+
+About zencoding-mode
+zencoding-mode is a minor mode providing support for Zen Coding by producing HTML from CSS-like selectors. See README
+
+About Emmet
+Zen Coding has been renamed to Emmet and includes an expanded feature set.
+
+Abbreviation Examples
+HTML abbreviations
+CSS abbreviations
+Emmet Actions
+Go to Edit Point
+Supported Emacs
+emmet-mode is supported by GNU Emacs versions from 24.3 onward.
+
+** Installation
+1. From marmalade or MELPA
+If your Emacs has the marmalade or MELPA package repositories installed, just type M-x package-list-packages, search for emmet-mode, and install it.
+
+1. Manual Installation
+Just make sure emmet-mode.el is in your load-path.
+
+2. Settings to use.
+If you manually installed emmet-mode to ~/emacs.d/emmet-mode/, add the following lines to your init.el or .emacs:
+
+(add-to-list 'load-path "~/emacs.d/emmet-mode")
+(require 'emmet-mode)
+If you installed from marmalade/MELPA then these you shouldn't need to do this.
+
+Enable it by running M-x emmet-mode.
+
+3. Optional settings
+You probably want to add it to auto-load on your sgml modes:
+
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+By default, inserted markup will be indented with indent-region, according to the buffer's mode. To disable this, do:
+
+(add-hook 'emmet-mode-hook (lambda () (setq emmet-indent-after-insert nil)))
+If you disable indent-region, you can set the default indent level thusly:
+
+(add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;; indent 2 spaces.
+If you want the cursor to be positioned between first empty quotes after expanding:
+
+(setq emmet-move-cursor-between-quotes t) ;; default nil
+Or if you don't want to move cursor after expanding:
+
+(setq emmet-move-cursor-after-expanding nil) ;; default t
+If you want to customize Self-closing tags style:
+
+(setq emmet-self-closing-tag-style " /") ;; default "/"
+
+;; only " /", "/" and "" are valid.
+;; eg. <meta />, <meta/>, <meta>
+4. JSX Support
+If current major-mode is in emmet-jsx-major-modes, then JSX features will be supported:
+
+Expand .class to className="..." instead of class="..."
+Expand .for to htmlFor="..." instead of for="..."
+Expand value of properties as variables: div[value={v}] -> <div value={v}></div>
+Expand variables inside text: div{{v}} -> <div>{v}</div> Note: '}' can be escaped using backslash, i.e. div{{v\}}} -> <div>{v}}</div>. Please make sure your curly braces(not counting escaped ones) are always balanced.
+To enable the JSX support, add your major-mode to emmet-jsx-major-modes:
+
+(add-to-list 'emmet-jsx-major-modes 'your-jsx-major-mode)

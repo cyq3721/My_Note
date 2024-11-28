@@ -4,10 +4,10 @@
 #+data:[2018-12-05 Wed]
 * linux相关
 ** linux相关
-[[./note/linux就是这个范儿.org][linux就是这个范儿]]
-[[./note/linux鸟哥私房菜.org][linux鸟哥私房菜]]
-[[./note/linux就该这么学.org][linux就该这么学]]
-[[./note/manjaro.org][Manjaro Linux日常记录]]
+     [[./note/linux就是这个范儿.org][linux就是这个范儿]]
+     [[./note/linux鸟哥私房菜.org][linux鸟哥私房菜]]q
+     [[./note/linux就该这么学.org][linux就该这么学]]
+     [[./note/manjaro.org][Manjaro Linux日常记录]]
 ** emacs相关
      [[./note/《学习emacs》笔记.org][《学习emacs》笔记]]
      [[./note/emacs学习笔记.org][emacs学习笔记]]
@@ -35,42 +35,42 @@
      [[./note/vi教程.org][vi教程]]
 * Web开发
 ** html相关
-[[./note/Html & CSS 设计与构建网站.org][Html & CSS 设计与构建网站]]
-[[./note/HTML5教程.org][HTML5教程]]
-[[./note/《精通HTML5+CSS3+JavaScript网页设计》.org][精通HTML5+CSS3+JavaScript网页设计]]
-[[./note/JavaScript和jQuery.org][JavaScript和jQrery 交互式web前端开发]]
-[[./note/web前端开发.org][web前端开发]]
-[[./note/html5实战宝典.org][HTML5实战宝典]]
+    [[./note/Html & CSS 设计与构建网站.org][Html & CSS 设计与构建网站]]
+    [[./note/HTML5教程.org][HTML5教程]]
+    [[./note/《精通HTML5+CSS3+JavaScript网页设计》.org][精通HTML5+CSS3+JavaScript网页设计]]
+    [[./note/JavaScript和jQuery.org][JavaScript和jQrery 交互式web前端开发]]
+    [[./note/web前端开发.org][web前端开发]]
+    [[./note/html5实战宝典.org][HTML5实战宝典]]
 
 ** Web 前端框架
 *** laminas （前身为 Zend framework）文档
 ** Php相关
-[[./note/PHP和MySQL Web开发.org][PHP和MySQl Web开发]]
-[[./note/精通PHP+MySQL应用开发.org][精通PHP+MySQL应用开发]]
-[[./note/《php开发实战权威指南》.org][php开发实战权威指南]]
-[[./note/兄弟连php教程笔记.org][兄弟连php教程笔记]]
-[[./note/mac下配置php开发环境.org][mac下配置php开发环境]]
-[[./note/李炎烣PHP教程第一季.org][李炎烣PHP教程第一季]]
-[[./note/PHP Web 2.0开发实战.org][PHP Web 2.0开发实战.org]]
-[[./note/PHP+MySQL+AJAX Web 给力起飞.org][PHP+MySQL+AJAX Web 给力起飞.org]]
-[[./note/php菜鸟教程.org][PHP菜鸟教程]]
-[[./note/phpspreadsheet读取excl.org][phpspreadsheet读取excel]]
+    [[./note/PHP和MySQL Web开发.org][PHP和MySQl Web开发]]
+    [[./note/精通PHP+MySQL应用开发.org][精通PHP+MySQL应用开发]]
+    [[./note/《php开发实战权威指南》.org][php开发实战权威指南]]
+    [[./note/兄弟连php教程笔记.org][兄弟连php教程笔记]]
+    [[./note/mac下配置php开发环境.org][mac下配置php开发环境]]
+    [[./note/李炎烣PHP教程第一季.org][李炎烣PHP教程第一季]]
+    [[./note/PHP Web 2.0开发实战.org][PHP Web 2.0开发实战.org]]
+    [[./note/PHP+MySQL+AJAX Web 给力起飞.org][PHP+MySQL+AJAX Web 给力起飞.org]]
+    [[./note/php菜鸟教程.org][PHP菜鸟教程]]
+    [[./note/phpspreadsheet读取excl.org][phpspreadsheet读取excel]]
 ** 数据库
-[[./note/mysql菜鸟教程.org][mysql菜鸟教程]]
+    [[./note/mysql菜鸟教程.org][mysql菜鸟教程]]
 
 * photosho相关
-[[./note/人像后期调色圣经.org][人像后期调色圣经]]
-[[./note/Photoshop CS5 摄影师专业技法.org][Photoshop CS5 摄影师专业技法]]
+   [[./note/人像后期调色圣经.org][人像后期调色圣经]]
+   [[./note/Photoshop CS5 摄影师专业技法.org][Photoshop CS5 摄影师专业技法]]
 * 程序设计
 ** C++
-[[./note/《c++程序设计》自学考试.org][C++程序设计——自学考试]]
-[[./note/C++大学教程.org][C++大学教程.org]]
+   [[./note/《c++程序设计》自学考试.org][C++程序设计——自学考试]]
+   [[./note/C++大学教程.org][C++大学教程.org]]
 ** Python
-[[./note/Python从小白到大牛.org][Python从小白到大牛]]
-[[./note/python基础教程（第三版）.org][python基础教程(第三版)]]
-[[./note/python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B.org][python编程快速上手]]
+   [[./note/Python从小白到大牛.org][Python从小白到大牛]]
+   [[./note/python基础教程（第三版）.org][python基础教程(第三版)]]
+   [[./note/python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B.org][python编程快速上手]]
 * github相关
-[[./note/github%E7%AC%94%E8%AE%B0.org][github笔记]]
+   [[./note/github%E7%AC%94%E8%AE%B0.org][github笔记]]
 * 平时随笔
-[[./note/日常记录2021-4.org][日常记录]]
+   [[./note/日常记录2021-4.org][日常记录]]
 

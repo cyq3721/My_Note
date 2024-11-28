@@ -57,19 +57,18 @@ HTML5 的主体结构。
 <meta>位于头部中，它用于提供页面的元信息，用来描述网页的关键词、网页更新的频度，同时也可以为搜索引擎的搜索提供便利。它的属性还定义了与文档相关联的名称/值对（元数据总是以名称/值的形式被成对传递的）。
 **** meta 的属性
 1. content属性
-   content 属性提供了名称/值4对中的值。该值可以是任何有效的字符串。content 属性始终要和 name 属性或 http-equiv 属性一起使用。
+   content 属性提供了名称/值对中的值。该值可以是任何有效的字符串。content 属性始终要和 name 属性或 http-equiv 属性一起使用。
    
 2. http-equiv属性
    http-equiv 属性为名称/值对提供了名称。并指示服务器在发送实际的文档之前，先在要传送给浏览器的 MIME 文档头部包含名称/值对。当服务器向浏览器发送文档时，会先发送许多名称/值对。虽然有些服务器会发送许多这种名称/值对，但是所有服务器都至少要发送一个：content-type:text/html。这将告诉浏览器准备接收一个 HTML 文档。使用带有 http-equiv 属性的<meta>标签时，服务器将把名称/值对添加到发送给浏览器的内容头部。例如添加：
-
    #+begin_src html
 <meta http-equiv="charset" content="iso-8859-1">
 <meta http-equiv="expires" content="31 Dec 2008">
    #+end_src
 这样发送到浏览器的头部就应该包含：
-- content-type: text/html
-- charset:iso-8859-1
-- expires:31 Dec 2008
+   - content-type: text/html
+   - charset:iso-8859-1
+   - expires:31 Dec 2008
 当然，只有当浏览器可以接收这些附加的头部字段，并能以适当的方式使用它们时，这些字段才有意义。
 
 3. name属性
@@ -78,7 +77,7 @@ HTML5 的主体结构。
    #+begin_src html
      <meta name="keywords" content="HTML,ASP,PHP,SQL">
    #+end_src
-
+*说明：*  keywords为 "名称/值" 对中的“名称”
 如果没有提供 name 属性，那么名称/值对中的名称会采用 http-equiv 属性的值。
 
 4. charset属性： 提供编码方式
@@ -267,3 +266,68 @@ HTML 中的框架标签 frame、frameset、noframes 对页面的可用性有负�
     
 **** 多媒体标签
 多媒体标签(multimedia tag)，它可以让网页对视频和音频有着更好的实现，不用再与 其他的插件配合使用。HTML5 中提供了 video 视频标签与 audio 音频标签，详情参照第 8 章 HTML5 对多媒体的支持。
+
+* 第3章 HTML5表单新功能 —— 注册和登录验证实战
+** 本章重点
+    在 HTML 4 中，实现表单信息的录入需要用到的标签有 input 标签、select 标签、option 标签、textarea 标签、label 标签等，通过 input 的 type 属性可以调整输入框的类型。在 HTML 4 中提供了“text”“password”“radio”“checkbox”“submit”等，这些表单控件提供了不同类 型的功能，但是一些数据的验证工作还需要结合 Javascript 等脚本语言来实现。
+    
+    HTML5 中的元素和特性提供了更加强大的语义标记，其中关于表单的修改令人眼前一 亮。其中有很多特性功能都非常实用，比如可以像在 Word 里面一样通过色板选择某种颜色， 或者直接选择一个日期。此外，还有一些非常好用的属性，比如单击清除的属性，正则验证属 性。虽然在不同的浏览器上的支持各有不同，但是这些新功能还是很值得我们去学习。
+    
+    *本章内容包括:*
+    - 关于表单新的控件类型的详细介绍，包括 form 标签与 input 的标签的新写法， email 输入类型、url 输入类型、日期相关输入类型、time 输入类型、range 输入类型、search 输入类型、color 输入类型、datalist 标签等。
+    - 结合 HTML5 表单特性，制作一个登录页面和一个注册页面。
+    - 了解新的表单验证功能和属性，如 autofocus 属性、placeholder 属性、autocomplate 属性、novalidate 属性、multiple 属性、required 属性、pattern 属性、autocomplete 属性等， 并且将这些属性添加到我们所写的页面中。
+    - 完成一个完整的登录注册设计流程。
+
+** 表单新控件详解
+*** 新的表单结构
+    HTML5 中的表单结构变得更加自由，原先在 HTML 4 中所有的表单内容都得在一对 form
+标签中，类似于这样:
+#+begin_src html
+  <form action="" method="post">
+  <input type="text" name="account" value="请输入账号" /> </form>
+#+end_src
+
+     在 HTML5 中表单控件完全可以放在页面中的任何位置，然后通过新增的 *form* 属性 指向控件所属表单的 id 值，即可关联起来。这样代码的自由性就会更高了，类似于下面 这样:
+#+begin_src html
+  <form id="myform"></form>
+  <input type="text" form="myform " value=""> ...
+#+end_src
+     
+*** 新增 type 属性
+1. email输入类型
+   要求键入格式正确的Email地址， 否则，不允许提交， 并会有错误提示。 此类型必修指定 *name* 值，否则无效果。 格式如下：
+   #+begin_src html
+     <input type="email" name="email">
+   #+end_src
+2. URL输入类型
+   此类型要求输入格式正确的 URL 地址，否则浏览器是不允许提交的，并会有一 个错误信息提示。此类型必须指定 *name* 值，否则无效果。 格式如下：
+   #+begin_src html
+     <input type="url" name="url">
+   #+end_src
+3. 时间日期相关输入类型
+   说明:时间日期相关输入类型这一系列表单控件提供了丰富的用于日期选择的表单样 式，包括年、月、周、日等。只需要一行代码就可以实现交互性非常强的效果，但遗憾的是 目前在 Windows 系统下仅有 Chrome 和 Opera 支持这个类型。 格式如下：
+   #+begin_src html
+     <input type="date" name="my_date">
+     <input type="time" name="my_time">
+     <input type="month" name="my_month">
+     <input type="week" name="my_week">
+   #+end_src
+4. number输入类型
+   说明: 用于输入一个数值，可以通过属性设置最小值、最大值、数字间隔、默认值(IE 不支持)。 格式如下：
+   #+begin_src html
+     <input type="number" max="10" min="0" step="1" value="5" name="number">
+   #+end_src
+
+   - max: 规定允许的最大值;
+   - min: 规定允许的最小值;
+   - step: 规定合法的数字间隔;
+   - value: 规定默认值;
+     
+
+*** 新增表单标签
+1. datalist标签
+   说明: datalist 元素规定输入域的选项列表。
+        列表是通过 datalist 内的 option 元素创建的。
+        如需把 datalist 绑定到输入域，用输入域的 list 属性引用 datalist 的 id。列表当中的 value属性是必须的，新版本的 Chrome 和 Opera 支持该属性。 格式如下:
+
