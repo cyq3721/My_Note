@@ -23,6 +23,7 @@
      [[./note/emacs文档中文化.org][emacs文档中文化]]
      [[./note/Emacs-最好的Python编辑器.org][Emacs-最好y的Python编辑器]]
      [[./note/Master Emacs in 21 Days.org][Master Emacs in 21 Days]]
+     [[./note/Master Emacs in 21 Days(2022).org][Mater Emacs in 21 Days(2022)]]
      [[./note/org导出设置.org][org导出设置]]
      [[./note/%E7%8E%8B%E5%9E%A0%E7%9A%84Emacs%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE.org][王垠的Emacs的简单设置]]
      [[./note/Spacemacs Rocks Episode2.org][子龙山人emacs 21天视频教程笔记]]
