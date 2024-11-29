@@ -330,4 +330,34 @@ HTML 中的框架标签 frame、frameset、noframes 对页面的可用性有负�
    说明: datalist 元素规定输入域的选项列表。
         列表是通过 datalist 内的 option 元素创建的。
         如需把 datalist 绑定到输入域，用输入域的 list 属性引用 datalist 的 id。列表当中的 value属性是必须的，新版本的 Chrome 和 Opera 支持该属性。 格式如下:
+#+begin_src html
+       <input type="text" list="my_list" placeholder=" 热 门 书 籍 排 行 " name="seniority">
+     <datalist id="my_list">
+     <option label="Top1" value="HTML5实战宝典">
+     <option label="Top2" value="HTML5实战宝典">
+     <option label="Top3" value="HTML5实战宝典">
+     </datalist>
+#+end_src
 
+** 构建表单用户界面
+*** 注册页面
+（1） 首先完成表单背景的制作
+#+begin_src html
+  <div class="bg">
+#+end_src
+ (2) 将整个表单分为三个fieldset字段组， 分别表示账号信息、个人信息和联系方式， 最后再加上提交按钮。 框架代码如下：
+ #+begin_src html
+    <div class="bgv">
+    <form action="" method="post">
+    <fieldset>
+         <legend>账号信息</legend>
+    </fieldset>
+    <fieldset>
+        <legend>个人信息</legend>
+    </fieldset>
+    <fieldset>
+        <legend>联系方式</legend>
+    </fieldset>
+    </form>
+   </div>
+ #+end_src
