@@ -348,3 +348,162 @@ Expand variables inside text: div{{v}} -> <div>{v}</div> Note: '}' can be escape
 To enable the JSX support, add your major-mode to emmet-jsx-major-modes:
 
 (add-to-list 'emmet-jsx-major-modes 'your-jsx-major-mode)
+
+* Eglot
+A client for Language Server Protocol servers
+项目地址:https://gitcode.com/gh_mirrors/eg/eglot
+
+** 项目介绍
+Eglot 是一个 Emacs 的 LSP（Language Server Protocol）客户端，它能够与各种语言服务器集成，提供现代 IDE 的功能，如代码补全、跳转到定义、文档显示、重构和实时诊断等。Eglot 的设计理念是简洁和高效，旨在为用户提供无缝的编辑体验。
+
+** 项目快速启动
+*** 安装 Eglot
+首先，确保你已经安装了 Emacs 26.1 或更高版本。然后，可以通过以下方式安装 Eglot：
+#+begin_src elisp
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+ 
+(unless (package-installed-p 'eglot)
+  (package-refresh-contents)
+  (package-install 'eglot))
+#+end_src
+
+*** 启动 Eglot
+在 Emacs 中打开一个项目文件，然后运行以下命令启动 Eglot：
+#+begin_quote
+M-x eglot
+#+end_quote
+Eglot 会自动检测当前文件的语言并连接到相应的语言服务器。
+
+** 应用案例和最佳实践
+*** 代码补全
+Eglot 支持代码补全功能，通常与 company-mode 或 completion-at-point 配合使用。确保在配置文件中启用这些模式：
+#+begin_src elisp
+(require 'company)
+(global-company-mode)
+#+end_src
+
+*** 跳转到定义
+使用 M-x xref-find-definitions 命令可以快速跳转到函数或变量的定义处。
+
+*** 重命名标识符
+使用 M-x eglot-rename 命令可以重命名项目中的某个标识符。
+
+*** 实时诊断
+Eglot 通过 Flymake 提供实时诊断信息，可以在代码中直接看到错误和警告。
+
+** 典型生态项目
+*** 语言服务器
+Eglot 支持多种语言服务器，包括但不限于：
+
+- C/C++: clangd
+- Python: pyls
+- JavaScript/TypeScript: typescript-language-server
+- Rust: rust-analyzer
+
+** 配合其它Emacs插件
+Eglot 可以与其他 Emacs 插件配合使用，提供更丰富的功能，例如：
+- company-mode: 代码补全
+- flycheck: 语法检查
+- projectile: 项目管理
+
+通过这些插件的组合，可以构建一个功能强大的开发环境。
+
+
+
+
+* Vertico
+** 说明
+Vertico基于默认的补全系统提供了一个性能卓越且简约的垂直补全用户界面。通过重用内置功能，Vertico实现了与Emacs内置补全命令和补全表的完全兼容。
+
+“Vertico基于默认补全系统提供了一个性能优越且极简的垂直补全用户界面。Vertico的重点是提供一个在任何情况下都能正确运行的用户界面。通过重用内置设施系统，Vertico实现了与内置Emacs补全命令和补全表的完全兼容。Vertico仅提供补全用户界面，但旨在实现高度灵活性、可扩展性和模块化。其他增强功能可作为扩展或补充包使用。代码库小巧且易于维护。主要的vertico.el包仅包含约600行不含空白和注释的代码。”
+
+** 特性
+- 使用箭头键导航进行垂直显示。提供了许多其他显示模式作为扩展。
+- 提示符显示当前候选项的索引和候选项总数。使用TAB键插入当前候选项，使用RET键选择。
+- 不存在的候选项可以通过M-RET提交或将光标移至提示符处提交。
+- 根据历史位置、长度和字母顺序进行高效排序。
+- 换行符较长的候选项会进行格式化以占用更少空间。
+- 为了提高性能，突出显示延迟完成的候选项。在候选项旁边显示注释（注释和词缀功能）。
+- 支持候选项分组和组循环命令（分组功能）。”
+
+** 按键绑定
+| 按键                                                 | 命令                    
+| beginning-of-buffer, minibuffer-beginning-of-buffer | vertico-first          |
+| end-of-buffer                                       | vertico-last           |
+| scroll-down-command                                 | vertico-scroll-down    |
+| scroll-up-command                                   | vertico-scroo-up       |
+| next-line,next-line-or-history-element              | vertico-next           |
+| previous-line,previous-line-or-history-element      | vertico-previous       |
+| forward-paragraph                                   | vertico-next-group     |
+| backward-paragraph                                  | vertico-previous-group |
+| exit-minibuffer                                     | vertico-exit           |
+| kill-ring-save                                      | vertico-save           |
+| M-RET                                               | vertico-exit-input     |
+| TAB                                                 | vertico-insert         |
+
+“特别注意将TAB绑定到vertico-insert上，以插入当前选中的候选项，以及将RET和M-RET分别绑定到vertico-exit和vertico-exit-input上。vertico-exit使用当前选中的候选项退出，而vertico-exit-input则使用小缓冲区输入退出。当您想使用find-file或switch-to-buffer创建一个新缓冲区或新文件时，需要使用当前输入退出。除了按M-RET之外，还可以按向上箭头键将选择移动到输入提示符，然后按RET。”
+
+** 设置
+“为了在init.el中配置Vertico和其他软件包，您可能希望利用use-package。以下是一个配置示例：”
+#+begin_src elisp
+  ;; Enable vertico
+  (use-package vertico
+    :custom
+    ;; (vertico-scroll-margin 0) ;; Different scroll margin
+    ;; (vertico-count 20) ;; Show more candidates
+    ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+    ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+    :init
+    (vertico-mode))
+
+  ;; Persist history over Emacs restarts. Vertico sorts by history position.
+  (use-package savehist
+    :init
+    (savehist-mode))
+
+  ;; A few more useful configurations...
+  (use-package emacs
+    :custom
+    ;; Support opening new minibuffers from inside existing minibuffers.
+    (enable-recursive-minibuffers t)
+    ;; Hide commands in M-x which do not work in the current mode.  Vertico
+    ;; commands are hidden in normal buffers. This setting is useful beyond
+    ;; Vertico.
+    (read-extended-command-predicate #'command-completion-default-include-p)
+    :init
+    ;; Add prompt indicator to `completing-read-multiple'.
+    ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+    (defun crm-indicator (args)
+      (cons (format "[CRM%s] %s"
+                    (replace-regexp-in-string
+                     "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                     crm-separator)
+                    (car args))
+            (cdr args)))
+    (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+    ;; Do not allow the cursor in the minibuffer prompt
+    (setq minibuffer-prompt-properties
+          '(read-only t cursor-intangible t face minibuffer-prompt))
+    (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
+#+end_src
+
+“我推荐尝试一下Orderless completion，它比默认的补全方式更灵活、更强大。”
+
+#+begin_src elisp
+ ;; Optionally use the `orderless' completion style.
+(use-package orderless
+  :custom
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
+  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+
+The basic completion style is specified as fallback in addition to orderless in order to ensure that completion commands which rely on dynamic completion tables, e.g., completion-table-dynamic or completion-table-in-turn, work correctly. See the Consult wiki for my advanced Orderless configuration with style dispatchers. Additionally enable partial-completion for file path expansion. partial-completion is important for file wildcard support in find-file. In order to open multiple files with a wildcard at once, you have to submit the prompt with M-RET. Alternative first move to the prompt and then press RET.
+
+See also the Vertico Wiki for additional configuration tips. For more general documentation read the chapter about completion in the Emacs manual. If you want to create your own completion commands, you can find documentation about completion in the Elisp manual.

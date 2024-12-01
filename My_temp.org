@@ -1,0 +1,24 @@
+#+Title:我的临时记录
+#+author: chen
+#+data:<2024-11-29 Fri>
+#+LANGUAGE:zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+
+* [[https://zhuanlan.zhihu.com/p/482073590][使用的内置Mode]](知乎)
+- auto-fill-mode，可以在minibuffer里面自动的填充当前光标位置的函数，变量名等
+- global-auto-revert-mode，自动将文件的修改同步到buffer中
+- auto-save-visited-mode，自动保存功能（Emacs26引入的内置功能）
+- 在cc-mode-common中启用了c-toggle-auto-hungry-state，可以使用快速删除以及分号自动换行的功能，适合C/Java等环境的编程习惯
+- fido-vertical-mode，垂直排版的fido-mode，Emacs28.1引入的新功能，这一点让我抛弃了很多的第三方包：
+  
+- 在编程模式下启用了flymake-mode，错误提示
+- 在文本模式以及org mode中启用了flyspell-mode，语法检查
+- 在编程环境下启用了display-line-numbers-mode，显示行号
+- column-number-mode，在modeline上显示列号
+- 编程模式下启用了prettify-symbols-mode
+- global-visual-line-mode，软换行显示
+  
+以上的功能中，自动保存与垂直fido可能是一部分人比较陌生的，因为是近几年才/会添加的功能。但可以让我们免除了安装不少第三方包的烦恼，进一步（可能）加速Emacs的运行。
+
+
+
