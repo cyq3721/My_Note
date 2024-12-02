@@ -208,17 +208,132 @@ Emacs 的配置文件默认保存在 ~/.emacs.d/init.el 文件中。（如果其
 在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 MELPA （Milkypostman's Emacs Lisp Package Archive）。它有非常多的插件（3000 多个插件）。 添加源后，我们就可以使用 M-x package-list-packages 来查看所有 MELPA 上的插件了。在表单中可以使用 i 来标记安装 d 来标记删除， U 来更新，并用 x 来确认。你也可以使用 u 来撤销标记操作。
 
 #+begin_src elisp
-(require 'package)
-(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
+  (require 'package)
+  (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
 
-                         ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
-(package-initialize)
+                           ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+  (package-initialize)
 
-;;防止反复调用 package-refresh-contents 会影响加载速度
-(when (not package-archive-contents)
-  (package-refresh-contents))
+  ;;防止反复调用 package-refresh-contents 会影响加载速度
+  (when (not package-archive-contents)
+    (package-refresh-contents))
 
-;;modeline上显示我的所有的按键和执行的命令
-(package-install 'keycast)
-(keycast-mode t)
+  ;;modeline上显示我的所有的按键和执行的命令
+  (package-install 'keycast)
+  (keycast-mode t)
+#+end_src
+
+** 增强minibuffer补全：vertico和orderless
+#+begin_src elisp
+(package-install 'vertico)
+(vertico-mode t)
+
+(package-install 'orderless)
+(setq completion-styles '(orderless))
+#+end_src
+
+** 配置marginalia增强minubuffer的annotation
+#+begin_src elisp
+(package-install 'marginalia)
+(marginalia-mode t)
+
+#+end_src
+** minibuffer action和自适应的context menu：Emabark
+#+begin_src elisp
+(package-install 'embark)
+(global-set-key (kbd "C-;") 'embark-act)
+(setq prefix-help-command 'embark-prefix-help-command)
+#+end_src
+
+** 增强文件内搜索和跳转函数定义：consult
+#+begin_src elisp
+(package-install 'consult)
+;;replace swiper
+(global-set-key (kbd "C-s") 'consult-line)
+;;consult-imenu
+#+end_src
+
+* 第五天：手动安装插件和外部程序
+如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的[[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][An Introduction to Programming in Emacs Lisp]] 。（也可以 M-x info 然后选择 Emacs Lisp Intro）
+
+我们先解决前一天中遇到的一些问题。首先是在对象是一个缓冲区局部变量（Buffer-local variable）的时候，比如这里的 cursor-type ，我们需要区分 setq 与 setq-default ： setq 设置当前缓冲区（Buffer）中的变量值， setq-default 设 置的为全局的变量的值（具体内容可以在 [[https://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp][StackOverflow]]找到）。下面是一个例子，用于 设置光标样式的方法。
+#+begin_src elisp
+(setq-default cursor-type 'bar)
+(show-paren-mode t)
+
+;;另外一件安装插件的方法
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/awesome-tab/"))
+
+(require 'awesome-tab)
+
+(awesome-tab-mode t)
+
+(defun awesome-tab-buffer-groups ()
+  "`awesome-tab-buffer-groups' control buffers' group rules.
+Group awesome-tab with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
+All buffer name start with * will group to \"Emacs\".
+Other buffer group by `awesome-tab-get-group-name' with project name."
+  (list
+   (cond
+    ((or (string-equal "*" (substring (buffer-name) 0 1))
+         (memq major-mode '(magit-process-mode
+                            magit-status-mode
+                            magit-diff-mode
+                            magit-log-mode
+                            magit-file-mode
+                            magit-blob-mode
+                            magit-blame-mode)))
+     "Emacs")
+    ((derived-mode-p 'eshell-mode)
+     "EShell")
+    ((derived-mode-p 'dired-mode)
+     "Dired")
+    ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+     "OrgMode")
+    ((derived-mode-p 'eaf-mode)
+     "EAF")
+    (t
+     (awesome-tab-get-group-name (current-buffer))))))
+#+end_src
+
+其次就是它使用到了 quote, 它其实就是我们之前常常见到的 ' （单引号）的完全体。 因为它在 Lisp 中十分常用，所以就提供了简写的方法。
+
+#+begin_src elisp
+;; 下面两行的效果完全相同的
+(quote foo)
+'foo
+#+end_src
+
+quote 的意思是不要执行后面的内容，返回它原本的内容（具体请参考下面的例子）
+#+begin_src elisp
+(print '(+ 1 1)) ;; -> (+ 1 1)
+(print (+ 1 1))  ;; -> 2
+#+end_src
+
+更多关于 quote 的内容可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Quoting.html][这里]]找到，或者在这里找到 StackOverflow 上对于它的讨论。
+
+
+因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显 得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 init.el~ 。（ ~ 为后 缀的文件为自动生成的备份文件）我们可以使用下面的方法将其关闭。
+
+#+begin_src elisp
+(setq make-backup-files nil)
+#+end_src
+
+
+使用下面的配置来加入最近打开过文件的选项让我们更快捷的在图形界面的菜单中打开最近 编辑过的文件。
+#+begin_src elisp
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-item 10)
+
+;; 这个快捷键绑定可以用之后的插件 counsel 代替
+;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+#+end_src
+
+require 的意思为从文件中加载特性，你可以在杀哥的网站读到关于 Emacs Lisp 库系统 的更多内容，文章在[[http://xahlee.info/emacs/emacs/elisp_library_system.html][这里]]。
+
+使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，即当你选中一段文字 之后输入一个字符会替换掉你选中部分的文字。
+
+#+begin_src elisp
+(delete-selection-mode 1)
 #+end_src

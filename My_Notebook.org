@@ -1,4 +1,3 @@
-
 #+title:shadow-fish‘s Notebook
 #+author: ShadowFish
 #+data:[2018-12-05 Wed]
