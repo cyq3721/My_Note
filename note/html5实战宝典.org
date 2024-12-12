@@ -361,3 +361,278 @@ HTML 中的框架标签 frame、frameset、noframes 对页面的可用性有负�
     </form>
    </div>
  #+end_src
+**** 代码如下：
+***** html源码
+#+begin_src html
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>注册页面</title>
+    <link href="./css/style_test.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="bg">
+      <form action="" method="post">
+        <fieldset>
+          <legend>账号信息</legend>
+          <div class="left">
+            <label for="account">账号:</label>
+          </div>
+          <div class="right">
+            <input id="account" name="my_account" type="text" >
+            <div class="notice">请输入8位数长度字符串， 可包括数字、字母，不能输入符号</div>
+          </div>
+          <div class="left">
+            <label for="password">密码:</label>
+          </div>
+          <div class="right">
+            <input id="password" name="my_password" type="password" >
+          </div>
+          <div class="left">
+            <label for="password2">再次输入密码:</label>
+          </div>
+          <div class="right">
+            <input id="password2" name="my_password2" type="password">
+            <div class="notice">密码关系到您的账号安全，请记住您的密码，并且保持两次输入的密码一致</div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>个人信息</legend>
+          <div class="left">
+            <label for="name">姓名:</label>
+          </div>
+          <div class="right">
+            <input name="my_name" type="text" id="name">
+          </div>
+          <div class="left">
+            <label for="age">年龄</label>
+          </div>
+          <div class="right">
+            <input id="age" name="my_age" type="number" min="10" max="18">
+          </div>
+          <div class="left">
+            <label for="date">出生日期:</label>
+          </div>
+          <div class="right">
+            <input id="date" name="my_date" type="date" >
+          </div>
+          <div class="left">
+            <label>性别:</label>
+          </div>
+          <div class="right">
+            <label>男:<input type="radio" name="my_sex" valure="boy" /></label>
+            <label>女: <input name="my_sex" type="radio" value="girl"/></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>联系方式</legend>
+          <div class="left">
+            <label for="tel">手机号码:</label>
+          </div>
+          <div class="right">
+            <input id="tel" name="my_tel" type="tel" >
+          </div>
+          <div class="left">
+            <label for="email">电子邮件:</label>
+          </div>
+          <div class="right">
+            <input id="email" name="my_email" type="email" >
+          </div>
+          <div class="left">
+            <input name="my_submit" type="submit" value="提交"/>
+          </div>
+        </fieldset>
+      </form>  
+    </div>
+
+  
+
+    <script>
+     
+     window.onload=function(){
+       
+       //获得账号表单控件的引用
+       var account=document.getElementById('account')
+       //获得提示文字的引用
+       var notice=document.getElementsByClassName('notice')
+       //账号控件获得焦点的时候触发的事件
+       account.onfocus=function(){
+	 //获得焦点的时候 提示文字变为显示状态
+	 notice[0].style.display="block"
+       }
+       //账号控件失去焦点的时候触发的事件
+       account.onblur=function(){
+	 //失去焦点的时候 提示文字变为隐藏状态
+	 notice[0].style.display="none"
+       }
+     }
+    </script>
+  </body>
+</html>
+
+#+end_src
+
+***** css代码如下：
+   #+begin_src css
+  .left{
+    width:140px;
+    height:30px;
+    float:left;
+    text-align:right;
+    line-height:30px;
+    margin:10px 0;
+    padding-right:20px;
+    color:grey;
+    font-size:12px;
+}
+.right{
+    width:470px;
+    height:30px;
+    float:left;
+    margin:10px 0;
+    line-height: 30px;
+    font-size:12px;
+    text-align: left;
+}
+.notice{
+    width:150px;
+    height:30px;
+    float:right;
+    margin:0 0;
+    text-align:center;
+    font-size:10px;
+    color:red;
+    display:none;
+    
+}
+.bg{
+    width:700px;
+    margin:auto auto;
+    border:1px solid pink;
+}
+fieldset{
+    border:1px solid grey;
+    margin-bottom:20px;
+    margin:auto auto;
+}
+legend{
+    color:grey;
+    font-size:14px;
+}
+
+input:focus{
+    outline:1px solid red;
+}
+
+   #+end_src
+
+*** 登陆页面
+与注册页面类似，只需要有账号和密码输入框，再添加上登录按钮和一个注册链接就可以
+**** 代码如下
+***** html源码
+#+begin_src html
+<!doctype html>
+<html>
+  <head>
+    <title>注册登陆</title>
+    <meta charset="utf-8" />
+    <link href="./css/style_login.css" rel="stylesheet"/>
+    </head>
+  <body>
+    <div class="box">
+      <form id="my_form">
+        <div class="left">
+          <label for="account">账号:</label>
+        </div>
+        <div class="right">
+          <input name="my_account" type="text" id="account" autofocus="true" placeholder="请输入你的账号" required="required" for="my_form">
+        </div>
+        <div class="left">
+          <label for="password">密码:</label>
+        </div>
+        <div class="right">
+          <input name="password" type="password" for="my_form" placeholder="请输入密码">
+        </div>
+        <div class="button">
+          <input name="login" type="submit" value="登陆"/>
+          <input name="sign" type="submit" value="注册"/>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+  
+#+end_src
+
+
+***** css源码
+#+begin_src css
+body, input, textarea, seletc,option{
+    padding:0;
+    margin:0;
+    font-family: "微软雅黑";
+    font-size: 14px; 
+}
+.box{
+    width:500px;
+    height:300px;
+    margin:0 auto;
+   
+}
+
+.left{
+    width:180px;
+    height:100px;
+    float:left;
+    line-height: 100px;
+    text-align: right;
+    padding-right: 20px;  
+}
+.right{
+  width:300px;
+  height:100px;
+  float:left;
+  line-height: 100px;
+}
+.button{
+   
+    padding-left:20px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 100px;
+}
+input{
+    width:180px;
+    height:30px;
+    border:1px solid #888;
+    box-shadow:2px 3px 3px  #aaa ;
+    padding-left: 20px;
+    vertical-align: middle;
+}
+
+input[name=login],input[name=sign]{
+    width:100px;
+    height:30px;
+    background:#fff;
+    padding:0;
+    font-weight: bold;
+    cursor: pointer;
+}
+input[name=login]:active,input[name=sign]:active{
+    box-shadow:none;
+}
+#+end_src
+
+** 表单验证
+*** 表单控件中新增的功能属性
+1. autofocus属性
+   *说明：*当页面加载时，自动聚焦到某一个表单控件上。值为 Boolean 类型，一个文档中 只能有一个表单控件具有此属性。 格式:
+   #+begin_src html
+     <input type="text" autofocus="true">
+   #+end_src
+2. placeholder属性
+   *说明：* 这是一个非常好用的属性，它会展示一段提示文字，当单击输入时，就会自动隐 藏，内容为空时又自动显示。 格式如下：
+ #+begin_src html
+   <input type="text" placeholder="请输入账号">
+ #+end_src
