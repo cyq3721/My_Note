@@ -271,8 +271,7 @@ Emacs23以后的版本默认都支持org-mode。当用Emacs打开.org后缀的�
 | C-c C-l | 创建或修改链接   |
 | C-c l   | 保存链接       |
 
- 
-** 代码
+ ** 代码
 *** 代码块：
 #+BEGIN_SRC c -n                                                                                                              
   int main()                                                                                                                   
@@ -325,9 +324,10 @@ C-c C-e\\
    #+begin_quote
    #+filetags: secret:
       #+end_quote
-   | 快捷键  | 描述     |
-   | c-c c-q | 创建标签 |
+   | 快捷键   | 描述                |
+   | c-c c-q | 创建标签             |
    | c-c c-c | 在标题上使用，创建标签 |
+   |         |                    |
 ** 预定义标签
 在文件开头使用元数据标记， 例如：
 #+begin_quote

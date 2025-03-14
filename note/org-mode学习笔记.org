@@ -200,7 +200,8 @@ org-mode在导出成HTML时，可以对代码按照各自的语法进行高亮�
 *** 生成目录表
 如果想在导出成HTML时在文档前面生成一个章节目录表（Table of Contents），那么可以在文件头部的 OPTIONS 里面添加 toc:t 参数
 #+BEGIN_QUOTE
-#+OPTIONS: toc:t  ^:nil author:nil num:2
+#+OPTIONS: toc:t
+:nil author:nil num:2
 #+END_QUOTE
 
 也可以设置 org-export-with-toc 这个变量
@@ -214,7 +215,6 @@ org-mode在导出成HTML时，可以对代码按照各自的语法进行高亮�
 #+OPTIONS: toc:2  ^:nil author:nil num:2
 #+END_QUOTE
 
-**** kdfjkdfjj
 
 *** 为每个分节的标题添加标号
 导出成HTML时，如果不自定义css（这个高级话题留待下次再说），那么h1, h2, h3各个级别的标题只会字体大小有 点不同，不会呈现不同颜色，不会有缩进，于是阅读起来各节之间的关系就搞不清楚了。可以设置 org-export-with-section-numbers 让导出时为各章节的标题添加 1.2.3 这样的

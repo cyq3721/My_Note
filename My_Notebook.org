@@ -32,7 +32,7 @@
      [[./note/emacs-cookbook.org][emacs-cookbook.org]]
      [[./note/writing php with emacs.org][Writing PHP with Emacs]]
 ** vi相关
-     [[./note/vi教程.org][vi教程]]
+[[./note/vi教程.org][vi教程]]
 * Web开发
 ** html相关
     [[./note/Html & CSS 设计与构建网站.org][Html & CSS 设计与构建网站]]
@@ -70,7 +70,7 @@
    [[./note/python基础教程（第三版）.org][python基础教程(第三版)]]
    [[./note/python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B.org][python编程快速上手]]
 * github相关
-   [[./note/github%E7%AC%94%E8%AE%B0.org][github笔记]]
+   [[./note/github笔记.org][github笔记]]
 * 平时随笔
    [[./note/日常记录2021-4.org][日常记录]]
 
