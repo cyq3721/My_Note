@@ -92,7 +92,7 @@ define ('TIREPRICE' , 100);
 是一对反向单引号(` `)，将反向单引号之间的命令当做服务器命令来执行。表达式的值就是命令的执行结果。具体实例如下：
 #+begin_src php
   $out = `ls -la`;
-  echo '<pre>.$out.</pre>';
+`  echo '<pre>.$out.</pre>';
 #+end_src
 ** PHP的数据类型
 - integer
