@@ -252,7 +252,7 @@ chmod 777 创建最高的读写权限
 $products = array('tires', 'oil' 'spark plugs');
 #+END_SRC
 **** 初始化方式2：（php5.4开始支持）
-#+BEGIN_SRC php"
+#+BEGIN_SRC php
 $products = ['tires', 'oil' 'spark plugs'];
 #+END_SRC
 **** array（）结构简介

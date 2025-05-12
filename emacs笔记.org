@@ -1,3 +1,4 @@
+ 醃
 #+TITLE: Emacs学习笔记
 #+OPTIONS: ^:{}
 * 基本概念
