@@ -8,7 +8,7 @@
      [[./note/linux就该这么学.org][linux就该这么学]]
      [[./note/manjaro.org][Manjaro Linux日常记录]]
 ** emacs相关
-      [[./note/emacs完全补完计划.org][emacs完全补完计划]]
+     [[./note/emacs完全补完计划.org][emacs完全补完计划]]
      [[./note/《学习emacs》笔记.org][《学习emacs》笔记]]
      [[./note/emacs学习笔记.org][emacs学习笔记]]
      [[./note/emacs插件.org][emacs插件]]

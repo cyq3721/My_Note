@@ -1,7 +1,8 @@
 #+TITLE: org-mode 笔记
 #+AUTHOR: Shadow-Fish
 #+startup: indent
-#DATA: 2017-5
+#+DATA: 2017-5
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
 
 * 简介
 Org-Mode：Your Life in Plain Text.
@@ -30,18 +31,20 @@ Emacs23以后已经默认包含有org-mode。
 * 基本教程
 ** 文档结构 
 *** 标题
-- 【* 】一级标题
-- 【** 】二级标题依次类推
-- 【TABLE】展开/关闭提纲，多层提纲按一次展开一级，没有之后再按关闭所有
-- 【S-TABLE】展开/关闭所有提纲
-- 【C-U C-U C-U TAB】显示全部
-***  标题间移动
++ 【* 】一级标题
++ 【** 】二级标题依次类推
++ 【TABLE】展开/关闭提纲，多层提纲按一次展开一级，没有之后再按关闭所有
+   - 子树循环：当加上一个前缀参数时（C-u TAB），在下面的状态中改变当前子树的视图
+       FOLDED -> CHILDREN -> SUBTREE
++ 【S-TABLE】展开/关闭所有提纲
++ 【C-U C-U C-U TAB】显示全部
+*** 标题间移动
 - 【c-c c-n】下一个标题
 - 【c-c c-p】上一个标题
 - 【c-c c-f】下一个同级标题
 - 【c-c c-b】上一个同级标题
 - 【c-c c-u】回到上层标题
-*** 结构辑
+*** 结构编辑
 - 【m-ret】在行位按下创建新的同级标题
 - 【m-↑/↓】移动当前标题（连带子标题）
 - 【s-m-←/→】调整当前标题等级（连带子标题）

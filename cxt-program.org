@@ -1,0 +1,44 @@
+#+title: 计算机基础
+#+date:<2025-08-19 Tue>
+
+* 计算机的原理
+** 计算机的组成
+*** 硬件部分
+- 主机部分
+  - cpu（center processor unit）    处理数据
+    - Intel （美国）
+    - AMD (美国)
+    - VIA （威盛   中国台湾）
+    - 龙芯 （中国  ARM架构）
+  - 显卡（GPU  graphic processor unit）  处理图像
+    - nvidia（英伟达  美国）       最好的游戏、AI gpu
+    - AMD (ATI)       垄断游戏主机gpu
+  - 内存
+  - 主板
+  - 硬盘
+    - 机械硬盘  （容量大，寿命长，速度慢）30 - 70mb/s
+    - 固态硬盘  （容量小，寿命固定，速度超级快） 480 - 7000mb/s
+- 外部设备
+  - 鼠标
+  - 键盘
+  - 显示器
+  - 打印机
+  - 音箱
+  - u盘 
+*** 软件部分
+- 操作系统
+  - 微软windows系统
+    win1.0 win3.1 win95 win98 win2000 winxp win vista win7 win8 win10 win11
+  - 苹果的MAC OS
+  - UNIX系统  （世界最古老，最安全，目前没有黑客攻破）
+  - linux （类UNIX系统）  免费  开源
+** 存储单位（二进制）
+- bit （位） 存储一位二进制数
+- byte （字节） 八个bit ，八位  256    2的8次方
+- kb  1024个byte    一个简单文字文档， 100-300kb
+- mb  1024个kb     一张照片3-10mb，一首歌3-8mb，一小时普通视频120-240mb， 一段4k高清电影2000-4000mb
+- gb（G）  1024个mb     一个大型游戏   30 -120gb
+- tb（T）  1024个gb     一个硬盘1Tb，20Tb
+- Pb（P）
+* 程序设计
+

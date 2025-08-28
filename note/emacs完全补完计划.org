@@ -1,3 +1,4 @@
+
 #+title: emacs完全补全计划
 #+date:<2025-05-12 Mon>
 #+author:chen
@@ -225,5 +226,41 @@ Features(特性)是emacs默认的另外一种常见的加载方式。相当于�
 
 当helm这个package加载后，some-code将接着执行，不管是使用features机制还是autoload机制。在emacs24.3方能使用with-eval-after-load，之前版本使用eval-after-load。
 
-
 *** use-package
+Use-package是一个第三方的package，使用前需要安装。Use-package可以说是为了解决之前提到的所有问题而出现的。Use-package是一个宏，来看看它是怎么使用的：
+
+#+begin_src elisp
+  (use-package helm)
+#+end_src
+
+最简单的加载，等同于(require ‘helm)。
+
+#+begin_src elisp
+  (use-package helm
+    :defer t)
+#+end_src
+
+:defer是个关键字，如果为t，则表示helm的里面的凡是被autoload的函数、宏、模式等都成立。
+
+#+begin_src elisp
+  (use-package helm
+  :defer t
+  :init
+  ;; Code to execute before Helm is loaded
+  :config
+  ;; Code to execute after Helm is loaded
+  )
+#+end_src
+
+增加了两个关键字:init和:config，顾名思义，针对package加载之前和package加载之后添加一些自己的配置。在:init中可以加载一些入口设定，比如定义一些按键调用这个package里面的函数。:config关键字后面的代码和with-eval-after-load功用是一样的，都是package实际被加载之后才会执行。 use-package还有很多关键字，比如指定某些条件下才会加载package，可以指定某些特定文件才加载这个package，可以进官方文档自行查看。
+
+*** org-babel-load-file
+
+org是和markdown一样是一种格式标记文本形式，可以用来编写文档的，但它比markdown厉害得多，提供功能更齐全，其中一种功能是将org里面编写的程序放到org-babel（org文件的某个块区域）里面，和markdown仅仅用来展示程序不同，org-babel里面的程序可以用org-babel-load-file来执行。
+#+begin_src elisp
+  (org-babel-load-file "~/.emacs.d/config.org")
+#+end_src
+意味着你可以在一个org文件里面写出emacs的配置和相应的说明，是一种高效管理emacs配置的方式，初次听说还蛮刷三观的。不过因为加载速度的原因没能完全流行起来，不过还是有一些emacser坚持使用这种方式。
+
+** 小结
+use-package渐渐一统以前古老的配置方式，许多知名的emacser用这个包将自己的配置又重新写了一遍。因为它既包含了现有的所有定义方式又提供了许多关键字，让配置一个package简单易行，而且可以将所有的包都变成了延时加载，只有使用的时候再加载，大大加速了emacs的启动速度。 懂得以上所有的emacs加载机制后，基本上自己动手配置一个emacs配置不成问题。下篇文章会提到emacs能提供给我们的常用API。

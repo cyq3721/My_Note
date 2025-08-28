@@ -4,13 +4,13 @@
 
 * 第一章 Emacs的基本概念
 ** 获取帮助
-| 键盘  | 命令名称                     | 动作                       |
-|-------+------------------------------+----------------------------|
-| c-h   | help-command                 | 进入在线帮助系统           |
+| 键盘  | 命令名称                      | 动作                    |
+|-------+------------------------------+-------------------------|
+| c-h   | help-command                 | 进入在线帮助系统          |
 | c-h f | describe-function            | 给出某个命令的在线帮助信息 |
 | c-h k | describe-key                 | 给出某个组合按键的帮助信息 |
-| c-h t | help-with-turorial           | 启动Emacs教程              |
-| c-h i | info-goto-emacs-command-node | 启动info文档阅读器         |
+| c-h t | help-with-turorial           | 启动Emacs教程            |
+| c-h i | info-goto-emacs-command-node | 启动info文档阅读器        |
 ** 理解文件和编辑缓冲区
 编辑器并不是对某个文件本身进行编辑，它会把文件的内容放到一个临时性的缓冲区（buffer）内.
 ** 移动光标
