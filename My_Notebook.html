@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-09-03 Wed 19:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>shadow-fish‘s Notebook</title>
+<meta name="author" content="ShadowFish" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">shadow-fish‘s Notebook</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgf3a3073">1. linux相关</a>
+<ul>
+<li><a href="#org55d38bc">1.1. linux相关</a></li>
+<li><a href="#orgb467604">1.2. emacs相关</a></li>
+<li><a href="#orgd96d4b7">1.3. vi相关</a></li>
+</ul>
+</li>
+<li><a href="#orgf119299">2. Web开发</a>
+<ul>
+<li><a href="#orgaa9fff3">2.1. html相关</a></li>
+<li><a href="#orgbb98fdc">2.2. Web 前端框架</a>
+<ul>
+<li><a href="#orgb5a6925">2.2.1. laminas （前身为 Zend framework）文档</a></li>
+</ul>
+</li>
+<li><a href="#org4441cd4">2.3. Php相关</a></li>
+<li><a href="#orgd942fec">2.4. 数据库</a></li>
+</ul>
+</li>
+<li><a href="#orga2edac0">3. photosho相关</a></li>
+<li><a href="#org51b8ad6">4. 程序设计</a>
+<ul>
+<li><a href="#org6c16527">4.1. C++</a></li>
+<li><a href="#org028176d">4.2. Python</a></li>
+</ul>
+</li>
+<li><a href="#org9e92031">5. github相关</a></li>
+<li><a href="#org0e5a289">6. 平时随笔</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf3a3073" class="outline-2">
+<h2 id="orgf3a3073"><span class="section-number-2">1.</span> linux相关</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org55d38bc" class="outline-3">
+<h3 id="org55d38bc"><span class="section-number-3">1.1.</span> linux相关</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li><a href="./note/linux就是这个范儿.html">linux就是这个范儿</a></li>
+<li><a href="./note/linux鸟哥私房菜.html">linux鸟哥私房菜</a></li>
+<li><a href="./note/linux就该这么学.html">linux就该这么学</a></li>
+<li><a href="./note/manjaro.html">Manjaro Linux日常记录</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb467604" class="outline-3">
+<h3 id="orgb467604"><span class="section-number-3">1.2.</span> emacs相关</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li><a href="note/Emacs自力求生指南——前言.html">Emacs自力求生指南——前言.org</a></li>
+<li><a href="note/Emacs自力求生指南.html">Emacs自力求生指南——自己写配置.org</a></li>
+<li><a href="./note/emacs完全补完计划.html">emacs完全补完计划</a></li>
+<li><a href="./note/《学习emacs》笔记.html">《学习emacs》笔记</a></li>
+<li><a href="./note/emacs学习笔记.html">emacs学习笔记</a></li>
+<li><a href="./note/emacs插件.html">emacs插件</a></li>
+<li><a href="./note/emacs平时记录.html">emacs平时记录</a></li>
+<li><a href="./note/org-mode.html">org-mode笔记</a></li>
+<li><a href="./note/spacemacs使用.html">Spacemacs使用小结</a></li>
+<li><a href="./note/spacemacs官方教程.html">spacemacs官方教程</a></li>
+<li><a href="./note/从零开始——Emacs安装配置使用教程.html">从零开始——Emacs安装配置使用教程</a></li>
+<li><a href="./note/Emacs Lisp简明教程.html">Emacs Lisp简明教程.org</a></li>
+<li><a href="./note/EMACS中文教程.html">EMACS中文教程.org</a></li>
+<li><a href="./note/emacs学习笔记整理.html">21天学会EMACS</a></li>
+<li><a href="./note/emacs文档中文化.html">emacs文档中文化</a></li>
+<li><a href="./note/Emacs-最好的Python编辑器.html">Emacs-最好y的Python编辑器</a></li>
+<li><a href="./note/Master Emacs in 21 Days.html">Master Emacs in 21 Days</a></li>
+<li><a href="./note/Master Emacs in 21 Days(2022).html">Mater Emacs in 21 Days(2022)</a></li>
+<li><a href="./note/org导出设置.html">org导出设置</a></li>
+<li><a href="./note/%E7%8E%8B%E5%9E%A0%E7%9A%84Emacs%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE.html">王垠的Emacs的简单设置</a></li>
+<li><a href="./note/Spacemacs Rocks Episode2.html">子龙山人emacs 21天视频教程笔记</a></li>
+<li><a href="./note/Emacs Fill详解.html">Emacs Fill详解</a></li>
+<li><a href="./note/Emacs绑定键盘的技巧.html">Emacs绑定键盘的技巧</a></li>
+<li><a href="./note/elisp.html">elisp笔记</a></li>
+<li><a href="./note/emacs-cookbook.html">emacs-cookbook.org</a></li>
+<li><a href="./note/writing php with emacs.html">Writing PHP with Emacs</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd96d4b7" class="outline-3">
+<h3 id="orgd96d4b7"><span class="section-number-3">1.3.</span> vi相关</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li><a href="./note/vi教程.html">vi教程</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf119299" class="outline-2">
+<h2 id="orgf119299"><span class="section-number-2">2.</span> Web开发</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgaa9fff3" class="outline-3">
+<h3 id="orgaa9fff3"><span class="section-number-3">2.1.</span> html相关</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li><a href="./note/Html &amp; CSS 设计与构建网站.html"> Html &amp; CSS 设计与构建网站</a></li>
+<li><a href="./note/HTML5教程.html">HTML5教程</a></li>
+<li><a href="./note/《精通HTML5+CSS3+JavaScript网页设计》.html">精通HTML5+CSS3+JavaScript网页设计</a></li>
+<li><a href="./note/JavaScript和jQuery.html">JavaScript和jQrery 交互式web前端开发</a></li>
+<li><a href="./note/web前端开发.html">web前端开发</a></li>
+<li><a href="./note/html5实战宝典.html">HTML5实战宝典</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbb98fdc" class="outline-3">
+<h3 id="orgbb98fdc"><span class="section-number-3">2.2.</span> Web 前端框架</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-orgb5a6925" class="outline-4">
+<h4 id="orgb5a6925"><span class="section-number-4">2.2.1.</span> laminas （前身为 Zend framework）文档</h4>
+</div>
+</div>
+<div id="outline-container-org4441cd4" class="outline-3">
+<h3 id="org4441cd4"><span class="section-number-3">2.3.</span> Php相关</h3>
+<div class="outline-text-3" id="text-2-3">
+<ul class="org-ul">
+<li><a href="./note/PHP和MySQL Web开发.html">PHP和MySQl Web开发</a></li>
+<li><a href="./note/精通PHP+MySQL应用开发.html">精通PHP+MySQL应用开发</a></li>
+<li><a href="./note/《php开发实战权威指南》.html">php开发实战权威指南</a></li>
+<li><a href="./note/兄弟连php教程笔记.html">兄弟连php教程笔记</a></li>
+<li><a href="./note/mac下配置php开发环境.html">mac下配置php开发环境</a></li>
+<li><a href="./note/李炎烣PHP教程第一季.html">李炎烣PHP教程第一季</a></li>
+<li><a href="./note/PHP Web 2.0开发实战.html">PHP Web 2.0开发实战.org</a></li>
+<li><a href="./note/PHP+MySQL+AJAX Web 给力起飞.html">PHP+MySQL+AJAX Web 给力起飞.org</a></li>
+<li><a href="./note/php菜鸟教程.html">PHP菜鸟教程</a></li>
+<li><a href="./note/phpspreadsheet读取excl.html">phpspreadsheet读取excel</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd942fec" class="outline-3">
+<h3 id="orgd942fec"><span class="section-number-3">2.4.</span> 数据库</h3>
+<div class="outline-text-3" id="text-2-4">
+<ul class="org-ul">
+<li><a href="./note/mysql菜鸟教程.html">mysql菜鸟教程</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orga2edac0" class="outline-2">
+<h2 id="orga2edac0"><span class="section-number-2">3.</span> photosho相关</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li><a href="./note/人像后期调色圣经.html">人像后期调色圣经</a></li>
+<li><a href="./note/Photoshop CS5 摄影师专业技法.html">Photoshop CS5 摄影师专业技法</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org51b8ad6" class="outline-2">
+<h2 id="org51b8ad6"><span class="section-number-2">4.</span> 程序设计</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org6c16527" class="outline-3">
+<h3 id="org6c16527"><span class="section-number-3">4.1.</span> C++</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li><a href="./note/《c++程序设计》自学考试.html">C++程序设计——自学考试</a></li>
+<li><a href="./note/C++大学教程.html">C++大学教程.org</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org028176d" class="outline-3">
+<h3 id="org028176d"><span class="section-number-3">4.2.</span> Python</h3>
+<div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li><a href="./note/Python从小白到大牛.html">Python从小白到大牛</a></li>
+<li><a href="./note/python基础教程（第三版）.html">python基础教程(第三版)</a></li>
+<li><a href="./note/python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B.html">python编程快速上手</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org9e92031" class="outline-2">
+<h2 id="org9e92031"><span class="section-number-2">5.</span> github相关</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li><a href="./note/github笔记.html">github笔记</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0e5a289" class="outline-2">
+<h2 id="org0e5a289"><span class="section-number-2">6.</span> 平时随笔</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li><a href="./note/日常记录2021-4.html">日常记录</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: ShadowFish</p>
+<p class="date">Created: 2025-09-03 Wed 19:19</p>
+</div>
+</body>
+</html>

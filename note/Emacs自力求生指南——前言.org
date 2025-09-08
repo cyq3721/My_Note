@@ -2,7 +2,7 @@
 #+author:Chen
 #+data:<2025-08-29 Fri>
 #+LANGUAGE:zh-CN
-#+ATTR_ORG: :width 400
+#+ATTR_ORG::width 400
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
 * Eamcs是什么？
 [[https://nyk.ma/ox-hugo/%e6%b7%b1%e5%ba%a6%e6%88%aa%e5%9b%be_st_20200211121730.png]]
@@ -145,17 +145,74 @@ end
 ** 内置官方唯一指定软件包管理器
 还是可视化的。可以直接点击 Install 按钮安装。[[https://nyk.ma/ox-hugo/%e6%b7%b1%e5%ba%a6%e6%88%aa%e5%9b%be_%e9%80%89%e6%8b%a9%e5%8c%ba%e5%9f%9f_20200211114334.png]]
     
+** 天生支持C/S模式
+你肯定有过想在打开两个 vim 进程间互通剪贴板或光标互相跳转的场景，遗憾的是，不能。[fn:6]
+
+Emacs 能以 server 模式启动， expose 到端口或 socket 文件。client 能随时连接它[fn:7]，还能主动抢占焦点。
+
+** 文档又多又全还易读
+M-x info 里的文档每一篇都可以拿来当小说读。[[https://nyk.ma/ox-hugo/%e6%b7%b1%e5%ba%a6%e6%88%aa%e5%9b%be_%e9%80%89%e6%8b%a9%e5%8c%ba%e5%9f%9f_20200211115617.png]]
+
+** 随时Hack， 彻底Hack
+所有可见元素和变化都是 执行函数 所带来的副作用，所以你对编辑器的改造几乎没有场所和功能限制。
+
+来几个例子体验一下 Emacs 的可定制性吧。这些例子很糙，接下来几章会更加系统。
+
+*** 自己造一个简单的 Vim 按键模式
+在 Emacs 中，「按 j ，一个字母 j 出现在 Buffer 里」也是 函数调用带来的副作用 ！
+
+按 C-h k j 可以看到调用的函数叫 (self-insert-command) 。
+
+我们试着重新绑定 j 让它变成「跳到下一行」。
+ - 我们只知道按方向键下可以跳到下一行。首先用 C-h k (方向键下) 来查询对应的函数调用。我们可以得到很多信息：
+    - 函数调用是 (next-line)
+    - 方向键下在 Emacs 里写作 <down>
+    - 这个函数也被绑定到 C-n 上了。
+ - 在 *scratch* Buffer 里试试看： 
+#+begin_src elisp
+  (global-set-key ;; 全局绑定设置
+ (kbd "j")      ;; 按键 j
+ 'next-line)    ;; 调用 (next-line)
+#+end_src
+ - 把光标移到最后一个括号的后面，按 C-x C-e （ (eval-last-sexp) ），现在按键盘上的 j ，你会发现光标真的向下跑了。
+ - 以此类推把 hjkl 都绑定了吧
+
+   #+begin_quote
+   我们这个例子太糙，执行了这个之后你的 j 就再也打不出字来了，最方便的复原法就是重启 Emacs……. 这个例子表明 Emacs 不仅能做 Vim 能做的任何事儿，而且甚至能做得更好。事实上，Emacs 的 evil-mode 是我用过的最接近 vim 原生的 vim style 实现。
+   #+end_quote
+
+*** 定义自己的副作用函数
+将光标向左移动一格，你会用 C-b 。我现在想写一个函数，让我能一次向前移动三格。
+
+模拟击键 C-b 三次吗？不够鲁棒，万一有用户把它绑定到其它功能了怎么办。[fn:8]
+
+那么我怎么精确定义这个函数呢？
+  - 使用 C-h k C-b 查询 C-b 究竟绑定了什么函数。结果是 (backward-char)
+  - 试试看，在 M-x 里使用 backward-char ，发现光标真的回退了一格
+  - 顺便在这个帮助文档里还看到了 (backward-char) 可以加一个参数用来表示回退几个字符
+  - 可以动笔写了：
+    #+begin_src elisp
+   (defun my/backward-3-chars ()   ;; 该函数没有参数
+  "Backward 3 chars."           ;; Docstring。以下是函数本体
+  (interactive)                 ;; 该函数可被 M-x 调用或绑定快捷键
+  (backward-char 3))
+    #+end_src
+  - 在 *scratch* Buffer 里粘贴这一段[fn:9]，把光标移到最后一个括号的后面，按 C-x C-e （ (eval-last-sexp) ），你会看到状态栏里出现了一个 my/backward-3-chars ，说明 defun 成功了[fn:10]。
+  - 试试在 M-x 里调用 my/backward-3-chars ，works as expected.
+  - 不妨把它绑定到一个快捷键上？
+    #+begin_src elisp
+      (global-set-key (kbd "C-M-b") 'my/backward-3-chars) ;; Ctrl + Alt + b
+    #+end_src
+  - 把这些代码放到我的配置里，就能每次打开 Emacs 自动生效啦。
 
 
-
-
-  
 [fn:1] 其实带了一些 Emacs 预设的默认值。比如没有 ~/.emacs.d/init.el 文件时 Emacs 也依然能生成一个窗口来。
 [Fn:2] Emacs 28 之后变成 $XDG_CONFIG_HOME/emacs/init.el 了，一般是 ~/.config/emacs/init.el
 [fn:3] 如果精简太多就会让 Emacs 失去太多功能，最后变成跟 nano 差不多的存在……
 [fn:4] 但是这并不意味着状态栏无法定制了。事实上，不仅状态栏软件包 多如牛毛 ，而且甚至还有能 把状态栏和 minibuffer 二合一的软件 ，只能说定制 Emacs 是没有极限的。
 [fn:5] 也有 CLI 模式： emacs -nw 
-
-
-
-
+[fn:6] neovim 在 C/S 模式上做了不少努力，その努力を認めよう。
+[fn:7] 具体参考 emacsclient --help 和 C-h i m Emacs server 。简单地说，启动服务器是 emacs --daemon ，启动客户端是 emacsclient
+[fn:8] 虽然不太可能，但因为 Emacs 什么都能做，所以如果真的有人这么干了，也请不要奇怪： Because he can.
+[fn:9] 如果你用 Emacs 打开 org 格式的本文的话，你可以直接把光标放在 BEGIN_SRC 和 END_SRC 内按 C-c C-c ，这段会自动执行，并将结果追加到这个代码块后面
+[fn:10] 状态栏里的显示是 (defun) 函数的求值结果：一个名叫 my/backward-3-chars 的 Symbol。如果你在 (+ 1 2) 的后面按 C-x C-e ，你会看到求值结果 3
