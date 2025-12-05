@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       87c48fea-9707-4130-9bef-c7d406d4ea8e
+:END:
+#+title: linux
+
+- emacs
+- lisp
+   

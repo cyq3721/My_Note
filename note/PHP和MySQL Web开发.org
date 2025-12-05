@@ -46,17 +46,17 @@ PHP是弱类型语言（动态类型语言），变量的类型由赋给变量�
 - 变量名名可以与函数名相同， 这一点容易引起混淆， 虽然是允许的， 但应当尽量避免。。函数名不能同名。  
 ** 声明和使用常量
 - 常量值一旦被设定后，就不能再更改。使用define函数定义常量。
+  
 #+begin_src php
 define ('TIREPRICE' , 100);  
 #+end_src
-
 
 - 常量的引用
 引用常量不需要$, 直接使用常量的名称。
 ** PHP中的比较操作符
 | 操作符 | 名称               |
-| ==     | 等于               |
-| ===    | 恒等于             |
+| ==     | 恒等于              |
+| ===    | 等于（用于赋值)        |
 | ！=    | 不等于             |
 | ！==   | 不恒等（比较操作） |
 | <>     | 不等               |
@@ -92,7 +92,7 @@ define ('TIREPRICE' , 100);
 是一对反向单引号(` `)，将反向单引号之间的命令当做服务器命令来执行。表达式的值就是命令的执行结果。具体实例如下：
 #+begin_src php
   $out = `ls -la`;
-`  echo '<pre>.$out.</pre>';
+  echo '<pre>.$out.</pre>';
 #+end_src
 ** PHP的数据类型
 - integer
@@ -132,7 +132,7 @@ php的另一种控制结构是declare结构， 它并没有像其它结构一样
 
 这种结构用来设置代码块的执行指令， 也就是， 关于后续代码如何运行的规则。 目前，PHP提供了两个执行指令， ticks和encoding
 - ticks
-  插入指令ticks=n ， 就可以使用ticks。 它允许在代码内部每执行n行代码后运行特定函数， 这对于性能调优和调试来说是非常有用的。
+  插入指令ticks = n ， 就可以使用ticks。 它允许在代码内部每执行n行代码后运行特定函数， 这对于性能调优和调试来说是非常有用的。
 - encoding 用来设置脚本的编码
   #+begin_src php
     declare(encoding = 'UTF-8');
@@ -152,6 +152,8 @@ php的另一种控制结构是declare结构， 它并没有像其它结构一样
 ** 保存数据以便后期使用
 存储数据有两种基本方法：保存到普通文件（flat file）和保存到数据库中
 ** 存储和检索订单
+** 文件根目录
+$documet_root = $_SERVER['DOCUMENT_ROOT'];
 ** 文件处理
 *** 写入文件
 - 打开文件
@@ -221,6 +223,19 @@ int fwrite ( resource handle, string string [, int length ]);
 获取字符串的长度
 *** fgets() fgetss() fgetcsv()
 - fgets()每次读取一行数据
+  #+begin_src php
+    $fp = fopen("$document_root/file/order.txt", "rb");   //打开文件
+    flock($fp,LOCK_SH);  //锁定文件
+    if(!$fp){   //测试文件打开是否成功
+      echo "<p>No order pending</p>";
+    }
+    while(!feof($fp)){   //利用fgets（） 逐行读取文件
+      $order = htmlspecialchars(fgets($fp));
+      echo $order . "<br />";
+    }
+    flock($fp,LOCK_UN);
+    fclose($fp);
+  #+end_src
 - fgetss()可以过滤字符串中的php和html标记
 - fgetcsv() 读取一行，将结果返回数组
 
@@ -231,11 +246,14 @@ chmod 777 创建最高的读写权限
 *** 文件的锁定flock（）
 - 避免两个客户同时打开同一个文件产生问题，使用文件锁定锁定文件。
 - flock（文件，锁定模式，可选）
+  flock（$fp,LOCK_SH）
 - 锁定模式
 | 操作值  | 意义                                         |
 | LOCK_SH | 读操作锁定，文件可以共享，其它人可以读该文件 |
 | LOCK_EX | 写操作锁定，此时文件不被共享，其它人无法读取 |
 | LOCK_UN | 释放已有的锁定                                      |
+*** 关闭文件
+fcolse($fp);
 * 第3章 使用数组
 ** 本章内容
 - 数字索引数组
@@ -295,12 +313,12 @@ $price[‘tire’] = 20;
 $price['tire'];
 #+END_SRC
 *** 使用循环语句访问数组元素（foreach、list、each）
-
 **** foreach循环
 #+BEGIN_SRC php
 foreach($price as $key => $value)
    echo $key.'=>' .$value.<br>';
 #+END_SRC
+*说明* foreach（） 把数组的每一个元素拆解为索引$key和值$value
 **** each（）结构
 #+BEGIN_SRC php
 while($element = each($price))

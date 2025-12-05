@@ -315,7 +315,7 @@ M-x magit-blame	顾名思义， git blame 当前文件
 微软完成了编辑器行业的大一统，LSP 目前已成为各大语言、各大编辑器的首选通信协议，免去一大堆开发语言支持的麻烦。
 
 目前 Emacs 流行的 LSP 客户端有两个：
-***  lsp-mode
+≈***  lsp-mode
 lsp-mode 是 Emacs 第一个，也是目前功能最全面的一个 LSP 客户端。它可以把上游语言服务器的结果对接到 flycheck 、 Company 、 yasnippet 、 treemacs 里。再搭配上 lsp-ui 可以实现 相当丰富的内容呈现和互动 。
 
 启用很简单：在你想用的语言 major mode 里运行 (lsp) 即可。
