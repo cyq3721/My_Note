@@ -1,0 +1,71 @@
+#+title: Python小白到大牛
+#+author: Chen
+#+date:<2021-07-07 Wed>
+
+* 第四章 Python语法基础
+** 注释
+- 注释以#开头，后跟一空格，然后写注释内容
+- 两个特殊注释
+   - # coding=utf-8
+     这个注释用来指定编码，必须放在第一第二行
+   - 代替写法
+#+BEGIN_SRC python
+# !/usr/bin/python    # 指定解释器版本
+# -*- coding: utf-8 -*-
+#+END_SRC
+** 模块 （库）
+模块的本质是一种命名空间（namespace）
+- 导入整个模块（库）
+  import module1
+
+  使用这个模块中的函数，要使用库名，如：print(modulel.z)
+- 导入模块中的某个函数或变量，可直接使用
+  from module1 import z
+
+  可直接使用函数z，无需使用库名
+** 包（package）
+如果有两个相同名字的模块，为防止命名冲突，可以使用包（pacakge）
+*** 创建包
+包是按照文件夹的层次结构管理的，每个包下面有一个_init_.py的空文件，它告诉解释器这个一个包。
+*** 导入包
+#+BEGIN_SRC pythonn
+
+#+END_SRC
+
+* 第8章 控制语句（顺序、分支、循环）
+** if-else
+#+BEGIN_SRC python
+if 条件：
+    语句组1
+else：
+    语句组2
+#+END_SRC
+** if-elseif 
+#+BEGIN_SRC  python
+if 条件1：
+   语句组1
+elif 条件2：
+   语句组2
+elif 条件3：
+   语句组3
+#+END_SRC
+
+** while语句
+#+BEGIN_SRC  python
+while 循环条件：
+   语句组
+[else:
+   语句组]
+#+END_SRC
+** for语句
+只用于序列（字符串、列表、元组）
+#+BEGIN_SRC python
+for 迭代变量 in 序列：
+      语句组
+[else：
+      语句组]
+#+END_SRC
+** break语句
+可用于while和for循环，作用是强行退出循环
+** continue语句
+用于结束本次循环，开始下一次循环

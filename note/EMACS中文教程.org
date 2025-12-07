@@ -1,3 +1,13 @@
+#+title:EMACS 中文教程
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
+* EMACS 教程
+
 目录
 1.      导言
 o	GNU 是什废
@@ -41,7 +51,7 @@ o	Emacs 下 的中 文编辑
 o	中文化的 EMACS — Mul e
 9.	. 结 论
 
-#+title: EMACS 教程
+
 Stallman 倡导 FSF 的宗旨，是要建立一个软体 free 的王国。 他所谓的 free 并不是意谓著便宜或免费，因为在 FSF 下的有些软体还是必需付些工本费。 他所谓的 free 是指使用上的自由。
 
 要了解 Stallman 所言 free 的真意，就必须知道一般软体的使用悄形。 大部份的商业软体在使用上都或多或少有些限制。 例如，必须付费才可使用软体程式，若运气不好，同一程式在不同的电脑上使用，可能还要另行付费。有些软休程式的使用也有一定的期限，期限—到就 需另缴费用，否则使用权就会被撤销； 甚至有些软体是以使用时间来计算费用的。 当然，这些商业软体是绝对不予许使用者将这些软体任慈给他人使用。除非给予软体公司相当的代价，使用者是绝对不可能拿到软体的原始程式的。

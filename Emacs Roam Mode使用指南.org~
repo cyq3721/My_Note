@@ -1,0 +1,134 @@
+#+TITLE: Org-Roam 使用指南
+#+AUTHOR: Qwen
+#+DATE: <2025-12-05 Fri>
+#+DESCRIPTION: 一份面向初学者的 Org-Roam 快速上手与进阶使用手册
+#+OPTIONS: toc:t num:nil
+
+* 简介
+Org-Roam 是一个基于 Org-mode 的个人知识管理系统，灵感来源于 Roam Research。它通过双向链接、反向链接和图谱视图，帮助用户构建“第二大脑”。
+
+* 安装与配置
+** 前提条件
+- Emacs 26.1 或更高版本
+- Org-mode 9.3+
+- SQLite（用于数据库）
+
+** 通过 =use-package= 安装（推荐）
+#+begin_src emacs-lisp
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "~/org/roam")        ; 笔记主目录
+  (org-roam-db-location "~/org/roam.db")   ; 数据库位置
+  (org-roam-capture-templates
+   '(("d" "default" plain "%?"
+      :target (file+head "${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture))
+  :config
+  (org-roam-db-autosync-mode)
+  (require 'org-roam-protocol)) ; 可选：支持浏览器协议
+#+end_src
+
+** 初始化
+首次使用前运行：
+=M-x org-roam-db-sync=  
+这将扫描 =org-roam-directory= 并建立索引数据库。
+
+* 核心概念
+** 节点（Node）
+每个 Org 文件是一个“节点”，由唯一 ID（默认 UUID）标识。
+
+** 双向链接
+在笔记中使用以下格式创建链接：
+- =[[roam:关键词]]= → 自动创建或链接到标题为“关键词”的笔记
+- =[[id:uuid]]= → 链接到特定 ID 的笔记（更稳定）
+
+** 反向链接（Backlinks）
+当 A 链接到 B，则 B 的“反向链接”区域会显示来自 A 的引用。
+
+** 标签（Tags）
+使用 =#+ROAM_TAGS: tag1, tag2= 在文件头定义标签，可用于查询。
+
+* 基本操作
+** 创建新笔记
+- 快捷键：=C-c n c=
+- 输入标题后，自动创建文件并插入模板
+
+** 查找笔记
+- =C-c n f= （=org-roam-node-find=）：模糊搜索所有笔记
+- 支持按标题、别名、标签筛选
+
+** 插入链接
+- =C-c n i= （=org-roam-node-insert=）：插入指向其他笔记的链接
+- 输入时自动补全已有笔记
+
+** 查看反向链接
+- =C-c n l= （=org-roam-buffer-toggle=）：在侧边栏显示当前笔记的反向链接
+
+* 高级功能
+** 图谱可视化
+- =C-c n g= （=org-roam-graph=）：启动本地 Web 服务（需安装 =graphviz=）
+- 默认在浏览器打开 =http://localhost:8080=
+
+** 查询系统（Datalog）
+Org-Roam v2 使用 Datalog 查询语言。例如，查找所有包含“Emacs”标签的笔记：
+#+begin_src clojure
+[:find (pull ?p [*])
+ :where
+ [?p :page/tags "Emacs"]]
+#+end_src
+可通过 =M-x org-roam-query= 执行自定义查询。
+
+** 模板定制
+自定义捕获模板示例：
+#+begin_src emacs-lisp
+(setq org-roam-capture-templates
+      '(("m" "Meeting" entry "* %U %?" 
+         :target (file+head "meetings/%<%Y-%m-%d>-${slug}.org"
+                            "#+title: Meeting - ${title}\n"))
+        ("l" "Literature Note" plain "%?"
+         :target (file+head "lit/${slug}.org"
+                            "#+title: ${title}\n#+roam_tags: literature\n"))))
+#+end_src
+
+** 别名（Aliases）
+在笔记头部添加：
+#+ROAM_ALIASES: "别名1", "alias2"
+即可通过别名被其他笔记链接。
+
+* 常用快捷键汇总
+| 快捷键     | 命令                     | 功能说明               |
+|------------+--------------------------+------------------------|
+| C-c n f    | org-roam-node-find       | 搜索并打开笔记         |
+| C-c n c    | org-roam-capture         | 创建新笔记             |
+| C-c n i    | org-roam-node-insert     | 插入链接               |
+| C-c n l    | org-roam-buffer-toggle   | 显示/隐藏反向链接面板  |
+| C-c n g    | org-roam-graph           | 打开知识图谱           |
+| C-c n d    | org-roam-db-debug        | 调试数据库             |
+| M-x org-roam-db-sync | —              | 手动同步数据库         |
+
+* 最佳实践
+- 使用有意义的标题，避免空格和特殊字符
+- 定期备份 =org-roam-directory= 和 =org-roam.db=
+- 结合 =org-agenda= 管理任务型笔记
+- 为高频概念建立“中心笔记”（Hub Notes）
+
+* 参考资料
+- 官方文档：https://www.orgroam.com/
+- GitHub 仓库：https://github.com/org-roam/org-roam
+- 社区论坛：https://org-roam.discourse.group/
+
+* 附录：常见问题
+** Q：链接显示为红色（未创建）怎么办？
+A：这是正常现象。点击链接或使用 =C-c C-o= 即可创建对应笔记。
+
+** Q：如何迁移旧笔记到 Org-Roam？
+A：将 Org 文件放入 =org-roam-directory=，然后运行 =M-x org-roam-db-sync=。
+
+** Q：能否与其他工具（如 Obsidian）同步？
+A：不直接支持，但可通过通用格式（Markdown + 双链语法）间接转换。

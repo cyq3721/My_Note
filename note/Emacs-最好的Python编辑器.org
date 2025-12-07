@@ -1,4 +1,14 @@
-#+title: Emacs-最好的Python编辑器
+#+title:Emacs-最好的Python编辑器
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
+* Emacs-最好的Python编辑器
+
+
 #+author:cyq
 #+data:<2021-05-22 Sat>
 * 简介

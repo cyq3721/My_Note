@@ -2,6 +2,9 @@
 #+AUTHOR： CHEN
 #+time：<2019-12-18 Wed>
 #+STARTUP：indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+num:t
+#+toc:4
 * PHP概要
 ** 本章要点
 1. PHP基础知识

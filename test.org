@@ -1,4 +1,6 @@
-#+title: org-mode 任务管理
+* org-mode 任务管理
+
+
 #+seq_todo: TODO DOING DONE
 
 * outline-based editing

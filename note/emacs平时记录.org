@@ -1,7 +1,11 @@
-#+yauthor: CHEN
-#+title: Emacs平时记录
-#+STARTUP: hidestars
-
+#+title:emacs平时记录
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
 * 插件
 | 插件名称       | 功能                                                          |
 | company-mode   | 自动补全                                                      |

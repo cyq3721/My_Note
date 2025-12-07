@@ -1,4 +1,15 @@
-#+title: Python小白到大牛
+#+title:Python从小白到大牛
+#+author:ShadowFish
+#+data:<2019-08-20 Tue>
+#+author: chen
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+num:t
+#+toc:4
+* Python小白到大牛
+
+
 #+author: Chen
 #+date:<2021-07-07 Wed>
 

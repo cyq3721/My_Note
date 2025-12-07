@@ -1,4 +1,15 @@
-#+title: mysql菜鸟教程
+#+title:mysql菜鸟教程
+#+author:ShadowFish
+#+data:<2019-08-20 Tue>
+#+author: chen
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+num:t
+#+toc:4
+* mysql菜鸟教程
+
+
 #+author: chen
 #+data:[2019-06-05 Wed]
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>

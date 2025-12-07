@@ -1,4 +1,15 @@
-#+title: PhpspreadSheet读取excel
+#+title:phpspreadsheet读取excel
+#+author:ShadowFish
+#+data:<2019-08-20 Tue>
+#+author: chen
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+num:t
+#+toc:4
+* PhpspreadSheet读取excel
+
+
 #+author: fishshadowice
 #+data: <2022-07-16 Sat>
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css" />

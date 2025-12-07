@@ -1,9 +1,11 @@
-#+TITLE: org-mode 笔记
-#+AUTHOR: Shadow-Fish
-#+startup: indent
-#+DATA: 2017-5
-#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
-
+#+title:org-mode笔记
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
 * 简介
 Org-Mode：Your Life in Plain Text.
 

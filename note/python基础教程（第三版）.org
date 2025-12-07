@@ -1,4 +1,12 @@
 #+title:Python基础教程（第三版）
+#+author:ShadowFish
+#+data:<2019-08-20 Tue>
+#+author: chen
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+num:t
+#+toc:4
 * 第1章 快速上手：基础知识
 ** 进入python的交互环境
  1. mac OS 或 linux/Unix下

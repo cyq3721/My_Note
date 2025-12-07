@@ -1,6 +1,10 @@
-#+TITLE: LINUX就是这个范儿
-#+AUTHOR: Mr Chen
-#+DATA: 2016-3-2
+#+title: linux就是这个范儿
+#+author: CYQ
+#+data:<2021-11-03 Wed>
+#+LANGUAGE: zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+num: t
+#+toc: 4
 * 第一章 第一次亲密接触
 ** 不一样的图形操作
 *** 没有图形的图形

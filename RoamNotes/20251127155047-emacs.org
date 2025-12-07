@@ -1,6 +1,8 @@
+* emacs
+
 :PROPERTIES:
 :ID:       f17970e3-f7b7-4cf9-9f92-2f25af3dfc96
 :END:
-#+title: emacs
+
 
 

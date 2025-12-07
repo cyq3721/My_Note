@@ -1,0 +1,3795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<!-- 2025-12-07 Sun 12:17 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>linux就是这个范儿</title>
+<meta name="author" content="CYQ" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">linux就是这个范儿</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgf6a46f2">1. 第一章 第一次亲密接触</a>
+<ul>
+<li><a href="#orgcc6a469">1.1. 不一样的图形操作</a>
+<ul>
+<li><a href="#orgcc717b6">1.1.1. 没有图形的图形</a></li>
+<li><a href="#org41a3d40">1.1.2. 架构设计</a></li>
+</ul>
+</li>
+<li><a href="#org1854959">1.2. 主流桌面环境</a></li>
+<li><a href="#orgc62c9b0">1.3. 反璞归真的命令行</a>
+<ul>
+<li><a href="#org5592e04">1.3.1. 执行命令</a></li>
+<li><a href="#orgbc26115">1.3.2. 文本和图形的切换</a></li>
+<li><a href="#org44aebda">1.3.3. 基础的命令操作</a></li>
+<li><a href="#org48222dc">1.3.4. 终端下的常用快捷键</a></li>
+<li><a href="#org3195e17">1.3.5. 联机帮助-man</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1c83a1d">2. 第二章 融于心而表于行</a>
+<ul>
+<li><a href="#orgffeed76">2.1. 多用户多任务分时操作系统</a></li>
+<li><a href="#org3154f99">2.2. 用户的身份</a>
+<ul>
+<li><a href="#orgfef0297">2.2.1. Linux下的用户只有两个等级</a></li>
+<li><a href="#org13ce6c3">2.2.2. /etc/passwd 文件查看用户信息</a></li>
+<li><a href="#orgd465424">2.2.3. /etc/group 文件查看组</a></li>
+<li><a href="#orgba04812">2.2.4. 管理用户和组</a></li>
+</ul>
+</li>
+<li><a href="#org8be4014">2.3. 文件和权限</a>
+<ul>
+<li><a href="#orgf353b11">2.3.1. 目录和文件</a></li>
+<li><a href="#org09f672d">2.3.2. 文件属性和权限</a></li>
+<li><a href="#orgaa0e1f1">2.3.3. 文件连接数</a></li>
+<li><a href="#org5702b39">2.3.4. 修改文件的属性和权限</a></li>
+</ul>
+</li>
+<li><a href="#orgb2ab0cf">2.4. 文件的基本操作</a>
+<ul>
+<li><a href="#orgb8aa2a1">2.4.1. 常用的文件管理命令：</a></li>
+<li><a href="#org0a9d287">2.4.2. 搜索文件</a></li>
+<li><a href="#orgf80492a">2.4.3. 文件打包压缩</a></li>
+</ul>
+</li>
+<li><a href="#orga5517b3">2.5. 程序的执行问题</a>
+<ul>
+<li><a href="#orgc107c4d">2.5.1. 执行程序的方法和多任务协调机制</a></li>
+<li><a href="#orgd12c7e6">2.5.2. 计划任务</a></li>
+<li><a href="#org20cdd0c">2.5.3. 守护进程及其作用（daemons）</a></li>
+<li><a href="#org9dfefc1">2.5.4. 全面了解程序信息</a></li>
+</ul>
+</li>
+<li><a href="#org98b55ff">2.6. 软件的安装</a>
+<ul>
+<li><a href="#orgd29d6c6">2.6.1. 从源码安装</a></li>
+<li><a href="#org0175d56">2.6.2. 利用软件管理工具rpm和dpkg</a></li>
+<li><a href="#org4277936">2.6.3. 在线安装机制</a></li>
+</ul>
+</li>
+<li><a href="#orgd051e16">2.7. 磁盘的管理方式</a>
+<ul>
+<li><a href="#orgd4fb8bd">2.7.1. linux的文件系统</a></li>
+<li><a href="#org06a6d4f">2.7.2. 磁盘的基本操作</a></li>
+<li><a href="#org8f66246">2.7.3. /etc/fstab文件 —— 决定分区的连接</a></li>
+<li><a href="#org636928d">2.7.4. 逻辑卷</a></li>
+</ul>
+</li>
+<li><a href="#orga5d1920">2.8. linux下的网络基础</a>
+<ul>
+<li><a href="#org0c7e463">2.8.1. 了解ip地址</a></li>
+<li><a href="#org235d577">2.8.2. 相关配置文件</a></li>
+</ul>
+</li>
+<li><a href="#org177c5d7">2.9. sh相关知识</a>
+<ul>
+<li><a href="#orgf9f1e94">2.9.1. bash</a></li>
+<li><a href="#orgc252068">2.9.2. 环境变量</a></li>
+<li><a href="#org2dae6e5">2.9.3. bash的配置文件</a></li>
+</ul>
+</li>
+<li><a href="#orga78c8b2">2.10. 文本处理</a>
+<ul>
+<li><a href="#org422794b">2.10.1. 查看文本内容</a></li>
+<li><a href="#orgea9d47c">2.10.2. 正则表达式</a></li>
+<li><a href="#org93e2eec">2.10.3. grep搜索文本</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org4096462">3. 第三章 一棵“树”的奥秘</a>
+<ul>
+<li><a href="#org54e71d2">3.1. linux的文件组织结构（p109 图3.1）</a></li>
+<li><a href="#orge75c334">3.2. 基本组织原则（p110）</a></li>
+<li><a href="#org9b70d13">3.3. 根文件系统</a>
+<ul>
+<li><a href="#orgbf57334">3.3.1. 原则与特性</a></li>
+<li><a href="#org1a30de2">3.3.2. 必备内容</a></li>
+</ul>
+</li>
+<li><a href="#orgbb17a9f">3.4. 子目录</a>
+<ul>
+<li><a href="#org14996b7">3.4.1. /etc目录</a></li>
+<li><a href="#orgc091672">3.4.2. /sbin目录——必备的系统软件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org42af428">4. 第四章 笨出来的文化和哲学</a>
+<ul>
+<li><a href="#org9431a1f">4.1. 万般皆文本</a>
+<ul>
+<li><a href="#orgd67d298">4.1.1. 配置文件的DSV风格</a></li>
+</ul>
+</li>
+<li><a href="#orgd31caf5">4.2. linux中的配置文件</a>
+<ul>
+<li><a href="#org5963dea">4.2.1. 配置三元素</a></li>
+<li><a href="#orgc4ba8c8">4.2.2. 配置文件</a></li>
+<li><a href="#orgce63d9c">4.2.3. 环境变量</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org4818152">5. 第五章 shell脚本编程</a>
+<ul>
+<li><a href="#orgfd05c4f">5.1. 第一个shell脚本程序</a>
+<ul>
+<li><a href="#orgbaa9100">5.1.1. 程序代码</a></li>
+<li><a href="#org04dc9a1">5.1.2. 注解：</a></li>
+<li><a href="#orgb3ea792">5.1.3. 变量</a></li>
+<li><a href="#org1e77214">5.1.4. 运算</a></li>
+</ul>
+</li>
+<li><a href="#org2c53f30">5.2. 脚本的基本要素</a>
+<ul>
+<li><a href="#org6144290">5.2.1. 变量</a></li>
+<li><a href="#org09d134b">5.2.2. 运算</a></li>
+<li><a href="#org4ea1a9d">5.2.3. 流程控制</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org313f498">6. 第七章 编辑器</a>
+<ul>
+<li><a href="#org3c956c9">6.1. vi</a></li>
+<li><a href="#org5290fd7">6.2. emacs</a>
+<ul>
+<li><a href="#org2b540ef">6.2.1. emacs的来历</a></li>
+<li><a href="#orge1bbcf0">6.2.2. buffer、window、frame</a></li>
+<li><a href="#orgd468bb9">6.2.3. emscs的基本使用</a></li>
+<li><a href="#org8459b66">6.2.4. Lisp语言</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgfa5adb3">7. 第九章 特种文件系统</a>
+<ul>
+<li><a href="#org0cbf999">7.1. 日志和ReiserFS</a>
+<ul>
+<li><a href="#org0007538">7.1.1. 理解日志</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf6a46f2" class="outline-2">
+<h2 id="orgf6a46f2"><span class="section-number-2">1.</span> 第一章 第一次亲密接触</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgcc6a469" class="outline-3">
+<h3 id="orgcc6a469"><span class="section-number-3">1.1.</span> 不一样的图形操作</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-orgcc717b6" class="outline-4">
+<h4 id="orgcc717b6"><span class="section-number-4">1.1.1.</span> 没有图形的图形</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Linux本身是没有图形界面的，Linux只是一个内核。 所有的类UNIX操作系统本身都没有图形用户界面。 
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="orgcde7565"></a>Linux通过一个软件提供图形界面<br />
+<div class="outline-text-5" id="text-1-1-1-1">
+<ul class="org-ul">
+<li>XFree86 （1992-2004）</li>
+<li>xorg （2004年以后）
+2004年XFree86的开发商改变了软件按许可，引发GNU社区的极大不满，于是从XFree86 4.4 RC2衍生出了xorg。 目前几乎所开源的类Unix操作系统用的都是xorg。</li>
+</ul>
+</div>
+</li>
+<li><a id="org808ba4a"></a>X和xorg<br />
+<div class="outline-text-5" id="text-1-1-1-2">
+<p>
+X不是什么具体的软件，是一种协议，和http协议一样。 xorg是实现X协议的服务器软件，这个和实现http协议的Apache软件是一样的概念。 xorg通过X协议来提供图形用户界面服务。 Apache 的客户端请求Apache得到HTML内容， 而xorg可客户端请求xorg的结果是向屏幕上画图。 不同的是，Apache只能被动的接受客户端请求，而xorg还需要主动将当前键盘按键和鼠标位置等信息通知给客户端。
+Linux上的那些拥有图形用户界面的软件实际上都是xorg的客户端，他们利用X协议让xorg在屏幕上画出窗口或通过xorg获得键盘和鼠标事件。
+</p>
+</div>
+</li>
+<li><a id="orgbf4c654"></a>Window Manager (WM) —— 窗口管理器<br />
+<div class="outline-text-5" id="text-1-1-1-3">
+<p>
+是一类X协议客户端程序。 如：KDE、GNOME、XFCE …… 
+</p>
+</div>
+</li>
+<li><a id="orgb7c8522"></a>Display Manager（DM） —— 显示管理器<br />
+<div class="outline-text-5" id="text-1-1-1-4">
+<p>
+负责图形界面的用户登录问题。 系统启动之后，第一个要启动的X客户端程序就应该是DM， DM也是一类软件，如：XDM、KDM、GDM …… 
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org41a3d40" class="outline-4">
+<h4 id="org41a3d40"><span class="section-number-4">1.1.2.</span> 架构设计</h4>
+</div>
+</div>
+<div id="outline-container-org1854959" class="outline-3">
+<h3 id="org1854959"><span class="section-number-3">1.2.</span> 主流桌面环境</h3>
+<div class="outline-text-3" id="text-1-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">桌面环境</th>
+<th scope="col" class="org-left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">KDE</td>
+<td class="org-left">初学首先</td>
+</tr>
+
+<tr>
+<td class="org-left">GNOME</td>
+<td class="org-left">经典</td>
+</tr>
+
+<tr>
+<td class="org-left">XFCE</td>
+<td class="org-left">轻量、简单、高效</td>
+</tr>
+
+<tr>
+<td class="org-left">LXDE</td>
+<td class="org-left">更轻量</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgc62c9b0" class="outline-3">
+<h3 id="orgc62c9b0"><span class="section-number-3">1.3.</span> 反璞归真的命令行</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-org5592e04" class="outline-4">
+<h4 id="org5592e04"><span class="section-number-4">1.3.1.</span> 执行命令</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<ul class="org-ul">
+<li>用户通过shell执行命令</li>
+<li>#和$提示符, 前者root后者普通用户</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbc26115" class="outline-4">
+<h4 id="orgbc26115"><span class="section-number-4">1.3.2.</span> 文本和图形的切换</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<ul class="org-ul">
+<li>ctrl+alt+f1～f6  -----&#x2013;&#x2014; 6个文本终端</li>
+<li>ctrl+alt+f7      -----&#x2013;&#x2014; 图形界面</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org44aebda" class="outline-4">
+<h4 id="org44aebda"><span class="section-number-4">1.3.3.</span> 基础的命令操作</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">命令</th>
+<th scope="col" class="org-left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">目录和文件处理</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">mkdir</td>
+<td class="org-left">建立目录</td>
+</tr>
+
+<tr>
+<td class="org-left">ls</td>
+<td class="org-left">列出目录下的内容</td>
+</tr>
+
+<tr>
+<td class="org-left">cd</td>
+<td class="org-left">更换工作目录</td>
+</tr>
+
+<tr>
+<td class="org-left">pwd</td>
+<td class="org-left">显示当前工作目录</td>
+</tr>
+
+<tr>
+<td class="org-left">cp</td>
+<td class="org-left">拷贝文件和目录</td>
+</tr>
+
+<tr>
+<td class="org-left">mv</td>
+<td class="org-left">移动（重命名）文件</td>
+</tr>
+
+<tr>
+<td class="org-left">rm</td>
+<td class="org-left">删除目录或文件</td>
+</tr>
+
+<tr>
+<td class="org-left">文本处理</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">cat</td>
+<td class="org-left">显示到标准输出</td>
+</tr>
+
+<tr>
+<td class="org-left">more</td>
+<td class="org-left">查看文件内容，满页时暂停</td>
+</tr>
+
+<tr>
+<td class="org-left">less</td>
+<td class="org-left">和more类似，但是允许用方向键上下卷动</td>
+</tr>
+
+<tr>
+<td class="org-left">head</td>
+<td class="org-left">查看文件头部内容</td>
+</tr>
+
+<tr>
+<td class="org-left">tail</td>
+<td class="org-left">查看文件尾部内容</td>
+</tr>
+
+<tr>
+<td class="org-left">echo</td>
+<td class="org-left">显示一行文本，显示变量的内容</td>
+</tr>
+
+<tr>
+<td class="org-left">系统管理</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">ps</td>
+<td class="org-left">查看进程</td>
+</tr>
+
+<tr>
+<td class="org-left">kill</td>
+<td class="org-left">删除执行中的程序或工作</td>
+</tr>
+
+<tr>
+<td class="org-left">jobs</td>
+<td class="org-left">通过jobs命令查看后台正在执行的命令的序号（不是进程号id）</td>
+</tr>
+
+<tr>
+<td class="org-left">bg</td>
+<td class="org-left">指定号码（非进程号）的命令进程放到后台执行</td>
+</tr>
+
+<tr>
+<td class="org-left">fg</td>
+<td class="org-left">指定号码（非进程号）的命令进程放到前台执行</td>
+</tr>
+
+<tr>
+<td class="org-left">文件系统</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">du</td>
+<td class="org-left">查看目录或文件所占用磁盘空间的大小</td>
+</tr>
+
+<tr>
+<td class="org-left">df</td>
+<td class="org-left">检查文件系统的磁盘空间占用</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org48222dc" class="outline-4">
+<h4 id="org48222dc"><span class="section-number-4">1.3.4.</span> 终端下的常用快捷键</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">常用快捷键</td>
+<td class="org-left">说明</td>
+</tr>
+
+<tr>
+<td class="org-left">tab</td>
+<td class="org-left">自动完成</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-a</td>
+<td class="org-left">光标移到命令的头部</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-e</td>
+<td class="org-left">光标移到命令的尾部</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-c</td>
+<td class="org-left">终止当前进程</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-s</td>
+<td class="org-left">终止终端传输</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-p</td>
+<td class="org-left">上一条执行的命令</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-n</td>
+<td class="org-left">下一条执行的命令</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-f</td>
+<td class="org-left">光标右移一个字符</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-b</td>
+<td class="org-left">光标左移一个字符</td>
+</tr>
+
+<tr>
+<td class="org-left">alt-f</td>
+<td class="org-left">光标右移一个单词</td>
+</tr>
+
+<tr>
+<td class="org-left">alt-b</td>
+<td class="org-left">光标左移一个单词</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-k</td>
+<td class="org-left">删除光标后的所有字符</td>
+</tr>
+
+<tr>
+<td class="org-left">ctrl-d</td>
+<td class="org-left">删除光标前的所有字符</td>
+</tr>
+
+<tr>
+<td class="org-left">alt-f1</td>
+<td class="org-left">开始菜单</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org3195e17" class="outline-4">
+<h4 id="org3195e17"><span class="section-number-4">1.3.5.</span> 联机帮助-man</h4>
+<div class="outline-text-4" id="text-1-3-5">
+<p>
+Linux系统获取帮助的途径
+</p>
+<ul class="org-ul">
+<li>man
+浏览man的默认工具是less，翻页用Space，查找用/，用n查找下一个匹配项，用Shift——n查找前一个匹配项。</li>
+<li>info</li>
+<li>命令名 -help</li>
+<li>自带的readme文件或/usr/share/doc下的手册</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org1c83a1d" class="outline-2">
+<h2 id="org1c83a1d"><span class="section-number-2">2.</span> 第二章 融于心而表于行</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgffeed76" class="outline-3">
+<h3 id="orgffeed76"><span class="section-number-3">2.1.</span> 多用户多任务分时操作系统</h3>
+</div>
+<div id="outline-container-org3154f99" class="outline-3">
+<h3 id="org3154f99"><span class="section-number-3">2.2.</span> 用户的身份</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-orgfef0297" class="outline-4">
+<h4 id="orgfef0297"><span class="section-number-4">2.2.1.</span> Linux下的用户只有两个等级</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>root</li>
+<li>非root</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org13ce6c3" class="outline-4">
+<h4 id="org13ce6c3"><span class="section-number-4">2.2.2.</span> /etc/passwd 文件查看用户信息</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>文件名看和密码有关，但是不是的，现在保存密码的文件是/etc/shadow，也就是传说中的影子文件</li>
+<li>一行代表一个用户，每一行由冒号：分割成7个字段，结构如下：</li>
+</ul>
+
+<blockquote>
+<p>
+用户名：密码：UID：GID：用户全名：home目录：shell
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgd465424" class="outline-4">
+<h4 id="orgd465424"><span class="section-number-4">2.2.3.</span> /etc/group 文件查看组</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<p>
+结构如下:
+</p>
+
+<blockquote>
+<p>
+组名：用户组密码：GID：用户组内的用户名
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgba04812" class="outline-4">
+<h4 id="orgba04812"><span class="section-number-4">2.2.4.</span> 管理用户和组</h4>
+<div class="outline-text-4" id="text-2-2-4">
+</div>
+<ol class="org-ol">
+<li><a id="org9dccc86"></a>adduser或useradd两者的差异<br />
+<div class="outline-text-5" id="text-2-2-4-1">
+<ul class="org-ul">
+<li>在ubuntu中adduser是一个脚本，而useradd是一个二进制程序，前者对后者进行了封装，更加智能。但在centos中，两者完全一样，前者只是一个符号链接.</li>
+<li>useradd在任何发行版中都是一样的</li>
+</ul>
+</div>
+</li>
+<li><a id="org29031eb"></a>useradd<br />
+<div class="outline-text-5" id="text-2-2-4-2">
+<p>
+一个经常使用的参数 -d （创建home目录）。eg:
+</p>
+
+<blockquote>
+<p>
+useradd -d cyq  (创建用户cyq并创建用户cyq的home目录）
+</p>
+</blockquote>
+</div>
+</li>
+<li><a id="org5d6f472"></a>设置密码<br />
+<div class="outline-text-5" id="text-2-2-4-3">
+<p>
+passwd命令。eg.
+</p>
+
+<blockquote>
+<p>
+passwd cyq  (设置用户cyq的登陆密码)
+</p>
+</blockquote>
+</div>
+</li>
+<li><a id="org1c06944"></a>删除用户<br />
+<div class="outline-text-5" id="text-2-2-4-4">
+<p>
+userdel命令，带上-r参数，会联通该用户的home目录一起删除
+</p>
+</div>
+</li>
+<li><a id="org40ec506"></a>管理用户组<br />
+<div class="outline-text-5" id="text-2-2-4-5">
+<p>
+用户组的管理和用户管理基本一样，将user换成group就可以。
+</p>
+</div>
+</li>
+<li><a id="org17def71"></a>sudo和sudoers文件<br />
+<div class="outline-text-5" id="text-2-2-4-6">
+<p>
+使普通用户具有root的权限;给某个用户sudo权限，其实就是更改/etc/sudoers文件中的内容。sudoers文件中的，%开头指用户组。
+ eg.
+</p>
+<ul class="org-ul">
+<li>禁止user用户组的用户添加用户：
+  <b>%user ALL=(ALL) ALL,   !/usr/sbin/adduser,  !/usr/sbin/useradd</b>    
+！表示禁止执行某些命令</li>
+
+<li>root用户的权限
+ <b>root   All=(ALL)     ALL</b>
+root用户可以使用sudo获得root权限</li>
+</ul>
+</div>
+</li>
+<li><a id="org15fbaf6"></a>su<br />
+<div class="outline-text-5" id="text-2-2-4-7">
+<ul class="org-ul">
+<li>sudo必须在每个命令前面都加上sudo，su命令可以直接切换为root用户，使用exit可以切换回原用户。</li>
+<li>直接执行su不会改变当前的home目录，如果执行su - 就会切换到root的home目录。</li>
+<li>su还可以切换为任意用户，用法，su user（su user -，会连home目录一起切换）。</li>
+<li>sudo su -   使用这个命令可以让任何普通用户用自己的密码切换到root用户,  这是及其不安全的,  必须要在sudoers中禁止sudo的 su -权限</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="orgaa9a2f2"></a>sudo su user - 的弊端<br />
+<div class="outline-text-6" id="text-2-2-4-7-1">
+<p>
+这个命令直接使用用户自己的密码切换成任意用户，这是及其不安全的，应该在/etc/sudoers文件中明确禁止su被sudo执行
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgcea3594"></a>whoami和who am i和who<br />
+<ol class="org-ol">
+<li><a id="org3962661"></a>UID和EUID<br />
+<div class="outline-text-6" id="text-2-2-4-8-1">
+<p>
+UID——实际用户，用户登陆时所使用的用户。实际用户是不会发生改变的。
+EUID——有效用户，当前执行操作的用户。能够利用su和sudo进行任意的切换。
+</p>
+</div>
+</li>
+<li><a id="orgba0ccb0"></a>他们的区别<br />
+<div class="outline-text-6" id="text-2-2-4-8-2">
+<p>
+whoami查看的是EUID，后两者查看的是UID。
+</p>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org8be4014" class="outline-3">
+<h3 id="org8be4014"><span class="section-number-3">2.3.</span> 文件和权限</h3>
+<div class="outline-text-3" id="text-2-3">
+</div>
+<div id="outline-container-orgf353b11" class="outline-4">
+<h4 id="orgf353b11"><span class="section-number-4">2.3.1.</span> 目录和文件</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<ul class="org-ul">
+<li>蓝色代表目录</li>
+<li>绿色代表可执行文件</li>
+<li>青色代表符号链接</li>
+</ul>
+<p>
+具体配置取决于配置文件/etc/DIR<sub>COLORS的规定</sub>
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org32ed412"></a>开启颜色区分<br />
+<div class="outline-text-5" id="text-2-3-1-1">
+<ul class="org-ul">
+<li>ls &#x2013;color=auto</li>
+<li>创建命令别名：alias ls='ls &#x2013;color=auto‘</li>
+<li>使设置永远生效：将alias命令添加到/etc/bashrc或/home/&lt;user&gt;/.bashrc文件中</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org09f672d" class="outline-4">
+<h4 id="org09f672d"><span class="section-number-4">2.3.2.</span> 文件属性和权限</h4>
+<div class="outline-text-4" id="text-2-3-2">
+</div>
+<ol class="org-ol">
+<li><a id="org58ac1c1"></a>文件属性行的分析<br />
+<ol class="org-ol">
+<li><a id="orgc630654"></a>三种权限<br />
+<div class="outline-text-6" id="text-2-3-2-1-1">
+<ul class="org-ul">
+<li>r —— 可读，数值为4;</li>
+<li>w —— 可写，数值为2;</li>
+<li>x —— 可执行，数值为1;</li>
+</ul>
+</div>
+</li>
+<li><a id="org5b4c12c"></a>属性结构<br />
+<div class="outline-text-6" id="text-2-3-2-1-2">
+<p>
+共分为7段：
+<b>文件类型和权限 连接数 拥有者 所属用户组 文件大小 最后修改日期 文件名</b>
+</p>
+</div>
+</li>
+<li><a id="org0cdd8ea"></a>文件权限组分析<br />
+<div class="outline-text-6" id="text-2-3-2-1-3">
+<p>
+共9个字母，分为三段，每3个为一段，分别为拥有者权限，所属用户组权限，其他用户权限。
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org4955390"></a>文件类型分析<br />
+<div class="outline-text-5" id="text-2-3-2-2">
+<ul class="org-ul">
+<li>“-” 代表普通文件</li>
+<li>“d” 代表目录shad</li>
+<li>0&#x2013; “l” 代表软连接和硬连接</li>
+<li>“b” 代表块设备文件</li>
+<li>“c” 代表字符设备文件</li>
+<li>“s” 代表套接字文件</li>
+<li>“p" 代表命名管道文件</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgaa0e1f1" class="outline-4">
+<h4 id="orgaa0e1f1"><span class="section-number-4">2.3.3.</span> 文件连接数</h4>
+<div class="outline-text-4" id="text-2-3-3">
+</div>
+<ol class="org-ol">
+<li><a id="orgc5629c6"></a>linux保存文件的方法<br />
+<div class="outline-text-5" id="text-2-3-3-1">
+<p>
+linux使用的文件系统是一种基于inode的文件系统（索引节点），是所有类unix的文件系统核心，每一个新创建的的文件都会被分配一个inode，并且每个文件都有一个唯一的inode编号，可以将inode理解为一个指针，指向的是文件所在的磁盘中的物理位置。所有的文件属性也都保存在inode中，系统是通过inode来定位每一个文件的，而不是通过文件名。为提高文件系统的执行效率，访问过的文件的inode会被缓存在内存中。 
+</p>
+
+<p>
+连接数这个属性就是inode的引用计数，增加这个引用计数的元应在于：linux允许一个文件拥有多个名字。 文件名只是相当于对inode的一次引用。在使用ln命令建立文件链接的时候，会增加文件的连接数（即引用计数）
+</p>
+</div>
+</li>
+<li><a id="org33ee9df"></a>ln命令创建文件连接<br />
+<ol class="org-ol">
+<li><a id="orgaa59144"></a>默认创建硬连接<br />
+<div class="outline-text-6" id="text-2-3-3-2-1">
+<p>
+<b>注意</b>
+</p>
+<ol class="org-ol">
+<li>硬连接的文件属性和目标文件完全相同，使用同一个inode，仅仅将inode的引用计数+1.</li>
+<li>硬连接要求必须与目标文件在同一分区中</li>
+</ol>
+</div>
+</li>
+<li><a id="org0c44364"></a>ln -s xxx xxx  创建软连接（相当于快捷方式）<br />
+<div class="outline-text-6" id="text-2-3-3-2-2">
+<p>
+<b>注意</b>
+软连接的文件属性和目标文件完全不同，软连接要占据一个新的inode，即软连接是一个新的文件
+</p>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-org5702b39" class="outline-4">
+<h4 id="org5702b39"><span class="section-number-4">2.3.4.</span> 修改文件的属性和权限</h4>
+<div class="outline-text-4" id="text-2-3-4">
+</div>
+<ol class="org-ol">
+<li><a id="org6e47c0e"></a>修改文件所属用户组：<br />
+<div class="outline-text-5" id="text-2-3-4-1">
+<p>
+chown [-R] username filename
+</p>
+</div>
+</li>
+<li><a id="org91b3189"></a>修改文件的权限：<br />
+<div class="outline-text-5" id="text-2-3-4-2">
+<p>
+chmod命令
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org1311baf"></a>文字法修改权限：<br />
+<ol class="org-ol">
+<li><a id="org4e80b83"></a>四个字母：<br />
+<div class="outline-text-7" id="text-2-3-4-2-1-1">
+<ul class="org-ul">
+<li>u：拥有者</li>
+<li>g：所属组</li>
+<li>o：其他用户</li>
+<li>a：所有用户</li>
+</ul>
+</div>
+</li>
+<li><a id="orgd8fb03a"></a>三个操作符号：<br />
+<div class="outline-text-7" id="text-2-3-4-2-1-2">
+<ul class="org-ul">
+<li>+ 代表怎家权限</li>
+<li>- 代表去掉权限</li>
+<li>= 表设定权限</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="org74b9ddd"></a>深入文件权限<br />
+<div class="outline-text-5" id="text-2-3-4-3">
+<p>
+Linux的文件权限不止是r、w、x，还包括s和t两个特殊权限，它们与系统的帐号和系统的进程相关。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="orgf0506fe"></a>s标记（SUID）<br />
+<div class="outline-text-6" id="text-2-3-4-3-1">
+<ul class="org-ul">
+<li>s这个标记出现在文件拥有者的x权限位上，称为Set UID，简称SUID，SUID权限的功能
+<ul class="org-ul">
+<li>SUID仅对二进制程序有效;</li>
+<li>执行者对于该程序具有x的可执行权限;</li>
+<li>执行者仅在执行该程序的过程中有效;</li>
+<li>执行者将具有该程序拥有者的权限（su具有SUID权限，该命令的拥有者是root，非root的执行者执行su时获得su的拥有者root用户的权限，即非root用户执行su后，获得了root用户的权限。 换句话说，具有SUID权限的命令，用户不需要使用sudo，直接执行，就能获得root权限的效果。</li>
+</ul></li>
+<li>s这个标记出现在文件所数组的x权限位上，成为Set GID，简称SGID</li>
+</ul>
+</div>
+</li>
+<li><a id="orge0125bc"></a>设置SUID<br />
+<div class="outline-text-6" id="text-2-3-4-3-2">
+<p>
+使用u+s来设置SUID权限
+</p>
+</div>
+</li>
+<li><a id="org6148402"></a>t标记<br />
+<div class="outline-text-6" id="text-2-3-4-3-3">
+<p>
+出现在其他用户的x权限位上，t权限的名称是Sticky Bit，简称SBIT，仅对目录有效，作用如下:
+</p>
+<ul class="org-ul">
+<li>用户对此目录拥有w和x权限</li>
+<li>当用户在此目录下创建了文件或目录，仅自己和root才有权利删除该文件。 实例如下：用户U在目录D下创建了文件F，若D拥有SBIT权限，那么仅有用户U和root能删除文件F。SBIT应用的典型例子是/tmp目录，这个目录允许任何用户在里面创建文件，但是为了避免创建的文件被其他用户删除，把tmp目录设置为SBIT 权限，使得自己创建的文件仅能让自己或root删除。</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgb2ab0cf" class="outline-3">
+<h3 id="orgb2ab0cf"><span class="section-number-3">2.4.</span> 文件的基本操作</h3>
+<div class="outline-text-3" id="text-2-4">
+</div>
+<div id="outline-container-orgb8aa2a1" class="outline-4">
+<h4 id="orgb8aa2a1"><span class="section-number-4">2.4.1.</span> 常用的文件管理命令：</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<ul class="org-ul">
+<li>ls</li>
+<li>cd</li>
+<li>cp</li>
+<li>rm</li>
+<li>mv</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0a9d287" class="outline-4">
+<h4 id="org0a9d287"><span class="section-number-4">2.4.2.</span> 搜索文件</h4>
+<div class="outline-text-4" id="text-2-4-2">
+</div>
+<ol class="org-ol">
+<li><a id="orgae24596"></a>whereis<br />
+<div class="outline-text-5" id="text-2-4-2-1">
+<p>
+在数据库/var/lib/mlocate/中查询，这个数据库是linux系统自动创建的，包含本地所有文件的信息，并且每天通过自动执行updatedb命令更新一次。因为每天更新一次，所以whereis的搜索结果有时会不准确。
+</p>
+
+<p>
+要获得准确的搜索结果，可以先手动执行updatedb。
+</p>
+
+<p>
+<b>注意</b>
+whereis只能搜索可执行文件、联机帮助文件和源代码文件，要获得更全面的搜索结果，可以使用locate命令。
+</p>
+</div>
+</li>
+<li><a id="orgd89dc17"></a>locate<br />
+<div class="outline-text-5" id="text-2-4-2-2">
+<p>
+和whereis命令类似，也是使用的相同的数据库
+</p>
+</div>
+</li>
+<li><a id="org160b158"></a>which<br />
+<div class="outline-text-5" id="text-2-4-2-3">
+<p>
+只搜索在$PATH环境变量中存在的路径。
+</p>
+</div>
+</li>
+<li><a id="org070a3b8"></a>find<br /></li>
+</ol>
+</div>
+<div id="outline-container-orgf80492a" class="outline-4">
+<h4 id="orgf80492a"><span class="section-number-4">2.4.3.</span> 文件打包压缩</h4>
+<div class="outline-text-4" id="text-2-4-3">
+</div>
+<ol class="org-ol">
+<li><a id="orgefdacdc"></a>解压缩tar包<br />
+<div class="outline-text-5" id="text-2-4-3-1">
+<p>
+tar -vxf filename
+</p>
+</div>
+</li>
+<li><a id="org91a3aaf"></a>压缩<br />
+<div class="outline-text-5" id="text-2-4-3-2">
+<p>
+tar -jcvf filename（j代表bz2压缩方式）
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orga5517b3" class="outline-3">
+<h3 id="orga5517b3"><span class="section-number-3">2.5.</span> 程序的执行问题</h3>
+<div class="outline-text-3" id="text-2-5">
+</div>
+<div id="outline-container-orgc107c4d" class="outline-4">
+<h4 id="orgc107c4d"><span class="section-number-4">2.5.1.</span> 执行程序的方法和多任务协调机制</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+直接在命令行输入程序名时，linux系统只会在$PATH环境变量所指定的那些路径中搜索对应的程序（windows会先搜索一下当前目录，在搜索$PATH所指定的目录），如果找不到就失败。如果要执行不在$PATH所指定的路径中的程序，必须使用相对路径或绝对路径，所以linux不能或忽略件的扩展名。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="orgf21e11e"></a>管道<br />
+<div class="outline-text-5" id="text-2-5-1-1">
+<ul class="org-ul">
+<li>管道是linux系统提供的多任务协调机制的一种，应用十分广泛。</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="org59d6892"></a>管道的分类:<br />
+<div class="outline-text-6" id="text-2-5-1-1-1">
+<ul class="org-ul">
+<li>匿名管道（|）和命名管道（mkfifo）两种。</li>
+<li>两种管道的共同特点：数据只能从管道的一端写入并从另一端读取，而且读出的顺序和写入的顺序是相同的。所以管道也叫做FIFO（First Input First Output）</li>
+</ul>
+</div>
+</li>
+<li><a id="org241aae4"></a>匿名管道和命名管道的区别：<br />
+<div class="outline-text-6" id="text-2-5-1-1-2">
+<p>
+匿名管道不记名，随叫随用，属于零时工;命名管道需要分配固定的资源，有固定的岗位和资源
+</p>
+</div>
+</li>
+<li><a id="org3e26ec6"></a>管道小结<br />
+<div class="outline-text-6" id="text-2-5-1-1-3">
+<p>
+管道链接多个命令，按照先后顺序，一个一个的执行。 
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org08c0b4c"></a>I/O重定向<br />
+<div class="outline-text-5" id="text-2-5-1-2">
+<ul class="org-ul">
+<li>I/O重定向也是linux提供的一种多任务协调机制</li>
+<li>I/O重定向的概念：把输出给A的东西重定向给了B，或者反过来说将要从A处获得的输入重定向到B处去获得了。</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="orgdf9cfd6"></a>I/O重定向的分类<br />
+<div class="outline-text-6" id="text-2-5-1-2-1">
+<ul class="org-ul">
+<li>隐式重定向：发生在“匿名管道”中</li>
+<li>显式重定向（&gt;）：显示的指明将命令输出的屏幕的内容重定向到磁盘文件中</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgf27ace5"></a>任务的前后台切换<br />
+<ol class="org-ol">
+<li><a id="org416365a"></a>切换到后台<br />
+<div class="outline-text-6" id="text-2-5-1-3-1">
+<p>
+———————————
+执行命令:     tail -f /etc/profile<br />
+按下ctrl+z<br />
+屏幕上输出[1]+  stopped  tail -f /etc/profile<br />
+然后执行命令：bg<br />
+屏幕上显示：[1]+ tail -f  /etc/profile &amp;<br />
+这表明我们刚才创建的前台任务切换到后台了。  <br />
+———————————
+</p>
+<ul class="org-ul">
+<li>如果想直接创建后台任务，可以直接在命令末尾添加“&amp;”符号来完成</li>
+</ul>
+<p>
+如：tail -f /etc/bashrc &amp;
+</p>
+</div>
+</li>
+<li><a id="org900cc2b"></a>查看后台程序<br />
+<div class="outline-text-6" id="text-2-5-1-3-2">
+<p>
+使用jobs命令，得到任务号。带+的是默认任务。
+</p>
+</div>
+</li>
+<li><a id="org1f36816"></a>后台切换到前台<br />
+<div class="outline-text-6" id="text-2-5-1-3-3">
+<p>
+使用fg命令，fg后跟上jobs得到的任务，直接执行fg是切换默认任务。
+</p>
+</div>
+</li>
+<li><a id="orgae1a9b9"></a>结束前台程序<br />
+<div class="outline-text-6" id="text-2-5-1-3-4">
+<p>
+ctrl+c
+</p>
+</div>
+</li>
+<li><a id="org865fa80"></a>结束后台程序<br />
+<div class="outline-text-6" id="text-2-5-1-3-5">
+<ul class="org-ul">
+<li>使用kill命令：kill -9 %任务号，如kill -9 %2</li>
+<li>kill命令是传递信号给具体的任务或进程，-9就是一个信号，这个信号会强制干掉一个不正常的任务或进程。</li>
+<li>kill默认发出的信号实际上是-15，这个信号使得程序正常退出</li>
+<li>kill最后的那个参数实际上是传递一个数字的进程ID，但是这与任务号冲突，所以要加上%来加以区分。</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgd12c7e6" class="outline-4">
+<h4 id="orgd12c7e6"><span class="section-number-4">2.5.2.</span> 计划任务</h4>
+<div class="outline-text-4" id="text-2-5-2">
+</div>
+<ol class="org-ol">
+<li><a id="org873e8da"></a>了解 cron 概念<br />
+<div class="outline-text-5" id="text-2-5-2-1">
+<p>
+cron 守护进程是一个由实用程序和配置文件组成的小型子系统，在几乎所有类 UNIX 系统上都可以找到某种风格的 cron。cron 的组件包括守护进程本身；一组系统范围的配置文件；一组针对特定用户的配置文件；一个用来添加、修改和删除用户配置文件的实用程序；以及一个简单的访问控制设施。一般来说，cron 配置文件或 cron 作业的列表被称为 crontab 或 cron 时间表。
+</p>
+
+<p>
+守护进程 cron 连续运行，每分钟检查一次配置文件中的修改。cron 读取系统范围的和针对用户的 crontab（分别在下面两段中详细说明）、相应地更新事件调度计划并执行这一分钟内应该执行的所有命令。这个守护进程还捕捉每个作业的输出（如果有输出的话），并把结果通过电子邮件发送给作业的所有者。
+</p>
+
+<p>
+可以在三个位置定义与系统相关的 作业：/etc/crontab、/etc/cron.d 中的任何文件以及特殊目录 /etc/cron.hourly、/etc/cron.daily、/etc/cron.weekly 和 /etc/cron.monthly：
+</p>
+
+<p>
+主要的系统 crontab 是/etc/crontab。这个文件有独特的语法（在下一节中讨论），其中定义的每个作业根据它自己的时间表（比如每小时两次或每天一次）作为指定的用户运行。使用 /etc/crontab 调度各种管理和维护任务。
+</p>
+
+<p>
+还可以在 /etc/cron.d 目录中维护一组 crontab。通过创建 crontab，按照逻辑对属于某一子系统的命令进行分组。例如，PHP 5 编程语言的包在 /etc/cron.d 中安装一个名为 php5 的 crontab，它会定期清除不使用的会话。/etc/cron.d 中的文件采用与 /etc/crontab 相同的语法，每个作业按照自己的时间表并作为特定的用户运行。
+</p>
+
+<p>
+还可以把 shell 脚本直接放在 /etc/cron.hourly、/etc/cron.daily、/etc/cron.weekly 或 /etc/cron.monthly 目录中，这样就可以每小时、每天、每周或每月运行此脚本一次。
+　　crontab 仅仅是一个文本文件，可以用任何 UNIX 编辑器编辑它。它可以包含四种代码行：空行、注释、环境变量设置和命令。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org5cb3b66"></a>空行和注释<br />
+<div class="outline-text-6" id="text-2-5-2-1-1">
+<p>
+文件中的空行和多余的空格被忽略。空行和空格有助于提高 crontab 的可读性，使 crontab 组织有序。还可以使用注释对每个作业的时间表和用途加以说明。要想创建注释，只需在一行的开头加上一个井号（#）。
+</p>
+</div>
+</li>
+<li><a id="org8a4ebe7"></a>环境变量和命令<br />
+<div class="outline-text-6" id="text-2-5-2-1-2">
+<p>
+cron 最终使用一个 shell 执行每个命令。可以通过环境变量修改或定制 shell 的行为。在 crontab 中很容易设置 shell 环境变量。只需输入 VARIABLE=value，把 VARIABLE 替换为变量名，把 value 替换为一个值。例如，crontab 行：
+<b>PATH=/usr/bin:/bin:/usr/local/bin</b>
+</p>
+
+<p>
+指定一个有序的目录列表作为 shell 搜索路径。
+</p>
+
+<p>
+cron 预定义了五个环境变量：
+</p>
+<ol class="org-ol">
+<li>PATH 的默认值是 /usr/bin:/bin。</li>
+<li>SHELL 预设置为 /bin/sh。</li>
+<li>LOGNAME 初始化为 crontab 所有者的用户名。</li>
+<li>HOME 设置为 crontab 所有者的主目录，比如 /home/joe。</li>
+<li>MAILTO 设置为 crontab 所有者的名称。</li>
+<li>要想修改这些默认值或设置任何变量，只需在 crontab 中设置适当的环境变量。</li>
+</ol>
+
+<p>
+当然，crontab 可以包含任意数量的命令行。每个命令行指定一个频率、一个用户名（只对于系统 crontab）和一个要运行的任务。例如，命令：
+<b>5 0 * * *　 root　 find /tmp -type f -empty -delete</b>
+在每天 12:05 a.m（5 0 * * *）删除 /tmp 中的所有空文件和目录（find /tmp -type f -empty -delete）。此作业作为根用户（root）运行。
+</p>
+
+<p>
+系统 crontab 命令必须指定一个用户名，作为运行此任务所用的用户。（因此，在 /etc/crontab 中可能看到上面的命令）。针对用户的 crontab 不能指定用户名；一个用户的 cron 命令总是作为这个用户运行。是否有用户名是系统 crontab 和用户 crontab 之间的惟一差异。
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgdf18bcd"></a>下面讨论定制时间表的众多方式。<br />
+<ol class="org-ol">
+<li><a id="orgc87dfb4"></a>定制时间表<br />
+<div class="outline-text-6" id="text-2-5-2-2-1">
+<p>
+cron 时间表允许以多种方式运行作业，比如每分钟或在特定日期的特定时间。调度的参数非常灵活。
+</p>
+
+<p>
+cron 字段
+可以通过五个字段调整频率：分、小时、月中日、月份和周中的日期（如周一，周二）。表 1 总结如何调整每个字段。
+</p>
+
+<p>
+　　表 1. cron 作业的调度选项
+</p>
+
+
+<p>
+位置 	字段 	值 	说明
+1 	分 	0-59 	 
+2 	小时 	0-23 	 
+3 	月中日 	1-31 	与分和小时不同，月中日不是从零开始的。
+4 	月份 	1-12 	月份也不是从零开始的。也可以不使用 1-12 的数字，而是使用月份名的前三个字母，比如 jan 或 may。
+5 	周中日 	0-7 	0 和 7 都代表星期日。还可以使用名称的前三个字母，比如 mon 或 wed。
+</p>
+
+<p>
+除了名称或数字之外，还可以使用星号（*）表示 “所有”。例如，在分钟位置上的星号表示这一天中的每一分钟。（在某些情况下确实需要如此高的频率，但是一定要小心，以这种频率执行的任务应该非常简单，不会长时间运行）。
+</p>
+
+<p>
+还可以使用值的列表、范围和步长（增量）分别指定多个值、连续的值范围和不连续的值范围。甚至可以组合使用列表和范围。列表 是一个逗号分隔的值集。范围 由启始值和结束值（含）以及可选的步长值构成。
+</p>
+
+<p>
+我们来看一些示例。表 2 中的每一行包含一个时间表及其说明。当分、小时和日期字段与当前时间匹配时，cron 会执行命令；如果月中日和周中日受到限制（也就是说，不是 *），那么当这两个字段中至少一个 与当前时间匹配时，cron 也会执行命令。
+</p>
+
+<p>
+表 2. cron 作业的时间表示例
+</p>
+
+<p>
+调度计划 	 
+分 	小时 	月中日 	月份 	周中日期 	说明
+0 	1 	15 	1,  3,  5,  7,  9,  11 	* 	在 1、3、5、7、9 和 11 月的 15 日的 1 a.m. 运行命令。为了更容易理解，也可以把这个时间表写成 0 1 15 jan,  mar,  may,  jul,  sep,  nov *。在指定列表时，不要在逗号后面加空格。
+0-59/15 	* 	* 	* 	* 	这个调度计划每 15 分钟运行命令一次。
+30 	* 	* 	* 	wed,  fri 	这个时间表只在星期三和星期五每小时的 30 分时执行命令一次。（在列表中可以使用日和月份的名称，但是在范围中不可以）。
+0,  30 	0-5,  17-23 	* 	* 	* 	在午夜到 5 a.m. 以及 7 p.m. 到 11 p.m. 之间整点时和 30 分时运行命令。
+0 	0 	1 	1 	* 	在每年 1 月 1 日午夜执行命令一次。
+0 	0 	* 	* 	0 	在每个星期日午夜运行命令。这相当于每周一次。
+30 	0 	10,  20,  30 	* 	6 	因为月中日和周中日受到限制，这个时间表在每星期六和每月的 10、20 和 30 日（二月除外）的 12:30 a.m. 运行命令。
+</p>
+
+<p>
+如您所见，实际上可以使用这五个参数指定任何调度计划。为了更加简便，Vixie cron 还提供了常用调度计划的简写形式。表 3 列出一些简写形式。
+</p>
+
+<p>
+表 3. 常用调度计划的简写形式
+</p>
+
+<p>
+简写形式 	说明
+@reboot 	每当计算机重新引导时运行命令。
+@daily 	每天一次的简写形式。
+@weekly 	每周一次的简写形式。
+@annually 	每年一次的简写形式。也可以写成 @yearly。
+@midnight 	在每天午夜运行命令。这个简写形式相当于 @daily。
+</p>
+
+<p>
+如果喜欢使用简写形式，只需用它们替代 cron 命令的前五个字段。下面这个命令看起来简单多了。
+</p>
+
+<p>
+@daily root /usr/local/scripts/clean<sub>old</sub><sub>files.sh</sub>
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgdf2ce31"></a>crontab 命令示例<br />
+<div class="outline-text-5" id="text-2-5-2-3">
+<p>
+掌握了基本概念之后，我们来看一些用户 crontab 命令示例。同样的命令也可以应用系统范围：只需在所有系统 crontab 项中周中日字段（第五个字段）后面指定一个用户名。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="orge70a0b2"></a>创建个人 crontab<br />
+<div class="outline-text-6" id="text-2-5-2-3-1">
+<p>
+　　要想创建个人 crontab，可以用任何文本编辑器创建一个文件。按照惯例，个人 crontab 文件保存在 ~/.crontab 中，但是可以使用任何文件名。
+</p>
+
+<p>
+PATH=/usr/bin:/bin:/usr/local/bin
+</p>
+
+<p>
+@daily　　　find $HOME -type f -name '.#*' -print -delete
+　　
+</p>
+
+<p>
+@weekly　　 du -sh $HOME
+</p>
+
+<p>
+　　通过 crontab 实用程序提交个人 crontab
+</p>
+
+<p>
+　　在编辑文件（比如 ~/mycrontab）之后，通过 crontab 实用程序把它提交给 cron：
+</p>
+
+<p>
+% crontab ~/mycrontab
+</p>
+
+<p>
+　　查看 cron 中存储的信息
+</p>
+
+<p>
+　　要想查看 cron 中存储的信息，可以输入 crontab -l：
+</p>
+
+<p>
+% crontab -l
+PATH=/usr/bin:/bin:/usr/local/bin
+　　
+</p>
+
+<p>
+@daily　　　find $HOME -type f -name '.#*' -print -delete
+</p>
+
+<p>
+@weekly　　 du -sh $HOME
+</p>
+
+<p>
+　　替换 crontab
+</p>
+
+<p>
+　　在任何时候，都可以使用 crontab 实用程序替换您的 crontab。只需提交一个新文件或同一文件的修订版。要想删除 crontab 作业，只需输入 crontab -r：
+</p>
+
+<p>
+% whoami
+joe
+% crontab ~/mycrontab
+% crontab -l
+PATH=/usr/bin:/bin:/usr/local/bin
+&#x2026;
+% crontab -r
+% crontab -l
+crontab: no crontab for joe
+</p>
+
+<p>
+　　替代 cron 的机制
+</p>
+
+<p>
+　　尽管 cron 确实很有用，但是您还应该了解可以替代它的两种机制。
+</p>
+
+<p>
+　　anacron
+</p>
+
+<p>
+　　如果系统常常关机或进入休眠状态（例如，如果使用 UNIX 笔记本计算机的话），那么可以考虑在系统中添加 anacron。anacron 与 cron 的相似之处在于，它也把作业安排在以后运行；但是，与 cron 不同，即使作业的预定运行时间已经过了，anacron 也会运行作业。
+</p>
+
+<p>
+　　例如，如果安排在星期六运行文件系统备份，但是系统在星期五到星期一关机了，那么当系统在星期一重新启动时，anacron 会立即运行星期六的作业。与之相反，cron 仅仅检查现在是否应该运行作业；因此，如果在作业的预定运行时间系统是关闭的，就不运行作业。
+</p>
+
+<p>
+　　anacron 的调度选项比 cron 少得多。它只能以整天的时间间隔调度作业，比如一天、7 天或 30 天；但是对于那些必须频繁且可靠地运行的作业，它是更好的选择。
+</p>
+
+<p>
+　　另外，必须从 cron 启动 anacron。每当 anacron 运行时，它读取自己的配置文件。配置文件包含由作业及其频率（用天数表示）组成的配置对。如果作业在预定的时间没有运行，anacron 就运行此作业并记录运行作业的时间。运行完所有作业之后，anacron 退出。
+</p>
+
+<p>
+　　在大多数 Linux 发行版上都可以找到 anacron，但是也很容易自己下载并构建源代码。访问 anacron 项目页面 获得最新版本。
+</p>
+
+<p>
+　　anacron 的主要配置文件可以在 /etc/anacron 中找到。可以像配置 cron 时那样设置环境变量，但是更简单：
+</p>
+
+<p>
+SHELL=/bin/zsh
+PATH=/usr/bin:/bin:/usr/local/bin
+</p>
+
+<p>
+1 10 day-to-day daily.chores.sh
+</p>
+
+<p>
+　　第一个数字是周期，所以 1 表示每天运行一次，7 表示每 7 天运行一次，等等。第二个数字是延迟，也就是从 anacron 启动之后到执行这个作业之间等待的分钟数。如果把延迟字段设置为不同的值，就可以防止所有作业同时启动。名称 day-to-day 只是一个有帮助的昵称。配置行的其余部分指定作业；在这里，每天运行在指定路径中找到的 shell 脚本 daily.chores.sh 一次。
+</p>
+
+<p>
+　　anacron 以手册页形式提供了出色的文档，还可以在网上找到关于 anacron 的提示。（请阅读我在 2007 年 10 月编辑的 Rod Smith 撰写的 Linux Magazine 文章）。anacron 适合 UNIX 爱好者和需要额外保障的系统管理员使用。
+</p>
+
+<p>
+　　launchd：cron 的现代替代机制
+</p>
+
+<p>
+　　cron 确实是一种功能强大、值得信赖的实用程序，它的广泛流行就证明了这一点。Vixie cron 最近又有所改进，比如增加了简写方式 @reboot，进一步简化了管理。但是，cron 仍然有一些缺点：
+</p>
+
+<p>
+　　尽管可以在 crontab 文件中定义 cron 作业，但是不能从命令行启动和停止 cron 作业。另外，不能在命令行上创建专用作业并提交给日历。
+</p>
+
+<p>
+　　cron 不实施资源限制。如果作业作为根用户运行，就能够消耗无数的处理器时间和内存。在实践中，可能希望限制一个作业，以免它影响其他 cron 作业和系统操作的总体质量。
+</p>
+
+<p>
+　　cron 作业严格地与一个调度计划相关联。例如，无法只在发生某一事件（比如创建一个文件）时启动作业。
+</p>
+
+<p>
+　　从更大的范畴来看，类 UNIX 系统的许多核心组件都能够根据需要启动其他程序，包括 cron、用于网络守护进程的 xinetd（或 inetd）和 init（所有系统进程的起源）。每个核心组件都有自己的配置文件，所以很难知道哪个组件最适合完成某个修改。
+</p>
+
+<p>
+　　为了克服这些缺点，Apple Computer 开发了一个统一的启动工具 launchd，它可以在引导时、根据需要和按照指定的时间间隔启动进程。实际上，在 Mac OS 10.4 Tiger 中 launchd 已经替代了 cron（和 init 以及用来引导和初始化系统的其他几个系统实用程序）。（Apple 在系统上保留了 cron，以便为用户提供方便，而且 Vixie cron 的调度选项更灵活）。Mac OS X 的引导速度很快确实可以归功于 launchd：它会在引导时列出要启动的程序，但是只在首次需要时执行程序。
+</p>
+
+<p>
+　　launchd 是开放源码的，可以从 Mac OS Forge 上它的主页获得源代码。目前，launchd 已经被移植到 FreeBSD 上，但是还没有移植到其他 UNIX 或 Linux 系统。但是，许多项目正在积极地实现与 launchd 等效的程序，所以简要地了解它的特性是有必要的：
+</p>
+
+<p>
+　　launchd 并不创建作业来检查目录中是否有新文件，而是自动监视目录中是否有新文件或者监视空目录中是否添加了任何文件，并根据需要启动作业。launchd 不执行轮询；而是使用 kqueues 设施让内核在目录发生变化时通知它。（Linux 具有一种相似的事件设施 inotify，以后的一篇 developerWorks 文章将讨论它） 。
+</p>
+
+<p>
+　　如果指定了，launchd 会使用 chroot 把您的作业发送到一个新目录。chroot 读作 “cha-root”，它是一个系统调用，可以改变前向斜杠（/）和根目录指向的目录。因此，如果使用 chroot 把文件发送到 /opt/root，/opt/root 之外的所有文件就是不可访问的（毕竟，/opt/root 现在是 /，也就是文件系统的顶级目录），/opt/root 中的所有目录成为一级目录。通常使用 chroot 限制作业，使代码无法进入更大的文件系统，以避免产生损害。
+</p>
+
+<p>
+　　可以为作业设置资源限制。可以限制的资源包括内存、堆栈大小和打开的文件的最大数量。
+</p>
+
+<p>
+　　当定义一个任务并把它装载到 launchd 中之后，可以按照名称从命令行启动和停止作业。
+</p>
+
+<p>
+　　launchd 由三个组件组成：launchd 守护进程本身；用来添加、修改和删除作业以及控制 launchd 的 launchctl 实用程序；一个或多个配置文件，每个文件定义一个或多个作业。由于它起源于 Mac OS X，launchd 配置文件只是简单的属性文件，可以用 Extensible Markup Language (XML) 表示。
+</p>
+
+<p>
+　　简单地说，在 Mac OS X 上使用 launchd 的步骤如下（要监视一个目录中添加的文件并根据需要运行作业）：
+</p>
+
+<p>
+　　创建一个属性文件来表达此作业及其所有属性。
+</p>
+
+<p>
+　　可以使用 Mac 的 Property Editor，也可以手工编辑 XML。无论采用哪种方法，产生的文件都应该与 清单 1 相似。
+</p>
+
+<p>
+　　清单 1. 监视文件系统目录变化的 launchd 作业示例
+</p>
+
+<p>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST
+　　　　　　1.0//EN" "<a href="http://www.apple.com/DTDs/PropertyList-1.0.dtd">http://www.apple.com/DTDs/PropertyList-1.0.dtd</a>"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+　　&lt;key&gt;Label&lt;/key&gt;
+　　&lt;string&gt;com.example.processor&lt;/string&gt;
+　　&lt;key&gt;OnDemand&lt;/key&gt;
+　　&lt;true/&gt;
+　　&lt;key&gt;Program&lt;/key&gt;
+　　&lt;string&gt;/Users/strike/bin/processor&lt;/string&gt;
+　　&lt;key&gt;ProgramArguments&lt;/key&gt;
+　　&lt;array&gt;
+　　　　&lt;string&gt;processor&lt;/string&gt;
+　　&lt;/array&gt;
+　　&lt;key&gt;WatchPaths&lt;/key&gt;
+　　&lt;array&gt;
+　　　　&lt;string&gt;/Users/strike/data/incoming&lt;/string&gt;
+　　&lt;/array&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+</p>
+
+<p>
+　　简单地说，当 /Users/strike/data/incoming 目录的内容发生变化时，此文件运行 /Users/strike/bin/processor 中的实用程序脚本。把 OnDemand 设置为 True 让 launchd 根据需要启动此作业。把此文件保存到 ~/Library/LaunchAgents/com.example.processor.plist。
+</p>
+
+<p>
+　　用 launchctl 把此作业装载到 launchd 中：% launchctl load ~/Library/LaunchAgents/com.example.processor.plist
+</p>
+
+<p>
+　　如果希望检查最近的操作或查看保存的作业的列表，只需输入 launchctl list。
+</p>
+
+<p>
+　　要想删除作业，只需带 unload 选项使用 launchctl：% launchctl unload -w ~/Library/LaunchAgents/com.example.processor.plist
+</p>
+
+<p>
+　　-w 的作用是什么？它完全删除 launchd 中的作业。如果没有这个选项，作业会在登录时自动地重新装载（因为作业还在启动代理的用户集合中）。
+</p>
+
+<p>
+　　launchd 手册页包含大量信息；如果您是 Mac OS X 用户，还可以找到大量针对 launchd 的应用程序。一些聪明的开发人员正在把 launchd 迁移到更广泛的平台。
+</p>
+
+<p>
+　　使用 cron 让工作更轻松
+</p>
+
+<p>
+　　学习关于使用 cron 的一些提示和技巧，了解这个守护进程和相似的其他程序为什么是您的好朋友。
+</p>
+
+<p>
+　　提示和技巧
+</p>
+
+<p>
+　　下面是关于 cron 的一些提示、技巧和常见的问题：
+</p>
+
+<p>
+　　与在终端窗口中使用的 shell 或 shell 脚本不同，cron 并不 在 crontab 文件中就地展开环境变量。换句话说，如果在 crontab 中输入：HOME=/home/joe
+PATH=$HOME/bin:/usr/bin:/bin
+</p>
+
+<p>
+　　那么 PATH 并不会设置为您期望的路径。您必须手工展开所有变量，比如：
+</p>
+
+<p>
+HOME=/home/joe
+PATH=/home/joe/bin:/usr/bin:/bin
+</p>
+
+<p>
+　　但是，因为每个 cron 命令都由 shell 执行，所以命令可以 引用变量名。例如，如果在个人 crontab 中编写以下命令（注意这一行中省略了用户名参数）：
+</p>
+
+<p>
+@daily　$HOME/bin/cleanup<sub>daily.sh</sub>
+</p>
+
+<p>
+　　那么 $HOME 会正确地展开。
+</p>
+
+<p>
+　　不要把计算密集型任务安排在同一时间启动，比如 @midnight。如果可能的话，在凌晨的几小时中分散地启动这些任务，以避免它们争用资源。
+</p>
+
+<p>
+　　正如上面提到的，在默认情况下环境变量 SHELL 设置为 /bin/sh。如果不修改此变量，crontab 中的所有命令都由 /bin/sh 解释。但是，如果您不熟悉 /bin/sh，更喜欢另一种 shell，那么可以设置 SHELL 并使用这种 shell 的命令语法。
+</p>
+
+<p>
+　　例如，如果设置 SHELL=/bin/zsh，那么所有命令都可以使用 Z shell 的功能，比如它的高级重定向操作符：
+</p>
+
+<p>
+SHELL=/bin/zsh
+@daily　uptime &gt; daily &gt;&gt; weekly
+</p>
+
+<p>
+　　在这里，uptime 命令的输出覆盖 daily 文件（&gt;daily）并追加到 weekly 文件中（&gt;&gt; weekly）。
+</p>
+
+<p>
+　　使用访问控制列表 (ACL) — /etc/cron.allow 和 /etc/cron.deny — 允许或拒绝特定用户运行 cron 作业。如果希望把对 cron 的访问权限制在很少几个用户，那么在 /etc/cron.allow 中列出这些用户的用户名。未指定的任何用户都无法使用 crontab 实用程序提交 crontab。但是，如果希望允许大多数人访问 cron 而拒绝少数用户，那么在 /etc/cron.deny 中列出受到限制的用户。
+</p>
+
+<p>
+　　例如，如果 /etc/cron.allow 的内容如下：
+</p>
+
+<p>
+joe
+zelda
+</p>
+
+<p>
+　　那么除 Joe 和 Zelda 之外任何用户都无法访问 cron：
+</p>
+
+<p>
+% whoami
+strike
+% crontab ~/.crontab
+You (strike) are not allowed to use this program (crontab)
+See crontab(1) for more information
+</p>
+
+<p>
+　　要想禁用 cron 发出的电子邮件报告，应该在 crontab 中设置 MAILTO=""。
+</p>
+
+<p>
+　　再次重申，不要在列表中使用空格。列表值以逗号分隔。在 Vixie cron 中，在范围中不使用日和月份的名称。
+</p>
+
+<p>
+　　要仔细阅读系统的 cron 文档。路径、特性和简便措施都可能不一样。在命令行上输入 man 5 crontab 了解 crontab 文件的语法。输入 man 1 crontab 了解 crontab 实用程序。在命令行上输入 man cron 或 man 8 cron 了解 cron 守护进程本身的选项。
+</p>
+
+<p>
+　　系统管理员最好的朋友
+</p>
+
+<p>
+　　cron 和与它相似的程序对于系统管理员非常有帮助。如果您需要反复执行相同任务，就可以考虑用 cron 实现自动化。捕捉具有许多步骤的复杂任务常常需要 shell 脚本，但是许多任务只需要一行命令。
+</p>
+
+<p>
+　　下面仅仅是一些思路：
+</p>
+
+<p>
+　　通过组合使用 cron 和数据库工具，创建每日转储。例如，命令：@daily joe mysqldump -pjoespwd accounts &gt; $HOME/backups/accounts.`date +%F`.sql
+</p>
+
+<p>
+　　每天把数据库 accounts 转储到一个文件。嵌入的日期命令（`date +%F`）确保文件名是惟一的，比如 accounts.2008-08-07.sql。此命令作为用户 joe 运行，所以用 -p 指定 Joe 的密码。此命令还可以放在 Joe 自己的 crontab 中，因为转储需要他的 MySQL 凭证。
+</p>
+
+<p>
+　　locate 子系统为系统上的所有文件编制索引，并把每个文件的完整路径存储在数据库中。然后，从命令行查询此数据库，就可以立即找到文件。当然，可以根据需要用 find 搜索文件，但是必须等待它搜索文件系统，这可能很慢。
+</p>
+
+<p>
+　　为了让定位子系统发挥作用，必须定期为文件系统编制索引，因为随时可能添加和删除文件。这种情况就非常适合使用 cron。
+</p>
+
+<p>
+0 0,  12 * * * root updatedb
+</p>
+
+<p>
+　　这个 crontab 项每天运行 updatedb（locate 更新实用程序）两次。
+</p>
+
+<p>
+　　显然很适合用 cron 实现自动化的另一个任务是，把文件从主服务器复制到众多的从服务器。rsync 是一种跨多个系统分布和同步文件集合的现代实用程序。许多网管都通过组合使用 cron 和 rsync 把网站的主拷贝复制到服务器群中的每台服务器。@midnight www rsync -avz /var/www/site slave1:/var/www
+</p>
+
+<p>
+　　在每天午夜，rsync 都会把 /var/www/site 复制（-avz）到 slave1 上的 /var/www。
+</p>
+
+<p>
+　　使用命令行实用程序 mail 和 shell 管道操作符（|）把任务的输出发送给团队中的一个或多个成员。
+</p>
+
+<p>
+@weekly root df &#x2013;print-type &#x2013;local -h |&amp; mail -s "Weekly df report" andy bob
+</p>
+
+<p>
+　　在这里，每周通过电子邮件把 df 的输出发送给用户 Andy 和 Bob，让他们能够监视磁盘使用量。
+</p>
+
+<p>
+　　结束语
+</p>
+
+<p>
+　　教程结束语
+</p>
+
+<p>
+　　无论您是单独使用 UNIX 系统，还是管理有数百位用户的系统，自动执行维护任务都有助于节省时间、减少错误以及保持机器不间断运行。cron 是在 UNIX 系统上实现自动化的关键组件，只需发挥一点儿想像力，就可以让计算机为您工作，而不是由您 “伺候” 计算机。
+　　cron 有助于更轻松地完成工作。现在，您可以睡个好觉了。
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org98d8f5d"></a>计划任务的分类<br />
+<div class="outline-text-5" id="text-2-5-2-4">
+<ul class="org-ul">
+<li>一次性</li>
+<li>周期性</li>
+</ul>
+</div>
+</li>
+<li><a id="org0edc989"></a>一次性计划任务<br />
+<div class="outline-text-5" id="text-2-5-2-5">
+<ul class="org-ul">
+<li>使用at命令，每次执行at命令需要给他一个时间参数，如：at 10：00 tomorrow，这条命令要求明天早上10点整执行一个程序。</li>
+<li>执行at命令后，命令行会变成： at &gt; ，此时，只要直接输入想要执行的命令即可。输入玩命令后，按组合键ctrl+D来保存。然后就会立即显示类似这样的内容：</li>
+</ul>
+<p>
+job 1 at 2016-3-12 10：00
+</p>
+</div>
+</li>
+<li><a id="org604e72c"></a>周期性任务（cron）<br />
+<div class="outline-text-5" id="text-2-5-2-6">
+<ul class="org-ul">
+<li>铜鼓crontab命令来完成，crontab -e 编辑当前用户的cron表</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="org4449c65"></a>cron任务的完整定义<br />
+<div class="outline-text-6" id="text-2-5-2-6-1">
+<p>
+<b>分钟 小时 日 月 周 [用户名] 命令</b>
+</p>
+</div>
+</li>
+<li><a id="orgf16fbe8"></a>cron时间符号<br />
+<div class="outline-text-6" id="text-2-5-2-6-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">符号</th>
+<th scope="col" class="org-left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">*</td>
+<td class="org-left">代表任意时间</td>
+</tr>
+
+<tr>
+<td class="org-left">，</td>
+<td class="org-left">代表分隔出不连续的时间点，比如2，3，表示2点和3点都行</td>
+</tr>
+
+<tr>
+<td class="org-left">-</td>
+<td class="org-left">代表连续的时间段，比如2-4表示2、3、4</td>
+</tr>
+
+<tr>
+<td class="org-left">*/n</td>
+<td class="org-left">表示每隔单位时间</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-org20cdd0c" class="outline-4">
+<h4 id="org20cdd0c"><span class="section-number-4">2.5.3.</span> 守护进程及其作用（daemons）</h4>
+<div class="outline-text-4" id="text-2-5-3">
+</div>
+<ol class="org-ol">
+<li><a id="org0fd2cf1"></a>守护进程的分类<br />
+<div class="outline-text-5" id="text-2-5-3-1">
+<ul class="org-ul">
+<li>独立启动的stand alone</li>
+</ul>
+<p>
+自行启动，不需要利用系统其他机制来管理，启动只后会一直占用系统哦嗯资源和内存。<br />
+</p>
+
+<p>
+有一个最突出的优点：响应最快。
+</p>
+
+<p>
+stand alone守护进程非常多，如常见的apache、mysql等。
+</p>
+<ul class="org-ul">
+<li>xinetd</li>
+</ul>
+<p>
+新型的守护进程，由一个统一的stand alone守护进程来负责唤起，这个特殊的守护进程叫super daemon。
+</p>
+
+<p>
+这是一种按需分配的进程服务，只有当客户端有要求时，super daemon才会去唤醒具体的xinetd守护进程
+</p>
+
+<p>
+缺点：不能及时响应。<br />
+优点：赋予super daemon安全管控的机制，类似防火墙功能
+</p>
+</div>
+</li>
+<li><a id="org9e21af3"></a>stand alone守护进程的启动脚本的目录<br />
+<div class="outline-text-5" id="text-2-5-3-2">
+<p>
+/etc/init.d/目录下  
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org0ac90a3"></a>stand alone守护进程的常用命令选项：<br />
+<div class="outline-text-6" id="text-2-5-3-2-1">
+<ul class="org-ul">
+<li>start</li>
+<li>stop</li>
+<li>restart</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org70dae4c"></a>xinetd守护进程的配置文件<br />
+<div class="outline-text-5" id="text-2-5-3-3">
+<ul class="org-ul">
+<li>/etc/xinetd.d目录下和/etc/xinetd.conf文件中。一般不用关心xinetd.conf文件的内容。/etc/xinetd.d中的每个文件代表一个独立的xinetd守护进程。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org9dfefc1" class="outline-4">
+<h4 id="org9dfefc1"><span class="section-number-4">2.5.4.</span> 全面了解程序信息</h4>
+<div class="outline-text-4" id="text-2-5-4">
+</div>
+<ol class="org-ol">
+<li><a id="org91b76b3"></a>ps命令（截取某个时间点的程序状态，是静态数据）<br />
+<div class="outline-text-5" id="text-2-5-4-1">
+<p>
+<b>ps命令的三种常见用法</b>
+</p>
+<ol class="org-ol">
+<li>ps aux 查看系统中所有程序的数据;</li>
+<li>ps ux  查看当前用户所有程序的数据;</li>
+<li>ps -l  查看与当前终端关联的程序数据;</li>
+</ol>
+</div>
+<ol class="org-ol">
+<li><a id="orgddc3903"></a>ps -l命令输出的各个字段的说明<br />
+<div class="outline-text-6" id="text-2-5-4-1-1">
+<ul class="org-ul">
+<li>F:程序标志，代表程序的执行权限，常见取值有：0（普通权限）;4（root</li>
+</ul>
+<p>
+权限）;1（此程序仅执行了fork而没有执行exec。
+</p>
+<ul class="org-ul">
+<li>S：代表程序状态,  R:运行中;S：睡眠状态，可唤醒;D：不可被唤醒状态，一般实在等待I/O;T：停止状态，比如被调试的时候;Z：僵尸状态，程序已经终止，但是却无法把它移出内存。</li>
+<li>UID：代表词进程拥有者的UID。</li>
+<li>PID：代表此进程的进程ID。</li>
+<li>PPID：此进程的父进程ID。</li>
+<li>C：cpu的使用率，单位为百分比。</li>
+<li>PRI：运行优先级。</li>
+<li>NI：运行优先级调整。</li>
+<li>ADDR：指出该程序在内存的哪个部分，如果是个running程序，一般显示“-”。</li>
+<li>SZ：此程序用掉的内存。</li>
+<li>WCHAN：表示目前程序是否运行中，若为“-”表示正在运行。</li>
+<li>TTY：登录者的终端机位置。</li>
+<li>TIME：使用掉的cpu时间，不是系统时间。</li>
+<li>CMD：这个代表程序名称，这里的cmd是command命令终端程序。</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgcec9463"></a>top（每5秒刷新一次的系统负载）<br /></li>
+<li><a id="org61e3ff1"></a>pstree 查看进程的父子祖先关系<br /></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org98b55ff" class="outline-3">
+<h3 id="org98b55ff"><span class="section-number-3">2.6.</span> 软件的安装</h3>
+<div class="outline-text-3" id="text-2-6">
+</div>
+<div id="outline-container-orgd29d6c6" class="outline-4">
+<h4 id="orgd29d6c6"><span class="section-number-4">2.6.1.</span> 从源码安装</h4>
+<div class="outline-text-4" id="text-2-6-1">
+<p>
+因为不确定源码中是否包含上次编译过的目标文件（(*.o），最好先用make clean 或make distclean去除目标文件，以保证新编译出来的可执行文件是在自己的机器上编译完成的。
+</p>
+<ul class="org-ul">
+<li>第一步：configure（生成makefile文件)</li>
+<li>第二步：make</li>
+<li>第三步：make install</li>
+</ul>
+
+<p>
+源码安装的缺点：没有做软件相关性检查，会导致它依赖的其他软件不存在或者版本不准确，从而有可能无法正常运行。
+</p>
+</div>
+</div>
+<div id="outline-container-org0175d56" class="outline-4">
+<h4 id="org0175d56"><span class="section-number-4">2.6.2.</span> 利用软件管理工具rpm和dpkg</h4>
+<div class="outline-text-4" id="text-2-6-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">RPM</th>
+<th scope="col" class="org-left">DPKG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">red hat包管理器</td>
+<td class="org-left">debian软件包管理器</td>
+</tr>
+
+<tr>
+<td class="org-left">安装</td>
+<td class="org-left">rpm -ivh &lt;软件包名&gt;</td>
+<td class="org-left">dpkg -i &lt;软件包名&gt;</td>
+</tr>
+
+<tr>
+<td class="org-left">查询</td>
+<td class="org-left">rpm -qa ×××*;查找此软件像系统写入的文件：rpm -ql &lt;软件包名&gt;</td>
+<td class="org-left">dpkg -l ×××*;查询系统中属于xxx软件的文件：dpkg &#x2013;listfiles xxx</td>
+</tr>
+
+<tr>
+<td class="org-left">卸载</td>
+<td class="org-left">rpm -e &lt;软件名&gt;</td>
+<td class="org-left">dpkg -e &lt;软件名&gt;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org4277936" class="outline-4">
+<h4 id="org4277936"><span class="section-number-4">2.6.3.</span> 在线安装机制</h4>
+<div class="outline-text-4" id="text-2-6-3">
+<ul class="org-ul">
+<li>dpkg管理机制的apt在线安装/升级</li>
+<li>rpm的yum/you/urpm等在线安装/升级</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="org6452737"></a>apt/yum等在线安装机制的意义<br />
+<div class="outline-text-5" id="text-2-6-3-1">
+<ul class="org-ul">
+<li>dpkg/rpm等的弊端：没有完全解决软件属性相依的问题，无法避免软件包的依赖问题。</li>
+<li>apt/yum等的优势：获取软件包的依赖，通过网络自动的下载安装，从而解决软件包的依赖问题。</li>
+</ul>
+</div>
+</li>
+<li><a id="org8659d15"></a>操作<br />
+<div class="outline-text-5" id="text-2-6-3-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">yum</th>
+<th scope="col" class="org-left">apt</th>
+</tr>
+
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">安装</td>
+<td class="org-left">yum install package<sub>name</sub></td>
+<td class="org-left">apt-get install package</td>
+</tr>
+
+<tr>
+<td class="org-left">升级</td>
+<td class="org-left">yun update package</td>
+<td class="org-left">apt-get update（刷新软件源，建立跟新软件列表）;apt-get upgrade（一次性升级所有软件包）</td>
+</tr>
+
+<tr>
+<td class="org-left">卸载</td>
+<td class="org-left">yun remove package</td>
+<td class="org-left">apt-get remove package; apt-get purge remove package（清除软件包的同时清除配置，彻底删除）</td>
+</tr>
+
+<tr>
+<td class="org-left">查询</td>
+<td class="org-left">1. yun search keyword（查询软件包） 2. yum list installed（列出已经安装的软件包） 3. yum info package（获取软件包信息） 4. yum provides package（列出软件包提供的文件）</td>
+<td class="org-left">1. apt-cache search keyword（查找软件包） 2. apt-cache show package（获取制定软件包的详细信息） 3. apt-cache showpkg package（获取软件包版本和软件包的依赖关系）</td>
+</tr>
+
+<tr>
+<td class="org-left">清除缓存</td>
+<td class="org-left">yum clean headers（清除header）;yum clean package（清除下载的rpm包）; yum clean all（清除缓存的软件包和旧的headers）</td>
+<td class="org-left">apt-get clean（清除整个软件包缓冲区）; apt-get autocelan（按照依赖关系清理缓冲区中多余的软件包）</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgd051e16" class="outline-3">
+<h3 id="orgd051e16"><span class="section-number-3">2.7.</span> 磁盘的管理方式</h3>
+<div class="outline-text-3" id="text-2-7">
+</div>
+<div id="outline-container-orgd4fb8bd" class="outline-4">
+<h4 id="orgd4fb8bd"><span class="section-number-4">2.7.1.</span> linux的文件系统</h4>
+<div class="outline-text-4" id="text-2-7-1">
+<p>
+ExtN（N=2、3、4）
+</p>
+</div>
+</div>
+<div id="outline-container-org06a6d4f" class="outline-4">
+<h4 id="org06a6d4f"><span class="section-number-4">2.7.2.</span> 磁盘的基本操作</h4>
+<div class="outline-text-4" id="text-2-7-2">
+<p>
+最常用的：df、du、dd、fsck、mountdf：
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org33566b4"></a>df<br />
+<div class="outline-text-5" id="text-2-7-2-1">
+<p>
+查看系统中所有磁盘的整体使用量;
+</p>
+</div>
+</li>
+<li><a id="org0f5e7f9"></a>du<br />
+<div class="outline-text-5" id="text-2-7-2-2">
+<p>
+查看目录的容量，执行效率比df差很多;
+</p>
+</div>
+</li>
+<li><a id="org485ef32"></a>dd<br />
+<div class="outline-text-5" id="text-2-7-2-3">
+<p>
+把一个目录完整copy到另一个目录，可以制作系统u盘镜像。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="orgf763e88"></a>用法：<br />
+<div class="outline-text-6" id="text-2-7-2-3-1">
+<p>
+dd if=input<sub>file</sub> of=out<sub>file</sub>
+</p>
+
+<p>
+if和out这两个参数可以不用给定，有默认值。if的默认值是标准输入，of的默认值是标准输出（相当于cat命令，即在屏幕上显示文件）
+</p>
+
+<p>
+通过bs和count这两个参数，能够指定读写的字节数和读写次数
+</p>
+</div>
+</li>
+<li><a id="orgf835f50"></a>dd应用举例<br />
+<div class="outline-text-6" id="text-2-7-2-3-2">
+<p>
+dd1. dd if=/etc/bashrc  —— 缺省of，作用是把/etc/bashrc文件的内容在屏幕上显示。
+</p>
+<ol class="org-ol">
+<li>dd if=/dev/sda1 of=./sda1.img  —— 制作磁盘1第一个分区的镜像文件。</li>
+<li>dd if=/dev/sda1 |gzip -9 &gt; ./sda1.img —— 备份sda1,  并压缩，然后写入镜像。</li>
+<li>dd if=/dev/sda | gzip -9 &gt; ./sda.img ——备份整个磁盘</li>
+<li>gzip -dc ./sda.img |dd of=/dev/sda —— 恢复磁盘</li>
+<li>dd if=/dev/sda of=./mbr.img bs=512 count=1 —— 备份磁盘的住引导记录（磁盘的前512个字节，就是第一个扇区的内容，也就是启动扇区。</li>
+</ol>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org3b91b90"></a>fsck（修复文件系统）<br />
+<div class="outline-text-5" id="text-2-7-2-4">
+<p>
+很少手工执行，基本上在系统启动阶段自动执行。使用方式：fsck -t 文件系统 设备名<br />
+比如：fsck -f -t ext3 /dev/sda3 (f参数表示强制检查，否则，在没有报错的系统中是不会检测的。）
+</p>
+</div>
+</li>
+<li><a id="org3f7a78b"></a>mount（挂载）<br />
+<div class="outline-text-5" id="text-2-7-2-5">
+<p>
+用法：mount [-t 文件系统] 设备名称 挂载点
+<b>注意</b>
+对于挂载windows目录，文件系统参数不能省略。挂载extn目录，文件系统参数可以省略。
+</p>
+
+<p>
+<b>eg.</b>
+mount -t vfat <i>dev/sdb1 /data
+mount -o loop /xxx.iso</i> <i>mnt/xxx</i>   （挂在光盘镜像）
+</p>
+</div>
+</li>
+<li><a id="org957df2e"></a>umount（卸载）<br />
+<div class="outline-text-5" id="text-2-7-2-6">
+<p>
+<b>用法</b>
+umount /目录
+</p>
+</div>
+</li>
+<li><a id="org58b7598"></a>fdisk（磁盘分区）<br /></li>
+<li><a id="orgd131042"></a>mkfs.*（格式化）<br />
+<div class="outline-text-5" id="text-2-7-2-8">
+<p>
+*取决于格式化成什么系统，比如要格式化为ext3，就应该是mkfs.ext3
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org8f66246" class="outline-4">
+<h4 id="org8f66246"><span class="section-number-4">2.7.3.</span> /etc/fstab文件 —— 决定分区的连接</h4>
+<div class="outline-text-4" id="text-2-7-3">
+<p>
+让各个磁盘的各个分区具体挂载到哪个目录是由/etc/fstab文件所决定的，所以这个文件非常重要，一旦损坏或丢失，系统将无法正常启动。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org197a401"></a>创建交换分区swap<br />
+<div class="outline-text-5" id="text-2-7-3-1">
+<ul class="org-ul">
+<li>fdisk 创建交换分区</li>
+<li>mkswap 格式化</li>
+</ul>
+</div>
+</li>
+<li><a id="orgef873ca"></a>挂载swap分区<br />
+<div class="outline-text-5" id="text-2-7-3-2">
+<ul class="org-ul">
+<li>swapon 挂载swap</li>
+<li>swapoff 卸载交换分区</li>
+</ul>
+</div>
+</li>
+<li><a id="org05c6097"></a>普通文件成为交换分区<br />
+<div class="outline-text-5" id="text-2-7-3-3">
+<p>
+eg. 创建一个1G的交换文件：<br />
+dd if=/dev/zero of=/tmp/swap bs=1M count=1024 <br />
+(/dev/zero 是个空文件，这个dd命令的作用就是创建一个1G的空文件）
+mkswap /tmp/swap<br />
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org636928d" class="outline-4">
+<h4 id="org636928d"><span class="section-number-4">2.7.4.</span> 逻辑卷</h4>
+<div class="outline-text-4" id="text-2-7-4">
+</div>
+<ol class="org-ol">
+<li><a id="org886c4ee"></a>什么是逻辑卷<br />
+<ol class="org-ol">
+<li><a id="orge74c2c6"></a>更换分区目录（如更换home目录分区）<br />
+<div class="outline-text-6" id="text-2-7-4-1-1">
+<ul class="org-ul">
+<li>划分更大的分区格式化为linux系统;</li>
+<li>将原/home目录下的内容全部复制到新的分区;</li>
+<li>修改/etc/fstab文件，让新的分区成为/home;</li>
+</ul>
+</div>
+</li>
+<li><a id="org34e1fb6"></a>逻辑卷的概念<br />
+<div class="outline-text-6" id="text-2-7-4-1-2">
+<p>
+能够弹性的调整文件系统的容量。理论上说，逻辑卷就是在磁盘分区和文件系统之间增加了一个逻辑层，当文件系统容量不够用时，可以向逻辑卷中增加新的分区来实现扩大容量的目的;而当发现文件系统过大而有磁盘浪费的时候，可以选择去除一些基本没有使用的磁盘分区来达到减少容量的目的。
+</p>
+
+<p>
+在linux系统中，实现逻辑卷功能的是LVM，Logical Volume Manager，逻辑卷管理器
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org00a0ef1"></a>基本属于和原理<br />
+<ol class="org-ol">
+<li><a id="orgf430976"></a>Physical Volume，PV，物理卷<br />
+<div class="outline-text-6" id="text-2-7-4-2-1">
+<p>
+物理卷就是具体的磁盘分区，或者与磁盘分区有相同功能的设备，比如RAID。
+</p>
+
+<p>
+PV是LVM的基本存储单元，与普通的磁盘分区相比，PV（物理卷）还要包含与LVM相关的管理参数
+</p>
+</div>
+</li>
+<li><a id="org55d5173"></a>Volume Group，VG，卷组<br />
+<div class="outline-text-6" id="text-2-7-4-2-2">
+<p>
+卷组类似于非LVM系统中的物理磁盘，由多个物理卷组成，可以在卷组上创建一个或多个LVM分区
+</p>
+</div>
+</li>
+<li><a id="org02c725c"></a>Physical Extend，PE，物理扩展区<br />
+<div class="outline-text-6" id="text-2-7-4-2-3">
+<p>
+每一个物理卷被进一步划分为被称为物理扩展区的基本单元，PE是LVM的最小存储区，与物理磁盘中的扇区或文件系统中的簇的概念基本相同。LVM的默认PE大小是4M，每个卷组最多仅能含有65534个PE。所以，一个卷组的最大容量就是4×65534=256G
+</p>
+</div>
+</li>
+<li><a id="orgcb95504"></a>Logical Volume，LV，逻辑卷<br />
+<div class="outline-text-6" id="text-2-7-4-2-4">
+<p>
+逻辑卷就是在卷组的基础上再进行切分，与在物理磁盘上继续划分分区是一样的道理，逻辑卷的大小必须是PE的整数倍。
+</p>
+
+<p>
+需要增加容量，就增加PE，需要减少容量，就减少PE。这就是LVM能够弹性的调整容量的秘密。
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgd36e24b"></a>扩大和减小逻辑卷<br />
+<div class="outline-text-5" id="text-2-7-4-3">
+<p>
+<b>后续在研究</b>
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orga5d1920" class="outline-3">
+<h3 id="orga5d1920"><span class="section-number-3">2.8.</span> linux下的网络基础</h3>
+<div class="outline-text-3" id="text-2-8">
+</div>
+<div id="outline-container-org0c7e463" class="outline-4">
+<h4 id="org0c7e463"><span class="section-number-4">2.8.1.</span> 了解ip地址</h4>
+<div class="outline-text-4" id="text-2-8-1">
+<p>
+（待记录……）
+</p>
+</div>
+</div>
+<div id="outline-container-org235d577" class="outline-4">
+<h4 id="org235d577"><span class="section-number-4">2.8.2.</span> 相关配置文件</h4>
+<div class="outline-text-4" id="text-2-8-2">
+<p>
+（
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org177c5d7" class="outline-3">
+<h3 id="org177c5d7"><span class="section-number-3">2.9.</span> sh相关知识</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+shell是命令行解释和执行器，是介于使用者和unix/linux操作系统核心程序（kernel）之间的一个接口。
+</p>
+</div>
+<div id="outline-container-orgf9f1e94" class="outline-4">
+<h4 id="orgf9f1e94"><span class="section-number-4">2.9.1.</span> bash</h4>
+<div class="outline-text-4" id="text-2-9-1">
+<p>
+bash（bourne again shell）是linux下的经典shell，对bourne shell 做了向下兼容，融入了许多C shell和Korn shell的功能
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="orgc70531b"></a>bash的特点：<br />
+<div class="outline-text-5" id="text-2-9-1-1">
+<ul class="org-ul">
+<li>别名功能（alias）。</li>
+<li>历史命令（history），默认显示500个历史命令。</li>
+<li>工作控制（job control）</li>
+</ul>
+
+<p>
+下面个几个命令控制进程的进行：
+</p>
+
+<ul class="org-ul">
+<li>ps —— 列出正在运行的进程</li>
+<li>kill —— 向一个或多个进程发信号（杀掉进程）</li>
+<li>jobs —— 列出自己运行的进程</li>
+<li>bg —— 将进程放到后台</li>
+<li>fg —— 将进程放到前台</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgc252068" class="outline-4">
+<h4 id="orgc252068"><span class="section-number-4">2.9.2.</span> 环境变量</h4>
+<div class="outline-text-4" id="text-2-9-2">
+<ul class="org-ul">
+<li>登陆系统后，shell启动，并从启动它的/bin/login程序中继承了多个变量、I/O流和进程特征。如果遇到需要后台处、执行整组命令及脚本的情况，父shell会派生子shell应付这些工作，子shell从父shell那里继承环境。这个环境包括进程的权限、工作目录、文件创建掩码、特殊变量、打开的文件和信号。</li>
+
+<li>变量包括局部变量和环境变量，局部变量无法传递给子shell，环境变量可以一直传递下去。</li>
+
+<li>环境变量包括：PATH、HOME、LOGNAME、IFS和SHELL. 环境变量一般大写</li>
+
+<li>环境变量的设定：set、env、export</li>
+
+<li>环境变量的清除：unset</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2dae6e5" class="outline-4">
+<h4 id="org2dae6e5"><span class="section-number-4">2.9.3.</span> bash的配置文件</h4>
+<div class="outline-text-4" id="text-2-9-3">
+<ul class="org-ul">
+<li>login shell：输入登陆用户名和密码后shell才启动。</li>
+
+<li>non-longin-shell：不需要做重复的登陆操作获取bash界面。</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="org0677238"></a>系统配置文件<br />
+<div class="outline-text-5" id="text-2-9-3-1">
+<p>
+只有login shell才会读取系统配置文件/etc/profile，每个用户登陆bash后都会读取这个配置文件，如果想要设置的环境变量对所有的用户起作用，就要在这里设置
+</p>
+</div>
+</li>
+<li><a id="org8771b20"></a>用户个性配置文件<br />
+<div class="outline-text-5" id="text-2-9-3-2">
+<ul class="org-ul">
+<li>login shell 读完了/etc/profile配置文件后，就会读取用户的个人配置文件，个人配置文件主要有三个home目录下的隐藏文件：
+<ol class="org-ol">
+<li>~/.bash<sub>profile</sub></li>
+<li>~/.bash<sub>login</sub></li>
+<li>~/.profile</li>
+</ol></li>
+
+<li>如果1存在，那么bash不会读取2、3，如果1不存在，bash会读取2，如果1和2都不存在，那么bash会读取3。</li>
+
+<li>~/.bashrc ： 如果这个文件存在，那么~/bash<sub>profile还会调用它</sub>，哦哦们可以把一些环境设置写到该文件下。</li>
+
+<li>~/.bash<sub>history和</sub>~/.bash<sub>logout</sub>
+<ul class="org-ul">
+<li>bash<sub>history</sub> 保存命立的历史记录，每次登陆bash后，bash会读取这个文件，将所有的历史命令读入内存。</li>
+<li>bash<sub>logout</sub> 告诉系统在离开系统之前需要做的事情。默认情况下，文件只让bash清掉屏幕的信息。用户可以添加信息在这个文件中，例如备份等。</li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="orga77aee4"></a>non-login shell的设置<br />
+<div class="outline-text-5" id="text-2-9-3-3">
+<p>
+详见p100
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orga78c8b2" class="outline-3">
+<h3 id="orga78c8b2"><span class="section-number-3">2.10.</span> 文本处理</h3>
+<div class="outline-text-3" id="text-2-10">
+</div>
+<div id="outline-container-org422794b" class="outline-4">
+<h4 id="org422794b"><span class="section-number-4">2.10.1.</span> 查看文本内容</h4>
+<div class="outline-text-4" id="text-2-10-1">
+<p>
+查看文件的命令：
+</p>
+<ul class="org-ul">
+<li>cat</li>
+<li>more</li>
+<li>less</li>
+<li>head</li>
+<li>tail：tail可以实现不停的读取和显示文件内容，可以用于查看日志起到实时监控的作用。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgea9d47c" class="outline-4">
+<h4 id="orgea9d47c"><span class="section-number-4">2.10.2.</span> 正则表达式</h4>
+<div class="outline-text-4" id="text-2-10-2">
+</div>
+<ol class="org-ol">
+<li><a id="org7bf6281"></a>正则表达式的基本要素：<br />
+<div class="outline-text-5" id="text-2-10-2-1">
+<ul class="org-ul">
+<li>表达式ε表示一个文本，包含一个长度为0的字符串，可以理解为{NULL}。通常将NULL记做ε。</li>
+<li>表达式a表示仅有一个字符a的文本，即{a}</li>
+</ul>
+</div>
+</li>
+<li><a id="orgfef2c4e"></a>正则表达式的三种基本运算规则：<br />
+<div class="outline-text-5" id="text-2-10-2-2">
+<ul class="org-ul">
+<li>并运算，记做X|Y，a|b={a，b}，相当于加法;</li>
+<li>连接运算，记做XY，ab={ab}，X=a|b，Y=c|d，XY={ac，bc，ad，bd}，相当与乘法;</li>
+<li>正则表达式的克林毕包，记做X* ,   表示将n个X与自己相连接，然后在就并，即X*=ε|X|XX|XXX|XXXX|……，a*={ε,  a,  aa,  aaa,  aaaa,  …………………}是一个无穷文本。</li>
+</ul>
+</div>
+</li>
+<li><a id="orgffb2c14"></a>运算的优先级<br />
+<div class="outline-text-5" id="text-2-10-2-3">
+<p>
+克林毕包&gt;连接&gt;并
+</p>
+</div>
+</li>
+<li><a id="orgbb7d0fb"></a>正则表达式的扩展运算<br />
+<div class="outline-text-5" id="text-2-10-2-4">
+<ul class="org-ul">
+<li>[] 表示括号内的字符做并运算，同时支持范围描述符号“-”。[abcd]=a|b|c|d=[a-d]</li>
+<li>普通字符“-”在[]中的描述。应为在[]中支持范围描述符“-”，如果要在[]使用字符“-”，需要将它放在[]中的开头或最后，如[-abc]=-|a|b|c,  [abc-]=a|b|c|-;</li>
+<li>[]中以<sup>开头</sup>，表示在字符集中排</li>
+</ul>
+
+
+<p>
+除[]中的所有字符之后，所剩下字符的并运算，[<sup>ab</sup>]表示对除了ab以外的所有字符求并。
+</p>
+<ul class="org-ul">
+<li>X？表示X|ε，代表X与空字符之间可选。</li>
+<li>X+表示XX*，这表示X至少要重复一次，即至少等于X</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org93e2eec" class="outline-4">
+<h4 id="org93e2eec"><span class="section-number-4">2.10.3.</span> grep搜索文本</h4>
+<div class="outline-text-4" id="text-2-10-3">
+<p>
+包含grep、egrep、fgrep。
+</p>
+
+<p>
+egrep是grep的扩展支持跟多的正则表达式元字符
+</p>
+
+<p>
+fgrep就是fixed grep或fast grep，只搜索字符，不使用正则表达式
+</p>
+
+<p>
+gnu版的grep可以通过 -G、-E、-F命令选项来选择
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org27577ac"></a>grep支持的正则表达式<br />
+<div class="outline-text-5" id="text-2-10-3-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">元字符</th>
+<th scope="col" class="org-left">匹配对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">^</td>
+<td class="org-left">表示句首。如<sup>abc表示以abc开头的句子</sup></td>
+</tr>
+
+<tr>
+<td class="org-left">$</td>
+<td class="org-left">表示句尾。如abc$表示以abc结尾的句子</td>
+</tr>
+
+<tr>
+<td class="org-left">*</td>
+<td class="org-left">表示前一个字符0个或多个重复存在，如ab*c表示a和c之间有0个或多个b</td>
+</tr>
+
+<tr>
+<td class="org-left">[]</td>
+<td class="org-left">匹配指定范围内的字符，如^[0-9]表示以数字开始的行</td>
+</tr>
+
+<tr>
+<td class="org-left">[^]</td>
+<td class="org-left">匹配一个不在指定范围内的行，如[^（D-F）level]表示匹配不包含D-F的一个字符开头的并紧跟level的行</td>
+</tr>
+
+<tr>
+<td class="org-left">（……）</td>
+<td class="org-left">匹配一个不在指定范围内的字符。例子同上</td>
+</tr>
+
+<tr>
+<td class="org-left">\&lt;</td>
+<td class="org-left">表示词首。如\&lt;abc表示以abc开头的词</td>
+</tr>
+
+<tr>
+<td class="org-left">\&gt;</td>
+<td class="org-left">表示词尾。如abc\&gt;表示以abc结尾的词</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org4096462" class="outline-2">
+<h2 id="org4096462"><span class="section-number-2">3.</span> 第三章 一棵“树”的奥秘</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org54e71d2" class="outline-3">
+<h3 id="org54e71d2"><span class="section-number-3">3.1.</span> linux的文件组织结构（p109 图3.1）</h3>
+</div>
+<div id="outline-container-orge75c334" class="outline-3">
+<h3 id="orge75c334"><span class="section-number-3">3.2.</span> 基本组织原则（p110）</h3>
+</div>
+<div id="outline-container-org9b70d13" class="outline-3">
+<h3 id="org9b70d13"><span class="section-number-3">3.3.</span> 根文件系统</h3>
+<div class="outline-text-3" id="text-3-3">
+</div>
+<div id="outline-container-orgbf57334" class="outline-4">
+<h4 id="orgbf57334"><span class="section-number-4">3.3.1.</span> 原则与特性</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<p>
+根文件系统保存在根分区，负责系统启动、修复、更新、恢复等重要任务
+</p>
+</div>
+</div>
+<div id="outline-container-org1a30de2" class="outline-4">
+<h4 id="org1a30de2"><span class="section-number-4">3.3.2.</span> 必备内容</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">名称</th>
+<th scope="col" class="org-left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">bin</td>
+<td class="org-left">重要的可执行文件，shell命令</td>
+</tr>
+
+<tr>
+<td class="org-left">boot</td>
+<td class="org-left">引导器配置文件、内核</td>
+</tr>
+
+<tr>
+<td class="org-left">dev</td>
+<td class="org-left">设备文件</td>
+</tr>
+
+<tr>
+<td class="org-left">etc</td>
+<td class="org-left">系统专有配置文件</td>
+</tr>
+
+<tr>
+<td class="org-left">lib</td>
+<td class="org-left">重要的共享库和内核模块</td>
+</tr>
+
+<tr>
+<td class="org-left">media</td>
+<td class="org-left">可移动设备挂载点</td>
+</tr>
+
+<tr>
+<td class="org-left">mnt</td>
+<td class="org-left">其它文件的临时挂载点</td>
+</tr>
+
+<tr>
+<td class="org-left">opt</td>
+<td class="org-left">附加应用软件包</td>
+</tr>
+
+<tr>
+<td class="org-left">sbin</td>
+<td class="org-left">重要的必须的系统可执行文件</td>
+</tr>
+
+<tr>
+<td class="org-left">srv</td>
+<td class="org-left">本系统提供的用于服务器的数据</td>
+</tr>
+
+<tr>
+<td class="org-left">tmp</td>
+<td class="org-left">临时文件</td>
+</tr>
+
+<tr>
+<td class="org-left">usr</td>
+<td class="org-left">文件系统的第二层</td>
+</tr>
+
+<tr>
+<td class="org-left">var</td>
+<td class="org-left">可变数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbb17a9f" class="outline-3">
+<h3 id="orgbb17a9f"><span class="section-number-3">3.4.</span> 子目录</h3>
+<div class="outline-text-3" id="text-3-4">
+</div>
+<div id="outline-container-org14996b7" class="outline-4">
+<h4 id="org14996b7"><span class="section-number-4">3.4.1.</span> /etc目录</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<p>
+包含系统特有的配置文件
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org680ad3b"></a>需要放在/etc目录下的文件<br />
+<div class="outline-text-5" id="text-3-4-1-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">名称</th>
+<th scope="col" class="org-left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">opt</td>
+<td class="org-left">各软件的配置文件</td>
+</tr>
+
+<tr>
+<td class="org-left">rc.d</td>
+<td class="org-left">init进程的配置文件</td>
+</tr>
+
+<tr>
+<td class="org-left">X11</td>
+<td class="org-left">X window系统的配置文件，可选</td>
+</tr>
+
+<tr>
+<td class="org-left">sgml</td>
+<td class="org-left">sgml的配置文件，可选</td>
+</tr>
+
+<tr>
+<td class="org-left">xml</td>
+<td class="org-left">xml的配置文件，可选</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>X11目录下的文件：<br />
+<ul class="org-ul">
+<li>xorg.conf —— Xorg的配置文件（最常见）</li>
+<li>Xmodmap —— 定义xdm和xinit所使用的键盘映射</li>
+<li>xconfig —— 早期的XFree86的配置文件（现在已经被xorg取代）</li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgc091672" class="outline-4">
+<h4 id="orgc091672"><span class="section-number-4">3.4.2.</span> /sbin目录——必备的系统软件</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+用于系统维护的软件和某些只限root用户使用的命令存储在/sbin、/usr/sbin和/usr/local/sbin目录下。
+</p>
+<ul class="org-ul">
+<li>/sbin目录存储的是那些在系统启动、恢复、欢迎以及修复过程中必备的系统工具，是对/bin系统下的补充。</li>
+<li>/usr/sbin目录存储的是在/usr目录被挂载后才需要的程序。</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org42af428" class="outline-2">
+<h2 id="org42af428"><span class="section-number-2">4.</span> 第四章 笨出来的文化和哲学</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org9431a1f" class="outline-3">
+<h3 id="org9431a1f"><span class="section-number-3">4.1.</span> 万般皆文本</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>linux中除了可以执行的文件，其他的一切几乎都是文本，如存储用户名和密码的passwd文件、存储图片的xmp文件等。</li>
+<li>xmp：linux下最常见的图片格式之一，最初是为X windows而设计的，是由c语言的语法构成的纯文本文件，可以直接包含在c语言程序中。</li>
+</ul>
+</div>
+<div id="outline-container-orgd67d298" class="outline-4">
+<h4 id="orgd67d298"><span class="section-number-4">4.1.1.</span> 配置文件的DSV风格</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<p>
+所有的配置文件都有一个统一的风格——DSV
+</p>
+<ul class="org-ul">
+<li>DSV：Delimiter-Separated Values的缩写，翻译过来是“分隔符分隔值”，含义是使用“分隔符”将一个一个的“值”分割开来，便于取值处理。“值”也可以理解为“字段”</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd31caf5" class="outline-3">
+<h3 id="orgd31caf5"><span class="section-number-3">4.2.</span> linux中的配置文件</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+<div id="outline-container-org5963dea" class="outline-4">
+<h4 id="org5963dea"><span class="section-number-4">4.2.1.</span> 配置三元素</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<ul class="org-ul">
+<li>配置文件</li>
+<li>环境变量</li>
+<li>命令行选项</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="org30f1c3f"></a>详细的划分（系统级别和用户级别的区分）<br />
+<div class="outline-text-5" id="text-4-2-1-1">
+<ul class="org-ul">
+<li>系统配置文件、系统环境变量</li>
+<li>用户配置文件、用户环境变量</li>
+<li>命令行选项</li>
+</ul>
+</div>
+</li>
+<li><a id="org4db395f"></a>三者的顺序<br />
+<div class="outline-text-5" id="text-4-2-1-2">
+<p>
+系统级别的优先级最高，命令选项优先级最低
+</p>
+</div>
+</li>
+<li><a id="orge885016"></a>三者的响应顺序<br />
+<div class="outline-text-5" id="text-4-2-1-3">
+<p>
+命令行 &gt; 用户级别 &gt; 系统级别
+</p>
+</div>
+</li>
+<li><a id="org0dbd536"></a>选择配置机制的原则<br />
+<div class="outline-text-5" id="text-4-2-1-4">
+<ul class="org-ul">
+<li>调用时可能发生变化的配置信息 —— 使用命令行选项;</li>
+<li>改动很少但确实应该由各个用户控制的配置信息 —— 使用用户配置文件或用户环境变量;</li>
+<li>需要由系统管理员设置而不需要用户改变的整体系统级选项数据 ——系统级配置文件或系统级环境变量;</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgc4ba8c8" class="outline-4">
+<h4 id="orgc4ba8c8"><span class="section-number-4">4.2.2.</span> 配置文件</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<ul class="org-ul">
+<li>配置文件的含义：学名是“运行控制文件”，存放与具体程序相关的声明信息，有时甚至是可执行文件，在程序启动时解析</li>
+<li>配置文件的位置：
+<ul class="org-ul">
+<li>系统级别的配置文件，放置在/etc下。</li>
+<li>用户界别的配置文件，放置在home目录下，并且一般都是隐藏文件（以 . 开头），一般称为点文件。</li>
+<li>配置文件的命名方式：命名方式没有严格规定，基本与程序名称一致。</li>
+<li>古老的命名约定：可执行文件名后加“rc”后缀（rc代表运行控制），如/etc/bashrc和.bashrc，前者是bash的系统配置文件，后者是bash的用户配置文件</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgce63d9c" class="outline-4">
+<h4 id="orgce63d9c"><span class="section-number-4">4.2.3.</span> 环境变量</h4>
+<div class="outline-text-4" id="text-4-2-3">
+<p>
+当linux程序启动时，它的运行环境会包含一组名字和值（名字和值都是字符串），有些是由用户手工设置的，有些是由系统在登陆时设置的，有些是由shell或虚拟终端设置的，这就是环境变量。linux下，环境变量一般会携带文件搜索路径、系统默认值、当前用户ID和进程ID等信息。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org6beef16"></a>常见的系统环境变量<br />
+<div class="outline-text-5" id="text-4-2-3-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">变量名</th>
+<th scope="col" class="org-left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">USER</td>
+<td class="org-left">当前会话登陆的帐户名（BSD约定）</td>
+</tr>
+
+<tr>
+<td class="org-left">LOGNAME</td>
+<td class="org-left">当前会话登陆的帐户名（System V约定</td>
+</tr>
+
+<tr>
+<td class="org-left">HOME</td>
+<td class="org-left">当前会话的用户home目录</td>
+</tr>
+
+<tr>
+<td class="org-left">COLUMNS</td>
+<td class="org-left">文本控制台或虚拟窗口以字符为单位的列数，通过这个环境变量，CLI的程序可以了解一行内最多能输出多少字符</td>
+</tr>
+
+<tr>
+<td class="org-left">LINES</td>
+<td class="org-left">文本控制台或虚拟终端窗口以字符为单位的行数，通过这个环境变量，CLI的程序可以了解屏幕上最多可以显示多少行文本</td>
+</tr>
+
+<tr>
+<td class="org-left">SHELL</td>
+<td class="org-left">当前使用的shell的名字</td>
+</tr>
+
+<tr>
+<td class="org-left">PATH</td>
+<td class="org-left">shell搜索可执行程序的目录列表</td>
+</tr>
+
+<tr>
+<td class="org-left">TERM</td>
+<td class="org-left">当前会话控制台或虚拟终端的名称。最大的用途就是程序能够知道可以使用哪些特性，比如是否可以输出中文等。</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org4818152" class="outline-2">
+<h2 id="org4818152"><span class="section-number-2">5.</span> 第五章 shell脚本编程</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orgfd05c4f" class="outline-3">
+<h3 id="orgfd05c4f"><span class="section-number-3">5.1.</span> 第一个shell脚本程序</h3>
+<div class="outline-text-3" id="text-5-1">
+</div>
+<div id="outline-container-orgbaa9100" class="outline-4">
+<h4 id="orgbaa9100"><span class="section-number-4">5.1.1.</span> 程序代码</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<blockquote>
+<p>
+#！/bin/sh
+</p>
+
+<p>
+echo “Hello World！
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org04dc9a1" class="outline-4">
+<h4 id="org04dc9a1"><span class="section-number-4">5.1.2.</span> 注解：</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<ul class="org-ul">
+<li>#开头的是注释</li>
+<li>#!第一行是脚本解释程序的声明指令，由调用这个脚本的shell来检测，仅在脚本第一行才有效。</li>
+<li>要使脚本能够执行，需要使用chmod命令赋予可执行权限，比如 ： chmod 755 ……</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb3ea792" class="outline-4">
+<h4 id="orgb3ea792"><span class="section-number-4">5.1.3.</span> 变量</h4>
+<div class="outline-text-4" id="text-5-1-3">
+<ul class="org-ul">
+<li>变量的命名规则
+<ul class="org-ul">
+<li>首个字符必须为字母</li>
+<li>中间不能有空格，可以使用下划线</li>
+<li>不能使用标点符号</li>
+<li>不能使用bash里的关键字（可以使用help命令查看保留关键字）</li>
+</ul></li>
+<li>变量的调用
+使用$直接调用变量</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1e77214" class="outline-4">
+<h4 id="org1e77214"><span class="section-number-4">5.1.4.</span> 运算</h4>
+<div class="outline-text-4" id="text-5-1-4">
+</div>
+<ol class="org-ol">
+<li><a id="orgfef7c31"></a>expr用于整数值运算，每一项用空格隔开<br />
+<div class="outline-text-5" id="text-5-1-4-1">
+<blockquote>
+<p>
+weight=`expr $weight + 1`
+</p>
+</blockquote>
+<p>
+一个注意事项：*在shell中 有特殊意义，应该写成“\*”，或者用双括号“”括起来。
+</p>
+</div>
+</li>
+<li><a id="orgbbcce13"></a>let表示数学运算<br />
+<div class="outline-text-5" id="text-5-1-4-2">
+<blockquote>
+<p>
+let "weight+=1"
+let "weight = weight+1"
+</p>
+</blockquote>
+</div>
+</li>
+<li><a id="org3a6904f"></a>(())方法和let一样<br />
+<div class="outline-text-5" id="text-5-1-4-3">
+<blockquote>
+<p>
+((weight+=1))
+</p>
+</blockquote>
+</div>
+</li>
+<li><a id="orgd869640"></a>$[] 将中括号中的表达式作为数学运算先计算结果再输出<br /></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org2c53f30" class="outline-3">
+<h3 id="org2c53f30"><span class="section-number-3">5.2.</span> 脚本的基本要素</h3>
+<div class="outline-text-3" id="text-5-2">
+</div>
+<div id="outline-container-org6144290" class="outline-4">
+<h4 id="org6144290"><span class="section-number-4">5.2.1.</span> 变量</h4>
+<div class="outline-text-4" id="text-5-2-1">
+<ul class="org-ul">
+<li>shell中变量无需事先声明;</li>
+<li>看到以$开头的单词，会寻找变量的值，然后代替</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="org94c296f"></a>变量的命名规则<br />
+<div class="outline-text-5" id="text-5-2-1-1">
+<ul class="org-ul">
+<li>首个字符必须为字母</li>
+<li>中间不能有空格，可以使用（_）</li>
+<li>不能使用标点符号</li>
+<li>不能使用basn里的关键词</li>
+</ul>
+</div>
+</li>
+<li><a id="org4a5dd4c"></a>引号（“”）内的变量<br />
+<div class="outline-text-5" id="text-5-2-1-2">
+<ul class="org-ul">
+<li>引号内的变量 加上$后，仍然是取值</li>
+</ul>
+</div>
+</li>
+<li><a id="orge4951bb"></a>用{}明确变量名<br />
+<div class="outline-text-5" id="text-5-2-1-3">
+<p>
+如 ${sum}apples
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org09d134b" class="outline-4">
+<h4 id="org09d134b"><span class="section-number-4">5.2.2.</span> 运算</h4>
+<div class="outline-text-4" id="text-5-2-2">
+<blockquote>
+<p>
+脚本仅仅提供了整数的数学运算<br />
+weight=1
+weight=weitht+1
+echo $weitht
+</p>
+
+<p>
+得到的结果不是2,  而是1+1， 直接相加相当于是字符的连接
+</p>
+</blockquote>
+</div>
+<ol class="org-ol">
+<li><a id="orgbff0a32"></a>数学运算的表达式<br />
+<div class="outline-text-5" id="text-5-2-2-1">
+<ul class="org-ul">
+<li>expr：用于整数值运算，每一项用空格隔开</li>
+</ul>
+<blockquote>
+<p>
+weigt='exper $weight + 1'
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>let：表示数学运算</li>
+</ul>
+<blockquote>
+<p>
+let "weight+=1" 或 let "weight=$weight+1"
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>(()) ：用法和let类似</li>
+</ul>
+<blockquote>
+<p>
+((weight+=1)) 或 ((weight=$weight+1))
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>$[ ]：将中括号内的表达式作为数学运算先计算结果再输出</li>
+
+<li>乘法 * 运算的表达</li>
+</ul>
+<p>
+因为 * 在shell中有特殊意义，用\*表示乘法.
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org4ea1a9d" class="outline-4">
+<h4 id="org4ea1a9d"><span class="section-number-4">5.2.3.</span> 流程控制</h4>
+<div class="outline-text-4" id="text-5-2-3">
+</div>
+<ol class="org-ol">
+<li><a id="org76fcf67"></a>if语句<br />
+<div class="outline-text-5" id="text-5-2-3-1">
+<ol class="org-ol">
+<li>第一种</li>
+</ol>
+<blockquote>
+<p>
+if condition ; then
+    commands
+fi
+</p>
+</blockquote>
+
+<ol class="org-ol">
+<li>第二种</li>
+</ol>
+<blockquote>
+<p>
+if condition ; then
+    commands
+fi
+</p>
+</blockquote>
+
+<ol class="org-ol">
+<li>第三种</li>
+</ol>
+<blockquote>
+<p>
+if condition1 ; then
+    command1
+elif condition2 ; then
+    command2
+fi
+</p>
+</blockquote>
+</div>
+</li>
+<li><a id="org1419245"></a>test语句<br />
+<div class="outline-text-5" id="text-5-2-3-2">
+<p>
+test语句返回的是exit状态（即true和false），经常和if语句一起使用，作为if的条件
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="orgf1f2410"></a>test的两种形式<br />
+<div class="outline-text-6" id="text-5-2-3-2-1">
+<ol class="org-ol">
+<li>第一种形式</li>
+</ol>
+<p>
+test expression
+</p>
+<ol class="org-ol">
+<li>第二种形式（这种形式经常配合if语句）</li>
+</ol>
+<p>
+[  expression  ]
+<b>方括号和expressio之间必须有空格</b>
+</p>
+</div>
+</li>
+<li><a id="org7b9454e"></a>实际例子<br />
+<div class="outline-text-6" id="text-5-2-3-2-2">
+<blockquote>
+<p>
+……
+if [  -z "$1"  ] ; then
+    ……
+fi
+</p>
+</blockquote>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org455b5c4"></a>exit语句<br />
+<div class="outline-text-5" id="text-5-2-3-3">
+<ul class="org-ul">
+<li>exit 0 —— 退出脚本，状态值为0（成功）</li>
+<li>exit 1 —— 退出脚本，状态值为1（失败）</li>
+</ul>
+</div>
+</li>
+<li><a id="org975fddc"></a>case语句<br />
+<div class="outline-text-5" id="text-5-2-3-4">
+<p>
+case表达式用来匹配一个给定的字符串，而不是数字
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org313f498" class="outline-2">
+<h2 id="org313f498"><span class="section-number-2">6.</span> 第七章 编辑器</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org3c956c9" class="outline-3">
+<h3 id="org3c956c9"><span class="section-number-3">6.1.</span> vi</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+暂时未做笔记
+</p>
+</div>
+</div>
+<div id="outline-container-org5290fd7" class="outline-3">
+<h3 id="org5290fd7"><span class="section-number-3">6.2.</span> emacs</h3>
+<div class="outline-text-3" id="text-6-2">
+</div>
+<div id="outline-container-org2b540ef" class="outline-4">
+<h4 id="org2b540ef"><span class="section-number-4">6.2.1.</span> emacs的来历</h4>
+<div class="outline-text-4" id="text-6-2-1">
+<p>
+emacs是由 Richard Stallman于1975年在MIT人工智能实验室与 Guy Lewis Steele Jr 共同开发出来的。（p274）
+</p>
+</div>
+</div>
+<div id="outline-container-orge1bbcf0" class="outline-4">
+<h4 id="orge1bbcf0"><span class="section-number-4">6.2.2.</span> buffer、window、frame</h4>
+<div class="outline-text-4" id="text-6-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="org9a4cf24"></a>buffer<br />
+<div class="outline-text-5" id="text-6-2-2-1">
+<p>
+文件在内存中的表示，Emacs并不直接对文件进行操作，而是把文件加载到Buffer中供用户操作。只有当用于确定要把在Buffer中所做的修改写入文件时，即执行“save-buffer”命令时，Emacs才把Buffer中的内容写入文件。
+</p>
+</div>
+</li>
+<li><a id="org3332be4"></a>window<br />
+<div class="outline-text-5" id="text-6-2-2-2">
+<p>
+Buffer的显示区域，或者说是view。
+</p>
+</div>
+</li>
+<li><a id="org2cddbc5"></a>Frame<br />
+<div class="outline-text-5" id="text-6-2-2-3">
+<p>
+Emacs的实际窗口。一个Frame中可以包含多个Window，每个Window显示一个Buffer的内容。
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgd468bb9" class="outline-4">
+<h4 id="orgd468bb9"><span class="section-number-4">6.2.3.</span> emscs的基本使用</h4>
+<div class="outline-text-4" id="text-6-2-3">
+<p>
+<b>emacs 常用的快捷键</b>
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">命令</th>
+<th scope="col" class="org-left">快捷键</th>
+<th scope="col" class="org-left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">move-beginning-of-line</td>
+<td class="org-left">c-a</td>
+<td class="org-left">光标移动到行首</td>
+</tr>
+
+<tr>
+<td class="org-left">move-end-of-line</td>
+<td class="org-left">c-e</td>
+<td class="org-left">光标移动到行尾</td>
+</tr>
+
+<tr>
+<td class="org-left">forward-char</td>
+<td class="org-left">c-f</td>
+<td class="org-left">光标右移一个字符</td>
+</tr>
+
+<tr>
+<td class="org-left">backward-char</td>
+<td class="org-left">c-b</td>
+<td class="org-left">光标左移一个字符</td>
+</tr>
+
+<tr>
+<td class="org-left">next-line</td>
+<td class="org-left">c-n</td>
+<td class="org-left">光标下移一行</td>
+</tr>
+
+<tr>
+<td class="org-left">previous-line</td>
+<td class="org-left">c-p</td>
+<td class="org-left">光标上移一行</td>
+</tr>
+
+<tr>
+<td class="org-left">forward-word</td>
+<td class="org-left">m-f</td>
+<td class="org-left">光标右移一个单词</td>
+</tr>
+
+<tr>
+<td class="org-left">backward-word</td>
+<td class="org-left">m-b</td>
+<td class="org-left">光标左移一个单词</td>
+</tr>
+
+<tr>
+<td class="org-left">beginning-of-buffer</td>
+<td class="org-left">m-&lt;</td>
+<td class="org-left">光标移动到文件开头</td>
+</tr>
+
+<tr>
+<td class="org-left">end-of-buffer</td>
+<td class="org-left">m-&lt;</td>
+<td class="org-left">光标移动到文件末尾</td>
+</tr>
+
+<tr>
+<td class="org-left">scroll-up</td>
+<td class="org-left">c-v</td>
+<td class="org-left">光标移动到下一页</td>
+</tr>
+
+<tr>
+<td class="org-left">scroll-down</td>
+<td class="org-left">m-v</td>
+<td class="org-left">光标移动到上一页</td>
+</tr>
+
+<tr>
+<td class="org-left">set-mark-command</td>
+<td class="org-left">c-space</td>
+<td class="org-left">开启标记模式，切换到选中状态</td>
+</tr>
+
+<tr>
+<td class="org-left">mark-whole-buffer</td>
+<td class="org-left">c-x h</td>
+<td class="org-left">文档全选</td>
+</tr>
+
+<tr>
+<td class="org-left">kill-region</td>
+<td class="org-left">c-w</td>
+<td class="org-left">cut 剪切操作</td>
+</tr>
+
+<tr>
+<td class="org-left">kill-ring-save</td>
+<td class="org-left">m-w</td>
+<td class="org-left">copy 复制操作</td>
+</tr>
+
+<tr>
+<td class="org-left">kill-line</td>
+<td class="org-left">c-k</td>
+<td class="org-left">删除光标到行尾的所有内容</td>
+</tr>
+
+<tr>
+<td class="org-left">delete-char</td>
+<td class="org-left">c-d</td>
+<td class="org-left">删除光标所在字符</td>
+</tr>
+
+<tr>
+<td class="org-left">delete-backward-char</td>
+<td class="org-left">退格键</td>
+<td class="org-left">删除光标前的字符</td>
+</tr>
+
+<tr>
+<td class="org-left">yank</td>
+<td class="org-left">c-y</td>
+<td class="org-left">past 粘帖操作</td>
+</tr>
+
+<tr>
+<td class="org-left">yank-pop</td>
+<td class="org-left">m-y</td>
+<td class="org-left">粘帖剪切板中的上个内容，循环剪切板中的内容</td>
+</tr>
+
+<tr>
+<td class="org-left">undo</td>
+<td class="org-left">c-x u或c-_</td>
+<td class="org-left">撤销</td>
+</tr>
+
+<tr>
+<td class="org-left">isearch-forward</td>
+<td class="org-left">c-s</td>
+<td class="org-left">向下搜索</td>
+</tr>
+
+<tr>
+<td class="org-left">isearch-backward</td>
+<td class="org-left">c-r</td>
+<td class="org-left">向上搜索</td>
+</tr>
+
+<tr>
+<td class="org-left">save-buffer</td>
+<td class="org-left">c-x c-s</td>
+<td class="org-left">保存</td>
+</tr>
+
+<tr>
+<td class="org-left">write-file</td>
+<td class="org-left">c-x c-w</td>
+<td class="org-left">另存</td>
+</tr>
+
+<tr>
+<td class="org-left">save-buffers-kill-terminal</td>
+<td class="org-left">c-x c-c</td>
+<td class="org-left">保存并退出</td>
+</tr>
+
+<tr>
+<td class="org-left">switch-to-buffer</td>
+<td class="org-left">c-x b</td>
+<td class="org-left">切换已经打开的文件</td>
+</tr>
+
+<tr>
+<td class="org-left">kill-buffer</td>
+<td class="org-left">c-x k</td>
+<td class="org-left">关闭已经打开的文件</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<b>emacs获取帮助命令的快捷键</b>
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">命令</th>
+<th scope="col" class="org-left">快捷键</th>
+<th scope="col" class="org-left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">describe-variable</td>
+<td class="org-left">c-h v</td>
+<td class="org-left">查看某个内置Lisp变量的说明文档</td>
+</tr>
+
+<tr>
+<td class="org-left">describe-function</td>
+<td class="org-left">c-h f</td>
+<td class="org-left">查看某个内置命令的说明文档</td>
+</tr>
+
+<tr>
+<td class="org-left">describe-mode</td>
+<td class="org-left">c-h m</td>
+<td class="org-left">查看当前buffer对应的mode的说明文档</td>
+</tr>
+
+<tr>
+<td class="org-left">describe-key</td>
+<td class="org-left">c-h k</td>
+<td class="org-left">查看某个快捷键对应的命令</td>
+</tr>
+
+<tr>
+<td class="org-left">where-is</td>
+<td class="org-left">c-h w</td>
+<td class="org-left">查看某个命令绑定的快捷键</td>
+</tr>
+
+<tr>
+<td class="org-left">describe-bindings</td>
+<td class="org-left">c-h b</td>
+<td class="org-left">查看当前buffer所有的快捷键列表</td>
+</tr>
+
+<tr>
+<td class="org-left">find-function</td>
+<td class="org-left">无</td>
+<td class="org-left">查看某个内置命令的Lisp源代码</td>
+</tr>
+
+<tr>
+<td class="org-left">find-variable</td>
+<td class="org-left">无</td>
+<td class="org-left">查看某个内置变量的Lisp源代码</td>
+</tr>
+
+<tr>
+<td class="org-left">Apropos</td>
+<td class="org-left">无</td>
+<td class="org-left">模糊查询内置命令或变量的说明文档</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org8459b66" class="outline-4">
+<h4 id="org8459b66"><span class="section-number-4">6.2.4.</span> Lisp语言</h4>
+<div class="outline-text-4" id="text-6-2-4">
+<ul class="org-ul">
+<li>Lisp是世界上第一个函数性编程语言</li>
+<li>Lisp只有两种基本的数据</li>
+<li>Lisp只有唯一的一种基本语法结构——表达式</li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="org9322432"></a>Lisp的原子和表<br />
+<div class="outline-text-5" id="text-6-2-4-1">
+<ul class="org-ul">
+<li>Lisp的表达式是由一个原子（atom）或表（list）构成。</li>
+<li>原子（atom）由符号（symbol）和数值（number）构成。</li>
+<li>表是由零个或多个表达式组成的串行，表达式之间用空格分开，放入一对括号中</li>
+<li>原子和表：</li>
+</ul>
+<p>
+abc ; 原子<br />
+（）   ;  空表<br />
+（abc xyz）; 包含两个原子的表<br />
+（a b （c）d）; 包含四个原子的表，其中第三个原子本身也是表，这种表称为嵌套表。
+</p>
+</div>
+</li>
+<li><a id="org80c553f"></a>Lisp中的表达式<br />
+<div class="outline-text-5" id="text-6-2-4-2">
+<p>
+如果表达式是一个表，把表中的第一个元素叫做操作符，其余的元素叫做自变量。在lisp中，1+1的表达式的写法是：<br />
+          (+ 1 1)
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfa5adb3" class="outline-2">
+<h2 id="orgfa5adb3"><span class="section-number-2">7.</span> 第九章 特种文件系统</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org0cbf999" class="outline-3">
+<h3 id="org0cbf999"><span class="section-number-3">7.1.</span> 日志和ReiserFS</h3>
+<div class="outline-text-3" id="text-7-1">
+</div>
+<div id="outline-container-org0007538" class="outline-4">
+<h4 id="org0007538"><span class="section-number-4">7.1.1.</span> 理解日志</h4>
+<div class="outline-text-4" id="text-7-1-1">
+<ol class="org-ol">
+<li>元数据</li>
+</ol>
+<p>
+元数据就是诠释数据的数据。  作为文件系统，一定要提供存储、查询和处理数据的功能。  文件系统内部就保存了一个内部数据结构，使得这些操作成为可能，这个内部数据结构就是元数据，他为文件系统提供特定的身份和性能特征。
+</p>
+
+<p>
+元数据对于大部分人来说是不必关心的，因为元数据是专门交给文件系统的驱动程序使用的。  想要文件系统的驱动程序好好干活，它就得轻松愉快的找到元数据。  有三个要求：
+</p>
+<ul class="org-ul">
+<li>合理</li>
+<li>一致</li>
+<li>无干扰</li>
+</ul>
+
+<p>
+做不到这三点的话，驱动程序就无法理解元数据，也操作不了，那么，就只能跟文件系统说拜拜了。  
+</p>
+
+<p>
+文件系统是文件系统，文件系统的驱动程序是文件系统的驱动程序，不是一码事
+</p>
+
+<ol class="org-ol">
+<li>fsck</li>
+</ol>
+<p>
+fsck确保文件系统驱动程序要用的元数据是干净的
+</p>
+
+<p>
+每次linux启动，在没有挂接任何文件系统的时候都会启动fsck扫描/etc/fstab 文件中列出的本地文件系统；  每次linux关闭，它要把还在内存中的被称之为页面缓存中的数据传送到磁盘，还要保证把已经挂接的文件系统卸载干净。
+</p>
+
+<ol class="org-ol">
+<li>fsck的问题</li>
+</ol>
+<p>
+当linux遇到异常关机，重启后，fsck就会发现文件系统没有卸载赶紧，对应的元数据可能不干净，已经出了问题，于是fsck开始全面审查元数据，修正一切可以修正的错误，文件系统又可以正常使用了。fsck不能修复的数据，直接丢掉，且fsck全面扫描元数据，是需要长时间的运算的，这是fsck最大的弊病。
+</p>
+
+<ol class="org-ol">
+<li>日志（一个比fsck更好的解决方案）</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">&#20316;&#32773;: CYQ</p>
+<p class="date">Created: 2025-12-07 Sun 12:17</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

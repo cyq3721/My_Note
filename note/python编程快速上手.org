@@ -1,7 +1,11 @@
 #+title:python编程快速上手
 #+author:CYQ
 #+date:<2021-07-15 Thu>
-
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+num:t
+#+toc:4
 * 第1章 python基础
 ** 数学操作符
 | 操作符 | 操作       | 例子  | 求值为 |

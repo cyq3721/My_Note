@@ -1,6 +1,11 @@
 #+title:HTML5教程（W3school）
 #+author: chen
 #+data:2018-6
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
 * HTML5简介
 ** 什么是HTML5
 - HTML5 将成为 HTML、XHTML 以及 HTML DOM 的新标准。

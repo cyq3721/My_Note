@@ -1,6 +1,10 @@
 #+title:PHP菜鸟教程
 #+author:ShadowFish
 #+data: <2022-05-10 Tue>
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+num:t
+#+toc:4
 * PHP简介
 PHP是服务器端脚本语言。
 ** 应当具备的基础知识

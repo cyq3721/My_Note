@@ -1,8 +1,12 @@
 #+title:emacs文档中文化
-#+author: CHEN
-#+tags: mode相关(m) function函数相关(f) variable变量相关(v) pacakge插件相关(p) org相关(o) Python相关(P)
+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
 #+startup:indent
-#+data:<2021-05-01 Sat>
 
 * emacs插件相关
 ** COMPANY-MODE(自动补全模式) :MODE相关:

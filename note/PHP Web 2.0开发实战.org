@@ -1,4 +1,15 @@
-#+title: PHP Web 2.0开发实战
+#+title:PHP Web 2.0开发实战
+#+author:ShadowFish
+#+data:<2019-08-20 Tue>
+#+author: chen
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+num:t
+#+toc:4
+* PHP Web 2.0开发实战
+
+
 #+author: CYQ
 #+date:<2022-01-24 Mon>
 #+options: ^:{}

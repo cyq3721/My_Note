@@ -1,4 +1,14 @@
-#+title: HTML5实战宝典
+#+title:HTML5实战宝典
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
+* HTML5实战宝典
+
+
 #+author: Chen
 #+data: <2024-09-06 Fri>
 #+language:zh-CN

@@ -1,6 +1,11 @@
  #+title: 21天学会EMACS
-#+author: chen
-#+data:2017-8
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
 * Spacemacs Rocks Episode 2 -- Day one
 ** Install Emacs 
 - Mac

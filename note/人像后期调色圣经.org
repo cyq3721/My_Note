@@ -1,4 +1,13 @@
-#+TITLE: 《人像后期调色圣经》笔记
+#+title:人像后期调色圣经
+#+author:ShadowFish
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+num:t
+#+toc:4
+* 《人像后期调色圣经》笔记
+
+
 #+AUTHOR: Shadow-Fish
 #+DATA: 2016-7-8
 * 第二章

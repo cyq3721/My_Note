@@ -1,6 +1,10 @@
 #+title:shadow-fish‘s Notebook
-#+author: ShadowFish
-#+data:[2018-12-05 Wed]
+#+author: CYQ
+#+data:<2021-11-03 Wed>
+#+LANGUAGE: zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+num: t
+#+toc: 4
 * linux相关
 ** linux相关
     - [[./note/linux就是这个范儿.org][linux就是这个范儿]]
@@ -72,7 +76,7 @@
 ** Python
     - [[./note/Python从小白到大牛.org][Python从小白到大牛]]
     - [[./note/python基础教程（第三版）.org][python基础教程(第三版)]]
-    - [[./note/python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B.org][python编程快速上手]]
+    - [[./note/python编程快速上手.org][python编程快速上手]]
 * github相关
     - [[./note/github笔记.org][github笔记]]
 * 平时随笔

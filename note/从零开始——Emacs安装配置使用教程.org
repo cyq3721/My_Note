@@ -1,6 +1,11 @@
 #+title:从零开始——Emacs安装配置使用教程
-#+author: chen
-#+data:2018-6
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
 
 [[https://www.jianshu.com/p/b4cf683c25f3][本文原文链接]]
 

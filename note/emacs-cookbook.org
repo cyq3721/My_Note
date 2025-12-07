@@ -1,4 +1,14 @@
-#+TITLE: Emacs实践笔记
+#+title:emacs-cookbook
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
+* Emacs实践笔记
+
+
 #+AUTHOR: aborn
 #+DATE: 2018-08-01 09:24
 #+EMAIL: aborn.jiang@gmail.com

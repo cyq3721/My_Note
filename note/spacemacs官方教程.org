@@ -1,6 +1,11 @@
 #+title:Spacemacs官方教程
-#+author: chen
-#+data:2017-8
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
 * Quick start
 ** 1 Configuration layers
 spacemacs将其配置分为独立的单元（称为***configuration layers***(配置层)）。这些层堆叠在一起，实现自定义配置。默认情况下，spacemacs 使用称为 〜/ .spacemacs 的点文件来控制要加载的层。在这个文件中你也可以配置某些功能。

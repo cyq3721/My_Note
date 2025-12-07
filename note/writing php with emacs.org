@@ -1,4 +1,14 @@
-#+title: Writing PHP with Emacs
+#+title:Writting PHP with Emacs
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
+* Writing PHP with Emacs
+
+
 #+author: ShadowFish
 #+date: <2022-06-15 Wed>
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/org.css"/>

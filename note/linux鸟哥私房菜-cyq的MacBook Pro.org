@@ -1,4 +1,6 @@
-#+TITLE: 《LINUX鸟哥私房菜》笔记
+* 《LINUX鸟哥私房菜》笔记
+
+
 #+AUTHOR: Shadow-Fish
 #+DATA: 2016-7-3
 * 第一章 Linux是什么

@@ -1,4 +1,15 @@
-#+TITLE: MAC 下配置php开发环境
+#+title:mac下配置php开发环境
+#+author:ShadowFish
+#+data:<2019-08-20 Tue>
+#+author: chen
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+num:t
+#+toc:4
+* MAC 下配置php开发环境
+
+
 #+AUTHOR: Mr Chen
 #+DATA：<2019-08-07 Wed>
 * 配置Apache

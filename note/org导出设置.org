@@ -3,6 +3,11 @@
 #+date:<2021-06-10 ÖÜËÄ>
 #+language:zh-CN
 #+options:html-postamble:nil
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+num:t
+#+toc:4
 
 Export Settings
 - author

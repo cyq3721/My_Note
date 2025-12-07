@@ -1,0 +1,262 @@
+#+title: Writing PHP with Emacs
+#+author: ShadowFish
+#+date: <2022-06-15 Wed>
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/org.css"/>
+
+* php -mode
+** 概述
+php-mode项目主页：https://github.com/emacs-php/php-mode
+
+顾名思义，php-mode是Emacs中编辑php文件的主模式（major mode），在之前的几年它有两个不同的版本，但是现在开发者主要维护GitHub上的版本。
+
+** 安装
+php-mode可以用两种不同的方式安装，但是强烈建议使用 install-package 命令从Melpa上安装最新版本。
+
+Melpa上的版本经常会有功能更新和bug修复， 并且支持PHP新版的特性。 使用以下方式安装：
+
+M-x install-package php-mode
+
+当php-mode安装好以后，把一下代码添加到Emacs初始化文件（init.el）中， 当打开PHP文件时启用php-mode:
+
+#+begin_quote
+（use-package php-mode
+    :commands php-mode
+    :mode     "\\.php\\'"
+）
+#+end_quote
+
+如要关联.inc或.module文件，可以像以下方式更改:mode段
+#+begin_quote
+(use-package php-mode
+    :commands php-mode
+    :mode  (
+            ("\\.php\\'"    . php-mode)
+            ("\\.inc\\'"    . php-mode)
+            ("\\.module\\'" . php-mode)
+)
+)
+#+end_quote
+
+其它文件的关联方式和上面一样。 现在，是时候看看php-mode能够做些什么了！
+
+** First Steps
+相比于原生的Emacs， php-mode带来很多额外的功能：
+   - php文件可以语法高亮
+   - 代码自动缩进
+   - 可以使用命令：php-current-class 跳转到当前类
+   - 可以查看php函数、关键字的文档
+   - 可以通过命令：php-beginning-of-defun 和php-end-of-defun 在函数段的开头和结尾进行导航
+   - 我们可以通过命令：using-php-send-regin 执行一个代码区域， 并且在缓冲区显示结果。   - 我们可以通过命令：php-run-builtin-web-server， 在emacs中开启web服务器运行php
+
+     我们将在这一章节中通过详细的实例来解说这些功能。
+
+** 有用的快捷键
+php-mode自带了许多内置的快捷键，它们被分成了三大类
+   - 在当前文件移动的导航类
+   - 查询文档和函数定义函数引用的快捷键
+   - 修改代码或修改当前的缩进设置的快捷键
+
+以下是这些分类中的常用的快捷键
+*** C-M-a （php—beginning-of-defun）
+    把光标移动到函数定义的开始处。
+    这个快捷键会向后移动光标直到遇到包含函数定义的行，如果没有遇到函数，光标会一直移动到文件开头。
+*** C-M-e （php-end-of-defun）
+    把光标移动到当前函数定义的末尾。
+    这个快捷键的工作方式和C-M-a是完全不一样的，它需要光标位于函数定义内。
+    如果光标不在函数定义内，光标会移动到文件末尾。
+*** M-.
+    跳转到光标所在位置的关键词的定义处
+    这个快捷键并不能100%成功（会给出一个所有使用这个关键词的列表），但是90%的情况下是ok的，为保证成功运行，需要一个TAG文件。
+*** C-c <RET> （php-browse-manual）查看php手册
+    这个快捷键会打开一个php手册的索引，默认情况下会打开在线php文档，它同时也支持安装好并设置号的本地文档。
+*** C-c C-f （php-search-documentation）
+    在php文档中查找当前光标处的关键词
+*** C-. （php-show-arglist）
+    在光标处显示参数，需要一个TAG文件来获取正确的数据
+*** C-c .  （php-set-style）
+    为当前的缓冲区选择代码样式。
+    强烈建议创建一个配置文件 .dir-locals.el, 在开始现目前进行自动配置，比在项目中手动配置要号。 
+** 自定义 - 缩进和代码样式
+不同的项目经常使用不同的代码样式，例如，在Drupal中使用2个字符的缩进方式，而在WordPress中则使用4个字符的缩进。
+
+谢天谢地 php-mode有快速切换代码样式的方式，以下几种代码样式是内置的：
+     - default
+     - drupal
+     - pear
+     - psr2
+     - symfony2
+     - sordpress
+
+php-mode有两种方式去设定当前buffer的代码样式：
+    - 使用命令：php-set-style，然后在设置列表中选择代码样式。
+    - 通过调用：php-enable-<standard>-coding-style 直接设置样式。 例如，要启用drupal样式，可有使用：M-x php-enable-drupal-coding-style.
+
+使用配置文件 .dir-locals.el, 配置变量 php-project-coding-style, 可以在加载php文件时自动启用特殊的代码样式。
+
+在不改变代码样式的前提下改变缩进，可以编辑如下的Emacs初始化文件
+#+begin_quote
+(use-package php-mode
+    ……
+    :custom
+     (indent-tabs-mode nil)
+     (tab-width     2)
+     (c-basic-coffset   2)
+)
+#+end_quote
+ 这个配置将使用两个空格的缩进方式。要注意的是，这个配置将在所有的php文件buffer中使用。
+**  自定义 - 文档查询
+默认情况下，使用命令：php-search-documentation  查询的是php的在线文档。
+使用本地文档进行搜索，速度上更快，同时，在经常离线的情况下也更为实用。
+
+*** 建立本地文档的步骤如下：
+- 从php官网下载文档
+- 下载好后，解压缩
+- 复制解压后的文件到一个目录
+- 把文档的路径设置给变量 php-manual-path，如果使用use-package，这个变量可以用在：custom 关键字中，如下：
+
+  #+begin_quote
+  (use-package php-mode
+      ……
+      :custom
+      (php-manual-path "路径")
+  )
+  #+end_quote
+
+  如果没有使用use-package，则使用以下命令，配置php-manual-path变量：
+  #+begin_quote
+  (setq php-manual-path "路径")
+  #+end_quote
+
+** 自定义 - 在emacs内浏览php在线文档
+C-c RET 执行php-browse-manual，这通常会使用系统默认的浏览器打开php在线手册。
+
+如要使用emacs内置的eww，需要增加以下的配置代码：
+#+begin_quote
+(setq browse-url-browser-function #'eww-browse-url)
+#+end_quote
+
+配置好后，使用C-c C-f 或 C-c Ret 就可以在emacs内打开php在线文档
+
+** 自定义 - 生成TAGS文件
+Emacs能使用TAGS文件查找项目中的模块定义。 因为TAGS文件存储了文件名和文件路径位置，这就使得跳转到函数的定义要比手工搜索快的多。
+
+PHP项目的一个TAGS文件一般包含所有的类列表、容器和函数定义。
+
+生成一个PHP项目的TAGS文件需要安装ctags（Exuberant Ctags），Ctags这个项目的新的名称为：Universal Ctags。 这也是我们将要生成的TAGS文件
+
+** 安装ctags
+在 [[http://ctags.io][Universal Ctags homepage]] 有在多个平台上安装、编译ctags的详细的教程。
+
+* Web-mode
+** 概述
+emacs自带html-mode，一个编辑html内容的功能强大的major mode。 在纯html内容中，它足够好用，但是，一旦html中嵌入了其他模板语言，它就不能很好的完成缩进和语法高亮
+
+像mumamo和mmm-mode这样的扩展包，能够把几种major mode混合在一起使用，但是这个解决方案并不足够智能，在内部切换模式并不是每次都准确，并且在大规模的buffer中会带来性能损失。所以它们更合适与偶尔短期使用，并不能长期解决问题。
+
+web-mode是专门为编辑具有嵌入式模板语言的HTML而设计的主要模式。
+** 安装启用web-mode
+#+begin_quote
+(use-package web-mode
+     :commands web-mode)
+#+end_quote
+** 配置php-mode为php文件的打开模式
+默认情况下，php-mode并没有关联php文件，通过以下设置进行关联
+#+begin_src lisp
+        (use-package web-mode
+           :commands web-mode
+           :mode
+               (("\\.html\\'" . web-mode)
+                ("\\.phtml\\'" . web-mode)
+                ("\\.tpl\\.php\\'" . web-mode)
+                ("\\.html\\.twig\\'" . web-mode)))
+#+end_src
+
+如果不使用use-package，则使用以下代码：
+#+begin_src lisp
+  (require 'web-mode) 23 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+      (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+      (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+      (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
+#+end_src
+** 开启代码的语法高亮
+#+begin_src elisp
+ (use-package web-mode
+    :commands web-mode
+    :mode
+       (("\\.html\\'" . web-mode) 5 ("\\.phtml\\'" . web-mode) 6 ("\\.tpl\\.php\\'" . web-mode) 7 ("\\.html\\.twig\\'" . web-mode))
+    :config
+    ;; Set PHP as the embedded language for phtml/tpl.php files.
+       (add-to-list 'web-mode-engines-alist
+      '(("php" . "\\.phtml\\'")
+        ("php" . "\\.tpl\\.php\\'")))
+
+    ;; Set Django as the embedded language for Twig files.
+       (add-to-list 'web-mode-engines-alist
+      '("django" . "\\.html\\.twig\\'")))
+ ;;The none use-package version looks like this:
+ ;; Set PHP as the embedded language for phtml/tpl.php files.
+ (add-to-list 'web-mode-engines-alist
+ '(("php" . "\\.phtml\\'") 4 ("php" . "\\.tpl\\.php\\'")))
+ ;; Set Django as the embedded language for twig files.
+ (add-to-list 'web-mode-engines-alist
+ '("django" . "\\.html\\.twig\\'"))
+#+end_src
+
+** 常用的快捷方式
+*** C-c C-n
+在开始标记和结束标记之间跳转
+*** C-c C-e b
+在当前元素的头、尾跳转
+
+
+** 代码段（Snippets）
+web-mode自带了代码段引擎。
+
+通过C-c C-s在当前位置插入代码段
+
+*** 一个Snippets的例子
+#+begin_src elisp
+  (setq web-mode-extra-snippets
+      '(("php" . (("foreach" . "<?php foreach ( $items as $item ) : ?>\n(|)\n<?php endforeach; ?>")))))
+#+end_src
+插入后是如下的样式：
+#+begin_src elisp
+   <?php foreach ( $items as $item ) : ?>
+
+   <?php endforeach ?>
+#+end_src
+* 使用flycheck进行语法检查
+现在的IDE通常都自带实时的语法检查。感谢flycheck的魔法，Emacs能够在你输入代码时实时的进行语法检查。
+
+flycheck支持24.3或以上版本的emacs，它的最佳工作环境是Unix系统，但是也能在Windows上兼容。
+** 安装和启用flycheck
+- 开启flycheck
+#+begin_src elisp
+    (use-package flycheck
+        :dimnish flycheck-mode)
+#+end_src
+- 在对应的模式开始flycheck
+  #+begin_src elisp
+    (use-package php-mode
+        :hook (php-mode . flycheck))
+  #+end_src
+- 在所有的模式中全局开始flycheck
+  可以调用以下代码：
+  #+begin_src elisp
+    ;; Load flycheck and enable it for all modes.
+ (use-package flycheck
+    :diminish flycheck-mode
+    :hook (after-init . global-flycheck-mode))
+  #+end_src
+** 安装php语法检查
+在编辑PHP时，flycheck提供3个主要的语法检测：php、phpcs和phpmd
+- php
+  检查语法错误，他并不是时刻抓取一切，但对发现打错字和一些其它错误非常有帮助
+- phpcs
+  检测标准错误。 他能高亮显示正确的函数名称，缩进错误，和其他一些不符合特定标准的代码区域，这对于提交到其它项目和团队工作很有用处。
+- phpmd
+  检查样式错误，这包括太多行的函数、未定义的函数参数和在代码中的空变量。
+
+  所有的这些checkers都将在安装后自动启用，稍后，我们会学习如何在全局或特定的项目中关闭和启用。
+** flycheck项目主页
+https://www.flycheck.org/en/latest/community/extensions.html#php

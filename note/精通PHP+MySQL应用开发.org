@@ -1,8 +1,12 @@
-
 #+title:精通PHP+MySQL应用开发
 #+author:ShadowFish
 #+data:<2019-08-20 Tue>
- 
+#+author: chen
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+num:t
+#+toc:4
 * 第一章 初识PHP
 ** 初识PHP
 建PHP开发环境， 并实现第一个PHP程序。

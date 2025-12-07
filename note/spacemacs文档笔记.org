@@ -1,4 +1,6 @@
-#+title: spacemacs文档笔记--配置layer
+* spacemacs文档笔记--配置layer
+
+
 #+author: Chen
 #+data: <2021-12-11 Sat>
 

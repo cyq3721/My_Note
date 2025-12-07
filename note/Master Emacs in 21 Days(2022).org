@@ -3,6 +3,8 @@
 #+data:<2024-11-29 五>
 #+LANGUAGE:zh-CN
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+num:t
+#+toc:4
 * 第一天 准备开始（安装与改键）
 ** 说在最前面
 如果你第一次听说 Emacs 你可以在[[https://emacs.sexy][性感的 Emacs（Emacs is Sexy）]]一文中找到使用它的理 由！我相信你一定会被它的强大所吸引。

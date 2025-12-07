@@ -1,3 +1,5 @@
+*  神奇中的神器org-mode之入门篇
+
 #+title:org-mod学习笔记
 #+author: ShadowFish
 #+data:[2018-12-05 Wed]
@@ -16,7 +18,7 @@ Emacs23以后已经默认包含有org-mode。
 ** 标题
 文章中可以通过 #+TITLE： 来设置标题。 如：
 #+BEGIN_QUOTE
-#+TITLE:  神奇中的神器org-mode之入门篇
+
 #+END_QUOTE
 正文中的标题可以通过*，后面要跟空格，然后再输入想要的标题就可以了。  一个*表示一级，最多可以有10级标题。
 ** 段落
