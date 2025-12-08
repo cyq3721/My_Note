@@ -1,8 +1,8 @@
 #+title:《linux就该这么学》
 #+author: ShadowFish
 #+data: <2019-01-04 Fri>
-#+num: t
-#+toc: 4
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+options: num:t toc:4 author:t date:t
 * 第一章 部署虚拟环境安装Linux系统
 ** 重置root管理员密码
 针对RHEL 7 系统，重启linux系统主机并出现引导界面时，按下键盘上的e键进入内核编辑界面，在linux16参数这行的最后追加“rd.break”参数，然后按下Ctrl + X 组合键来运行修改过的内核程序。  大约30秒后，进入到系统的紧急救援模式，依次输入以下命令：

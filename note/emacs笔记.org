@@ -1,3 +1,9 @@
+#+title:shadow-fish‘s Notebook
+#+author: CYQ
+#+data:<2021-11-03 Wed>
+#+LANGUAGE: zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+options: num:t toc:4 author:t date:t
 * Emacs学习笔记
 
  醃

@@ -4,8 +4,7 @@ author:CYQ
 #+LANGUAGE:zh-CN
 #+ATTR_ORG::width 400
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
 
 * 万无一失的绑定方法
 很多任绑定一些比较特殊的键的时候，都搞不清楚在 （global-set-key ... 'my-funtion') 里写些什么。 特别是在xterm里的时候就更不知所措了。 其实有一个万无一失的办法保证你一定写对。 这个办法就是：

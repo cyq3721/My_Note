@@ -3,8 +3,7 @@
 #+data:<2021-11-03 Wed>
 #+LANGUAGE: zh-CN
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
-#+num: t
-#+toc: 4
+#+options: num:t toc:4 author:t date:t
 * 一些命令
 ** screenfetch命令
 显示manjaro的详细系统信息

@@ -4,8 +4,7 @@
 #+LANGUAGE:zh-CN
 #+ATTR_ORG::width 400
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
 * 前言
 Emacs 是史上最古老的編輯器之一，然而因為許多原因，入門並不是太容易。
 

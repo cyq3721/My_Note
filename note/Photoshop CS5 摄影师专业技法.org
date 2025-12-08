@@ -1,6 +1,9 @@
 #+TITLE:Photoshop CS5 摄影师专业技法
 #+AUTHOR: CHEN
 #+date:<2019-12-14 Sat>
+
+#+options: num:t toc:4 author:t date:t
+
 * 配置photoshop
 ** photoshop首选项
 *** 常规

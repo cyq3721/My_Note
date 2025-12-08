@@ -3,8 +3,7 @@
 #+data:<2021-11-03 Wed>
 #+LANGUAGE: zh-CN
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
-#+num: t
-#+toc: 4
+#+options: num:t toc:4 author:t date:t
 * linux相关
 ** linux相关
     - [[./note/linux就是这个范儿.org][linux就是这个范儿]]
@@ -12,6 +11,9 @@
     - [[./note/linux就该这么学.org][linux就该这么学]]
     - [[./note/manjaro.org][Manjaro Linux日常记录]]
 ** emacs相关
+     - [[file:note/Emacs dired使用指南.org][Emacs Dired使用指南]]
+     - [[file:note/emacs笔记.org][emacs笔记]]
+     - [[file:note/use-package.org][use-package详细说明]]
      - [[file:note/Emacs自力求生指南——前言.org][Emacs自力求生指南——前言.org]]
      - [[file:note/Emacs自力求生指南.org][Emacs自力求生指南——自己写配置.org]]
      - [[./note/emacs完全补完计划.org][emacs完全补完计划]]
@@ -32,7 +34,7 @@
      - [[./note/Master Emacs in 21 Days.org][Master Emacs in 21 Days]]
      - [[./note/Master Emacs in 21 Days(2022).org][Mater Emacs in 21 Days(2022)]]
      - [[./note/org导出设置.org][org导出设置]]
-     - [[./note/%E7%8E%8B%E5%9E%A0%E7%9A%84Emacs%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE.org][王垠的Emacs的简单设置]]
+     - [[./note/王垠的Emacs简单设置.org][王垠的Emacs的简单设置]]
      - [[./note/Spacemacs Rocks Episode2.org][子龙山人emacs 21天视频教程笔记]]
      - [[./note/Emacs Fill详解.org][Emacs Fill详解]]
      - [[./note/Emacs绑定键盘的技巧.org][Emacs绑定键盘的技巧]]
@@ -43,7 +45,7 @@
      - [[./note/vi教程.org][vi教程]]
 * Web开发
 ** html相关
-     - [[./note/Html & CSS 设计与构建网站.org][ Html & CSS 设计与构建网站]]
+     -[[./note/Html & CSS 设计与构建网站.org][ Html & CSS 设计与构建网站]]
      - [[./note/HTML5教程.org][HTML5教程]]
      - [[./note/《精通HTML5+CSS3+JavaScript网页设计》.org][精通HTML5+CSS3+JavaScript网页设计]]
      - [[./note/JavaScript和jQuery.org][JavaScript和jQrery 交互式web前端开发]]

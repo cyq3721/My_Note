@@ -5,8 +5,8 @@
 #+STARTUP: indent
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
 #+data:2017-8
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
+
 * 第1章 快速上手：基础知识
 ** 进入python的交互环境
  1. mac OS 或 linux/Unix下

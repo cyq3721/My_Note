@@ -4,8 +4,7 @@
 #+LANGUAGE:zh-CN
 #+ATTR_ORG::width 400
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
-#+num:t
-#+toc:4o
+#+options: num:t toc:4 author:t date:t
 * 第一章 一个 Hello World 的例子
 ** Hello World
 自动 K&R 以来， hello world 程序历来都是程序语言教程的第一个例子。 我们也用一个hello world 的例子来演示 emacs 里执行 elisp 的环境。 
