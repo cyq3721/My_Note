@@ -1,8 +1,9 @@
 #+title: web前端开发
 #+author:CYQ
 #+DATA: <2025-12-07 Sun>
-#+num:t
-#+toc:4
+LANGUAGE: zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+options: num:t toc:4
 * Web前端开发
 
 
