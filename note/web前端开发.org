@@ -1279,6 +1279,124 @@ cuyong        .text_decoration2{
 #+begin_src css
 text-indent:32px; // 首行缩进 32px，默认字体大小 16px 的情况下，将首行缩进两个字
 #+end_src
+** 第7章 CSS3新增属性与选择器
+*** 本章 目标
+- 熟练使用CSS3的过渡和变换属性。
+- 掌握CSS3动画的声明及调用
+- 了解CSS3新增的各类选择器的使用
+   
+***  CSS3的过渡与变换
+**** transition 过渡属性
+CSS 的transition允许 CSS 的属性值在一定的时间区间内平滑地过渡。这种效果可以在鼠标单击、获得焦点、被单击或对元素任何改变中触发，并圆滑地以动画效果改变 CSS 的属
+性值。transition 属性具体可分为以下四个子属性；
+| 属性名                      | 介绍                | 属性值                               |
+| transition-delay           | 过渡开始前的延迟时间    | 默认值是0,以秒或毫秒巍为单位             |
+| transition-duration        | 过渡开始到过渡完成的时间 | 默认值是0,以秒或毫秒为单位               |
+| gransition-property        | 参与过渡的属性         | 可以单独指定某个css属性，也可以写all/none |
+| transition-timing-function | 过渡的样式函数         | linear、ease、ease-in，ease-out，默认ease |
+
+- 基本语法如下：
+#+begin_src css
+transition:all 0.3s ease 2s;
+#+end_src
+
+- transition-timing-function(过渡效果的运行速度）
+  - ease（逐渐变慢）默认值 ，可省略。
+  - linear（匀速）
+  - ease-in（加速）
+  - ease-out（减速）
+  - ease-in-out（加速然后减速）
+
+实例：
+#+begin_src css
+<style type="text/css">
+#testTransition{
+width: 100px;
+height: 20px;
+background-color: blue;
+/* 宽度属性过渡效果，过渡时长 2s，延时 0.2s 开始执行 */
+transition:width 2s .2s;
+-moz-transition:width 2s .2s; /*兼容 Firefox 浏览器，详见注解说明 */
+-webkit-transition:width 2s .2s; /*兼容 Safari 浏览器 */
+}
+#testTransition:hover{
+width: 200px;
+}
+</style>
+#+end_src
+
+**** transform 变换属性
+通过使用变换属性可以对元素进行旋转、拉伸、翻转、缩放等操作。变换属性分为 2D变换与 3D 变换，通常与过渡属性搭配使用，来完成一些简单的动画效果。
+
+常见的变换属性有两个：
+#+begin_quote
+1） transform：定义元素向 2D 或 3D 变换。
+2） transform-origin：改变转换元素的位置。
+#+end_quote
+
+详情参照手册
+
+
+*** CSS3动画
+CSS3 动画是指使用 CSS 代码让网页中的元素运动起来形成的动画。CSS3 的动画功能可以在许多网页中取代动画图片、Flash 动画以及 JavaScript 动画等，使网页变得更加炫丽丰富。
+
+**** ＣＳＳ３ 动画的＠ｋｅｙｆｒａｍｅｓ 和 ａｎｉｍａｔｉｏｎ
+7.1 节讲到的过渡和变换其实也是一种动画，只是动了一次的动画，而动画属性可以看成是多次过渡和变换的组合，同时可以设置播放次数，具有控制播放和暂停等功能。
+***** 使用@keyframes创建关键帧动画
+@keyframes 用于创建动画。在 @keyframes 中设置 CSS 样式，就能创建由当前样式逐渐改为新样式的动画效果。
+
+- 基本语法如下
+#+begin_src css
+@keyframes 动画名称{
+阶段 1{CSS 样式}
+阶段 2{CSS 样式}
+阶段 3{CSS 样式}
+}
+#+end_src
+
+- 动画中阶段的写法有两种方式：
+  1） 每个阶段用百分比表示，从 0%到 100%（起止必须设置，即 0%和 100%）
+。
+  2） 使用 from 和 to 表示从某阶段到某阶段。
+
+代码示例如下：
+#+begin_src css
+<style type="text/css">
+/* 使用 0%到 100%表示（起止必须设置，即 0%和 100%）*/
+@keyframes myFrame1{
+0%{
+top: 0px;
+}
+30%{
+top: 50px;
+}
+100%{
+top: 100px;
+}
+}
+/* 使用 from-to 直接表示开始结尾，样式会匀速变化*/
+@keyframes myFrame2{
+from{
+top:0px;
+}
+to{
+top: 100px;
+}
+}
+</style>
+#+end_src
+***** 使用animation调用关键帧动画
+2．使用 animation 调用关键帧动画
+创建好一个动画后，需要在 CSS 选择器中使用 animation 动画属性，调用声明好的关键帧动画。动画属性中必须有动画名称和时长，否则动画不生效
+
+基本语法如下：
+#+begin_src css
+div{
+/* 让 div 调用 myFrame1 这个关键帧动画，5s 完成所有动画效果*/
+animation: myFrame1 5s;
+}
+#+end_src
+
 ** 第8章 CSS盒模型与浮动
 *** 学习目标
 - 了解 CSS 盒模型的基本概念。
