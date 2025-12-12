@@ -3,8 +3,8 @@
 #+data:2017-7
 #+LANGUAGE:zh-CN
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
+
 * 第1章 结构(Structure)
 ** 本章概要
 - 理解结构

@@ -1,7 +1,8 @@
 #+title: 王垠的Emacs的简单设置
 #+author： ShadowFish
 #+data:<2021-06-20 Sun>
-
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+options: num:t toc:4 author:t date:t
 我觉得这里的设置对我来说比缺省的设置方便。
 
 (setq visible-bell t)

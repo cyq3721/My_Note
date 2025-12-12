@@ -4,8 +4,7 @@
 #+LANGUAGE:zh-CN
 #+ATTR_ORG::width 400
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
 * Eamcs是什么？
 [[https://nyk.ma/ox-hugo/%e6%b7%b1%e5%ba%a6%e6%88%aa%e5%9b%be_st_20200211121730.png]]
 就我理解， Emacs 是一个长得像文本编辑器的 REPL ：

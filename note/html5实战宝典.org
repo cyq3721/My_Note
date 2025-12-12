@@ -4,8 +4,8 @@
 #+LANGUAGE:zh-CN
 #+ATTR_ORG::width 400
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
+
 * HTML5实战宝典
 
 

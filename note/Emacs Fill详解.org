@@ -4,8 +4,8 @@ author:CYQ
 #+LANGUAGE:zh-CN
 #+ATTR_ORG::width 400
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
+
 本文链接：[[https://docs.huihoo.com/homepage/shredderyin/emacs_fill.html]]
 * Emacs 中的prefix
 Emacs具有非常智能的文本编辑能力。 它可以自动对文字断行，并且在断开的行首都加入一些prefix（前缀）。 你编辑C程序多行注释的时候，你想要编辑器能够自动缩进到合适的位置并且插入一个“*”， 就像下面那样：

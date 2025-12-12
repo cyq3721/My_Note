@@ -4,8 +4,7 @@ author:CYQ
 #+LANGUAGE:zh-CN
 #+ATTR_ORG::width 400
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
 
 *  我要不要使用别人的配置
 现在 Emacs 社区已经有了相当多的「明星配置包」，比如 Spacemacs 、 Purcell 、 Doom Emacs 等。

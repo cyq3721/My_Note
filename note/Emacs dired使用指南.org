@@ -1,0 +1,103 @@
+#+TITLE: Emacs Dired 使用指南
+#+AUTHOR: Qwen
+#+DATE: 2025-12-08
+#+LANGUAGE: zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+options: num:t toc:4 author:t date:t
+
+* 简介
+Emacs 中的 *Dired*（Directory Editor）是一个功能强大的文件管理器，集成在 Emacs 中，允许你以类 Unix 的方式浏览、操作文件和目录。
+
+* 启动 Dired
+- =C-x d= :: 打开 Dired，输入要浏览的目录路径。
+- =M-x dired= :: 同上。
+- =C-x C-j= :: 跳转到当前文件所在目录的 Dired 视图（需启用 =dired-x= 或 =dired-jump=）。
+
+* 基本导航
+| 快捷键 | 功能 |
+|--------+------|
+| =n= / =p= | 下一项 / 上一项 |
+| =RET= | 进入目录（若光标在目录上）或打开文件（若在文件上） |
+| =^= | 返回父目录 |
+| =g= | 刷新当前目录（revert buffer） |
+
+* 标记与操作文件
+
+** 标记（Marking）
+- =m= :: 标记当前文件/目录（显示为 =*=）
+- =u= :: 取消标记
+- =t= :: 切换所有标记（toggle marks）
+- =*.= :: 取消所有标记
+- =* /= :: 标记所有目录
+- =* s= :: 标记所有符号链接
+- =% m REGEXP RET= :: 用正则表达式标记匹配的文件
+
+** 常用操作
+- =D= :: 删除已标记的文件（或当前文件）
+- =C= :: 复制已标记的文件（提示目标路径）
+- =R= :: 重命名或移动
+- =S= :: 创建符号链接（symbolic link）
+- =H= :: 创建硬链接（hard link）
+- =+= :: 创建新目录
+- =!= :: 对当前（或标记的）文件执行 shell 命令（如 =chmod=、=tar= 等）
+
+* 其他实用功能
+
+** 查看文件详情
+- =(= :: 显示/隐藏详细信息（权限、所有者等）
+- =s= :: 切换排序方式（名称、时间、大小等）
+
+** 子目录操作
+- =i= :: 在当前行插入子目录内容（展开子目录）
+- =C-u i= :: 递归插入子目录（需 =dired-subtree= 等扩展）
+
+** 批量重命名
+进入可编辑 Dired 模式（wdired）：
+1. 标记需要重命名的文件
+2. 按 =C-x C-q=（或 =M-x wdired-change-to-wdired-mode=）
+3. 直接编辑文件名
+4. 按 =C-c C-c= 应用更改；按 =C-c C-k= 取消
+
+> 注意：=Q= 是对文件 *内容* 执行查询替换（=dired-do-query-replace-regexp=），不是重命名文件名。
+
+* 配置建议
+在 =~/.emacs= 或 =init.el= 中添加以下设置以提升体验：
+
+#+begin_src emacs-lisp
+;; 自动刷新 Dired 缓冲区
+(setq dired-auto-revert-buffer t)
+
+;; 启用 wdired（可写 Dired）
+(require 'wdired)
+
+;; Windows 下使用 ls-lisp 替代系统 ls（保证一致性）
+(when (eq system-type 'windows-nt)
+  (require 'ls-lisp))
+
+;; 显示隐藏文件，使用人类可读大小
+(setq dired-listing-switches "-alh")
+#+end_src
+
+* 快捷键速查表
+| 快捷键       | 功能                     |
+|--------------+--------------------------|
+| =C-x d=      | 打开 Dired               |
+| =RET=        | 进入目录 / 打开文件      |
+| =^=          | 返回上级目录             |
+| =m= / =u=    | 标记 / 取消标记          |
+| =D=          | 删除                     |
+| =C=          | 复制                     |
+| =R=          | 重命名或移动             |
+| =+=          | 创建目录                 |
+| =!=          | 执行 shell 命令          |
+| =g=          | 刷新缓冲区               |
+| =C-x C-q=    | 进入 wdired 可编辑模式   |
+
+* 推荐扩展插件
+- =dired-sidebar= :: 侧边栏式文件浏览器
+- =dired-ranger= :: 支持多窗格、快速复制移动
+- =diredfl= :: 为 Dired 添加彩色高亮
+- =all-the-icons-dired= :: 在 Dired 中显示图标（需 =all-the-icons=）
+
+* 小结
+Dired 是 Emacs 内置的强大文件管理工具。熟练掌握后，几乎无需离开 Emacs 即可高效完成日常文件操作。结合 wdired 和正则标记，可实现高度自动化的批量处理。

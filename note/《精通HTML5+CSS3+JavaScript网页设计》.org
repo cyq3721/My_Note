@@ -3,8 +3,8 @@
 #+data: 2018-8
 #+LANGUAGE:zh-CN
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
+
 * 第一章概述
 ** Web基础
 *** 关于web常见的三种定义

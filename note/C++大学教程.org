@@ -3,8 +3,8 @@
 #+data:<2019-07-29 Mon>
 #+STARTUP: indent
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
+
 
 * 第1章 计算机和C++简介
 ** 学习目标

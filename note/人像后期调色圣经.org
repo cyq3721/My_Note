@@ -3,8 +3,8 @@
 #+STARTUP: indent
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
 #+data:2017-8
-#+num:t
-#+toc:4
+#+options: num:t toc:4 author:t date:t
+
 * 《人像后期调色圣经》笔记
 
 
