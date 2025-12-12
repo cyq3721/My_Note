@@ -1,0 +1,194 @@
+#+TITLE: MySQL使用指南
+#+author: CYQ
+#+data:<2021-11-03 Wed>
+#+LANGUAGE: zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+options: num:t toc:4 author:t date:t
+* 1. MySQL简介
+** 特点
+- 开源免费：根据GNU通用公共许可证（GPL）分发
+- 跨平台：支持Linux、Windows、macOS等操作系统
+- 高性能：通过优化查询算法、索引和缓存提供高效数据处理
+- 可靠性：提供事务处理、恢复和故障转移机制
+- 易用性：直观的SQL语法和丰富的管理工具
+- 灵活性：支持多种存储引擎（InnoDB、MyISAM、Memory等）
+- 安全性：提供用户认证、访问控制、数据加密等安全特性
+
+** 语言基础
+- DDL（Data Definition Language）：数据定义语言，用于定义或改变表结构（CREATE, DROP, ALTER）
+- DML（Data Manipulation Language）：数据操作语言，用于数据增删改（INSERT, UPDATE, DELETE）
+- DQL（Data Query Language）：数据查询语言，用于查询数据（SELECT, FROM, WHERE）
+- DCL（Data Control Language）：数据控制语言，用于设置或更改用户权限（GRANT, REVOKE）
+
+* 2. 安装与配置
+
+** Windows安装
+- 下载msi安装包：从MySQL官网下载
+- 安装过程：
+  - 勾选"Include Bin Directory in Windows PATH"（将MySQL命令行工具添加到环境变量）
+  - 为root账号设置密码
+- 服务管理：
+  - 启动服务：net start mysql
+  - 停止服务：net stop mysql
+
+** Linux安装（以Ubuntu为例）
+#+begin_src bash
+sudo apt update
+sudo apt install mysql-server
+sudo systemctl start mysql
+sudo systemctl enable mysql
+#+end_src
+
+** 初始配置
+#+begin_src bash
+sudo mysql_secure_installation
+#+end_src
+- 设置root密码
+- 移除匿名用户
+- 禁止root远程登录
+- 移除测试数据库
+- 重新加载权限表
+
+* 3. 基本操作
+
+** 连接MySQL
+#+begin_src bash
+mysql -u root -p
+#+end_src
+
+** 数据库操作
+- 显示所有数据库：SHOW DATABASES;
+- 创建数据库：CREATE DATABASE dbname;
+- 使用数据库：USE dbname;
+- 删除数据库：DROP DATABASE dbname;
+
+** 表操作
+- 显示表：SHOW TABLES;
+- 创建表：
+  #+begin_src sql
+  CREATE TABLE users (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      username VARCHAR(50) NOT NULL UNIQUE,
+      email VARCHAR(100) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+  #+end_src
+- 查看表结构：DESCRIBE table_name;
+- 删除表：DROP TABLE table_name;
+- 清空表：TRUNCATE TABLE table_name;
+
+** 数据操作
+- 插入数据：INSERT INTO table_name (col1, col2) VALUES (val1, val2);
+- 查询数据：SELECT * FROM table_name WHERE condition;
+- 更新数据：UPDATE table_name SET col1=val1 WHERE condition;
+- 删除数据：DELETE FROM table_name WHERE condition;
+
+* 4. 数据库导出与导入
+
+** 导出数据库
+- 使用mysqldump命令：
+  #+begin_src bash
+  mysqldump -u username -p database_name > backup.sql
+  #+end_src
+
+- 导出指定表：
+  #+begin_src bash
+  mysqldump -u username -p database_name table_name > table_backup.sql
+  #+end_src
+
+- 导出压缩文件：
+  #+begin_src bash
+  mysqldump -u username -p database_name | gzip > backup.sql.gz
+  #+end_src
+
+- 导出整个数据库服务器：
+  #+begin_src bash
+  mysqldump -u username -p --all-databases > all_databases.sql
+  #+end_src
+
+** 导入数据库
+- 使用mysql命令：
+  #+begin_src bash
+  mysql -u username -p database_name < backup.sql
+  #+end_src
+
+- 导入压缩文件：
+  #+begin_src bash
+  gunzip < backup.sql.gz | mysql -u username -p database_name
+  #+end_src
+
+** 导出为CSV格式
+#+begin_src sql
+SELECT * INTO OUTFILE '/path/to/output.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+FROM table_name;
+#+end_src
+
+* 5. 常用命令
+
+** 服务管理
+- 启动MySQL服务：sudo systemctl start mysql
+- 停止MySQL服务：sudo systemctl stop mysql
+- 重启MySQL服务：sudo systemctl restart mysql
+
+** 用户管理
+- 创建新用户：
+  #+begin_src sql
+  CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+  #+end_src
+
+- 授权用户：
+  #+begin_src sql
+  GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost';
+  #+end_src
+
+- 刷新权限：FLUSH PRIVILEGES;
+
+** 数据库维护
+- 检查表：CHECK TABLE table_name;
+- 优化表：OPTIMIZE TABLE table_name;
+- 修复表：REPAIR TABLE table_name;
+
+* 6. 最佳实践
+
+- **备份策略**：定期进行数据库备份，建议使用mysqldump
+- **安全配置**：
+  - 避免使用root账户进行日常操作
+  - 限制远程访问
+  - 定期更新MySQL版本
+- **性能优化**：
+  - 为常用查询字段建立索引
+  - 优化查询语句
+  - 合理配置缓冲区大小
+- **字符集**：使用UTF8MB4支持更广泛的Unicode字符
+  #+begin_src sql
+  ALTER DATABASE database_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+  #+end_src
+
+* 7. 常见问题解决
+
+** 问题：无法连接到MySQL服务器
+- 检查MySQL服务是否正在运行
+- 检查防火墙设置是否允许3306端口
+- 检查MySQL配置文件（my.cnf）中的bind-address
+
+** 问题：忘记root密码
+1. 停止MySQL服务：sudo systemctl stop mysql
+2. 以跳过权限检查方式启动：sudo mysqld_safe --skip-grant-tables &
+3. 连接MySQL：mysql -u root
+4. 重置密码：
+   #+begin_src sql
+   USE mysql;
+   UPDATE user SET authentication_string = PASSWORD('new_password') WHERE User = 'root';
+   FLUSH PRIVILEGES;
+   #+end_src
+5. 重启MySQL服务：sudo systemctl restart mysql
+
+** 问题：导入大型数据库失败
+- 使用压缩导入：gunzip < large_file.sql.gz | mysql -u user -p db
+- 使用--max_allowed_packet参数增加允许的最大包大小
+  #+begin_src bash
+  mysql -u user -p db --max_allowed_packet=256M < large_file.sql
+  #+end_src
