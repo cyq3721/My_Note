@@ -1,0 +1,43 @@
+#+title:Org-mode简明手册
+#+author：CYQ
+#+date: <2021-12-01 Wed>
+* 简介
+** 序
+Org是一个用文本方式来快速高效地做笔记、维持待办事项和做项目计划的模式。
+它是一个创作发布系统。
+
+这个文档是Org-mode手册的一个压缩版本，包含了所有的基本功能和命令，以及
+一重要的定制提示。 本文档写给不想阅读200多页手册的新手。
+
+** 安装
+*重要:* 如果你用的Emacs或者XEmacs包里的Org版本，请跳过本节，直接阅读
+ 1.3节。
+
+如果你是从网上下载的Org版本，无论是zip包还是tar文件或者是Git文件，最好
+在分发包目录里直接来设置它。 把lisp子目录加到Emacs的加载路径里，可以把
+下两句加在".emacs"文件里：
+#+begin_example lisp
+(setq load-path (cons "~/path/to/orgdir/lisp" load-path))
+(setq load-path (cons "~/path/to/orgdir/contrib/lisp" load-path))
+#+end_example
+
+为了提高速度，可以用下面的shell命令将Lisp文件编译一下：
+#+begin_quote
+make
+#+end_quote
+
+再把下面一行加到.emacs文件里。 它可以使文件中的函数自动加载，而不是启
+动Org模式时立即加载。
+#+begin_example lisp
+(require 'org-install)
+#+end_example
+
+** 激活
+把下面几行加到.emacs文件里。 后三行是为命令定义全局快捷键——请改成适合
+你自己的。
+#+begin_example lisp
+;;the following lines are always needs. Choose your own keys.
+(add-to-list 'auto-mode-alist '("\\.org\\'".org-mode))
+(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when
+global-font-lock-mode is on
+#+end_example

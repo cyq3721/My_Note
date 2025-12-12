@@ -1,0 +1,153 @@
+#+title: PHP Web 2.0开发实战
+#+author: CYQ
+#+date:<2022-01-24 Mon>
+#+options: ^:{}
+#+LANGUAGE: zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+
+* 第一章 用户规划与设计
+** 什么是Web2.0
+- 使用标准兼容的HTML和CSS
+- 使用Ajax提供丰富用户界面（通过使用XMLHttpRequest[fn:1]在后台完成繁琐的操作）
+- 使用Web提要[fn:2]和Web服务共享数据
+- 结合社交网络工具
+** 数据库连接
+在这个应用中我们需要保存不同类型的数据，包括：
+
+- 用户账户
+- 用户设置
+- 用户提交的数据（如博客帖子、图像和标签等）
+
+我们使用Zend框架的Zend_DB类来处理这个数据库抽象。 这个框架实际上是PHP 5  PDO 扩展的一个接口。
+
+** 网站模板
+为了解决HTML代码和PHP代码混合编写的维护的困难，我们使用MVC[fn:3]模式来把应用逻和显示逻辑分开。 使用smart模板引擎来管理模板的显示（smart实际上将构成MVC中的“视图”部分）。
+
+** 网站特性
+*** 网站主页和用户主页
+*** 用户注册
+- 验证用户的详细信息（将使用Ajax来帮助完成这个功能）
+- 使用CAPTCHA[fn:4]防止自动注册
+- 在数据库中创建用户账户
+- 向用户发送E-mail，确认他们的账户信息
+
+** 账户登陆和管理
+- 管理用户的博客
+- 更新账户信息（如用户的E-mail地址）
+- 注销账户
+
+*** 用户博客
+- 增加、编辑和删除博客帖子
+- 为帖子加标签
+- 向博客帖子上传图像，并针对用户账户显示一个图库
+- 为博客绑定地理数据（地图）
+
+*** 网站搜索
+开发一个提供自动完成特性的搜索框
+*** 应用管理
+使用一个管理区来完成这个web应用的日常管理，如查看网站统计信息或者向网站发布新闻。
+** 开发的其它方面
+*** 搜索引擎优化
+- 使用友好的URL
+- 正确的使用HTML标记（如标题、段落和表）
+- 正确的使用HTTP状态码和内容类型
+*** PHPDoc风格的注释
+我们开发的所有类都会使用PHPDoc风格的注释，这样就能很容易的为所有类构建API文档。 PHPDoc建立在Sun公司的Javadoc系统基础之上，这是一种为所有函数、参数、变量和包加注释的简单方法，以便于开发人员轻松的重用这些函数、参数、变量和包。
+
+PHPDoc的做法是在每个函数、类或变量定义前放置一个注释快， 每个注释块最前面是一个描述，然后是一个或多个可选的参数。
+
+PHPDoc从 /** 开始每一行起始处以*开始，最后以*/结尾。
+*** 安全性
+- SQL注入
+- 跨站脚本（cross-site scripting， XSS）
+- 跨站请求伪造（Cross-Site Request Forgeies，CSRF）
+*** 应用日志
+*** 可维护性和可扩展性
+除了使用公认的第三方类库，我们还可以以一种可扩展的方式自行开发定制类.
+
+为保证代码的可维护性和可扩展性，采取：
+- 使用模板引擎将应用逻辑和显示逻辑分离；
+- 使用数据库抽象来处理数据库服务器交互；
+- 充分使用php面向对象编程
+** 版本控制和单元测试
+
+* 第2章 建立应用框架
+** 应用文件系统结构
+*** web根目录
+*** 数据存储目录
+*** PHP类目录
+include目录，存储所有PHP函数和库，所有第三方脚本（如smarty）也存储在该目录，应用控制器（脚本，定义了用户在网站上能完成的不同动作）存储在include目录下的Controllers子目录中。
+
+为应用创建Apache虚拟主机时，将把include目录包括在PHP的include_path指令中，这样应用就能知道到哪里查找这个代码。
+*** 模板目录
+存储所有的网站模板，可直接放在htdocs目录或include目录。 这些模板不应该直接被访问，我们讲它们放在一个名为templates的目录中
+*** 完整的目录结构
+#+begin_quote
+/
+|-/data
+| |-/logs
+| |-/uploaded-files
+| |-/tmp
+|-/htdocs
+|-/include
+| |-/Controllers
+|-/templates
+#+end_quote
+** 安装Zend框架
+Zend框架是一个开源PHP 5 组件库，这些组件可以用来解决日常Web开发中常见的一些任务。 我们将要用的部分组件如下：
+
+- Zend_Auth和Zend_Acl  用于用户登陆时完成用户认证，以及检查用户的权限。
+- Zend_Controller  用于处理客户请求，并将请求定向到适当的类。
+- Zend_Db  用于与应用 MySQL 数据库交互。
+- Zend_Mail  用于向用户发送 E-mail。
+- Zend_Validate 和 Zend_Filter  用于检查和“清洁处理”用户在表单中提交的数据。
+- Zend_Search  用于全文搜索。
+
+  下载 Zend 框架，将框架解压到 include 目录。
+** 配置 Web 服务器
+*** 在 Linux 上创建虚拟主机
+为 Apache 创建<VirtualHost> 项，可以把这个配置数据存储在应用目录中单独的文件中，然后再主 Apache httpd.conf 文件中使用 Include 指令。
+
+- 配置文件：
+#+begin_quote
+<VirtualHost 192.168.0.80>
+     ServerName phpweb20
+     DocumentRoot /var/www/phpweb20/htdocs
+
+     <Directory /var/www/phpweb20/htdocs>
+          AllowOverride All
+          Options All
+     </Directory>
+
+
+     php_value include_path ../var/www/phpweb20/include:/usr/local/lib/pear
+     php_value magic_quotes_gpc off
+     php_value register_globals off
+ </VirtualHost>    
+#+end_quote
+
+- 注解
+  一般来讲， PHP 的 register_globals 设置应当为 off。 如果将其设置为 on，表单、URL、会话和 cookie 变量会成为全局变量，这往往不是好事。 之所以存在这个问题，是因为多年来默认设置都是将其启用，所以有些 Web 服务器会启用这个设置，而另外一些不启用。本书中的所有代码都要求 register_globals 为 off。 这一点同样适用于 magic_quotes_gpc 设置，这个设置用于自动转义提交的数据。
+*** 重启 web 服务器
+# apachectl restart
+
+** 建立数据库
+#+begin_src sql
+  mysql -u root
+  mysql> CREATE DATABASE phpweb20;
+  mysql> use phpweb20;
+  mysql> grant all on phpweb20.* to phpweb20@localhost indentified by 'myPassword';    
+#+end_src
+
+** 使用 MVC 模式
+- 模型（Model） 应用逻辑，完成应用中最艰巨的工作，如与数据库交互，处理信用卡交易，或者向用户发送 E-mail。
+- 视图（View） 视图表示用户界面，对于这个应用，视图通常是 HTML 代码，我们将使用 smarty 模板引擎来管理应用的视图。
+- 控制器（Controller） 控制器将视图与模型连接起来，也就是说，它会响应事件（如用户提交一个 Web 表单），还可能通过与模型交互来更新应用的状态。 我们将使用 Zend_Controlloer 类来处理 MVC 的控制器，所有用户请求都会由这个类处理，然后可能得到一个新的 Web 页面显示给用户（使用 smarty）
+* 脚注
+[fn:1] XMLHttpRequest是一个JavaScript API，允许在用户查看网发出一个后台HTTP请求。 这说明，可以根据_来自服务器的一个响应更新当前页，而无需用户导航到网站的另一个页面。 “建立一个Ajax请求”（或类似说法），一般是指使用XMLHttpRequest在后台完成一个HTTP请求。
+
+[fn:2] 如RSS或Atom
+
+[fn:3] MVC（MOdel-Vies-Controller，模型-视图-控制器），一种专门描述应用逻辑与显示逻辑分离的设计模式。
+
+[fn:4] CAPTCHA 通常是由一系列随机字符组成的一个图像，用户提交表单时必须输入这些字符。 这种技术用来区分是自然人还是计算机。

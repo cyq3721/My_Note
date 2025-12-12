@@ -1,0 +1,6 @@
+(undo-tree-save-format-version . 1)
+"514ade5ac0ac8beb481266fa4f371eb1fab3db2b"
+[nil nil nil nil (25497 43408 734863 0) 0 nil]
+([nil current ((279 . 299) (#("- 
+- SPC q R 重启emacs" 0 2 (fontified nil) 2 3 (fontified nil) 3 20 (fontified nil)) . 279) (undo-tree-id0 . -20) (undo-tree-id1 . -20) (undo-tree-id2 . -20) (279 . 282) (t 25486 43328 0 0)) nil (25497 43408 734858 0) 0 nil])
+nil

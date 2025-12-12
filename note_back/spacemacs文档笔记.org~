@@ -1,0 +1,377 @@
+#+title: spacemacs文档笔记--配置layer
+#+author: Chen
+#+data: <2021-12-11 Sat>
+
+* 引言
+本文档旨在为有兴趣编写其第一个配置层的用户提供教程，无论是供私人使用还是为上游贡献。它应该有助于消除一些关于图层如何工作以及Spacemacs（和Emacs）如何加载包的困惑。
+
+* 命名法则
+（layer）图层和（package）包。他们提供了什么？
+** (package)软件包
+是一组Emacs Lisp文件，它们组合在一起，提供了一些（feature）功能。 软件包可以由软件仓库提供，如 ELPA 或 MELPA 或第三方服务提供商（如 github），甚至还可以由本地磁盘提供。
+** （layer）层
+可以在Spacemacs中启用（或禁用）的集中在一起的配置单元。 一个层通常将包含一个或多个软件包，以及把它们粘合在一起使得它们以及spacemacs可以正常工作的配置代码。
+在编写图层之前，考虑一下您要实现的目标会很有帮助。有没有一个软件包可以提供你想要的功能，并且你想把它集成到Spacemacs中？如果是，则应编写一个图层。您是否正在尝试实现一个对整个Emacs社区有用的新功能？在这种情况下，请考虑是否先编写包，然后再编写使用包的图层更合适。
+
+* Emacs加载过程
+为了了解如何最好地实现层，我们必须研究Emacs如何加载代码。
+**  Emacs Lisp 文件
+Emacs Lisp文件包含可以执行的代码。当代码执行时，该文件中定义的函数、宏和模式将可用于当前的 Emacs 会话。这个过程称为文件加载。 一个主要问题是确保以正确的顺序加载所有需要的文件。 另一个问题是确保不会立即加载太多文件。这会导致启动时间过长。相反，我们希望确保仅在需要时加载文件，而不是一次加载所有文件。这在Emacs中是如何完成的，在Spacemacs中又是如何完成的？
+*** 加载文件
+加载文件的最简单方法是调用：load-file , 见如下实例：
+
+#+begin_src lisp
+(load-file "~/elisp/foo.el")
+#+end_src
+
+就这样的简单。 路径必须是精确的，并且不必在Emacs加载路径中（我们稍后会谈到这一点）。它不会查找字节编译的文件.elc。它只会准确地加载您告诉它的内容。
+
+** features
+加载所需内容的更好方法是 使用feature。feature通常是一些包含在一个文件内的内容。feature文件的形式如下：
+
+#+begin_src lisp
+;; Your code goes here ...
+
+(provide  'my-feature)
+#+end_src
+
+要加载这个feature文件，我们可以使用require命令，如下所示：
+
+#+begin_src lisp
+(require  'my-feature)
+#+end_src
+
+这个命令将检查是否已加载这个feature文件。 如果没有，它会查找名为 my-feature.el,myfeature.elc的文件，或类似文件。如果找到这样的文件，会加载这个文件。 当调用provide命令时，会把这个feature文件加载到feature文件列表文件（features）。所以，当执行require，找不到feature文件，这将导致错误。
+
+这个feature文件很可能包含对其它feature文件的require调用，实际上，这是确保在代码运行之前加载依赖项的常用方法。 软件包作者应使用此技术来确保在代码运行之前加载依赖项。
+
+*** 加载路径（load path）
+当使用require加载时，Emacs在load path中查找文件。 load path只不过是一个可以找到elisp文件的路径列表，可以在通过命令 "SPC h d v load-path"在Spacemacs中检查它。 可以通过下列的命令把路径添加到load path列表中：
+
+#+begin_src lisp
+  （push  "/some/path/" load-path）
+#+end_src
+
+** 自动加载（auto-loading）
+require这种调用方式是load-file的优化，它解决了文件加载顺序这个问题，require能确保文件以正确的顺序加载。 并且在某种程度上解决了加载文件的路径问题，但是过长的requrie加载列表，依然会导致spacemacs启动加载过慢的问题。
+
+Emacs使用auto-load来解决这个问题，当把一个函数注册为auto-load时，emacs会提供一个"空"定义。调用该函数时，将立即加载提供该函数的文件（及其所有必须的加载路径列表）。最后，"空"函数被替换为实际函数并正常调用。最终用户在首次调用该函数时只会看到轻微的延迟，而对该函数（或作为同一过程的一部分加载的任何其他函数）的后续调用将像平常一样快。
+
+我们调用：autoload，将函数注册为auto-loading。
+
+#+begin_src lisp
+  (autoload 'some-function "some-file")
+#+end_src
+
+这告诉Emacs，每当调用some-function时，首先加载some-file.el文件，然后继续。
+
+执行完上述代码后，可以通过命令："SPC h d f some-function" 来查看函数”some-function"F。 它会告诉你这是一个auto-load函数，除此以外，并无其它信息，直到它被调用。 并且在加载之前对它一无所知。auto-load可以有选择性的包含更多信息，例如文档字符串、是否可以交互调用函数等。这为最终用户提供了更多信息，而无需先实际加载文件。
+
+打开elpa目录，找到helm并查看helm-autoloads.el文件。这为 Helm 提供了所有的autoload文件载。但是，此文件不是手动写入的。 相反，它是从 Helm 源代码中的"魔术"注释自动生成的。它们看起来像这样：
+
+#+begin_src lisp
+;;;###autoload
+(defun my-function ()
+  ;; Source code...
+  )
+#+end_src
+
+魔术注释 ";;;###autoload" 告诉Emacs，以下的定义用于auto-loaded。 这将自动生成一个合适的调用用于autoload。
+
+可以用于autoload的内容通常涉及任何"可定义"的内容，例如函数、宏、主要或次要模式、组、类等。
+
+魔术注释也适用于其他内容，例如变量定义（defvar），但在这种情况下，定义只是逐字复制到自动加载文件中。例如，下面的代码将在启动时加载 Helm，但实际运行它的时间远在加载它之后，这个可能和你的预期不太一样。
+
+#+begin_src lisp
+;;;###autoload
+(require  'helm)
+#+end_src
+
+包作者有责任确保其包可以适当auto-load，并且大多数包都做得很好。
+
+Spacemacs充分利用了自动加载功能。Spacemacs中的几乎所有内容都是在需要时加载的，而不是立即加载的。
+
+** 加载后运行
+通常，我们希望在加载包后对其进行配置。我们可能想要设置一些变量或调用一些函数。这对于require方式的加载 来说微不足道，因为它会立即加载，但使用autoloading加载可能会很棘手，因为它的配置代码也必须延不是立即加载的，也有延迟。
+
+Emacs提供了命令："with-eval-after-load" 来解决这个问题。它可以像这样使用：
+
+#+begin_src lisp
+(with-eval-after-load 'helm
+     ;; Code
+     )
+#+end_src
+
+
+这将安相关代码在helm被加载后立即运行（用于require加载或autolad加载），或者如果 Helm 已加载，则立即执行代码。
+
+由于with-eval-after-load 是宏而不是函数，因此不必引用参数。
+
+** （use-package）
+对于试图组合有效的Emacs配置的最终用户，有一个非常有用的软件包use-package，它提供了一个宏，该宏也被称为use-package，它在简化加载软件包的整个过程方面做得很好。
+
+建议有抱负的图层作者查看文档。下面是一些示例。use-package
+
+#+begin_src lisp
+ (use-package helm)
+#+end_src
+这只会加载 Helm。它本质上等效于 。(require 'helm)
+
+#+begin_src lisp
+(use-package helm
+  :defer t)
+#+end_src
+这将使用helm源代码提供的auto-load命令延迟加载helm。事实上，上面的代码是一个空操作，一般用下面的代码：
+
+#+begin_src lisp
+(use-package helm
+  :defer t
+  :init
+  ;; Code to execute before Helm is loaded
+  :config
+  ;; Code to execute after Helm is loaded
+  )
+#+end_src
+
+这段代码包括在加载 Helm 之前和之后要执行的代码。它们可以立即执行，但由于 Helm 被推迟加载，因此该部分直到加载后才会执行（如果有）。它本质上等效于简单地运行块，然后在 .:init:config:init:configwith-eval-after-load 中加入块。
+
+#+begin_src lisp
+(use-package helm
+  :commands (helm-find-files helm-M-x))
+#+end_src
+这将为其他命令创建自动加载引用（如果发现包作者一直在偷懒）。
+
+#+begin_src lisp
+(use-package ruby-mode
+  :mode "\\.rb\\'")
+#+end_src
+
+对于提供major-mode的程序包，可以使用关键字将文件扩展名与该模式相关联。这会向 添加一个条目并自动加载 。通常这不是必需的，因为应该已经是可自动加载的，并且包应该已经将Ruby文件与自身相关联。:modeauto-mode-alistruby-moderuby-mode
+
+Use-package 支持大量有用的关键字。有关详细信息，请查看文档。
+
+* layer剖析
+layer只是 Spacemacs layer搜索路径中某个位置的文件夹，通常包含这些文件（按加载顺序列出）。
+
+- layers.el
+  声明其他图层
+- packages.el
+  软件包列表和配置
+- funcs.el
+  layer中使用的所有函数都应在此处声明
+- config.el
+  layer中的特定配置
+- keybindings.el
+  常规键绑定
+
+此外，对于每个本地包（请参阅下一节），应该有一个包含该包的源代码的文件夹。在初始化该软件包之前，Spacemacs会将此文件夹添加到您的加载路径中。<layer>/local/<package>/
+
+*** layers.el
+此文件是要加载的第一个文件，这是可以声明其他图层的位置。
+
+例如，A层依赖于B层的某些功能，然后在A层的文件中我们可以添加：layers.el
+
+(configuration-layer/declare-layer 'B)
+效果是 B 被视为已用图层，并且将像将其添加到变量中一样进行加载。dotspacemacs-configuration-layers
+
+*** packages.el
+它包含此图层包列表以及该层中包含的包的实际配置。
+
+此文件在layer.el 之后加载。
+
+它必须定义变量调用，该变量应该是此层所需的所有包的列表。实例如下：<layer>-packages
+
+#+begin_src lisp
+(defconst mylayer-packages
+  '(
+    ;; Get the package from MELPA, ELPA, etc.
+    some-package
+    (some-package :location elpa)
+
+    ;; A local package
+    (some-package :location local)
+
+    ;; A package recipe
+    (some-package :location (recipe
+                             :fetcher github
+                             :repo "some/repo"))
+
+    ;; An excluded package
+    (some-package :excluded t)
+    ))
+#+end_src
+
+该属性指定可以在何处找到包。Spacemacs目前支持ELPA兼容存储库上的软件包，本地软件包和MELPA配方（通过Quelpa软件包）。有关配方的更多信息，请参阅MELPA 文档。:location
+
+通过将属性设置为 true，可以排除包。这将阻止安装包，即使该包被另一个层使用。:excluded
+
+对于每个包含的包，您可以定义以下一个或多个函数，Spacemacs 按顺序调用这些函数来初始化包。
+
+- <layer>/pre-init-<package>
+- <layer>/init-<package>
+- <layer>/post-init-<package>
+
+It is the responsibility of these functions to load and configure the package in question. Spacemacs will do nothing other than download the package and place it in the load path for you.
+
+Note: A package will not be installed unless at least one layer defines an function for it. That is to say, in a certain sense, the function does mandatory setup while the and functions do optional setup. This can be used for managing cross-layer dependencies, which we will discuss later. initinitpre-initpost-init
+
+4.3 funcs.el
+它包含图层中使用的所有已定义函数。
+
+此文件在 之后和之前加载。packages.elconfig.el
+
+保护函数的定义以确保实际使用包是一种很好的做法。例如：
+
+(when (configuration-layer/package-usedp 'my-package)
+  (defun spacemacs/my-package-enable () ...)
+  (defun spacemacs/my-package-disable () ...))
+通过保护这些函数，我们避免在不使用包"my-package"的情况下定义它们。
+
+4.4配置
+此文件配置图层，就像声明图层变量默认值一样，并设置一些与图层相关的其他变量。
+
+此文件在 之后加载。funcs.el
+
+4.5键绑定.el
+它包含常规键绑定。
+
+这是最后加载的文件。
+
+这里的"通用"一词意味着独立于任何包。由于最终用户可以排除任意一组包，因此您无法确定仅仅因为您的图层包含包，就一定会加载该包。因此，无论安装哪些包，这些文件中的代码通常都必须是安全的。
+
+下一节将对此进行详细介绍。
+
+5空间马克加载过程
+Spacemacs加载过程可以总结如下：
+
+Spacemacs遍历所有启用的图层并评估其文件。因此，将应用 和 加载 所引入的更改，但不会从 中发生任何操作，因为这些文件仅定义函数和变量。config.elfuncs.elpackages.elpackages.el
+Spacemacs检查应该下载和安装哪些软件包。要安装，软件包必须
+
+由用户已启用的图层包含，
+不会被用户启用的任何其他层排除，
+不被用户自己排除，并且
+必须至少为其定义一个函数。<layer>/init-<package>
+或者，如果软件包是最终用户的 一部分，则也会安装该软件包。dotspacemacs-additional-packages
+
+所有应该安装的软件包都按字母顺序安装，内置的Emacs库负责隐式依赖关系。已安装的软件包不遵循 2 的规则。如果可能，将删除其依赖项及其依赖项。（最后一个行为是可选的，但默认为。package.el
+每个已安装软件包的 和 函数依次执行。pre-initinitpost-init
+我们感兴趣的是第四步。如果没有为包定义函数，则不安装包非常重要。init
+
+我们说，如果一个层为它定义了一个函数，那么它就拥有一个包。如果图层仅定义或运行包，则该层不拥有包。initpre-initpost-init
+
+只有一个层可以拥有包。由于图层在用户的 dotfile 中按规范顺序进行处理，因此图层可能会"夺取"以前启用的图层拥有的包的所有权。
+
+6案例研究：自动完成
+Spacemacs 提供了一个名为该图层的图层，该图层在许多模式下提供自动完成功能。它使用包执行此操作。此层拥有包，因此它定义了一个名为 的函数。auto-completioncompanycompanyauto-completion/init-company
+
+当用户启用该图层时，Spacemacs 会找到该图层并在包列表中找到该图层。如果用户或其他层未排除该功能，Spacemacs 随后将定位并运行 的函数。此函数包括对设置基本配置的调用。auto-completioncompanycompanyinitcompanyuse-package
+
+但是，自动完成是一个两匹马的游戏。就其性质而言，它特定于所讨论的主要模式。期望该层包含每个可以想象的主要模式的配置是毫无意义的，并且期望每个编程语言层（python，ruby等）自行完全配置同样是徒劳的。auto-completioncompany
+
+这是使用函数解决的。例如，Python 层包含包并定义一个名为 .此函数在 之后调用，但不在post-initcompanypython/post-init-companyauto-completion/init-company
+
+图层未启用，在这种情况下，将找不到 for 函数，或者auto-completioninitcompany
+包被用户或其他层排除company
+因此，是在Python模式下放置相关配置的唯一安全位置。python/post-init-companycompany
+
+如果 Python 层为 定义了一个函数，那么即使该层被禁用，该包也会被安装，这不是我们想要的。initcompanyauto-completion
+
+7层提示和技巧
+7.1交叉依赖
+Spacemacs 提供了一些额外的有用功能，您可以使用这些功能来检查是否包含其他图层或包。
+
+configuration-layer/layer-usedp
+检查图层是否已启用
+configuration-layer/package-usedp
+检查软件包是否已安装或将要安装
+这些在某些情况下很有用，但通常您只需使用函数即可获得所需的结果。post-init
+
+对于需要启用其他图层的图层，请使用这些功能并确保启用图层，即使用户尚未显式启用这些图层也是如此。对这些函数的调用必须进入文件。configuration-layer/declare-layerconfiguration-layer/declare-layersconfig.el
+
+7.2使用包
+在绝大多数情况下，包函数应该只调用 。同样，在绝大多数情况下，您需要执行的所有配置都应该在此类调用的或块中可行。inituse-package:init:config
+
+什么去哪儿了？由于 是在加载之前和之后执行的，因此这些经验法则适用。:init:config
+
+在应该是:config
+
+任何需要已加载包的内容。
+任何需要很长时间才能运行的东西，都会破坏启动性能。
+该块应包含包入口点的安装程序。这包括键绑定（如果包应由用户手动加载）或挂钩（如果包应在某个事件时加载）。两者兼而有之并不罕见！:init
+
+7.3使用包挂钩
+Spacemacs 包括一个宏，用于在事后向 调用 的 或 块添加更多代码。这对于 或 函数将代码"注入"到函数的调用中很有用。:init:configuse-packagepre-initpost-inituse-packageinit
+
+(spacemacs|use-package-add-hook helm
+  :pre-init
+  ;; Code
+  :post-init
+  ;; Code
+  :pre-config
+  ;; Code
+  :post-config
+  ;; Code
+  )
+由于对 的调用可能会立即评估该块，因此任何要将代码注入此块的函数都必须运行对 的调用。此外，由于这种对 的调用通常发生在函数中，因此调用通常发生在函数中，而不是在 中。在 中执行此操作非常安全，因此这应该是默认选项。use-package:initbeforeuse-packageuse-packageinit-<package>spacemacs|use-package-add-hookpre-init-<package>post-init-<package>pre-init
+
+7.4最佳实践
+如果你违反了这些规则中的任何一个，你应该知道你在做什么，并且有一个很好的理由去做。
+
+7.4.1软件包所有权
+每个包应仅由一个层拥有。拥有包的层应定义其功能。其他层应依赖或功能。initpre-initpost-init
+
+7.4.2本地化您的配置
+每个函数只能假定存在一个包。除了某些例外，和 函数只能准确配置它们所定义的包。由于用户可以排除任意一组包，因此没有先验的安全方法来假定包含另一个包。如有必要，请使用。pre-initinitpost-initconfiguration-layer/package-usedp
+
+这可能非常具有挑战性，所以请把它作为一个指导方针，而不是绝对的东西。用户很有可能通过排除错误的软件包来破坏她的Spacemacs安装，我们不打算不惜一切代价阻止这种情况。
+
+7.4.3加载排序
+在 Spacemacs 中，图层按包含在点文件中的顺序加载，包按字母顺序加载。在极少数情况下，使用此属性，应确保很好地记录它。许多人会假设层可以以任意顺序包含（在大多数情况下确实如此），并且可以毫无问题地重命名包（在大多数情况下也是如此）。
+
+最好是编写图层，使其独立于负载排序。- 和函数与 一起很有帮助。prepost-initconfiguration-layer/package-usedp
+
+7.4.4不需要
+不要使用要求。如果您发现自己在使用 ，您几乎肯定做错了什么。Spacemacs中的包应该通过自动加载来加载，而不是由您显式加载。调用 in package init 函数将导致在启动时加载包。的块中的代码也不应该导致加载任何内容。如果你在一个块中需要一个，则表明其他一些包缺少适当的自动加载。requirerequire:inituse-packagerequire:config
+
+7.4.5自动加载所有内容
+推迟一切。你应该有一个很好的理由不推迟加载包。
+
+8我如何...习语？
+8.1主要模式的设置自动完成
+在图层的 中，调用 。config.elspacemacs|defvar-company-backends
+
+(spacemacs|defvar-company-backends yoyo-mode)
+这将创建一个名为 的变量。在包函数中，应将后端推送到此变量。但是，当然，前提是启用了该层。company-backends-yoyo-modeinitauto-completion
+
+(defconst yoyo-packages '(
+                          ;; ...
+                          some-weird-package
+                          ;; ...
+                          )
+
+  (when (configuration-layer/package-usedp 'company)
+    (defun yoyo/init-some-weird-package ()
+      (use-package some-weird-package
+        :defer t
+        ;; This has to be in init because it's a package entry point
+        :init
+        (push 'some-weird-backend company-backends-yoyo-mode))))
+最后，我们必须确保在进入 时启动公司，但只有在启用了图层时才会再次启动。yoyo-modeauto-completion
+
+(defconst yoyo-packages '(
+                          ;; ...
+                          yoyo-mode
+                          ;; ...
+                          ))
+
+(defun yoyo/init-yoyo-mode ()
+  (use-package yoyo-mode
+    ;; Some configuration goes here, however nothing relating to company
+    ;; since this function may be called even if company is not installed!
+    ))
+
+(when (configuration-layer/package-usedp 'company)
+  (defun yoyo/post-init-yoyo-mode ()
+    ;; This makes no reference to `some-weird-package', which may have
+    ;; been excluded by the user
+    (spacemacs|add-company-hook yoyo-mode)))

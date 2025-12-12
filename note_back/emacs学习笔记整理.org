@@ -1,0 +1,29 @@
+ #+title: 21天学会EMACS
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+options: num:t toc:4 author:t date:t
+* Spacemacs Rocks Episode 2 -- Day one
+** Install Emacs 
+- Mac
+- Windows
+- Linux
+** Go over the Emacs tutorial at least once
+- C-h t to open the tutorial.
+- You need be familiar with cursor movement(c-f/c-b/c-n/c-a/c-e) and basic editing (c-k)
+- YOU should be familiar with M(eta), s(uper), S(hift), C(trl)  s-p S-p C-p M-x
+- Prefix key (c-h is a prefix key) and C-g(stop command)
+** Learn to active some built-in functionlity (org-mode)
+- Linum-mode to display line numbers (M-x linum-mode)
+- C-x C-f to open files, C-x C-s to save files.
+- You should always ask Emacs the right question 
+- C-h k / C-h v / C-h f (Emacs is a self document,iable editor.)
+** Learn some elisp(emacs lisp)
+- Use learn x in y minutes website to learn emacs lisp.
+- at least you know how to define variable, functions.
+- You should know how to make a function callable and how to set a key binding for the function.
+
+  
+   

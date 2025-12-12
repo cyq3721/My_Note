@@ -1,0 +1,1801 @@
+#+title:Emacs-101
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+options: num:t toc:4 author:t date:t
+* 前言
+Emacs 是史上最古老的編輯器之一，然而因為許多原因，入門並不是太容易。
+
+#+BEGIN_QUOTE
+網路上雖然早就已有許許多多的 Emacs 教學，然而我當初剛開始用 Emacs 時卻依然遇到許多問題，卻無人解釋（因為熟悉的使用者都把那些視為常識就不解釋了，然而對初學者可能是難以理解的行為），想問也無從問起，也因此浪費了非常多的時間在繞遠路。這個 Emacs 101 希望可以解決這種問題，希望能讓你快速建立起清楚深刻但不多餘囉唆的基本概念，快速解決各種初學疑難雜症，該建立的概念就寫清楚避免你繞遠路浪費時間，並無痛開始使用 Emacs。
+
+好啦這是我希望可以寫成這樣啦，歡迎大家丟 PR 。
+
+-- ono hiroko
+#+END_QUOTE
+
+** 開始之前需要什麼預備知識嗎？
+不需要很多背景知識，我想會想用 Emacs 的人應該都有點基本功夫，只要具備一點基礎的 programming 常識，例如何謂 function、variable（當然如果你已經會 Lisp 那更好）。
+
+#+BEGIN_QUOTE
+雖然我想這種人應該不多：如果你真的沒有任何程式基礎也沒關係。還是可以用 Emacs，不過當你覺得想要寫自己要的東西、需要學 Lisp 時，就多讀 ANSI Common Lisp 然後在 Emacs 裡面多玩玩 Emacs Lisp 吧。Emacs 不專屬程式設計師，只要你有興趣，一般人也是可以用的。
+
+我當初就是完全不會寫程式時開始學 Emacs，連 function 是什麼都搞不清楚，最後也是學會了。不過當時我繞了太多遠路，學習曲線歪七扭八；希望想學的人別再繞遠路，所以我寫了這篇 Emacs 101。
+
+-- ono hiroko
+#+END_QUOTE
+
+** 可以學到什麼？
+看完這一系列文章，你 *會* 知道：
+
+  1. Emacs 適合什麼人、能拿來做什麼、優點與缺點。
+  2. Emacs 的基本觀念與操作。
+  3. 打造屬於自己的 Emacs。
+  4. Emacs Lisp 的學習方向與開發技巧。
+  5. 下一步的學習方向。
+
+* 常見問題
+我們從一些大家最常問的問題開始：
+
+** 什麼？還有人在用 Emacs 這種古董喔？
+很不幸的，還有。只是似乎越來越少...
+
+  [[file:pic/trend1.png]]
+  [[file:pic/trend.png]]
+
+  但如果你看 MELPA（Emacs 的第三方外掛套件庫）的成長速度與活躍程度，應大可放心，Emacs 仍是個使用者群廣大的軟體，不用怕遇到問題沒有解答。
+
+** 我用 Vim，該不該跳船啊
+
+#+BEGIN_EXAMPLE
+(01 時 45 分 25 秒) caasih: 認真問，跳 editor 的陣痛期大概多長？（凡人 ver.
+(01 時 45 分 53 秒) letoh: 雖然我還是每天用 vim，但真心覺得 vim 在寫程式這方面實在太弱....靠一堆 addon 應該勉強看得到車尾燈 XD
+(01 時 46 分 20 秒) letoh: 像我現在主要是改設定檔  看 log 會用 vim
+(01 時 46 分 38 秒) letoh: 之前用 vim script 寫了不少看 log 和 debug 工具，懶得移植到 emacs 了 XD
+(01 時 47 分 52 秒) letoh: 然後平常大概除了寫 c 就是寫 python，少了 c-c c-c 的 vim 實在用不下去 XD
+#+END_EXAMPLE
+
+#+BEGIN_QUOTE
+我覺得不用想跳不跳的，原本(在 Vim 裡)用的做不好就想辦法弄好，或針對單一功能跳船就好。
+
+我覺得 Vim 要跨出去相對簡單很多，因為 Vim 不太有把所有工作都丟進同一個環境做的習慣，但 Emacs 有....
+
+我其實不覺得這樣比較好，但 Emacs 的整合能力會讓這件事的吸引力變強... 我跳船十幾年了還在抵抗這個引力 XD 現在唯一成功逃脫的是 IRC... 因為真的會無法專心
+
+-- letoh
+#+END_QUOTE
+
+** 什麼都可以做？有這麼神？
+Emacs 雖然適合包辦許多任務，但也不要把 Emacs 想得太萬能。例如圖片顯示絕對就是他的大弱點之一。
+
+#+BEGIN_QUOTE
+妄想用 Emacs 搞定所有事情有賺有賠，使用者投資時間前請詳閱 Emacs 101 公開說明書。
+#+END_QUOTE
+
+什麼時候不該用 Emacs？這裡有幾個例子：
+
+- Qt 開發 -- 這是我個人的經驗，Qt Creator 寫 Qt/C++ 程式比 Emacs 方便太多了，從自動補完到重構都是 Emacs  完全比不上的。
+- 想要各種語言的自動補全與重構等 IDE 等級的功能。
+  - C / C++ ，尤其是 Qt，乖乖用 Qt Creator
+  - TypeScript 乖乖用 VSCode。
+  - Vue + TypeScript 乖乖用 VSCode。
+  - 以上都是我浪費了不知幾十個小時最後得出的結論。這是2018年11月得出的結論，也許未來的 Emacs 在這方面會大有進步吧。
+
+- 看圖
+  + 慢
+  + 大圖捲動困難。
+  + 還看得出色階。
+  + 加上 Emacs Lisp 是 single-thread 縮圖會 block 住你的 Emacs 到你吐血三升。
+  + 基本上一切吃重圖片顯示的任務都別妄想 Emacs 能做得多好。
+- PDF Reader
+  + 別被騙了，這堪稱史上最慢的 PDF reader
+  + 這貨的實做方式是呼叫外部程式把整個 pdf 檔轉成圖片後，才用 Emacs 顯示出來，圖片已經夠慢，這是慢上加慢。
+  + 在轉檔時整個 Emacs 也是被 blocked 住的，讚吧。
+- RSS Reader
+  + 一樣，Single-thread，下載時 block 住 Emacs。
+  + 一樣，糟糕的圖片顯示能力。
+  + 常常遇到 =GNU TLS error -19= ，不知道是三小（有一部分人會遇到，例如我就碰到了...目前此題無解）。
+- 網頁瀏覽器
+  + 理由同上。
+- 大型的（超過一張 A4）試算表
+  + 別想了，乖乖開 OOo/M$ Office 吧
+v- 自訂排版的簡報
+  + [[https://github.com/coldnew/org-ioslide][org-ioslide]] 這類工具只適合做一些簡單排版的簡報。
+- 當你覺得不值得花那麼多時間學習、或用起來根本就沒有很順手的話，
+  + 就請放棄用 Emacs 做這件任務吧。
+
+** Emacs 要很多很麻煩的設定用起來才會順手？
+  這要看你要求 Emacs *做到多少事情。*
+
+  例如 Emacs 已經有為各種語言內建基本的編輯功能與 Syntax highlight，通常不用額外設定就可以直接使用。然而如果你需要 auto completion（例如 Python 的 Jedi），設定就常常會很煩人。這是 Emacs 的弱項，不像 IDE 那樣一裝好連 completion 都有了。雖然 Emacs 本來就只是編輯器。
+
+#+BEGIN_QUOTE
+  我個人非常挑剔 UX，所以就會覺得 Emacs 沒有設定過簡直不能用。
+
+  不過像 Emacs 台灣社群裡的 kanru 說 Emacs 預設值他就覺得很好用了。甚至有人只有不到 100 行的設定也用得很開心，然而我光 Dired 的設定就超過 100 行了。
+
+  是有不少新手包，據說幾乎不用自己寫什麼設定，不過我有強迫症會覺得髒髒的所以從來沒用過。
+
+  有套設定包叫做 [[https://github.com/syl20bnr/spacemacs][Spacemacs]] ，據身邊不少用 Emacs 的朋友說做得相當不錯，已經讓 Emacs 作到幾乎開箱即可用，不過我目前還沒去嘗試過就是了。有興趣的可以自行看看。
+
+  -- ono hiroko
+#+END_QUOTE
+
+** Emacs 很肥啟動很慢？
+ 有什麼關係，反正 Emacs 一啟動後根本就不關的。
+
+ Vim 可能就常常開開關關，但不要拿 Vim 的使用邏輯放在 Emacs 上，兩者設計理念差太多了。Vim 一開始就是要做編輯器，但 Emacs 一開始是想做個 Lisp 環境。
+
+#+BEGIN_QUOTE
+如果你是使用 Vim 的 programmer，你可能不會每天開 Vim 寫程式；\\
+如果你是 Emacser，你每天都會把 Emacs 開著放在桌面上。
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+ 如果你還是覺得啟動速度太慢，也是有幾種解決方案：
+
+ 1. 使用 [[https://github.com/jwiegley/use-package][use-package]] 來代替設定檔中的 =require= ，他能夠惰性地載入 package。
+ 2. 用 Emacs daemon，讓系統常駐一個 Emacs。
+
+ 由於兩者我目前都沒有使用過，所以也不方便介紹，有興趣的人可以自行 Google。
+
+ -- ono hiroko
+#+END_QUOTE
+
+
+** 據說一直壓 Ctrl 很容易受傷？
+#+BEGIN_QUOTE
+我個人是沒特別感覺，長時間使用也沒怎樣。\\
+有個很常被提出的解決方案是把 Ctrl 跟 CapsLock 鍵交換，但我個人沒這樣做，因為一般 Ctrl 位置我按了三年半了也沒受傷。所以我無法告訴你這種方法是否真的比較順手。
+
+然而有個事實是， *Emacs 在設計時的 1970 年代，鍵盤上的 Ctrl 是在現今鍵盤的 Caps Lock 處** ，而確實我聽過周圍的 Emacs 使用者都會把 Ctrl 跟 Caps Lock 給調換過來，他們也表示比較舒服。所以如果你也遇到小指不舒服的狀況確實可以試試。
+
+-- ono hiroko
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+其實要看個人感受喔.... \\
+我使用 emacs 7 年後開始發現小拇指有點點不太舒服，所以就將 Ctrl 和 CapsLock 交換了。不過其實我覺得 CapsLock 比較好按就是了 ~
+
+-- coldnew
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+個人蠻推薦將 CapsLock 直接變成 Ctrl， 讓 Shift+CapsLock 變成原本大寫切換的功能。
+因為 CapsLock 長這麼大顆、離你的小拇指比較近，而且你整天根本不會按到幾次。
+
+-- iblis
+#+END_QUOTE
+
+** 一定要先學會 Emacs Lisp 或什麼語言嗎？
+一樣，看你期望讓 Emacs 做哪些事。
+
+其實說真的，先把英文學好可能比先學會 Lisp 重要得多。先不說 Emacs 自帶的文件全是英文，目前網路上的 Emacs 資源、教學、文件 85% 也都是英文，剩下 14.9% 則是日文，所以努力把英文唸好吧。
+
+如果只是一般使用，不會 Lisp 也沒太大關係。安裝/設定各種外掛也只要按照他們的 README 複製貼上設定檔就行了。
+
+然而如果你想讓 Emacs 完全聽你的話，當個 Emacs 魔法師、寫你需要的外掛的話，當然就要學 Lisp 了。後面會提到入門方法。
+
+** 優缺點
+#+BEGIN_QUOTE
+筆者從學生時代每天用 Emacs 到現在工作依舊每天用也已經五年多，應該還算有一點資格分享一下這個...，此部份有許多個人觀點與個人使用經驗心得，我無法完全客觀地描述，故請容許我用第一人稱敘述。請審慎採信。
+
+  -- ono hiroko
+#+END_QUOTE
+** 優點
+
+1. 學一套，幾乎什麼平台都能用。
+2. Org-mode, Dired 這兩個功能至今依舊打趴其他所有編輯器。
+   - 尤其 Org-mode 是至今我心目中無人能敵的筆記 + GTD + 出版軟體。（這是我當初學 Emacs 而不是 Vim 的主要理由之一）如果你用 Android 也可以參考一下 Orgzly。
+3. 有 CLI 界面，可純鍵盤操作，遠端 ssh 操作或 tty 也完全沒問題。
+4. 很多 UNIX 工具也是採用 Emacs-flavored 的 key-binding，尤其是 GNU 出品的。例如  =info= 、 =less= 、甚至  =bash= / =zsh=  的預設操作方式其實就是模仿 Emacs 的。
+5. 歷史悠久，所以很多你想得到、想不到的方便功能幾乎都有人做過。舉凡一套完整的 Terminal Emulator、[[http://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][檔案管理員]]、[[https://magit.vc/manual/magit.html][Git 的前端]] 、 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Serial-Terminal.html][Serial Terminal]]到 [[https://github.com/hayamiz/twittering-mode][Twitter 的 client]]。
+6. Emacs Lisp 是個頗為完整的語言，還可以順便學 Lisp。拿來做一些常用的文字處理功能甚至拋棄式程式都相當方便，隨時覺得什麼文字編輯操作不順手就順手寫一個，不需要再弄什麼外部程式，例如我自己就常常拿它來：
+   - [[https://github.com/kuanyui/writing-utils.el/blob/master/page-title.el][在貼上網址後，自動去抓網頁的標題加上去。]]
+   - [[https://github.com/kuanyui/writing-utils.el/blob/master/flickr.el][貼上 Flickr 網址後，直接去抓圖片的 raw link。]]
+   - [[https://github.com/kuanyui/moedict.el][查《萌典》。]]
+   - [[https://github.com/kuanyui/ta.el][快速修改「她他它祂牠」這種同音字]]
+   - [[https://github.com/kuanyui/hexo.el][用 Emacs 管理 Hexo 寫的 Blog]]
+7. 免費又 Open Source，不用擔心被專有軟體綁住，這是個學一次就可以用一輩子的編輯器。
+
+** 缺點
+Emacs 的一些缺點：
+
+1. 要花時間搞弄設定檔，或者另外抓別人做好的設定包，並不像 VisualStudio Code 那樣開箱即可用。
+2. 不要看了一些網路上的文章拼命吹噓說 Emacs 是地表最強的 IDE 什麼的就相信了，即使「理論上」Emacs 做得到某某功能到但不代表真的有人做，或者真的做得很好。例如至少我自己現在寫 Qt C++ 或 QML 時還是乖乖開 Qt Creator。為什麼？你用一次就知道了啦...（Qt 已經寫到成精、連自動補全都不需要的人除外）。
+3. Emacs Lisp 先天的 single-threaded 限制，效率本身並不優秀（自己在寫 LESS 時開 company-mode 發現還蠻容易卡住的...這部份我沒有特別深入底層是怎麼回事，也許問題不在 single-threaded？）。
+4. Emacs 在尺寸上比 Vim 肥很多。更加上設定檔的關係，不方便放進隨身碟裡到處帶著走。
+5. 幾乎所有主機上都有 Vim（再怎樣也有 Vi），但不一定會有 Emacs。
+6. 雖然說歷史悠久套件豐富，但其實有一些很必要的套件用起來令人訝異地還是覺得處於半完成狀態。例如 jade-mode 跟 pug-mode 兩個目前用起來都蠻雷的。mmm-mode 就不用說了，很必要但目前用起來感覺最糟糕但又沒有其他更好代用品的 Emacs 套件（因為經常出問題我甚至直接綁了 =f5= 專門重新啟動 mmm-mode...）。
+7. +參加 COSCUP 甚至面試時說自己用 Emacs 會被別人用像是在看瀕臨絕種的動物的眼神看待（沒有開玩笑）。+
+
+** 預備知識
+這一篇會講解 Emacs 的必備預備知識， *請務必詳讀，後面不會再解釋。*
+
+以前你可能聽過 Emacs，但可能因為各種原因而沒用過或學不下去，例如網路上的教學又凌亂不連貫、有問題不知從何問起？下面整理了幾乎所有初學者都會遇到的最常見問題。
+
+然而首先我想從這個問題開始：「到底 Emacs 是什麼東西？」在這之前，先打開你系統上的 Emacs：
+
+#+BEGIN_QUOTE
+- Q: 「我的人生太無聊、我就是喜歡在終端機裡面瞎折騰；該怎麼強迫使用終端機版、而非 GUI 版本的 Emacs？」
+- A: 「加上 =-nw= 參數」：
+
+: $ emacs -nw
+#+END_QUOTE
+
+你會見到一個歡迎畫面，按 =q= 關掉它，會看到 =*scratch*= 這個空空如也的畫面配著三行字。這個 =*scratch*= 可以看作是個無特別意義的塗鴉紙，可以在上面亂打一些字。好啦，就這樣開始吧：
+
+
+** C-x, M-f 這些東西代表什麼意思？
+
+    - Emacs 使用 *簡寫* 表示鍵盤組合鍵。如：
+      - =C-a= 表示按住 =Ctrl= 再按 =a= 。
+      - =M-f= 表示按住 =Alt/Meta= 再按 =f= ，或者按一下 =Esc= 再按 =f= 。
+      - =C-x C-f= 表示按住 =Ctrl= 後，再按 =xf= 。
+      - =C-x k= 表示按了 =C-x= 後，放開 ，再按一下 =k=
+      - =C-x RET= 表示按了 =C-x= 後，放開，再按一下 =Enter=
+    - =C-x=, =C-c=, =C-u= 這三者是前綴 (prefix，稍後詳述) 組合鍵，你不能單獨使用（例如你無法把某個功能綁到只按一個 =C-x= 就能達成，它會報錯）
+      - 例如開檔 =C-x C-f= 、存檔 =C-x C-s= 、離開 Emacs =C-x C-c=
+    - =M-x= 是直接呼叫「指令名稱」。或者精確的說，「函數」(function)
+    - =C-u= 是給命令加上參數時在使用的，初學不需要知道這個，以後再說 XD
+
+#+BEGIN_QUOTE
+前面提到的，Emacs 是個 Lisp 環境，而你按的每一個按鍵，對 Emacs 來說實際上其實就是在 *呼叫函數* 。例如：
+- 方向鍵右 → 執行函數 =(right-char)= ，它的副作用是讓游標向右移動一個字元。
+- 方向鍵上 → 執行函數 =(previous-line)= ，它的副作用是讓游標向上移動一行。
+
+因此，只要是 =M-x= 呼叫得出的函數，你都可以重新綁定成你自己喜歡的按鍵。（方法後述）
+#+END_QUOTE
+
+** Emacs 是什麼？
+
+[[file:pic/alliances_zh.png]]
+
+這個問題聽起來很蠢，但其實我認為非常重要，因為當你領悟了這點，你在學習 Emacs 時腦中會少掉很多問號與 WTF，並越用越豁然開朗。
+
+我的理解是這樣的： *Emacs 是一個剛好具有文字編輯功能的 Lisp 環境*
+
+什麼意思呢？Emacs 本身是一個完整的 Lisp 環境/直譯器，除了 Lisp 直譯器自己本身與一些低階命令外，其餘部份全是使用 Emacs Lisp 所建構而成。
+
+動手試試看，在上面提到的 =*scratch*= 畫面中輸入 =(message "Hello World!")= ，然後游標移動到括弧後方並按下 =C-x C-e= ，你會發現下方的 minibuffer 訊息列就會顯示出 =Hello World!= 。
+
+發生了什麼事？ =C-x C-e= 的動作代表「執行（eval）該 Lisp 表達式」， =message= 是一個 Emacs 內建的 Lisp function，用途就是在 minibuffer 中顯示字串。或更精確地說，「執行 =message= 這個 Lisp function 的 *副作用* 就是在 minibuffer 中顯示字串。」 =(message "Hello World!")= 是一個完整的 Lisp 表達式，所以你 eval 它，就能在 minibuffer 中顯示 =Hello World!= 這個字串。
+
+Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠著執行這些 function 的副作用而構成一個文字編輯環境的。
+
+因為 Lisp 表達式如果有副作用，執行的結果就會直接立刻影響整個 Emacs。所以我們常透過 =setq= 這個 function 來 assign variable 達成自訂 Emacs 的目的。
+
+例如執行 =(setq read-file-name-completion-ignore-case t)= 將會把 =read-file-name-completion-ignore-case= 這個 variable 的值設為 =t= ，以後在 =C-x C-f= 就能忽略路徑檔名的大小寫。
+
+#+BEGIN_QUOTE
+如果你不懂 Lisp， =(setq VAR_NAME VALUE)= 是 Lisp 中設定 variable 的意思，等同 Python 中的 ~VAR_NAME = VALUE~ 。 =t= 是 Lisp 中的 =True= ， =nil= 則是 =False= 之意。
+#+END_QUOTE
+
+當你清楚意識並理解到這點後，往後很多 Emacs 的行為你會豁然開朗，尤其是你在學 Emacs Lisp 時，這是很重要的概念。這也是一個蠻實用的特性，因為你可以極為容易地寫出一些臨時需要的 function 做出一些快速的編輯功能。
+
+
+** 我剛剛不知動到什麼操作了，要怎麼取消？
+
+   操作遇到問題想取消，狂按幾下 =C-g= 就對了，就像你在 Bash/Zsh 下狂按 =C-c= 一樣。
+
+   如果你是不小心編輯到檔案內容了，按 =C-/= 或 =C-_= 可以復原（Undo）。
+
+#+BEGIN_QUOTE
+Emacs 內建的 Undo 跟一般你在其他應用程式中所知道的 Undo 不一樣，而且不太好理解。可以參考 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Undo.html]] ，詳情[[03-熟悉基本按鍵(key-binding).org][稍後]]會再解釋。
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+除了檔案內容可以 undo，window 的操作（就是 =C-x 0=  =C-x 1=  =C-x 2=  =C-x 3= 那些東西啦）也可以！啟用 Emacs 內建的 =winner.el=:
+#+BEGIN_SRC lisp
+;; Make window state undo-able
+(require 'winner)
+(winner-mode 1)
+#+END_SRC
+
+現在可以用 =C-c C-right/left= 來 undo / redo 你的 window 狀態。
+#+END_QUOTE
+
+** 有沒有什麼方法查詢function的key-binding啊？
+
+只要是 =M-x= 呼叫得出的 function，你都可以透過各種方法來查詢他的key-binding:
+
+    - 使用 =C-h f= 查詢某 function 的用途、文件與該 function *在目前的 buffer 中* 所 bind 到的 key-binding 等資訊。
+    - 使用 =C-h m= 查詢 *在目前的 buffer 中* 、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
+    - 按任意 prefix key 後再按下 =C-h= ，可以得知目前 buffer 下，以該prefix key為開頭的所有可用的key-bindings。例如按下 =C-x C-h= 你可以看到類似這樣的東西：
+
+#+BEGIN_EXAMPLE
+Global Bindings Starting With C-x:
+key             binding
+---             -------
+
+C-x C-@         mc/edit-lines
+C-x C-b         ibuffer
+C-x C-c         save-buffers-kill-terminal
+C-x C-d         list-directory
+C-x C-e         eval-last-sexp
+C-x C-f         ??
+C-x TAB         indent-rigidly
+C-x C-j         dired-jump
+C-x C-k         kmacro-keymap
+C-x C-l         downcase-region
+C-x RET         Prefix Command
+C-x C-n         set-goal-column
+C-x C-o         delete-blank-lines
+C-x C-p         mark-page
+C-x C-q         read-only-mode
+C-x C-r         helm-recentf
+.....(以下省略)
+#+END_EXAMPLE
+
+    - 也可以倒過來查：使用 =C-h k= 、再按下任意 key-binding，可以查詢其 key-binding 在目前 buffer 下所綁定到的 function。
+
+** Buffer 與 Frame、Window 到底差在哪裡？（務必弄清）
+
+注意，這幾個東西的概念完全不同；
+
+    - Buffer 就是你用 Emacs 時， *開啟檔案後、拿來編輯檔案的地方* 。編輯就編輯，為什麼會叫「Buffer（緩衝區）」這麼奇怪的名子呢？因為你在緩衝區裡面做的任何編輯都還不會被立刻實際寫入檔案，直到按 =C-x C-s= 存檔為止，這就是「緩衝區」的概念。
+      - 順帶一題， *Minibuffer* 指的是 Emacs 視窗最下方、用來顯示訊息或者互動式操作中輸入資料的那一條。
+
+*** Frame & Window
+這兩個玩意要一起解釋：
+    - 一啟動 Emacs 時，你會看到的畫面通常就是 *「一個 Frame，裡面包著一個 Window」*
+    - Frame 裡面可以包含好幾個 Window，你可以把 Frame 切成好幾塊，例如上下各一個、或左右各一個等等各種不同的 layout， *每一塊就是一個 Window* ，這樣你就可以同時看好幾個 buffer 的內容，有點像 tiling window manager 那樣。
+    - 每個 Buffer 各自暫存著自己所存取的檔案的內容。
+    - 每個 Window 各自顯示著 Buffer 的內容。每個 Window 總是、必定會顯示著一個 Buffer。
+    - 每個 Frame 各自儲存著自己的 Window layout。
+      - 也就是說你當然可以隨時新增並切換 Frame 來看到其各自不同的 Window layout。
+      - 注意看 mode-line，檔案名稱左邊的 =F1= 意思就是你現在在第一個 Frame： [[file:pic/frame_identification.png]]
+
+...唉呀拎老師靠北啦，還是拿兩張 screenshot 來講比較快：
+
+
+我啟動 Emacs 後，開了兩個有著不同的 Window layout 的 Frame。
+
+- 這是第一個 *Frame* =F1= ，包含了 2 個 *Window* ，左右各一個：
+   - 左邊的 *Window* 正顯示著 =02-預備知識.org= 這個 *Buffer* （就是這篇文章的原稿檔案啦啊啊）
+   - 右邊的 *Window* 正顯示著名為 =*[萌典] 查詢結果*= 的 *Buffer* 。
+
+[[file:pic/frame1.png]]
+
+- 這是第二個 *Frame* =F2= ，包含了 3 個 *Window*:
+
+  - 上方的 *Window* 正顯示著 =rc-basic.el= 這個 *Buffer*
+  - 左下的 *Window* 正顯示著 =emacs-101/= 這個目錄 (=Dired= 的 *Buffer*)
+  - 右下的 *Window* 正顯示著名為 =test= 的 *Buffer* (=Org-mode=)。
+
+[[file:pic/frame2.png]]
+
+#+BEGIN_QUOTE
+其實會有 Buffer 這麼奇怪的詞完全是歷史因素，因為 Vi 與 Emacs 發明時的 70 年代，大家都還在用 =ed= 之類的行編輯器在編輯檔案，還沒有這種「輸入什麼東西、即時就可以在螢幕上見到修正」的編輯器，所以才會把編輯區叫做 Buffer。在那時這種功能可是創新的呢。
+
+-- ono hiroko
+#+END_QUOTE
+
+*** 操作方式
+
+**** Buffer
+    - 關掉 Buffer 是 =C-x k= ， *將會真正地把檔案關掉* (kill-buffer)
+      - 切換到下一個/前一個 buffer： =C-x C-<right>/<left>= （方向鍵）
+      - 直接切到某個 buffer： =C-x b= （可以用 =tab= 鍵補全）
+      - 開啟 buffer 管理員： =C-x C-b= （強力推薦改用 =Ibuffer= ，因為預設的非常難用）
+**** Window
+    - 關掉目前的 Window 是 =C-x 0= ， *但這個動作並不會把 Buffer 也一起關掉！* 即使關掉 window，buffer 其實還活在背景中、隨時可以叫出。這一點與現在一般常見的編輯器不同，並不是關掉視窗後、檔案也會一起關閉。因為 Window 本身並不存任何內容，只是拿來顯示 Buffer 用。
+      - 切換到不同的 Window： =C-x o=
+      - 將目前以外的所有 Window 關掉： =C-x 1=
+      - 將目前的 Window 分成上下兩塊： =C-x 2=
+      - 將目前的 Window 分成左右兩塊： =C-x 3=
+#+BEGIN_QUOTE
+為什麼還要設計 Buffer 這種東西搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Window 與 Buffer 的概念是分開的，所以可以 *開多個 Window，且每個 Window 都顯示同個 Buffer* ，代表你可以同時開多個 Window，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
+#+END_QUOTE
+
+**** Frame
+    - 關掉目前 Frame: =C-x 5 0= ，跟 Window 一樣，關掉 Frame 並不會把 Buffer 一起關掉，因為 Frame 本身只是用來存 Window 的 layout 而已。關了 Frame 也只是把這個 Window layout 扔掉。
+      - 切換到不同的 Frame： =C-x 5 o=
+      - 將目前以外的 Frame 關掉: =C-x 5 1=
+      - 新增 Frame: =C-x 5 2=
+
+#+BEGIN_QUOTE
+有一點要注意：因為我很少用 GUI 版，我後來才發現 GUI 和 console 版的 Frame 行為不同， GUI下 =C-x 5 2= 其實會新開一個 Emacs 視窗...我自己是不喜歡這樣，我是不知道有沒有辦法讓 GUI 下的frame 行為跟 console 下一樣啦。[[https://emacs.stackexchange.com/questions/34576/how-to-use-multiple-frame-c-x-5-2-within-only-one-systems-window-in-gui-ema][我問過這個問題不過好像無解]]， 除非用第三方package像是elscreen來達成類似的事情（我試用了一下， elscreen 做的事情跟 frame 有 87% 像，在GUI下也可以保持單一主視窗，而且還多一個可以開關的tab bar來切換frame）。
+
+-- ono hiroko
+#+END_QUOTE
+
+** 什麼是 Mode？Major-mode 跟 Minor-mode 又差在哪？
+前面提到，Emacs 是一個 Lisp 環境，我們可以拿他來做各種任務。
+
+我們會開很多不同的 buffer 來做不同的任務，例如我可能一個 buffer 在寫 Python 程式碼，另一個 buffer 在查 Python 的文件，另一個 buffer 拿來瀏覽專案目錄管理檔案，另一個 buffer 顯示 ag 的搜尋結果，最後一個 buffer 拿來偷偷分心上 IRC。因為每個 buffer 的任務不同，沒辦法用統一的 Lisp 環境設定直接拿來做這些任務，所以呢，mode 的用途就是「為各種不同的任務，創造適合該任務的環境」。
+
+拿寫 Python 用的 =python-mode= 當例子好了，當你在 buffer 中使用 =M-x python-mode= 啟動該 mode 後， =python-mode= 就會做出像是下面這些行為
+- 把 buffer local 變數 =tab-width= 設定為 =8= （一個 tab 有多少空格寬）
+- 把 buffer local 變數 =comment-start= 設定為 =#= （comment 的開頭字元）
+- 設定 =indent-line-function= 來指定當使用者按 =[TAB]= 鍵時，該怎麼縮排？
+- 設定好 Python 的 syntax highlight 等等規則。（ =font-lock= ）
+- 讀取 =python-mode-map= ，看看有哪些 key-binding 可以按。（這部份稍後會詳細介紹）
+- 執行 =python-mode-hook= 內的 hooks（看不懂沒關係，這部份稍後也會詳細介紹）
+- ......etc
+
+被這樣一設定，這個 buffer 就會變身成適合編輯 Python 的「環境」。這就是 mode 的用途。
+
+*** Major-mode
+Major mode 大致可以（非正式地）亂分成兩種類型：
+
+1. 程式語言編輯： =python-mode=, =ruby-mode=, =haskell-mode=, =c++-mode=, =sql-mode= ...
+2. 工具、應用程式類： =dired-mode= (檔案管理員), =erc-mode= (IRC client),  =term-mode= (terminal emulator) ...
+
+一個 buffer 只能同時啟用一個 major mode，無法兩者同時處於啟用狀態，因為每個 major-mode 所需的環境通常都是互相衝突的。想像一下，你要在一個 buffer 中同時編輯 Python 與 Ruby 程式碼，這種事顯然是不合理的，例如 syntax highlight 到底該用 Python 還是 Ruby 的規則呢？
+
+#+BEGIN_QUOTE
+不過現實世界是很複雜的，像是 HTML code 裡面常常就會插入 JS，這種情況下有個非常知名的 Emacs 外掛叫做 =mmm-mode= 就是在解決這種事情，你可以在單一 buffer 中同時啟動好幾個 major-mode，這樣就可以同時顯示諸如 HTML/CSS/JS 的 syntax highlight 之類的，但我不會說明如何使用，等你讀完整本 Emacs 101 後再自己去看 =mmm-mode= 的文件自己安裝設定吧，讀完 Emacs 101 你自己就看得懂那些文件了。
+#+END_QUOTE
+
+*** Minor-mode
+Major mode 沒有辦法同時啟動多個，但 minor mode 就可以同時啟動好幾個，你要幾個都可以。例如： =pangu-mode= (自動在中文跟英文之間插入空格)、 =rainbow-delimiters-mode= （即時把 buffer 中不同深度的括號上不同顏色）、 =rainbow-mode= （即時將 buffer 中所有包含 Hex/RGB color code 的顏色顯示出來）等等，這些功能顯然是不會互相衝突的。
+
+minor-mode 基本上是不會衝突的，但有時有著相同功能的 minor mode 同時打開時行為可能就會很怪。例如你同時開兩個自動幫你補上右括號的 minor mode 之類的。這點就只能自行注意。
+
+** 什麼是 Kill-ring？
+
+其實 Kill-ring 就是現在大家常說的剪貼簿（clipboard）啦。
+
+在 Emacs 中，刪除文字的指令（例如 =C-k=, =M-d= ）其實通常不會把文字真的刪除掉，而是預設會丟入 Kill-ring。
+
+- 按 =C-y= 可以把最近一次被 Kill 掉的文字從 Kill-ring 給「拉 (Yank) 」出來。
+- 再按 N 下 =M-y= 可以把前 N 次被 Kill 掉的文字從 Kill-ring 中「拉」出來。
+
+* 熟悉基本按鍵綁定(key-binding)
+
+#+BEGIN_QUOTE
+Emacs = Esc + Meta + Alt + Ctrl + Super
+#+END_QUOTE
+
+這是一個玩笑話，不過 Emacs 確實有著多到令人咋舌的 key-binding。記不完怎麼辦？沒怎麼辦，就跟英文單字一樣，你也不需要把整本牛津字典背完才能開始說英文。只要先記住一些基本 key-binding 就可以了，熟悉以後能夠有效增加你的編輯效率。以下做一些整理。
+
+** 基本
+- =C-x C-f= 開檔。
+- =C-x C-s= 存檔。
+- =C-x C-w= 另存新檔。
+- =C-x C-c= 離開 Emacs。
+
+*** Buffer 相關
+- =C-x k= 關掉目前 buffer。
+- =C-x C-←= 切換到上一個 buffer。
+- =C-x C-→= 切換到下一個 buffer。
+
+- =C-x b= 切換到/開啟一個名為 xxx 的 buffer。
+- =C-x C-b= 開啟 buffer 管理員(不推薦使用，預設的管理員難用到爆)
+
+#+BEGIN_QUOTE
+這裡一定要特別提一下，按下 =C-x C-b= 會跳出 Emacs 預設的 buffer 管理員...這玩意簡直垃圾一般的存在，非常之難用，實在不懂為何到了 2015 年還是預設用這鬼東西 +（我猜可能是 RMS 愛用）+ 。強烈建議改用 Emacs 內建的 =ibuffer= 來代替預設的 buffer 管理員：
+#+end_quote
+
+#+begin_src elisp
+(require 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+#+end_src
+
+試試看，這樣就已經比預設的好用了。除此之外 =ibuffer= 還有包含給 buffer 分類的功能。例如如下設定可以將正在使用 Python、Ruby、Dired 跟 Markdown 的 buffers 分開：
+
+#+BEGIN_SRC elisp
+(setq ibuffer-saved-filter-groups
+      (quote (("default"
+               ("Dired" (mode . dired-mode))
+               ("Markdown" (or
+                            (name . "^diary$")
+                            (mode . markdown-mode)))
+               ("ReStructText" (mode . rst-mode))
+               ("Python" (or (mode . python-mode)
+                             (mode . ipython-mode)
+                             (mode . inferior-python-mode)))
+               ("Ruby" (or
+			(mode . ruby-mode)
+			(mode . enh-ruby-mode)
+			(mode . inf-ruby-mode)))))))
+#+END_SRC
+
+可以再根據自己的需要修改。如果看不懂這在幹麻請先耐下性子，後續章節會提到要怎麼看懂並修改這類玩意。
+
+-- ono hiroko
+
+
+*** Window 相關
+- =C-x 0= 關掉目前 Window
+- =C-x 1= 將目前 Window 以外的所有 Window 關掉。
+- =C-x 2= 水平分割 Window
+- =C-x 3= 垂直分割 Window
+
+- =C-x o= 切換到下一個 Window（不推薦使用，不知道誰想出來的爛設計）
+
+#+BEGIN_QUOTE
+是的不才在下我今天又要來靠北一下 Emacs 的預設操作方式了。 =C-x o= 這個設計真是難按斃了，尤其當螢幕上你切割了一大堆 window 時，得按好幾次 =C-x o= 才能切換到你要的，不過 Emacs 其實有內建一個套件叫 =windmove= ，我自己是加入這樣的設定到設定檔中：
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "M-S") 'windmove-up)
+(global-set-key (kbd "M-X") 'windmove-down)
+(global-set-key (kbd "M-C") 'windmove-right)
+(global-set-key (kbd "M-Z") 'windmove-left)
+#+END_SRC
+
+這樣就可以用 =Alt+Shift+s/z/x/c= 來向上/下/左/右切換 window，而且在標準 qwerty 鍵盤上可以單手操作。如果你有其他更偏好的 key-binding 請自行修改。
+
+-- ono hiroko
+#+END_QUOTE
+
+**** Frame
+- =C-x 5 0= 關掉目前 Frame
+- =C-x 5 1= 將目前以外的 Frame 關掉
+- =C-x 5 2= 新增 Frame
+
+- =C-x 5 o= 切換到不同的 Frame
+
+#+BEGIN_QUOTE
+我用了快五年 Emacs 才發現這幾個 Frame 相關命令有多麼實用（不知道這啥的話請重看第二章，詳細解釋Buffer/Window/Frame的差異）！我現在甚至讓 F11, F12 專門拿來切換 Frame：
+#+BEGIN_SRC lisp
+(global-set-key (kbd "<f11>") (lambda () (interactive) (other-frame 1)))
+(global-set-key (kbd "<f12>") (lambda () (interactive) (other-frame -1)))
+#+END_SRC
+#+END_QUOTE
+
+*** 游標移動
+- =C-a= 跳到行首
+- =C-e= 跳到行尾
+- =M-f= 跳到下一個英文單字(f 表示 forward)
+- =M-b= 跳到前一個英文單字(b 表示 backward)
+
+#+BEGIN_QUOTE
+與 Vim 一樣，這種針對「單字」的操作指的都是歐洲語系國家的單字，因為他們有空白來分割每個單字。
+
+然而對中文來說，Emacs 並沒有辦法針對中文斷詞，所以 =M-f= 會 *直接跳到下一句話* ，因為每句話之間有標點符號分隔著。
+
+同理，編輯日文時，Emacs 只會按照平假名/片假名/漢字來「斷詞」。
+
+-- ono hiroko
+#+END_QUOTE
+
+- =M-g M-g= 跳到第 N 行。
+- =M-<= 跳到文件最頂端。
+- =M->= 跳到文件最尾端。
+**** Programming 相關游標移動
+這兩個比較特殊的游標移動，你可以自己試試看不同程式語言的 mode 中這些代表什麼意思，蠻常用到的。
+
+- =C-M-b= 跳到上一個 S-expression / 上一個 token
+- =C-M-f= 跳到下一個 S-expression / 下一個 token
+
+*** 畫面捲動
+- =C-v= 向下捲動一頁
+- =M-v= 向上捲動一頁
+- =M-Page Down= 隔壁的 window 向下捲動一頁
+- =M-Page Up= 隔壁的 window 向上捲動一頁
+- =C-l= 畫面與游標位置對齊（重複按可對齊三種位置）
+
+*** 搜尋
+- =C-s= 普通字串搜尋（繼續按 =C-s= 搜尋下一個）
+- =C-M-s= Regexp 搜尋 （一樣，也是繼續按 =C-s= 搜尋下一個）
+- =M-%= 字串搜尋並取代
+
+** 執行外部命令
+注意，目前 buffer 的工作目錄就是指令執行時的 =pwd= 位置。
+
+- =M-!= 執行外部指令(synchronously)
+- =M-&= 執行外部指令(asynchronously)
+- =M-|= 將選取起來的區域(使用 =C-@=)透過 pipe 傳送給外部命令
+
+#+BEGIN_QUOTE
+這幾個玩意在臨時需要下指令時非常方便，其中最常用的應該是 =M-!= ，我常常拿它來下諸如 =git init=, =git clone=, =mkdir= 等指令，而不用另外開個 console。
+
+-- ono hiroko
+#+END_QUOTE
+
+** Kill-ring 相關
+
+*** 刪除（Kill）
+- =C-k= 從目前游標 kill 到行尾（並將被 kill 掉的部份丟入 kill-ring）
+- =M-k= 從目前游標 kill 到一句話的尾端。
+
+- =C-d= kill 目前游標下的字元
+- =M-d= 從目前游標 kill 到下一個 空格 or 標點符號 or 行尾
+
+*** 選取區域操作
+
+- =C-@= 標記選取範圍。
+- =C-x C-x= 跳到選取範圍的開頭/尾端。
+- =M-w= 複製目前選取區域。
+- =C-w= 剪下目前選取區域。
+
+*** 貼上（Yank）
+- 按 =C-y= 可以把最近一次被 Kill 掉的文字從 Kill-ring 給「拉 (Yank) 」出來。
+- 再按 N 下 =M-y= 可以把前 N 次被 Kill 掉的文字從 Kill-ring 中「拉」出來。
+
+#+BEGIN_QUOTE
+前面提過，學 Emacs 的優勢之一，就是「FLOSS 界中，很多軟體都會用 Emacs-flavored key-binding 的」。
+
+我個人覺得最神奇的，就是在我用 Emacs 一段時間後，赫然發現 *「Bash 和 Zsh 中是可以使用 kill-ring 的！」* 試試看就知道我在說什麼了，真的非常方便。尤其如果你已經很熟悉 Emacs 的操作，那往後在使用 Bash/Zsh 時你會發現比以往更如魚得水。
+
+-- ono hiroko
+#+END_QUOTE
+
+** Undo/Redo
+- =C-/= 或 =C-_= : 復原（Undo）。
+- 先按 =C-g= 再按 undo：Redo。
+
+#+BEGIN_QUOTE
+這是每個 Emacs 初學者一開始都會被搞混的概念。但 Emacs 的 Undo/Redo 非常強大，但邏輯很難懂。在這裡簡單的說，就是 *在 Emacs 中，包含 undo 這個動作本身都是可以 undo 的* ，也就是 undo 本身也會被紀錄在整個編輯歷史中，而不會被其他 undo/redo 動作給消除（直到你關閉這個檔案為止）。「一切你的編輯行為都是可以undo的」，而「編輯行為」也包含undo自己。
+
+其實我自己也解釋不太清楚這個概念，雖然很常用但解釋真的不太容易...
+
+希望我沒解釋錯（請各位大大指正）例如開一個全新的buffer 後:
+
+#+BEGIN_EXAMPLE
+  0.[空白buffer狀態]
+  1.輸入一串字(A)
+  2.按undo把(A)消乾淨[回到0.的空白buffer狀態，無法再undo]
+  3.再輸入另一串字(B)
+  4.按undo把(B)消乾淨
+  5.再按一次undo，會發現(A)跑回來了，因為他undo了你在2.時所作的undo
+  6.再按一次undo，又回到最一開始的0.[空白buffer無法再undo]
+#+END_EXAMPLE
+
+重點在步驟 =5.=
+
+Vim 聽說也是這樣，所以 Vimmer 應該能了解。
+
+我個人推薦使用 =undo-tree.el= 這個外掛，可以視覺化整個 undo/redo 歷史樹。我個人還蠻常用 =undo-tree= ，但也聽過別人說他們覺得這玩意沒什麼使用時機。各人喜好吧。
+
+順帶一提， =undo-tree.el= 中有提供一個 command 叫做 =undo-tree-redo= ，它的功能就是你想要的那個 redo，你可以把這 command 給綁到你要的 key-binding 上。我自己平常就是用這個來做 redo 的，這樣就不用先按 =C-g= 就能 Redo 了。
+
+-- ono hiroko
+#+END_QUOTE
+
+** 特殊編輯功能
+- =M-^= 把目前行的縮排拿掉後，接到上一行。
+
+*** Programming
+- =M-;= 插入目前語言的註解（如 Python 就是 =# comment= ，Haskell 就是 =-- comment= ）
+  #+BEGIN_QUOTE
+  注意，你可以用 =C-@= 選取一段文字後，再按下 =M-;= ，這樣就可以將整個選取的範圍給註解掉。試試看就知道我在說什麼了。
+
+-- ono hiroko
+  #+END_QUOTE
+- =C-M-\= 立刻自動縮排
+- =M-q= 將目前整個段落每 70 字元換行。
+
+*** 英文大小寫
+- =M-l= 單字轉成全小寫。
+- =M-u= 單字轉成全大寫。
+- =M-c= 單字轉首字大寫。
+
+#+BEGIN_QUOTE
+這個功能看似雞肋，不過我還蠻常用的。
+
+因為這個大小寫轉換是從目前游標開始算起，所以請搭配前面提到過的 =M-b= 來使用。例如 =M-b M-u= 就可以把目前單字轉成全大寫。
+
+-- ono hiroko
+#+END_QUOTE
+*** 交換
+- =C-t= 前後字元交換。
+- =M-t= 前後單字交換。
+
+#+BEGIN_QUOTE
+規則很難解釋，自己多試用幾次看看就會懂了。熟悉後我發現這個功能出乎意料的實用。
+
+-- ono hiroko
+#+END_QUOTE
+
+Key-binding（通常翻譯成「按鍵綁定」，或你可能比較熟悉的「快速鍵」） 是操作 Emacs 最重要的管道。使用快速鍵、自訂快速鍵前，尤其自訂遇到問題時，務必先詳讀此篇概念。
+
+#+BEGIN_QUOTE
+章節順序安排無法避免地有點矛盾：這一章請跟第五章的設定檔部份一起參照閱讀。我再想想要怎麼排會更好。
+
+-- ono hiroko
+#+END_QUOTE
+
+* 快速鍵綁定 Key-binding
+
+只要是 =M-x= 呼叫得出的 function，你都可以重新綁定成你自己喜歡的按鍵，稱作 *key-binding* 。分成兩種，一種是全域 Global-key，一種是 mode 自訂的 Local-key。
+
+    - 使用 =C-h f= (f 代表 function) 查詢某 function 的用途、文件與該 function 所有的 key-binding 等資訊。
+    - 使用 =C-h k= (k 代表 key-binding)、再按下任意 key-binding，可以查詢其 key-binding 在目前 buffer 下所綁定到的 function。
+    - 使用 =C-h m= (m 代表 mode) 查詢目前的 buffer 下、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
+    - 使用 =C-h v= (v 代表 variable) 查詢某個 variable 的值：
+      - 例如可以查詢 =major-mode= 這個變數的值，以得知目前的 major-mode 實際上的 symbol 名稱（ *在設定 key-binding 和 hook 時需要用到這個值* ）
+    - 按任意 prefix key 後再按下 =C-h= ，可以得知目前 buffer 下，以該prefix key為開頭的所有可用的key-bindings。
+
+#+BEGIN_QUOTE
+Symbol 是 Lisp、Ruby、Julia 等語言中有的一種資料型態，目前不要深究也沒關係，我們現在只是要弄設定檔。
+#+END_QUOTE
+
+** Global key
+
+   假如我覺得 =C-z= （在 console 下的作用是把 Emacs 移到背景執行）實在沒啥用還常常按錯，想把他改成「選取文字」（set-mark-command，原本只有綁到 =C-@= ），可以這樣做：
+
+   #+BEGIN_SRC elisp
+   (global-set-key (kbd "C-z") 'set-mark-command)
+   #+END_SRC
+
+   你也可以只是把 C-z 取消成沒有用的鍵，讓他變成一個 "prefix key"（詳情請見第四章）：
+
+   #+BEGIN_SRC elisp
+   (global-unset-key (kbd "C-z"))
+   #+END_SRC
+
+** Local key
+
+    不管是 Major 或 Minor mode，都有自己的 local key (keymap)。Local-key 只在你指定的 mode 下有用。
+    例如，你希望在 Twitter 的 Emacs client =Twittering-mode= 下，按大寫 =U= 可以顯示自己的 timeline，可以使用 =define-key= ：
+
+    #+BEGIN_SRC elisp
+    (define-key twittering-mode-map (kbd "U") ’ twittering-user-timeline)
+    #+END_SRC
+
+    *各個 mode 儲存 key-bindings 的變數一律是 「該 mode 的正式名稱 +* =-map= *」* 。例如名稱叫 =twittering-mode=  的 major mode，他的 key-map 就是 =twittering-mode-map= 。這是規則，記下來就對了。
+
+    #+BEGIN_QUOTE
+    查 mode 的正式名稱最快的方式：
+    - =C-h v= =major-mode= 可以查詢目前 buffer 下 major mode 的正式名稱
+    - =C-h v= =minor-mode-list= 查詢目前 buffer 下所有啟動的 minor mode 的正式名稱
+    #+END_QUOTE
+
+    Key 的設定是 *新的會直接覆蓋舊的* ，在 init.el 有時要注意這點，否則會發現為何自己的 global-key 設定沒有生效，才發現自己原來之前設定過同樣設定。（因為 Emacs Lisp 是直譯式，init.el 的設定是從第一行一行一行執行到檔案尾端，所以後面的設定會蓋掉前面的。例如你改了兩次的 =C-@= 就會發生這種情形）
+
+* 設定按鍵的規則
+設定按鍵時有一些注意事項：
+
+** 小心 local key-binding 優先於 global key-binding
+在同個 buffer 下，當一個 key-binding 同時被設為 global key 與 local key 時，local key 會被優先採用。
+
+** 小心後者設定會蓋掉前者。
+假如你在設定檔裡面放入：
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-r") 'undo-tree-redo)
+(global-set-key (kbd "C-r") 'recentf-open-files)
+#+END_SRC
+你會發現最後 =C-r= 執行的是第二行的 =recentf-open-files= 。所以當你納悶為何定義快速鍵沒用時，檢查一下是否重複設定了。
+
+** 小心 Amibigious
+來看範例，假如你在設定檔裡放入這兩行：
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-c m") 'moedict)
+(global-set-key (kbd "C-c m r") 'moedict/region)
+#+END_SRC
+按鍵衝突發生了。第一行執行起來沒問題，但執行到第二行就炸掉了。因為 Emacs 會不知道你按 =C-c m= 時到底是想衝三小，到底是打算執行 =moedict= 呢，還是準備執行 =moedict/region= 按到一半呢？他是要出來嗎，還是要進去呢？真的很痛苦。所以 Emacs 乾脆不允許這種設定，直接報錯。
+
+讓我們斷開鎖鏈，斷開魂結，斷開 key-binding 的一切牽連：
+#+BEGIN_SRC elisp
+(global-unset-key (kbd "C-c m")) ; 清除剛才我們設定錯的 C-c m ，這樣所有 C-c m 開頭的綁定都會被清除
+(global-set-key (kbd "C-c m m") 'moedict) ; 重新綁定
+(global-set-key (kbd "C-c m r") 'moedict/region)
+#+END_SRC
+這樣寫就沒問題啦。
+
+** Prefix Key (=C-x= & =C-c=)
+=C-x= 與 =C-c= 是前綴(prefix)組合鍵，有特殊意義：
+1. *你無法單獨使用 Prefix key（例如你無法把某個功能綁到只按一個* =C-x= *就能達成，當你試圖這樣綁定時它會報錯）。*
+2. 反過來說，「預設情況下」，你也無法用這兩個以外的按鍵當作 Prefix key ，例如把某個功能綁定到 =C-s C-k= 或 =C-d m= 。
+
+3. 靠著 Prefix key，你可以綁任意「深度」的 combo「組合技」、「連續技」，例如只要你爽（或者夠無聊），你也可以把查 [[https://github.com/kuanyui/moedict.el][萌典]] 的命令綁到 =C-x 上 上 下 下 左 右 左 右 a b= ，只要他沒跟任何現有key-binding衝突即可。
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-x <up> <up> <down> <down> <left> <right> <left> <right> a b") 'moedict)
+#+END_SRC
+
+#+BEGIN_QUOTE
+我自己在設定快速鍵時常利用單字的第一個字母作為設定的規則，可以讓這種組合技變得很好記憶。例如我這樣設定我的 Magit (Git 的 Emacs 版前端)：
+
+  #+BEGIN_SRC elisp
+    (global-set-key (kbd "C-x g s") 'magit-status)
+    (global-set-key (kbd "C-x g l") 'magit-log)
+  #+END_SRC
+
+這樣我就可以按 =C-x g s= 來看 =git status= ，按 =C-x g l= 來看 =git log= 。
+
+-- ono hiroko
+#+END_QUOTE
+
+*** 如何自訂 Prefix key
+
+如果我們要「組合技」，就一定要prefix key。因為所有組合技的開頭一定是一個prefix key。（否則就會直接執行該按鍵的命令了）
+
+假如我覺得只有 =C-x= 跟 =C-c= 兩個 prefix 選擇太少了，我想要更多，比如 =C-z= 可以當作prefix key嗎？
+
+其實是可以的。方法就是：把 =C-z= 給 unset-key。也就是說， *「一個沒有直接綁定到任何command的key就可以作為prefix key使用」* ：
+
+#+BEGIN_SRC elisp
+(global-unset-key (kbd "C-z"))
+(global-set-key (kbd "C-z a") 'emacs-version)
+#+END_SRC
+
+這概念其實很簡單，但不太好解釋，我們以上面 =C-z= 的例子可以畫成一個流程圖來看Emacs怎麼接受使用者的key-binding連續技：
+
+
+[[file:pic/key-binding-decide.png]]
+
+** Prefix Argument (=C-u=, Universal Argument)
+
+=C-u= prefix 在 Emacs 裡稱作 *universal-argument* ，又常稱為 *prefix argument* ，很多指令在呼叫前，先按一下 =C-u= ，會提供 *與預設行為相關、但不完全相同的功能。*
+
+因此， =C-u= 也跟 =C-x= 和 =C-c= 一樣，你無法單獨使用。
+
+Emacs 101 一開始，不是有提過「了解 Emacs 其實是個 Lisp 環境，對於理解 Emacs 的行為是很重要的」嗎？這裡你就可以明白為什麼了。實際上，Emacs 中有內建一個全域變數叫做 =current-prefix-arg= 。當我們按一下 =C-u= 時， =current-prefix-arg= 會變成 =(4)= ，按兩下會變成 =(16)= ，再按一次會變 =(64)= ...以此類推，所以很多 function 會利用這一點，在 function 中檢查目前 =current-prefix-arg= 的值，來達成「除了本身的功能外額外的功能」。
+
+我們已經知道 =C-x C-e= 可以 eval Lisp 運算式，並在 minibuffer 中顯示結果。然而如果前面加一個 =C-u= prefix 的話，就能把結果插入目前游標位置，而不只是顯示在 minibuffer 中。
+
+另一個例子則是 =M-;= 我們知道它可以在目前行自動插入該語言的註解。按 =C-u M-;= 的話 ，則可以把該行註解刪掉、並加入 kill-ring。
+
+再一個例子。在 Org-mode 中，按按 =C-c C-l= 可以插入各種不同的連結連結，但如果多加一個 =C-u= prefix 可以直接插入「檔案」連結。會這樣設計的原因很簡單，因為在 Org-mode 中我們最常需要插入的連結通常就是檔案連結。
+
+
+#+BEGIN_QUOTE
+在 Vim 中，我們常會先按數字鍵 N 再按指令，代表執行該指令 N 次。
+
+Emacs 裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒有設計 prefix argument 的對應方式時， =C-u= prefix 預設的意義則會變成「重複該命令 4 次」； =C-u N= 再呼叫指令，則是重複該指令 N 次
+
+不過我覺得這樣很難按，其實我都是按 =Esc N= 再按指令，跟 =C-u N= 的效果完全相同。
+
+-- ono hiroko
+#+END_QUOTE
+
+** COMMENT Should be hidden
+   (幹我不知道該怎麼讓Github 的org-mode renderer隱藏下面這堆dot source code啦)
+
+   #+BEGIN_SRC dot :file pic/key-binding-decide.png
+   digraph {
+   "Emacs等待\n使用者輸入" -> "C-z 有直接綁定到command嗎？"[label="按下C-z"]
+   "Emacs等待\n使用者輸入"[shape=doublecircle]
+   "C-z 有直接綁定到command嗎？" -> "執行C-z所綁定的command"[label="有"]
+   "C-z 有直接綁定到command嗎？"[shape=diamond]
+   "執行C-z所綁定的command" -> "Emacs等待\n使用者輸入"
+   "執行C-z所綁定的command"[shape=box]
+   "C-z 有直接綁定到command嗎？" -> "有沒有可能是prefix key？"[label="沒有"]
+   "有沒有可能是prefix key？" -> "顯示C-z is undefined" [label="不是prefix"]
+   "有沒有可能是prefix key？" [shape=diamond]
+   "有沒有可能是prefix key？" -> "記下C-z，並等待\n使用者輸入下一按鍵" [label="是prefix"]
+   "顯示C-z is undefined" -> "Emacs等待\n使用者輸入"
+   "顯示C-z is undefined"[shape=box]
+   "記下C-z，並等待\n使用者輸入下一按鍵" -> "C-z a有直接綁定到command嗎？"[label="按下a"]
+   "C-z a有直接綁定到command嗎？" -> "執行C-z a所綁定的command" [label="有"]
+   "C-z a有直接綁定到command嗎？" [shape=diamond]
+   "執行C-z a所綁定的command" -> "Emacs等待\n使用者輸入"
+   "執行C-z a所綁定的command"[shape=box]
+   "C-z a有直接綁定到command嗎？" -> "C-z a是prefix key嗎？" [label="沒有"]
+   "C-z a是prefix key嗎？" -> "記下C-z a，並等待\n使用者輸入下一按鍵" [label="是prefix"]
+   "C-z a是prefix key嗎？" -> "顯示C-z a is undefined" [label="不是prefix"]
+   "C-z a是prefix key嗎？" [shape=diamond]
+   "顯示C-z a is undefined" -> "Emacs等待\n使用者輸入"
+   "顯示C-z a is undefined"[shape=box]
+   "記下C-z a，並等待\n使用者輸入下一按鍵" -> "持續檢查下去..."
+   }
+   #+END_SRC
+
+** 不成文的 key-binding 慣例
+一開始你應該會覺得 Emacs 的 key-binding 很難記，怎麼各種 mode 都有不同按鍵。然而其實有很多常見功能是有慣例可尋的。以下舉出幾個範例：
+
+| 按鍵      | 功能                         | 範例                                            |
+|-----------+------------------------------+-------------------------------------------------|
+| =q=       | 關閉 buffer                  | Dired, Package, IBuffer, Magit                  |
+| =g=       | 畫面重新整理/更新            | Dired, Package, IBuffer, Magit                  |
+| =^=       | 回到上一層目錄               | Dired, Info,                                    |
+|-----------+------------------------------+-------------------------------------------------|
+| =D=       | 刪除                         | Dired, Package, IBuffer                         |
+| =d=       | 標記為刪除（但尚未真的刪除） | Dired, Package, IBuffer                         |
+| =x=       | 將標記為刪除的項目刪掉       | Dired, Package, IBuffer                         |
+| =m=       | 標記項目                     | Dired, IBuffer                                  |
+| =u=       | 取消標記項目                 | Dired, IBuffer                                  |
+|-----------+------------------------------+-------------------------------------------------|
+| =C-c C-c= | 編譯/執行                    | python-mode, lisp-mode, haskell-mode            |
+|           | 套用編輯/送出                | Magit, Message, twittering-mode                 |
+| =C-c C-z= | 開一個 interpreter           | python-mode, ruby-mode, lisp-mode, haskell-mode |
+
+** 應該直接習慣 =C-p= / =C-n= / =C-f= / =C-b= 的游標移動方法嗎?
+#+BEGIN_QUOTE
+我個人覺得這根本難按死了！我自己是直接按方向鍵的。
+原 Vimmer 可能就會覺得手指移動到鍵盤右下角很麻煩吧。試試 =Evil= （在 Emacs 中使用 Vi 操作方式）也許你會喜歡。
+
+-- ono hiroko
+#+END_QUOTE
+
+** TTY / Terminal / Console 中使用 Emacs 發現按鍵一堆問題？
+
+這部份太長太雞掰了，對於跟我一樣神經病喜歡用終端機板Emacs的人，請見 [[file:附錄B-終端機下的Emacs.org][附錄B-終端機下的Emacs.org]]。
+
+* 設定檔
+
+Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常遇到的一些問題。
+
+** 基本問題
+*** 我裝好 Emacs 了，但我沒看到使用者設定檔啊？
+
+    很多系統不會為使用者事先建立設定檔，要自己手動建立。 方法是在 =~/= （家目錄）下建立一個叫 =.emacs.d= 的目錄，並在裡面開一個叫 =init.el= 的檔案。
+
+#+BEGIN_QUOTE
+建議把一切 Emacs 相關設定分門別類整理好存放在 =.emacs.d= 中，盡量不要全部擠到 =.emacs.d/init.el= ，因為整理起來會很麻煩。
+
+可以參考 [[https://github.com/kanru/.emacs.d][kanru]] 與 [[https://github.com/kuanyui/.emacs.d][kuanyui]] (不才在下) 的 =.emacs.d= 目錄結構來整理。
+
+-- ono hiroko
+#+END_QUOTE
+
+*** 但 Windows 下， =~/= 的實際目錄到底在哪裡？」
+
+    這也是個曾經讓我很困惑的問題。總之，最簡單的得知方法是 =M-x customize= 後，按"Apply and Save"，你會看到畫面下方的 minibuffer 寫著一串路徑，就是那個了。
+
+    另一個方法是，按 =C-x C-f= 後，輸入 =~= ，就可以切到實際的 =~= 目錄內。
+
+*** 我該使用 =~/.emacs= 當作我的設定檔，還是 =~/.emacs.d/init.el= ？」
+
+    Emacs 會優先讀取前者。然而在某些系統中會預設建立這個檔案，同時存在的話可能會發生設定衝突問題。 我是建議把前者刪掉，只使用後者，也方便使用版本控制系統管理你的設定檔。
+
+** 測試新設定
+
+網路上找到不錯的設定時，加入設定檔前可以先測試一下：
+
+    - 把設定貼到任何一個 buffer 中，最好是 =emacs-lisp-mode= 或者 =lisp-interaction-mode= 的 buffer（例如一啟動 Emacs 後看到的 =*scratch*= ）因為進一步修改比較容易，也有 syntax highlight
+    - 把游標移動到括弧最尾端後，按 =C-x C-e= ，設定就立即生效了。
+
+#+BEGIN_QUOTE
+前面有詳細講過，因為 Emacs 本身就是一個完整的 Lisp 環境/直譯器，除了 Lisp 直譯器自己本身與一些低階命令外，其餘部份全是使用 Emacs Lisp 所建構而成。 =C-x C-e= 的動作代表「執行（eval）該 Lisp 表達式」，執行的結果（或更精確地說，執行該表達式後的 *副作用* ）也就會直接立刻影響整個 Emacs。
+#+END_QUOTE
+
+    - 如果發生錯誤（會顯示一個叫做 =*Backtrace*= 的 buffer，內容大致是 =Debugger entered--Lisp error: (wrong-number-of-arguments (2 . 2) 0)= 之類的），這時按 =q= 關閉 =*Backtrace*= buffer，看哪裡出錯了再修改。
+
+** 如何在任一 mode 啟動時執行一些東西
+
+    需要在啟用某個 mode 後，自動執行任意 function/啟用 minor-mode /做一些設定時，請使用 =add-hook= 。方法是：
+
+#+BEGIN_SRC elisp
+    (add-hook 'xxxxx-mode-hook 'function-name)
+#+END_SRC
+
+意思就是在 =xxxxx-mode= 啟動時，執行 =function-name= 這個 function
+
+    #+BEGIN_QUOTE
+    再提醒一次，查 mode 的正式名稱最快的方式：
+    - =C-h v= =major-mode= 可以查詢目前 buffer 下 major mode 的正式名稱
+    - =C-h v= =minor-mode-list= 查詢目前 buffer 下所有啟動的 minor mode 的正式名稱
+    #+END_QUOTE
+
+    *各個 mode 儲存 hook 的變數名稱一律是 「該 mode 的正式名稱 +* =-hook= *」* ，例如想要在 =python-mode= 啟動時順便打開 =highlight-symbol-mode= ：
+
+#+BEGIN_SRC elisp
+    (add-hook 'python-mode-hook 'highlight-symbol-mode)
+#+END_SRC
+
+但上面這樣寫不太好。一般來說另外定義一個 function 是比較好、也非常常見的作法，像是這樣：
+
+#+BEGIN_SRC elisp
+(defun my-c++-config ()
+  ;; buffer-local variables 這類東西你就應該（基本上也只能）寫在 hook 裡
+  (add-to-list 'company-backends 'company-c-headers)
+  (setq flycheck-gcc-language-standard "c++11")
+  (setq flycheck-clang-language-standard "c++11")
+  ;; ocal key-binding 的相關設定一起放在 hook 中是很常見的作法
+  (define-key c++-mode-map (kbd "C-c h") 'ff-find-other-file)
+  ;; 這裡放一些希望隨著 C++ mode 自動啟動的 minor-mode
+  (flycheck-mode 1)
+  (rainbow-delimiters-mode-enable))
+
+(add-hook 'c++-mode-hook 'my-c++-config)
+
+#+END_SRC
+
+雖然不太推薦（因為這樣會很難 =remove-hook= ），不過如果你很懶也可以寫成這樣啦：
+
+#+BEGIN_SRC elisp
+(add-hook 'c++-mode-hook
+  (lambda ()   ; 爛打就是 Lisp 的 anonymous function 啦
+    (flycheck-mode 1)
+    (rainbow-delimiters-mode-enable)
+    ;; 以下略
+   ))
+#+END_SRC
+
+#+BEGIN_QUOTE
+順帶一提， =prog-mode= 是 programming 相關的絕大部分 major-mode 的 parent mode（例如 =python-mode= , =perl-mode=, =ruby-mode= ...等等都是屬於 =prog-mode= ，他們都會繼承 =prog-mode= 的設定），所以你可以使用 =(add-hook  'prog-mode-hook ...)= 之類的方式來自訂你想要的東西，而不用分別自訂各種程式語言的 mode，各種 mode 會自己繼承設定。
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+除了各個 minor-mode / major-mode 可以加 hook 外，Emacs 還有一些標準 hooks (Standard Hooks) 也是很常用到的（ =add-hook= 用法完全同上），例如：
+- 檔案儲存前/後的 =before-save-hook= 與 =after-save-hook=
+- 關閉 buffer 前的 =kill-buffer-hook=
+- 離開 Emacs 前的 =kill-emacs-hook=
+[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html][Standard hooks 的完整列表請參閱官方文件]]。
+#+END_QUOTE
+
+* 安裝套件
+安裝第三方各式套件可說是 Emacs 的精隨，Emacs 發展到現在有成千上萬各式不同的套件，讓你擴充 Emacs 到手軟。安裝套件主要有兩種最簡單的方法，一是透過 Emacs 24 以後開始內建的 =package.el= ，二是手動安裝。以下分別介紹。
+
+#+BEGIN_QUOTE
+我個人喜歡以 package.el 為主，手動安裝為輔的方式。因為 package.el 太方便了，除非遇到 GNU ELPA 跟 MELPA 中都找不到的 package（現在很少了），否則根本不會想要手動安裝。
+
+-- ono hiroko
+#+END_QUOTE
+
+** =package.el= 與 MELPA
+這是 Emacs 內建的一套套件管理系統，我們推薦新手用這種方法安裝套件，安裝套件不用再自己手動抓 el，而且也不用自己寫 =(require '套件名)= 非常方便。
+
+透過 =package.el= 安裝的套件會被放在 =~/.emacs.d/elpa/= 下。如果你用 git 管理你的 Emacs 設定檔，建議直接把 =~/.emacs.d/elpa/= 也一起放進去，先不要考慮什麼為了省空間而用 Emacs Lisp 寫個自動從網路上抓 packages 的 function 之類的，因為很容易 dependancies 爆掉，與其那麼麻煩不如先全部放。
+
+#+BEGIN_QUOTE
+如果你有使用 =use-package= 這個第三方外掛來管理套件，有個 =ensure= 選項可以自動檢查並安裝未安裝的套件。比如： =(use-package magit :ensure t)= 。
+
+-- 9m9
+#+END_QUOTE
+
+*** 設定 MELPA
+Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，這應該是目前最大的 Emacs package repository，方法也很簡單，在 =~/.emacs.d/init.el= 中加入下面這幾行就好：
+
+#+BEGIN_SRC elisp
+;; package.el 相關設定
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+#+END_SRC
+
+#+BEGIN_QUOTE
+我自己是一般情況用 =melpa= 套件比較多也比較新，當單一套件出問題時才改用 =melpa-stable= 。例如 =web-mode= 我就是用 stable 的，因為他新版常常爆炸。
+
+-- ono hiroko
+#+END_QUOTE
+
+
+*** 操作方法
+套用上面的設定後， =M-x package-list-packages= 就可以看到套件管理畫面了。
+
+- =C-s= 搜尋套件名稱
+- =i= 標記為安裝
+- =d= 標記為移除
+- =u= 取消標記
+- =x= 套用
+
+#+BEGIN_QUOTE
+*我沒有提到* =U= *，因為我非常不推薦使用這指令。這個一按下去會自動把所有安裝的套件更新，並把舊的移掉，但這種行為非常容易讓你搞定好的環境爛掉。*
+
+如果只按 =i= 來個別升級套件的話，這樣該套件的舊版的只會被標記成 =obsolete= （遺棄），當升級該套件後出問題，可以很容易的把新版 =u= 移除掉， =obsolete= 則可以補回原本的位置繼續用。
+
+-- ono hiroko
+
+#+END_QUOTE
+#+BEGIN_QUOTE
+
+也有人用 =M-x package-install <RET>= ，再輸入套件名稱來安裝。
+
+順帶一提，如果發現找不到你要的套件的話，可以先檢查是不是有個 =~/.emacs= 在那邊騙你，有的話就把他的東西都抓進 =~/.emacs.d/init.el= ——當然要看一下哪些要留哪些要丟啦——然後下 =M-x package-refresh-contents <RET>= 再重新搜一次應該就有了。會特別提是因為我自己莫名被雷過，找了好久才發現。Orz
+
+-- wildsky
+
+#+END_QUOTE
+
+** 手動安裝
+有少數套件在 GNU ELPA 跟 MELPA 中都找不到，這時才會需要用到手動安裝。
+
+除了少數比較複雜的 packages 要照著它的 README 做外，我們這裡介紹的是最最最最最基本的手動安裝方式。
+
+我們假設要安裝一個叫做 =kanata= 的套件，下載下來後解壓縮，發現整個資料夾的名稱是 =kanata/= ，主程式放在 =kanata/kanata.el= 。
+
+1. 先在 =~/.emacs.d/= 下建立一個新的目錄（這裡以 =~/.emacs.d/packages/= 為例），以便跟 =~/.emacs.d/elpa/= 內的套件分開管理。
+2. 把整個資料夾 =kanata/= 扔進 =~/.emacs.d/packages/= 中。
+3. 在你的設定檔中加上：
+#+BEGIN_SRC elisp
+(add-to-list 'load-path "~/.emacs.d/packages/kanata")  ;; 這樣 Emacs 才 require 得到這個 package
+(require 'kanata)    ;; 載入 kanata 這個 package
+#+END_SRC
+
+4. 這樣應該就可以用了。可能有其他設定，這必須自己看一下它附帶的 README。
+
+#+BEGIN_QUOTE
+有一些細節我想還是提一下好，這在當你哪天要寫 package 時蠻重要的。
+
+當你透過 =add-to-list= 把你的新套件路徑加入 =load-path= 這個 variable 後，Emacs 在 =require= 時就會在 =load-path= 中的路徑搜尋裡面是否有擁有這個名稱的 package。也就是說，直到你 =require= 某個套件之前，該套件還不會被載入。
+
+你可以打開隨便一個 =*.el= 來看，你會發現檔案尾端都一定會有一行 =(provide 'kanata)= 之類的東西，這就是我們在 =require= 時所用的該套件名稱。
+
+不要隨意修改 =.el= 的檔名，因為當你的套件檔名 =kanata.el= 跟 =(provide 'kanata)= 所提供的名稱不一致時， =require= 載入時就會出現錯誤。
+
+更細節的部份我也不懂，希望我沒講錯 orz。
+
+-- ono hiroko
+#+END_QUOTE
+* emacs中的lisp
+Emacs 一般使用應該已經可以符合你的需求了，然而到後來也許你會越用越多，開始對於現有 Packages 與操作方式不滿，可能會開始想要動手寫自己想要的功能，甚至 Package、major/minor mode，這時就得學一點 Emacs Lisp 了。會很難嗎？我自己的經驗是基本的部份並不困難，其實我自己開始用 Emacs 時根本完全不會寫程式，學會的第一個程式語言就是 Emacs Lisp。
+
+網路上教 Emacs 的文章已經太多太多了，但要學 Emacs Lisp 就有點困難了，因為不知該從何下手。
+
+#+BEGIN_QUOTE
+個人覺得學 Emacs Lisp 其實不一定要靠 GNU 提供的那厚厚一堆文件，對我來說我就沒啥耐心看那個...下面整理了一些 Emacs Lisp 的學習資源，不多但都非常值得參考。
+#+END_QUOTE
+
+** 聖經
+適合慢慢當書來翻
+
+- *[[http://acl.readthedocs.org/en/latest/][ANSI Common Lisp 中文版]]*
+#+BEGIN_QUOTE
+這是本寫得相當清楚易懂的 Common Lisp 教學，包含了非常多的範例。雖然是 Common Lisp 而不是 Emacs Lisp，但如果你完全不懂 Lisp，我個人很推薦這本，有了這些基礎 Lisp 概念對於學習 Emacs Lisp 依舊是非常好的入門方式。我當初完全不會寫程式時就是讀這本而學會 Emacs Lisp，非常推薦！
+#+END_QUOTE
+
+- *[[http://ergoemacs.org/emacs/emacs.html][Xah Emacs Tutorial]]* 與 *[[http://ergoemacs.org/emacs/elisp.html][Xah Emacs Lisp Tutorial]]* : Xah Lee 的 Emacs 教學，應該已經成為很多初學者的學習指南。整理了超多 Emacs Lisp 的範例與實戰經驗，例如要怎麼用 elisp 把一個網站中的 HTML 標籤替換掉等等。
+- *[[http://www.emacswiki.org/emacs/ElispCookbook][ElispCookbook]]* : Emacs wiki 上的超棒條目，有很多很常見的文字處理用法整理。
+
+** 搜尋用
+
+- *[[http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html][GNU 文件]]*  沒事基本上不會拿起來翻的東西，但完整性沒話說。查詢一些 Emacs Lisp 獨有用法時（例如 =save-excursion= ），GNU 文件就非常非常有用。
+- *Emacs 內建文件* ： 不要忘記這個，忘記 function 用法時他非常有用（例如我老是記不得 =match-string= 跟 =string-match= 的差別）。
+
+#+BEGIN_QUOTE
+雖然前面提過但還是再強調一次：查詢 function 是 =C-h f= ，查詢 variable 是 =C-h v= 。
+#+END_QUOTE
+
+- *[[http://www.emacswiki.org/emacs-zh][Emacs Wiki]]* 龐大的社群，很多知名的 .el 在上面都找得到，但這主要也是用搜尋引擎找內容。
+
+
+** 太多啦真的要看完嗎？
+其實不用，就跟前面講的一樣，我們不需要讀完整本字典才能開始開口說英文。我們現在就假設你已經完全理解之前所講的所有東西，然後開始來從無到有試著用 Elisp 寫出一點你想要的功能試試。
+
+在這之前，如果你在這之前完全不懂 Lisp，建議請先讀完 [[https://acl.readthedocs.org/en/latest/zhTW/ch2.html][ANSI Common Lisp 第二章：歡迎來到 Lisp]]，如果你已經有程式基礎那應該蠻快能掌握一點 Lisp 的基本概念。如果你在這之前完全不懂程式，那更務必詳讀此篇、試試每個範例並思考原因。
+
+別忘了，你可以在 Emacs 中任何地方，用 =C-x C-e= 來試著 eval 看看 ANSI Common Lisp 一書中的範例。
+
+#+BEGIN_QUOTE
+雖然 Common Lisp 與 Emacs Lisp 有著不小的差異，但對初學者而言是不會差太多的。
+
+拿 Common Lisp 教材來學 Emacs Lisp 的話，最需要知道的幾個差異是：
+
+1. Emacs Lisp 是有區分大小寫的（Case-sensitive），Common Lisp 則無。
+2. Emacs Lisp 比較常用 =setq= 而不是 =setf=
+3. Emacs Lisp 的 Array 是用 =[1 2 3]= 而不是 Common Lisp 的 =#(1 2 3)=
+#+END_QUOTE
+
+* 第一次試著用Emacs Lisp寫出自己想要的功能
+#+BEGIN_QUOTE
+本篇假設你已經讀過並理解前面所有內容，這裡不再囉唆解釋，直接切入正題。
+#+END_QUOTE
+
+好啦，現在來試試，要怎麼用 Emacs Lisp 寫出一點我們想要的功能吧？
+
+** 需求
+假設我現在想要 *按一鍵（例如* =F12= *），就可以直接開啟某個檔案* ，該從何下手呢？
+
+** 找出需要的 API
+當你不知道該用哪個 Emacs Lisp 的 API 時，當然可以直接 Google 查像是 "emacs lisp open file" 之類的關鍵字。但我現在要講的不是這方法，而是如何利用 Emacs 內建的 API 說明文件。
+
+** 透過 key-binding 得知
+那要怎麼辦？首先我們知道， =C-x C-f= 可以互動式地開啟某個檔案，那我想這可能有我們需要的線索吧？所以現在按下 =C-h k= 再按 =C-x C-f= ，以得知 =C-x C-f= 這個 key-binding 呼叫了哪個 function，你會看見跳出了一個如下的 buffer：
+
+#+BEGIN_EXAMPLE
+C-x C-f runs the command find-file, which is an interactive compiled
+Lisp function in `files.el'.
+
+It is bound to <open>, C-x C-f, <menu-bar> <file> <new-file>.
+
+(find-file FILENAME &optional WILDCARDS)
+
+Edit file FILENAME.
+Switch to a buffer visiting file FILENAME,
+creating one if none already exists.
+Interactively, the default if you just type RET is the current directory,
+but the visited file name is available through the minibuffer history:
+type M-n to pull it into the minibuffer.
+
+You can visit files on remote machines by specifying something
+like /ssh:SOME_REMOTE_MACHINE:FILE for the file name.  You can
+also visit local files as a different user by specifying
+/sudo::FILE for the file name.
+See the Info node `(tramp)File name Syntax' in the Tramp Info
+manual, for more about this.
+
+Interactively, or if WILDCARDS is non-nil in a call from Lisp,
+expand wildcards (if any) and visit multiple files.  You can
+suppress wildcard expansion by setting `find-file-wildcards' to nil.
+
+To visit a file without any kind of conversion and without
+automatically choosing a major mode, use M-x find-file-literally.
+#+END_EXAMPLE
+
+嗯嗯，我們得知了 =C-x C-f= 執行的是 =find-file= 這個指令，它的用途是 「Edit file FILENAME. Switch to a buffer visiting file FILENAME, creating one if none already exists.」這看起來就是我們要的東西。
+
+** eval 看看
+文件中提到， =find-file= 的語法是 =(find-file FILENAME &optional WILDCARDS)= ，看起來我們只要餵給它第一個參數 =FILENAME= ，它應該就會幫我開啟這個檔案了吧？所以我們來試試看：
+
+#+BEGIN_SRC elisp
+(find-file "~/hello.txt")
+#+END_SRC
+
+游標移動到括弧尾端、按下 =C-x C-e= 來 eval，Bingo！它真的幫我們開啟了 =~/hello.txt= 這個檔案。
+
+** 做成 function
+
+跟 Common Lisp 一樣，要 define function 時都是用 =defun= 。來試試看：
+
+#+BEGIN_SRC elisp
+(defun my-open-hello ()
+  (find-file "~/hello.txt"))
+#+END_SRC
+
+eval 後，minibuffer 會顯示 =my-open-hello= ，那就是成功定義了這個 function 啦！來呼叫看看：
+
+#+BEGIN_SRC elisp
+(my-open-hello)
+#+END_SRC
+
+嗯嗯，真的開啟了耶！
+
+** 抓 key-binding 的真正名稱
+
+來試試用前面設定檔教學時講過的 =global-set-key= 來綁定這個 function。
+
+我們想用 =F12= 這個鍵來呼叫 =my-open-hello= ，但不知道 =F12= 該怎麼寫才能讓 Emacs 認得...所以現在按下 =C-h k= 再按 =F12= ，你會看到 =<f12> is undefined= ，可以得知兩件事：
+
+1. =F12= 的寫法是 =<f12>=
+2. =F12= 還沒被使用！可以盡情自訂！
+
+#+BEGIN_QUOTE
+但如果跳出一個 buffer 顯示類似 =<f12> runs the command balah-balah, which is a Lisp function.= 的訊息，就要注意按鍵會被蓋過去的問題。
+#+END_QUOTE
+
+所以我們試試看：
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "<f12>") 'my-open-hello)
+#+END_SRC
+
+** 呼叫吧！函數！
+看起來都沒問題了，eval 後，現在按下 =F12= ....這這這怎麼爆炸惹：
+
+#+BEGIN_EXAMPLE
+command-execute: Wrong type argument: commandp, my-open-hello
+#+END_EXAMPLE
+
+=M-x= 也會發現無法呼叫這個 function，怎麼回事呢？
+
+這是初學時常犯的錯誤，因為我們忘記加上 =(interactive)= 來標記這個 function 可以被「互動式地使用」了，所謂 interactive function，就是可以透過 =M-x= ，或者綁定到按鍵上的 function。所以我們來加上：
+
+#+BEGIN_SRC elisp
+(defun my-open-hello ()
+  (interactive)
+  (find-file "~/hello.txt"))
+#+END_SRC
+
+再 eval 一次...可以了耶！這就是我們要的功能啊！啊啊啊啊啊啊嘶～～～！
+
+雖然這只是一個很簡單很簡單的例子，不過當你熟悉這個思路與流程後，再搭配 Google 搜尋，就可以很容易的堆砌出一點自己想要的小功能了。
+** 再一個簡單範例：一鍵執行
+上面的例子太沒用？那來一個應該很多人需要的範例功能：在 =python-mode= 中，一鍵 =f5= 執行目前的 Python 檔案！
+
+就不再囉唆長篇大論，直接來 code：
+
+#+BEGIN_SRC elisp
+(with-eval-after-load
+    'python
+  (define-key python-mode-map (kbd "<f5>")
+    'run-buffer-with-python3-interpreter))
+(defun run-buffer-with-python3-interpreter ()
+  (interactive)
+  (save-buffer)
+  (shell-command (format "python3 %s" (file-name-nondirectory buffer-file-name)))
+ )
+#+END_SRC
+
+1. =save-buffer= 其實就是 =C-x C-s= 儲存目前 buffer 啦！
+2. =buffer-file-name= 是一個內建變數，它的值就是目前 buffer 檔案的絕對路徑。
+3. 餵給 =file-name-nondirectory= 一個絕對路徑的話，回傳值是該絕對路徑的 filename，也就是相對路徑。（其實可以直接讓 =python3= 執行絕對路徑啦，只是這裡當作例子讓你看更懂。）
+4. =format= 是有寫過程式的大家應該都很熟悉的東西，總之他在這的功能就只是造出 =python3 FILENAME= 這樣的字串而已。
+5. 最後 =shell-command= 呼叫外部 command 執行 =python3 FILENAME= 啦！執行的結果（stdout, stderr）會開一個新 buffer 顯示出來（如果內容只有兩三行則會只顯示在 minibuffer）。
+  
+
+#+BEGIN_QUOTE
+你可能會問， =shell-command= 執行命令時的 =pwd= 是在哪裡？答案就是你目前的 buffer 路徑。所以這裡可以直接餵給 =python3= 相對路徑。
+
+目前 buffer 的路徑則是由內建變數 =default-directory= 儲存。
+#+END_QUOTE
+
+別忘記，以上你都可以自行開個檔案 =C-x C-e= 試試。
+
+這篇並不是 Emacs Lisp 教學，而是一些瑣碎筆記。當初不知道這種問題該怎麼問人或問誰，所以一開始寫 Emacs Lisp 時覺得很痛苦。
+
+在這裡分享一些能讓你在開發 Emacs Lisp 時更輕鬆方便的小技巧，需要的人許可以參考。
+
+* Emacs Lisp開發技巧
+** Eval
+
+- 在任何 mode 下， =C-x C-e= 可以將 *游標之前* 的 S-expression（就是 Lisp 運算式，常簡寫成 *sexp*）eval (求值) 並在 minibuffer 中顯示結果。
+
+  - 前面加一個 =C-u= prefix 的話會把結果插入目前游標位置。（所以高興的話可以在 Emacs 裡任何地方寫 Lisp 式子來當計算機。）
+  - 如果你在 =emacs-lisp-mode= 下， =C-M-x=  (=eval-defun=) 則能夠 eval 目前的 =defun= 。
+  - 因為覺得內建的 eval 快速鍵要拿來作其他用途有點不方便（例如拿來當作臨時的計算機），所以我自己是另外弄了設定讓他更方便：
+
+  1. Eval 目前的 sexp，輸出其 eval 結果後，直接自動刪除該 sexp。
+  2. 加上一個 =C-u= prefix 就是先按 =C-u= 再按 key-binding 的話，不刪除 sexp，而且會先插入一個箭頭 ~==>~ 再插入 eval 結果。例如 =(+ 1 5) => 6= 。
+#+BEGIN_SRC elisp
+;; Makes eval elisp sexp more convenient
+(defun eval-elisp-sexp ()
+  "Eval Elisp code at the point, and remove current s-exp
+With one `C-u' prefix, insert output following an arrow"
+  (interactive)
+  (cond ((equal current-prefix-arg nil)      ;if no prefix
+         (let ((OUTPUT (eval (preceding-sexp))))
+           (kill-sexp -1)
+           (insert (format "%S" OUTPUT))))
+        ((equal current-prefix-arg '(4)) ;one C-u prefix
+         (save-excursion
+           (let ((OUTPUT (eval (preceding-sexp))))
+             (insert (format "%s%S" " => " OUTPUT)))))))
+
+(global-set-key (kbd "C-c C-x C-e") 'eval-elisp-sexp)
+;; avoid key-binding conflict with org
+(define-key org-mode-map (kbd "C-c C-x C-e") 'org-clock-modify-effort-estimate)
+#+END_SRC
+
+- 在 =lisp-interaction-mode= 中 (例如 =*Scratch*= ) ，可以在一個運算式的最後一個括弧後面按下 =C-j= 直接 eval 並直接將 eval 結果插入當前游標後面。
+
+- 建議可以把 =eval-buffer= 設定一個快速鍵，可以直接 eval 整個 buffer 方便測試。如：
+
+#+BEGIN_SRC elisp
+  (global-set-key (kbd "C-c C-e") 'eval-buffer)
+  (add-hook 'org-mode-hook
+          (lambda ()
+            (define-key org-mode-map (kbd "C-c C-e") 'org-export)))
+#+END_SRC
+
+*** Eval 出的結果太醜？
+我們常常會需要 eval 一些返回值可能會很長、很混亂的運算式（例如用 Emacs 內建的 =json-read-file= 來 parse 一個 json 檔案），這時可以使用 =M-x pp-eval-last-sexp= ，使用方法同 =C-x C-e= ，但輸出會幫你自動換行、整理得比較漂亮。
+
+*** 測試 Macro
+雖然如果你以前沒有寫過 Lisp 的話很可能用不到，不過這裡還是順便提一下。
+
+Emacs Lisp 中可以使用 =macroexpand= 來展開一個 macro，以 =defun= 為例 （ =defun= 在 Emacs Lisp 裡面是一個 macro）：
+
+#+BEGIN_SRC elisp
+
+  (macroexpand '(defun hello (x)
+                  (message "hello, %s" x)))
+
+  ;; Eval 結果如下：
+  (defalias (quote hello)
+    (function (lambda (x)
+                (message "hello, %s" x))))
+
+#+END_SRC
+
+#+BEGIN_QUOTE
+給懂 Lisp 的人的解說：這裡也可以順便看到， =defun= 的作用實際上是把一個匿名函數 =lambda= 給 =defalias= 到一個 =symbol= 。
+#+END_QUOTE
+
+** Debug
+*** Debugger
+Emacs 有內建一個 Emacs Lisp debugger 叫做 =edebug= ，最常見的用法是拿來給一個 function 除錯：
+
+1. 游標移動到一個 =(defun ...)= 的結尾
+2. =M-x edebug-defun=
+3. 在下一次執行該 function 時，該 function 將會變成一個一個 sexp 按順序執行。
+   - 按 =SPC= 來執行下一個 sexp
+   - 按 =q= 離開 =edebug=
+4. 再次用一般方法 eval (=C-x C-e=) 該 function，即會恢復回正常狀態。
+
+*** 顯示所有錯誤訊息
+有時有些錯誤只會讓 minibuffer 跳錯誤訊息，卻不會跳出 =*Backtrace*= buffer 來看到底是哪裡出了問題。
+可以使用 =M-x toggle-debug-on-error= 來強迫顯示所有錯誤訊息。
+** Documents
+*** 內建文件查詢方法
+查詢：
+- function 用法與文件: =C-h f= 。
+- variable 定義與文件: =C-h v= 。
+- 一個 key 在目前 buffer 被 bind 到哪個 function: =C-h k [KEY-BINDING]=
+
+#+BEGIN_QUOTE
+   注意，如果目前游標下剛好有一串字串符合 function/variable 名稱，會以該字串為預設值，這時只要按 Enter 就可以直接查詢了。
+#+END_QUOTE
+
+*** 在 Minibuffer 中即時顯示簡易文件
+使用 =M-x eldoc-mode= 。
+
+例如只要輸入 =(mapcar= ，minibuffer 中就會即時顯示出該 =mapcar= 的 positional arguments name： =mapcar: (FUNCTION SEQUENCE)=
+
+使用這個設定讓以後寫 Emacs Lisp 都自動開啟 eldoc-mode：
+#+BEGIN_SRC elisp
+(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+#+END_SRC
+
+** Indent
+    - =C-j= (=newline-and-indent=)可以換行並自動縮排（但 =lisp-interaction-mode= 中除外，因為會被解釋成 eval 並輸出結果）。
+    - 在 *運算式的最後一個括弧* 處 =M-C-\= 可以將整個運算式自動縮排。
+    - 覺得自己縮排很麻煩的話，是有個套件叫做 =auto-indent-mode= 可以很方便的自動縮排就不用手動縮，只是我用起來問題很多就移掉了...想試試看的可以從 MELPA 安裝。
+
+** Paren
+
+- 務必設定括號突顯；「 *沒有這個你根本不可能寫 Lisp* 」，語出 [[http://acl.readthedocs.io/en/latest/zhTW/ch2.html#lisp-reading-lisp][Paul Graham (ANSI Common Lisp 第二章)]]。
+
+#+BEGIN_SRC elisp
+  (show-paren-mode t)
+  (setq show-paren-style 'expression)
+#+END_SRC
+
+-  我非常推薦安裝 =rainbow-delimiters-mode= ，能夠把位在同一層的括號上相同的顏色，再也不會覺得括號很難對齊。（縮排不正確時括弧顏色會出錯，記得 =C-M-\= 。）
+-  初學 Lisp 時老是有哪裡忘記加括號，eval 時遇到錯誤訊息 =End of file during parsing= 通常代表你有哪裡括號沒對好， =M-x check-parens= 可以找到漏掉括弧的地方（前兩者有設定的話，基本上不會遇到這種問題；應該說初學時比較會遇到）。
+-  有個終極的 Lisp 括號編輯工具叫做 =paredit= ，需另外安裝，熟悉的話可以使編輯括號變得更有效率，[[http://youtu.be/D6h5dFyyUX0][操作起來就跟變魔術一樣]]。 似乎有很多人喜歡用這個，只是不好學。我自己是沒在用，詳情可自行 Google。
+
+#+BEGIN_QUOTE
+到目前為止嘗試了不少 Emacs 外掛，我發現我自己是不太偏好「聰明過頭」了的設計...例如 helm, ido, icicles, auto-indent 這類的。
+-- ono hiroko
+#+END_QUOTE
+
+** RegExp
+
+-  在 Emacs 裡寫 regexp 時一般應該是沒有問題，但是當你在 Lisp code 裡需要用 regexp 時，例如 =(re-search-forward "PATTERN")= ，會發現 =PATTERN=  裡反斜線看起來好像無法正常運作。這是因為在 eval 時，裡面整個  =PATTERN=  因為被 double quote 包起來了， *裡面的 regexp 會先被當成是 string 而先解析過一次* （Emacs Lisp 並沒有像是 Python 那種的 raw string）。也就是說，平常只需要一個反斜的話， *在 Lisp code 裡要寫兩個反斜* ...
+
+另外，大中小括弧，還有 pipe =|= 全部都得 escape 掉，不然會被解釋成普通文字而沒有任何 regexp 上的特殊意義。（我不知道為什麼 Emacs Lisp 的 regexp 要這樣設計） 以 Python 為例，我們在要 group match 時原本是寫成 =(.+?)= ，在 Emacs Lisp 中就得寫成 =\\(.+?\\)= （之前就是不知道這點，浪費了很多時間和腦細胞），
+
+-  要寫 Emacs 的 Regexp 時，務必嘗試看看  =M-x re-builder=  ，即時比對 pattern 非常方便。
+
+* 下一步？
+
+#+BEGIN_QUOTE
+你現在已經知道要如何安裝套件、做些基本的設定，然而你可能還是會需要為了一些功能折騰，例如為了搞定 Python 的開發環境你可能需要花時間搞弄 Auto-complete + Jedi 等等事情，要寫 web 專案的 template 可能還會需要折騰 web-mode，想要在 Emacs 裡面用 git 神器 Magit，這些事情我一開始本來就不打算在這本教學中講述。像 Magit、Web-mode 這類的東西本身開發速度非常快，我不可能一個個介紹，可能教學才寫完三個月新版出來就通通過時了（網路上就看過一些舊版 Magit 的 cheet sheets）。不過現在你應該已經有足夠的基本知識與能力去看懂、並照著他們的 README 去打造出你要的 Emacs 來。
+
+如果您認為這本教學還有什麼不足之處需補強，請在 Github 發 issue。直接發 PR 也歡迎。
+
+-- kuanyu [2015-12-18 金 01:42] @ Jinguashi
+#+END_QUOTE
+
+你現在應該已經有一點基本的 Emacs 操作與使用概念了，但這樣當然還是不夠的。
+
+*** 各別功能的設定
+這個 Emacs 101 就像是個「總論」。接下來的各個功能，例如最熱門的 Magit, Dired, web-mode, auto-complete, Jedi 等等則要自己視自身需求去找、看 README 慢慢打造起你自己的 Emacs。
+
+[[file:附錄Z-推薦連結.org][本書的附錄Z]] 整理了一些非常推薦且您可能會有興趣的 Emacs 相關文章。
+
+*** Packages 擴充套件
+
+Emacs 最重要的靈魂除了設定檔外，就是「擴充套件」了。
+
+Emacs 已經有三、四十年的歷史，累積了成千上萬個套件，該到哪裡找到我想要的套件呢？Emacs.tw 社群有整理了一個頗為完整的清單 [[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]] ，讓你很容易就能找到一些目前最受歡迎、常用、且符合自身需求的套件。
+
+*** 參考他人的設定檔
+
+設定檔是要花些時間折騰的，當然除了直接用現成的 [[https://github.com/emacs-tw/awesome-emacs#starter-kit][Starter-kit]] 外，最好的起步方法就是「抄別人的設定檔」！就算你已經有很不錯的設定，仍常常可以在別人的設定檔中發現一些你想不到的寶物。
+
+可以參考以下幾位台灣 Emacsers 的設定：
+
+- [[https://github.com/coldnew/coldnew-emacs][coldnew/coldnew-emacs]]
+- [[https://github.com/kanru/.emacs.d][kanru/.emacs.d]]
+- [[https://github.com/kuanyui/.emacs.d][kuanyui/.emacs.d]]
+
+
+#+BEGIN_QUOTE
+從前有一個人原本用 Emacs，但後來卻跑去用 Vim 了，原因是他搞丟了他的 Emacs 設定檔 ，那個人叫做 Tim O'Reilly... [出處](http://archive.oreilly.com/pub/a/oreilly/ask_tim/1999/unix_editor.html)
+#+END_QUOTE
+
+設定檔是每個 Emacser 最重要的寶物，記得備份千萬不要搞丟了，或者可以的話把整個 =.emacs.d= 給版本控制然後丟到 Github 最好！
+
+** 結語
+
+我認為使用 Emacs 最大的價值是：「 *這是一個學一次，就可以用一輩子的編輯器* 」open source，又是 GNU 的重點項目之一，又以目前社群的活躍程度來看，你根本不必擔心沒人維護、遇到問題沒有解答，或者哪天跟你收錢。
+
+Vim 也是很棒的編輯器，不過這點前面已經敘述過，這是青菜蘿蔔各有所好了。
+
+* 附錄A-在你的作業系統下安裝Emacs
+** 安裝 GNU Emacs
+#+BEGIN_QUOTE
+如果你都用 GUI 版的 Emacs，這一頁對你沒有用，請直接跳過。生命是很寶貴的不要浪費時間在這頁上。
+
+只能說，我自己平常現在都只用 GUI 版的 Emacs 了，只有 ssh 管 server 或者在 tty 下面才會勉強用一下 CLI。
+
+-- ono hiroko
+#+END_QUOTE
+
+你現在既然不怕死地在看這一行，那就代表你已經踏入 Emacs 最無聊最煩人的部份之一，就是如何解決終端機中的 Emacs 所遇到的一堆殘障現象。
+
+* 附錄B-終端機下的Emacs
+** 靠悲喔一堆按鍵在終端機下失效啦
+
+先不要緊張，「失效」其實有時不是你想像的那種失效，有時是可以解決的（當然有時也不行...）。接下來依序教你如何嘗試解決方法的步驟：
+
+*** 1. 一大堆 =C-M-= 開頭的 key-binding 抓不到啦！
+Terminal 中，Emacs 可以抓到 =C-x= ，也可以抓到 =M-x= ，但就是抓不到 =C-M-x= ，怎麼辦呢？
+
+其實 =ESC= 鍵等同於 =M-= ，所以當你要按 =C-M-s= 時，你可以先按一下 =ESC= 再按 =C-s= ，就等同於 =C-M-s= 了！
+
+*** 2. Org-mode 裡很多鍵不能用！
+Org-mode 在設計時有考慮到這問題，所以有設計了許多在終端機裡也能用的替代按鍵，可以參考 [[http://orgmode.org/manual/TTY-keys.html][TTY Keys]]。
+
+覺得很難記？嗯...那就自己重新綁一下按鍵吧，不然就乖乖用 GUI 版 Emacs。
+
+*** 3. Super Key 完全無效！
+=Super= 鍵（就是常說的 =Win= 鍵）是在 X11 裡定義的，除非經過一些特殊設定，不然 tty 或 terminal 基本上都無法辨識這個鍵，我自己是沒去折騰這個，因為太麻煩，我也非常不推薦你浪費時間在這上面。如果你堅持要用，詳情可以查一下 StackOverflow，有人問過。
+
+*** 按鍵相關的問題排除步驟
+
+除了上述有列出來的問題外，如果你遇到在 GUI 版 Emacs 中可以使用、但終端機版 Emacs 抓不到的 key-binding 時，可以依照你的個性消極來遵循下列兩種方式來排除問題：
+
+**** 消極方法
+
+1. =C-h f= 直接查那個 function 是否本來就還有其他按法。
+2. 土法煉鋼 =M-x=
+3. 大絕招：不要用 =emacs -nw= ，直接用 GUI 版。
+
+**** 積極方法
+
+***** 釐清按鍵訊號的責任歸屬
+
+大家都知道拆機車要先拆座墊，所以我們也要先確認 Emacs 是不是真的沒抓到按鍵。
+
+這個步驟是為了釐清：按鍵抓不到，到底是 Emacs 的錯，還是你的終端機的錯。
+
+這裡就拿 =C-數字鍵= 來當例子好了，在終端機下，你應該完全無法讓 Emacs 吃到 =C-數字鍵= 這個鍵盤輸入（至少我還沒遇過能正確抓到的終端環境），如何證明？ *開個終端機版的 Emacs，嘗試做下列步驟：*
+
+1. 先按 =C-h k= （還記得嗎？這是用來檢查一個 key-binding 到底是啥的）
+2. 再按 =C-數字鍵=
+3. 跳出一個 window，內容大致如下 *（下面這是 =C-1= 的輸出結果）* ：
+
+   #+BEGIN_EXAMPLE
+     1 runs the command self-insert-command, which is an interactive
+     built-in function in `C source code'.
+
+     It is bound to many ordinary text characters.
+
+     (self-insert-command N)
+
+     :around advice: `ad-Advice-self-insert-command'
+
+     Insert the character you type.
+     Whichever character you type to run this command is inserted.
+     The numeric prefix argument N says how many times to repeat the insertion.
+     Before insertion, `expand-abbrev' is executed if the inserted character does
+     not have word syntax and the previous character in the buffer does.
+     After insertion, the value of `auto-fill-function' is called if the
+     `auto-fill-chars' table has a non-nil value for the inserted character.
+     At the end, it runs `post-self-insert-hook'.
+
+     [back]
+   #+END_EXAMPLE
+
+
+你只要注意第一行就好：
+
+: 1 runs the command self-insert-command, which is...(以下略)
+
+注意行首的那個 =1= 。什麼意思呢？
+
+這意思就是鍵盤按下了 =C-1= ，但實際上 Emacs 吃到的按鍵就是 =1= 而已，而不是 =C-1= ，簡單來說，你按 =C-1= 時，Emacs 根本就沒有吃到那個 =Ctrl= 鍵。很好笑吧。
+
+對於這症頭，Emacs 完全是無辜的 --- 因為這個按鍵訊號根本就沒有傳到 Emacs 手上，而是中途不知道在哪被吃掉了。
+
+不信的話，你再開 GUI 版的 Emacs，重複上述步驟，看他會顯示什麼：
+
+#+BEGIN_EXAMPLE
+C-1 runs the command digit-argument, which is an interactive compiled
+Lisp function in `simple.el'.
+#+END_EXAMPLE
+
+對不對？GUI 版本就有正確抓到 =C-1= 。
+
+來整理一下， =C-數字鍵= 會被解讀成哪些鬼東西（以什麼 mode 都沒啟動的 =fundamental-mode= 為例）
+：
+
+#+BEGIN_QUOTE
+以下測試環境為 =Lilyterm= + =xterm-256color= + =tmux=
+#+END_QUOTE
+
+| 手指在鍵盤按下 | 終端機版 Emacs 實際所抓到的 | 實際被執行的指令         |
+|----------------+-----------------------------+--------------------------|
+| ~C-1~          | ~1~                         | ~self-insert-command~    |
+| ~C-2~          | ~C-@~                       | ~set-mark-command~       |
+| ~C-3~          | ~ESC~                       | (被終端機轉成 ~ESC~ 鍵)  |
+| ~C-4~          | ~C-\~                       | toggle-input-method      |
+| ~C-5~          | (完全抓不到)                | (完全抓不到)             |
+| ~C-6~          | ~C-^~                       | (無預設 bind 到任何指令) |
+| ~C-7~          | ~C-_~                       | ~undo~                   |
+| ~C-8~          | ~DEL~                       | (被終端機轉成 ~DEL~ 鍵)  |
+| ~C-9~          | ~9~                         | ~self-insert-command~    |
+| ~C-0~          | ~0~                         | ~self-insert-command~    |
+
+#+BEGIN_QUOTE
+順帶一題， ~self-insert-command~ 是個很特殊的 function，他的功能就是「在 buffer 中輸出 *這個鍵本身* 的字元」。
+#+END_QUOTE
+
+現在你應該懂了，我們是沒辦法在終端機版的 Emacs 中，綁出 =C-2= 這類 key-binding 的。如果你硬要 =C-2= 其實也是可以，就是直接從終端機實際所抓到的 =C-@= 下手，像是 =(global-set-key (kbd "C-@") 'my-command)= ，但顯然的，以這裡的例子為例，這是非常糟糕的作法，因為變成你自己閹掉 =C-@= 原本該有的功能。綁到 =1= 顯然就更智障，因為這代表你從此無法輸入 =1= 了。
+
+至於 =C-5= 這個情形則是完全無法綁，因為終端機裡根本連吃都吃不到這個鍵。
+
+總之我們現在已經知道，在終端機下就是別動 =C-數字鍵= 的歪腦筋。不過這種情形也有例外。例如我曾經遇過某一版的 =tmux= 中， =M-b=, =M-f= 都失效，因為它把 =M-b= 讀成 =M-[ d= 這種意味不明的東西，這種情形其實可以完全不管他，就算看不懂 =M-[ d= 到底是什麼鬼按鍵也沒關係，反正就是直接照抄按鍵寫設定：
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "M-[ c") 'forward-word)  ;; 鍵盤實際按下 M-f
+(global-set-key (kbd "M-[ d") 'backward-word) ;; 鍵盤實際按下 M-b
+#+END_SRC
+
+大概就是這樣。所以我自己在 =tmux= 裡用 Emacs 時就有搞過一堆類似設定：
+
+#+BEGIN_SRC elisp
+;;解決 tmux 下無法切換 buffer 以及一些 key-binding 的問題
+(global-set-key (kbd "C-x M-[ d") 'previous-buffer)
+(global-set-key (kbd "C-x M-[ c") 'next-buffer)
+(global-set-key (kbd "M-[ c") 'forward-word)
+(global-set-key (kbd "M-[ d") 'backward-word)
+(global-set-key (kbd "C-c M-[ d") 'backward-sexp)
+(global-set-key (kbd "C-c M-[ c") 'forward-sexp)
+(global-set-key (kbd "C-c M-[ a") 'backward-up-list)
+(global-set-key (kbd "C-c M-[ b") 'down-list)
+#+END_SRC
+
+***** 自己重新給 command 綁定成終端機下能用的 key-binding
+還有一種更直接的辦法是開 GUI 版， =C-h k= 透過 key-binding 來查詢 command 名稱，再自己自訂一個 CLI 版下能用的 key-binding。
+
+** 跟 X window 交換剪貼簿
+這是夭壽煩人的東西。
+
+直接抓我設定檔裡的這個 xclip 版本（新版 1.3 我這裡是無法正常運作）：
+https://github.com/kuanyui/.emacs.d/blob/master/lisps/xclip-1.0.el
+
+丟到 =~/.emacs.d/lisps/= 裡後，設定檔加上：
+
+#+BEGIN_SRC elisp
+;; xclip-mode
+(load "~/.emacs.d/lisps/xclip-1.0.el")
+(define-minor-mode xclip-mode
+  "Minor mode to use the `xclip' program to copy&paste."
+  :global t
+  (if xclip-mode
+      (turn-on-xclip)
+    (turn-off-xclip)))
+(xclip-mode t)
+#+END_SRC
+
+不過一旦 =xclip-mode= 啟用，雖然能夠跟 X window 交換剪貼簿了沒錯啦... 但所有 =C-y= 動作都會變得超級遲緩。因為 =xclip-mode= 是每次剪貼都要開一個 =xclip= ，而只靠 Emacs Lisp 摳外部 process 的速度一直都是慢到靠北，我也不知該怎麼辦。
+
+Emacs CLI 下要跟 X window 的剪貼簿相通問題基本上就是一沱爛屎坑，我已經沒興趣再花時間找更好的解法了。如果你有更好的方法請提供。
+
+#+BEGIN_QUOTE
+Emacs 25 應該是已經可以透過 dynamic module 來根本性的解決這個白爛問題了，不過...等 Emacs 25 stable released 了再來說吧。
+
+Emacs 的開發版本非常不靠譜，跟 Archlinux 用起來感覺很像，一下這裡爆一下那裡爆，更新完再換個地方爆爆爆，整天更新 Emacs 就飽了（值得慶幸的是不會有 Emacs 傳教士嗆你「因為你不懂 Emacs」），我自己嘗試用過一段時間後就放棄了，一律只用 stable。所以我現在（[2016-08-18 木]）還在用 24.5.1。
+
+-- ono hiroko
+#+END_QUOTE
+
+** Tmux 裡使用 Emacs
+主要還是 Key-binding 的問題，解法上面已經講過，請自行詳讀。
+
+tmux 我是把 prefix key 設定成 =M-B= (=Shift + Alt + b=)，這是我目前找到非常罕見幾乎不會跟任何 key-binding 衝突，又能正常在終端機下使用的 key-binding，請好好珍惜 XD
+
+然後 kill-window 我改成 =prefix + k= ，比較符合 Emacs 在 kill buffer (=C-x k=) 時的使用習慣。
+
+編輯 =~/.tmux.conf= ，不存在請自行建立。
+
+#+BEGIN_SRC sh
+unbind C-b
+unbind M-C-b
+set -g prefix M-B
+
+#下面兩種自己挑一種用
+set -g default-terminal "screen-256color"
+#set -g default-terminal "xterm-256color"
+
+bind-key k confirm-before -p "kill-window #W? (y/n)" kill-window
+#+END_SRC
+
+=~/.zshrc= (或 =~/.bashrc= )也記得自己加 =TERM=xterm-256color= 之類的設定。
+
+#+BEGIN_QUOTE
+打一下廣告，如果你覺得 Emacs 預設顏色樣式實在太醜，又找不到終端機下能使用的 Theme 的話，可以參考 [[https://github.com/kuanyui/moe-theme.el][moe-theme.el]] ，能正常在 256 色下使用且分辨清晰喔～因為這一開始就是專門為 256 色終端機設計的。
+
+[[https://raw.githubusercontent.com/kuanyui/moe-theme.el/master/pics/moe-theme.png]]
+
+-- ono hiroko
+#+END_QUOTE
+
+
+[[https://www.gnu.org/software/emacs/][GNU Emacs]] 是地球上被移植到最多平台的軟體之一，以下介紹對於在 Windows / Linux / MacOSX 下安裝與使用 Emacs 會遇到的一些問題與指引。
+
+** Windows
+
+*** GNU Emacs
+
+[[https://www.gnu.org/software/emacs/][在 GNU Emacs 官方首頁]] https://www.gnu.org/software/emacs/
+會找到 如何下載 Emacs 的指示。
+
+目前 GNU 已經開始提供 64 位元的 Emacs，同時這份 Emacs 25.1 也包含了對 GnuTLS 的支援，在安裝額外套件、從 Github 複製時皆能正常運作。
+
+你只要下載最新穩定版本的壓縮檔，解壓縮後，找到 bin/runemacs，點兩下就能啟動 emacs。
+
+
+*** Emacs 設定檔擺放位置
+
+對於 Linux 與 OS X，emacs 的設定檔(=.emacs.d=)是放在 =~/= (家目錄)下的，前面也有介紹過，這沒什麼問題。
+
+在 Windows，預設的位置是 =C:\Users\<user>\AppData\Roaming= ，使用上相當不方便。請通過控制台，搜尋「環境變數」，添加變數 =HOME= 並指定到 =C:\Users\<user>= 。如此一來，就能方便的存取 =Documents= 或 =Downloads= 取得跟  Linux/macOS 一樣的使用體驗了
+
+*** 編譯工具
+
+部分的 Emacs 套件需要使用 make、autoconf、texinfo 等工具產生文件或執行特殊編譯。另外，Windows 也沒有 Git 可用。推薦安裝 [[https://msys2.github.io][MSYS2]] https://msys2.github.io 。安裝完畢後，請把 =C:\msys2\bin= 和 =C:\msys2\user\bin= 以如同添加 =HOME= 的環境變數的步驟添加到 Windows =PATH= 列表內。
+
+如果有缺乏的工具，可以直接 =M-x eshell= 執行 =pacman -S <package>= 安裝即可。
+
+*** 檔案編碼 換行符號
+
+如果你同時使用 windows, Linux (or Mac)， 很可能你會發現 檔案會有換行或者是亂碼的問題。
+
+你在 Linux (or Mac) 編輯的有中文的檔案， 在 Windows Emacs 會出現亂碼，或是你在 Windows 編輯內有中文的檔案，在 Linux (or Mac) 打開會出現亂碼。
+
+會出現這種情況是因為 Windows 與 Linux (or Mac) 預設所使用的檔案編碼是不一樣的。
+
+有幾種可行的處理方式
+- 在檔案的開頭，指明這份檔案的編碼(以及換行符號)
+- 要求 emacs 針對檔案的讀寫都使用 utf-8 的方式
+
+**** 指定檔案使用 utf-8 編碼
+
+在檔案的第一行或第二行加上
+
+#+BEGIN_EXAMPLE
+-*- coding: utf-8; -*-
+#+END_EXAMPLE
+
+指定 utf-8 編碼，但不指定換行符號，由所使用的作業系統決定。
+
+#+BEGIN_EXAMPLE
+-*- coding: utf-8-unix; -*-
+#+END_EXAMPLE
+
+指定 utf8 編碼，並使用 unix 換行風格。
+
+** Mac OS X
+
+在你的 mac 上，可能已經有比較老舊版本的 emacs 可以使用，
+
+ 雖然如此，建議你還是取得最新穩定版本的 emacs。
+
+*** Way1 - GNU Emacs For Mac OS X
+
+[[http://emacsformacosx.com][GNU Emacs For Mac OS X]] 
+這個網站已準備好最新穩定版本的 GNU Emacs 的 dmg 檔
+
+讓我們可以下載安裝使用。
+
+*** Way2 - Homebrew
+
+如果你想透過 homebrew 安裝 emacs 則可以這樣做
+
+#+BEGIN_SRC sh
+  brew install emacs --with-cocoa --with-rsvg  --with-gnutls --with-imagemagick
+#+END_SRC
+
+對於喜歡嚐鮮的人，我們也可以這樣去安裝最新版本的 emacs
+
+#+BEGIN_SRC sh
+  brew install emacs --HEAD --use-git-head --with-cocoa --with-gnutls --with-rsvg --with-imagemagick
+#+END_SRC
+
+** Linux
+
+如果你使用的 Linux 發行版本有套件管理程式， 通常你都可以直接使用該套件管理程式安裝 Emacs，這邊以 Arch Linux, Debian, Ubuntu, CentOS, openSUSE 為例：
+
+Arch Linux
+
+#+BEGIN_SRC sh
+  pacman -S emacs
+#+END_SRC
+
+Debian/Ubuntu
+
+#+BEGIN_SRC sh
+  apt-get install emacs
+#+END_SRC
+
+CentOS
+
+#+BEGIN_SRC sh
+  yum install emacs
+#+END_SRC
+
+openSUSE
+
+#+BEGIN_SRC sh
+  zypper in emacs
+#+END_SRC
+
+有時候，透過套件管理程安裝的 Emacs 不會是最新穩定的版本， 在這種情形下你可以自己下載 [[https://www.gnu.org/software/emacs/][原始碼]] 自行編譯。
+
+
+
+
+

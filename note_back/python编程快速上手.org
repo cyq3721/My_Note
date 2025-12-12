@@ -1,0 +1,119 @@
+#+title:python编程快速上手
+#+author:CYQ
+#+date:<2021-07-15 Thu>
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+options: num:t toc:4 author:t date:t
+
+* 第1章 python基础
+** 数学操作符
+| 操作符 | 操作       | 例子  | 求值为 |
+| **     | 指数       | 2**3  |      8 |
+| %      | 取模求余数 | 22%8  |      6 |
+| //     | 整除、取整 | 22//8 |      2 |
+| /      | 除法       | 22/8  |   2.75 |
+| *      | 乘法       | 3*5   |     15 |
+| -      | 减法       | 5-2   |      3 |
+| +      | 加法       | 2+2   | 4      |
+** 整型、浮点型和字符串数据类型
+** 字符串的连接和复制
+- + 用于字符串的连接
+- * 用于字符串的复制
+** 在变量中保存值
+**** 赋值语句
+**** 变量名
+- 只能是一个词
+- 只能包含字母、数字和下划线
+- 不能以数字开头
+- 变量名区分大小写
+- 用驼峰命名的形式
+** 第一个程序
+#+BEGIN_SRC python
+# This program says hello and asks for my name.
+print ('Hello world!')
+print ('what is you name?')
+myname = input()
+print('It is good to meet you,' + myname)
+print('The length of your name is:')
+print (len(myname))
+print ('What is your age ?')
+myAge = input()
+print('you will be'+str(int(myAge)+1)+'in a year.')
+#+END_SRC
+*** 程序剖析
+**** 注释  #
+**** print（）函数
+**** input（）函数
+**** len（）函数
+**** str() 、int()和float()函数
+- int（） 可以的当取整用
+- 整型可以和浮点相等
+* 第2章 控制流
+** 布尔值（首字母大写）
+- True
+- False
+** 控制流的元素
+*** if
+#+BEGIN_SRC python
+if name == 'Alice' :
+     print ('Hi, Alice')
+elif age <12 :
+     print('You are not Alice ,kiddo.')
+else:
+     print ('You are neither Alice nor a little kid.')
+#+END_SRC
+*** while
+#+BEGIN_SRC python
+spam = 0
+while span < 5:
+     print ('Hello,world')
+     spam = spam + 1
+#+END_SRC
+*** break语句
+跳出循环
+*** continue语句
+跳出本次循环，开始下一次循环
+*** for循环和range（）函数
+#+BEGIN_SRC python
+for i in range(5):
+       print ('Jimmy Five Times('+str(i)+')')'
+#+END_SRC
+*** range()的开始、停止、和步长参数
+- range(2,6)
+  第一个参数是循环开始的值，第二个参数是循环的上限，但不包含它，步长默认为1.
+- range(1,10,2)
+  第三个参数是步长
+** 导入模块 import
+- import random，sys，os，math（ 需要使用random. 来调用）
+- from random import *   （不需要使用random. 来调用，直接调用）
+
+** 用sys.exit()提前结束程序
+要先导入sys模块
+* 第3章 函数
+** def自定义函数
+#+BEGIN_SRC python
+def hello(name):
+     print ('hello'+ name)
+#+END_SRC
+** 返回值和return语句
+** None值（首字母必须大写）
+相当于其他语言中的null、nil或underfinded
+** 关键字参数和print（）
+- end参数
+print（）函数自动在传入的字符串末尾添加了换行符，可以设置end关键字参数，替换掉换行符，是的print（）不换行
+- sep参数 ，替换默认的间隔字符
+#+BEGIN_SRC python
+print ('cats','dogs','mico',sep=',')# 用逗号，分隔输出
+#+END_SRC
+** 局部和全局作用域
+*** global语句
+显示声明全局变量，可以在函数中修改全局变量
+** 异常处理
+#+BEGIN_SRC python
+def spam(divideBy):
+       try:
+            return 42 / divideBy
+       excpet ZeroDivisionError:   #如果遇到ZeroDivisionError错误，那么输出下面的内容
+            print ('Error: Invalid argument.')
+#+END_SRC

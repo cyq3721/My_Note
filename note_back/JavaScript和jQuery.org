@@ -1,0 +1,149 @@
+#+title:Web前端开发
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+options: num:t toc:4 author:t date:t
+
+* JavaScript & jQuery 交互式Web前端开发
+
+
+#+author: chen
+#+date:<2020-03-17 二>
+
+* 第一章 编程基础知识
+** 什么是脚本？如何创建一段脚本
+*** 一段脚本是一系列的指令
+一段脚本是一系列的指令，一台计算机可以执行这些指令来达成目标。 可以将脚本比作：
+- 食谱
+- 手册
+- 说明书
+
+脚本由一台计算机可以一步一步执行的指令组成。 根据用户如何与Web页面进行交互，浏览器可以只执行脚本的某个部分。 脚本可以运行代码中的不同部分来响应它周围的情景。 
+
+*** 编写一段脚本
+1. 定义目标
+2. 设计脚本
+通过流程图来“鸟瞰”所有的任务 
+[[~/my_note(emacs版)/note/pic/js01.png]]
+3. 写出每个步骤的代码
+
+** 计算机如何融入它们周围的世界之中
+*** 计算机使用数据来创建世界的模型
+*** 对象和属性
+1. 对象
+  每个对象都有各自的：
+   - 属性
+   - 事件
+   - 方法
+   三者结合起来，就创建了那个对象的可用模型
+2. 属性（特征）
+   每个属性都有一个名称和一个值，名陈/值的值对组合会告诉我们某种对象的每个实例的某些事情。
+*** 事件
+事件用来触发一段特定的脚本运行。 
+*** 方法（实现某个事件的一段代码）
+方法表示人们通过对象需要做的事情。 方法可以获取或更新对象的属性值
+*** 把属性、事件、方法结合起来
+事件可以触发方法，方法可以获取或更新对象的属性。
+*** Web浏览器是使用对象构建的程序
+- Web浏览器是使用Windows对象来表示窗口或选项卡。 window对象的location属性会告诉你当前页面的URL
+- 在每个窗口中载入的当前Web页面使用Document对象建模。 document对象的title属性告诉你web页面上<title></title>标签之间的标题是什么。document对象的lastModified属性告诉你页面最后被修改的日期。
+*** document对象表示HTML页面
+使用document对象表示HTML页面，并根据用户与页面的交互方式进行响应。
+
+document对象只是所有主流浏览器支持的一组对象中的一个。 当浏览器创建一个Web页面的模型时，它不仅仅创建一个document对象，还会为页面上的每个元素都创建一个新对象。 这些对象都被称为文档对象模型DOM（Document Object Model）
+*** 浏览器是如何处理Web页面的
+1. 以HTML代码方式接收页面
+   Web网站上的每个页面都可以被视为一个单独的文档。 所以，整个网络中包含许多网站，每个网站都由一个或多个文档组成。
+
+2. 创建页面的模型，将模型存储在内存中
+   模型的顶端是一个document对象，它代表整个文档。
+   document对象下方的每一个方块都被称为一个节点。每个节点都是另一个对象
+
+3. 使用渲染引擎将页面显示到屏幕上
+   如果没有CSS的话，渲染引擎会将默认的样式应用到HTML元素上。 当浏览器接收到CSS规则时，渲染引擎处理规则，然后将每一条规则应用到对应的元素上。 这就是浏览器将元素显示成正确的颜色和字体，并放置到正确位置的方式。
+
+** 如何为Web页面编写一段脚本
+*** HTML、CSS和JavaScript是如何相互结合的。
+Web开发人员通常会使用三种用来创建Web页面的语言：
+    - HTML          （内容层  .html文件）
+    - CSS           （展现层  .css文件）
+    - JavaScript    （行为层  .js文件)
+*** 渐进式增强
+内容层、展现层、行为层这三个层级的划分，构成了一种流行的创建Web页面的方法，这种方法叫做渐进式增强。
+*** 创建一段基础的JavaScript脚本
+实例：
+#+BEGIN_SRC js 
+  var today = new Date();
+  var hourNow = today.getHours();
+  var greeting;
+
+  if (hourNow > 18){
+      greeting = 'Good evening!';
+  } else if (hourNow > 12) {
+      greeting = 'Good afternoon!';
+  } else if (hourNOw > 0) {
+      greeting = 'Good morning!';
+  }
+
+  document.write('<h3>' + greeting + '</h3>');
+#+END_SRC
+*** 从HTML页面链接JavaScript文件
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Constructive &amp; Co. </title>
+        <link rel="stylesheet" href="css/c01.css" />
+    </head>
+    <body>
+       <h1>Constructive &amp; Co.</h1>
+       <script src="js/add-content.js"</script>
+       <p>For all orders and inquiries please call <em>555-3344</em></p>
+    </body>
+</html>
+#+END_SRC
+*** 如何使用对象和方法
+#+BEGIN_SRC js 
+document.write('Good afternoon!');
+#+END_SRC
+*** JavaScript在它所在的HTML页面位置运行
+* 第2章 JavaScript基础指令
+** 语句
+每一条单独的指令或步骤就被称为一条语句。 语句以分号结尾。
+#+BEGIN_SRC js
+  var today = new Date ();
+  var hourNow = today.getHours ();
+  var greeting;
+
+  if (hourNow > 18) {
+      greeting = 'Good evening';
+  }
+  else if (hourNow >12) {
+      greeting = 'Good afternoon';
+  }
+  else if (hourNow > 0) {
+      greeting = 'Good morning';
+  }
+  else {
+      greeting = 'Welcome';
+  }
+
+  document.write(greeting);
+#+END_SRC
+** 注释（和c++一样）
+   - 单行注释是  // , 灰色显示
+   - 多行注释是  /*  …………………………    */  ,粉红色显示
+** 变量 
+*** 声明变量
+#+BEGIN_SRC js
+var quantity;
+#+END_SRC
+*** 在字符串中使用引号
+    - 使用双引号
+      要使用单引号去包含整个字符串
+    - 使用单引号
+      要使用双引号去包含整个字符串
+    - 使用转义字符 \ （反斜杠）
+     

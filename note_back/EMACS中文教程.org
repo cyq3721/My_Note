@@ -1,0 +1,2424 @@
+#+title:EMACS 中文教程
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+options: num:t toc:4 author:t date:t
+* EMACS 教程
+
+目录
+1.      导言
+o	GNU 是什废
+o	GNU Emacs	是什 座
+o	GNU EJIACS 的特质
+2.	Emacs	的线上 辅助 说明
+o	Emacs 的牡本知 识
+o	Emacs  的自学 教材
+o CLrl - h 的用法
+o Emacs 的 i n fo 使 用 说 明
+3.	. Emacs 的整合环 境
+o	如何在 Emacs   中 执行  Shell	的指令
+o	有关目录的编辑方法
+o	如何编辑远方机器上的档案
+o	程式的编辑，编译勹测试
+o	如何在 Emacs 中 列印 文件
+o	在 血acs 中如何收发信件
+o	其它与 Emacs 相关 的 T 作环 境
+4.	_ J 」 Emacs 有 关 的 议 题
+o	如何起动 Emacs
+o	如 何 离 开 Emacs
+o	EMACS 的萤幕安排
+o	Emacs 的缓冲区 与 视窗
+5.	Emacs 的 基本编辑指令
+o  如何载入	案与储存	案
+o	Emacs 的 扯础编辑指令
+o	何 谓 Yank i n g
+o	如何有文件	中 做上标记
+o	文件的移动与拷贝
+o 何 谓 Undo
+6.	Emacs 进阶 编 辑指 令
+o	文件的搜寻
+o	文件的取代
+o Regular Expression
+7.	Emacs 的其它 相关 事 项
+o	Registers and Bookmarks
+o	文字的勘误
+o	图形的编辑
+8.	中文编辑环境
+o	Emacs 下 的中 文编辑
+o	中文化的 EMACS — Mul e
+9.	. 结 论
+
+
+Stallman 倡导 FSF 的宗旨，是要建立一个软体 free 的王国。 他所谓的 free 并不是意谓著便宜或免费，因为在 FSF 下的有些软体还是必需付些工本费。 他所谓的 free 是指使用上的自由。
+
+要了解 Stallman 所言 free 的真意，就必须知道一般软体的使用悄形。 大部份的商业软体在使用上都或多或少有些限制。 例如，必须付费才可使用软体程式，若运气不好，同一程式在不同的电脑上使用，可能还要另行付费。有些软休程式的使用也有一定的期限，期限—到就 需另缴费用，否则使用权就会被撤销； 甚至有些软体是以使用时间来计算费用的。 当然，这些商业软体是绝对不予许使用者将这些软体任慈给他人使用。除非给予软体公司相当的代价，使用者是绝对不可能拿到软体的原始程式的。
+
+上述的种种都还是付钱就可以解决的，有些问题是钱也乏术的。 因为，当商业程式销售失败或远景不被看好时，使用者所购置的软体就可能被开发者遗弃。 此时，若想维持此软体的正常运作，就必须自求多福了。 Stallman 所领导的 GNU 计划就是要脱离商业软体的种种枷锁，这也是 GNU 计划所谓  "free" 的真谛。 GNU 计划下的任何软体，只要使用者能找到软体的来源，任何人都可以自由的使用它。 获得 GNU 软体的来源很多， 如 public archives、anonymous FTP, UUNET 等，甚至任何一个装有 GNU 软体的地方都可以取得。 GNU 计划下的软体，不只提供软体的使用权，也提供软体的原始程式，任何人都可以根据需要来修改程式，也可以尽己之力来找出程式的错误，使隶属於 GNU 的软体在大家 的努力下能尽善尽美。 GNU 计划下的软体，是可不需付费而享有使用权。GNU 对使用者唯一的要求就是，当使用者对於 GNU 计划下的软体做了进一步的修改时，仍必须维持 GNU 的精神， 就是对於修改过的软体仍然必须将其无条件的奉献出来，任何人都不可将修改过的 GNU 软体当成商品来买卖。所以 Stallman一直强 调 GNU 计划下的软体是 free 的，而且永远会是 free 的。 GNU 计划的最终目标是要宪成一个全新的作业系统。 目前完成的有 EMACS text editor 、debugger、yacc-compatible parser generator 以及 linker 等等 ； 也完成了将尽三、四十个公用程式 ( utilities ) ;  而 shell 也已经接近完成的阶段。 目前只要等 kernel 和 compiler 完成，就可以在 GNU 的系统上发展程式。
+
+未来完成的 GNU 系统将可以执行 UNIX 上的所有程式， 但它却与 UNIX 系统不完全一致。 GNU系统将改进 UNIX 系统的缺失，使它使用起来更方便。 例如，未来的系统将会有较长的文档名，文档名会有版次等等； 新的系统会使用 C 与 LISP 做为系统程式语言。
+
+* GNU Emacs 是什么
+
+GNU EMACS 是 GNU 计划下的第一个产品， EMACS 为 Editor MACros 的缩写。 Richard Stallman 於 1975 年在 MIT 首次撰写 EMACS editor。 目前 GNUEMACS 已发展到 19.28 版，本文所讨论的 GNU EMACS 也以 19.28 版为主。 GNU EMACS 秉持著GNU 的精神，它 依然是 free 的。任何人都可以 anonymous ftp 的方式至 prep.ai.m it.edu 这个 site , 取得 GNU EMACS 的原始码。 GNU EMACS 不是 public domain 的产物，它有版权也有使用上的限制，那就是任何得到它的人都不可以将其视为私有的财产。 修改过的GNU EMACS 也不可以作为商品来牟利，金钱交易的行为是绝对被禁止。
+
+EMACS有多种版本可适合不同的工作平台 (platfrom)  。适合 UNIX 环境的有  GNU
+EMACS、Unipress EMACS 以及  CCAEMACS,其中以 GNU EMACS 最常被使用，本文也只介绍  GNU EMACS。 适合个人电脑的  EMACS 有  FreEMACS、MicroEMACS以及Epsilon。当然 ，也有使用在 VMS 环境的版本。
+
+GNU EMACS 是由 C 与 LISP 语言写成，任何人都可依据需要将个人所发展的函式(function ) 加入 GNU EMACS上。当然，新发展的软体是不可以从事商业买卖，只能将它无条件的奉献出来。新发展的函式可以直接在 EMACS中使用，不需重新编译 ( complie) 整个 EMACS , 而且新增的函式也不会破坏 EMACS 原有的结构。就因为有此特性，EMACS 的函式可以 与日俱增。愿与他人共享成果的使用者，可以透过电子邮件或电子公布栏，将函式的原始码公诸於世C 公布的函式，最俊会经由 FSF 的审查，以决定是否要加入新版的 EMACS中。FSF 也鼓励使用者将所发现的错误，透过相同的管道，提供给 FSF 作为改进 之用。GNU EMACS 就是在如此的运作下，靠大家共同的努力来提升品质，以达产品的稳定性。
+
+* GNU EMACS 的特质
+
+GNU EMACS 与其说它是一个编辑器 (editor) , 倒不如说它是一个以编辑器为主干的环境软体。一般的软体都是将编辑器视为一个附属功能，只有 EMACS以编辑器为基石，在其上发展其它的功能。 以收发电子信件的软体为例，电子信件软体是以收发信件为环境的基石。 任何电子信件的软体都只有在使用编辑器时，才呼叫相关的编辑器。  EMACS 的出发点就与众不同， EMACS 一切以编辑器为主，任何的功能都是建基在编辑器之上。
+
+所以，进入 EMACS , 就等於是进入了一个编辑环境，这个编辑环境提使用者许多功能，让使用者如詈身在一个全功能的作业系统中。 EMACS 自行发展了—个 bourne-shell-like 的 shell,除了 EMACS 自己的 shell 外， EMACS 还可以让使用者自行选择所使用的shell; EMACS可以读送  e-mail。  EMACS可以透过 ftp 来编辑远方 host 上的档案，而不需要签入(login) 档案所 在的 host:	EMACS 也可做 telnet与 relogin 的动作。 EMACS 也可以读news;	EMACS也提供了年历 (calendar) ,可以让使用者查阅日期，也可以将重要的事情在年历上标示出来；EMACS 又提供了 diary 的功能，当特定的日期与时间到来时，会在萤幕上将 Diary 上的事情情显示； EMACS 也有撰写文章大纲的功能。 EMACS更提供多种程式的编译功能，让使用者可以在  EMACS中一边编辑程式一边编译程式；  EMACS更有自己的 debugger, 使程式的除错、编辑与编译在 EMACS中同时完成。
+
+所以 EMACS所提供的不只是一个编辑器而已，它所提供的是一个整合的工作环境，而这个环境是建立在编辑的基石上。它希望使用者进入了 EMACS以俊，可以在 EMACS的环境中完成所有的工作，不需要离开 EMACS, 要离开 EMACS就是要离开电脑的时候(logout) 。 EMACS除了是一个整合的工作环境外，它还具有以下的特性：
+ 
+	- display editor
+	- real-time editor
+	- advanced editor
+	- Self-documenting
+	- Customizable
+	- Extensible
+	- support X window env1ornment
+
+EMACS 是一个 display 编辑器，因为每一个被编辑的文字都会被显示在萤幕上。
+
+EMACS 是一个 real-tim e 的编辑器，因为当新的文字被键入时萤群会在非常短的时间内被更新。
+
+EMACS的编辑功能不只具备一般编辑器所有的功能，它还提供如下的功能：
+
+       - 文字的填充 ( filling of text ) 。
+       - 程式自动内 缩功能。
+       - 可以同时阅读一个以上的档案。
+       - 对於字元 (characters)  、字 (words)  、列 (lines)  、句子	(sentences ) 、段落(paragraphs )  、页  ( page s )  以及各种程式 中的 expression 和注解(comments) 都有其自有的处理方法。
+
+EMACS 是一个 Self-docum entin g的软体，因 为在任何时候都 可以 " Ctrl-h" 指令来得立即的帮助。因为，透过 "	Ctrl-h" 可以得知每一个 EMACS 的指令。
+
+EMACS 是可以 Customizab le 的。使用者可视个人的需求，来改变 EMACS 指令的定义。
+GNU EMACS 的 Customization 的设定 非常简单，使用者可以很方便的使用它。 EMACS 是
+Extensible 的。GNU EMACS 是由 LISP 语言 所写成的函式共同组成的， 函式与函式间的互动关系 ( dependency) 不强。就因为 EMACS 是由函式所组合而成的，所以可以随时将函式作增减而不会破坏 EMACS 既有的结构。 EMACS 也针对 X 的视窗环境，提供自己的选单( menus ) 和滑鼠按纽 ( mouse bottons ) 功能 。 EMACS 对於 text-only 的终端机也提供许多与 X 环境相当的服务品质，例如在文字模式的终端机，可以同时开启数个的档案，档案可以
+互相切换，当使用 shell 模式 来执行 shell 指令的同时也可以编辑档案。但本文的只讨论text-only 的 EMACS 使用法。 以上的种种就是有关 EMACS 的特色。至於如何使用这些功能就下列章节所要讨论的重点。 回主画面
+ 
+Emacs 的线上辅助说明
+
+EMACS 是一个整合的工作环境，初次使用  EMACS 或不熟悉  EMACS  的人，常会不知所措。所以，EMACS 提供了非常便捷且功能强大的线上辅助说明 ( on-line help) ,  来帮助使用 EMACS 。
+
+Emacs 的基本知识
+
+在未讨论 EMACS 的线上辅助说明时，先谈谈如何启动 EM ACS 。 启动 EM ACS 的方法很简单，只要在萤幕的提示下键入、、emacs" 即可；离开 EM ACS , 只要键入 " C tr l-x C trl- 心即可离 开 EM ACS 。 键入、、Ctrl-x Ct rl-心 的方法是，先按住键盘上的 Ctrl 键不放再按下英文字的 " x" 即可。键入、' Ctrl- 心 的方法一样，先按住键盘上的 Ctrl 键不放再按下英文字的
+、' c" 即可 。当 然 进 入与离 开 EM ACS 的方法还有多种，这里只 是介绍一种方法，让使用者可以很快的使用 EMACS 的线上辅助说明，至於其它的方法会在以下各章节中陆续提及。
+
+除了进入与离开 EMACS 的方法必须知道外，还有一个指令非常用那就是、、Ctrl-g" 。、、Ctrl ­
+g" 可用来 取消键入的指令，如果不想执行所键入的指令，可以随时将其取消。
+
+EMACS 键入指令 的方法有二种：
+
+•	Ctrl 键
+•	Meta 键
+
+所有 EMACS 的指令都可以 Meta 键表示出来，键盘上若无
+Meta 键，则可以 ESC 键来取而代之。常用的 EMACS 指令通常会有一个 Hotkey 与之连结。 Hotkey 的构成，通常是以 Ctrl 为开头的型态 出现 。例 如 " Ctrl -x Ctrl -c" 这一个 Hotkey, 则代表了
+EMACS 指令的' ' s ave-buffers如 II-emacs" 。若要使用  Meta 键来表达与 Ctrl-x Ctrl-c 相同 的效果	，则必须键入
+、、ESC-x save-buffers-kill-emacs"。
+
+使用 Meta 键，可以利用 EMACS completion 的功能。因为 completion 可以让使用者键入最少的字，就可使系统唤起所欲执行的命令。以下就介绍 EMACS的 completion。
+
+EMACS completion的慈思是，只要键入字串的部份， EMACS 会将其余的部份自动填入其 应在的位置。如果所 给予的字串不足以决定其余的部份，EMACS 会将所有可能的结果都列出 来，以供使用者来决定所需要的字串名称。 completion所适用的范围如下：
+
+．指令
+特定目录下的档案缓冲区
+•	EMACS的变数
+
+至於何谓特定目录下的档案、缓冲区以及 EMACS 的变数，会在以俊的章节中陆续谈及。此处讨论completion , 只是为了
+使用 completion 於 EMACS 的线上辅助说明。
+
+使 用 EMACS 的	completion有三种方法：
+ 
+•	TAB 尽可能将其余的字串填满。
+•	SPACE 将 puncutation 字元之前的字填满，填充的字不会超过—个字以上。
+•	? 将所有可能的 completions 选择都列出来。
+
+使用completion 的做法是将部份字串键入俊，再按下 TAB、
+SPACE 或 ？即可。例如，键入 " M-x au TAB" , 则萤幕的最下方会出现、 键入 TAB 则萤幕会在另一个视窗出现：
+
+ 
+Possible completions are: auto-fill-mode
+auto-raise -mode
+ 
+
+auto-lower-mode auto-save-mode
+ 
+
+
+若键入 " M-x au SPACE", 则萤器的最下方也会出现 " M-x auto-"。若键入 SPACE , 则萤器的另一个视窗也会出现如下的命令：
+
+ 
+Possible completions are: auto-fill-mode
+auto-raise-mode
+ 
+
+auto-lower-mode auto-save-mode
+ 
+
+
+这似乎意味著 TAB 与 SPACE的功能一样，其实不然，二者的差异可从下一个例子看出。键入 " M-x auto-f TAB", 可得
+、' M-x auto-fill-mode"; 但键入 ＼ 小x auto-f SPACE", 只能得到
+"	M-x auto- fill-" , 欲得到 " M-x auto- fi!J-mode ", 则必须再键入一次
+SPACE。这就是前面所说的 " SPACE" —次只填—个 " punc utation" 之前的—个字的慈思 ；而 T AB 则是尽可能的将所有可以判断出来的字串呈现出来，其显示字串的长度并不以一个、puncutation"   为限。键入 ？的作用，是在 EM ACS 的另一个视窗上显示所有可能的字串，
+此时使用者可根据视窗上的讯息键入适当的命令。例如键入 " M-x au ?" ,
+萤幕上出现另一个视窗显示如下的资讯：
+
+ 
+Possible completions are: auto-fill-mode
+auto-raise-m ode
+ 
+
+auto-lower-mode auto-save-mode
+ 
+
+
+键入、、M-x au ?" 的地方，则不会执行	completion 的动作， 这是 ？与 T AB 、SPACE 最大不同的地方。
+
+若视窗的内容太多无法一次穷尽，此时就必需卷动视窗。卷动视窗可以用、、Ctrl-v" 与、、Meta-v"二个指令来使视窗做上下的移动。
+
+
+
+E macs 的自学教材
+
+想快速了解 EMACS 的人，可以参考 EMACS 的自学教材 ( tutor ial) 。使用 EMACS 自学教材的方法很简单，只要键入、、Ctrl-h t" (help-with-tu torial) 即可进入 EMACS 的自学的状态了。
+
+EM ACS 的自学教材可分成以下几部份：
+ 
+1.	介绍 EMACS 指令的键入方法，即介绍 Ctr! 与 Meta 键 。
+2.	viewing screenfuls
+3.	basic curso r contro l
+4.	Ctrl-g 的用法
+5.	EMACS 的 window 与 multiple windows
+6.	inserting and deleting
+7.	undo
+8.	EMACS 档案的处理
+9.	EMACS 的 buffers
+10.	extending the command set
+11.	简 介 EMACS 的 mode line 与 ec ho area
+12.	searching
+13.	recursive editing leve ls 14 . ge tting more help
+15.	leaving EMACS
+16.	有关 EMACS 的版权问题
+
+EMACS 的自学教材是以编辑功能的介绍为主。虽然 EMACS 的功能不只如此， 但编辑是 EMACS 的最基础的功能，要了解 EMACS
+当然要从它的基本著手。所以   EMACS的自学教材也以编辑的介绍
+为主，至於 EMACS 其它的工件环境，是无法从 此自学教材中得知。所以，本文会在第三章简介 EMACS 的工作环境。
+
+
+Ctrl-h 的用法
+
+EMACS 除了自学教材可供参考外，它还提供了其它的线上辅助说明功能，让使用者可以随时查阅需 要的相关讯息。 EMACS 的线上辅助说明都是以、' C trl-h " 为 开端 ，其 种类	有 以下二种：
+
+•	Ctrl -h
+•	Ctrl-h Ctrl-h
+
+键入 Ctrl-h (help-command), 萤幕的最下端会出现如下的讯息： C-h ( Type ? for further options) - 此 时 的 " Ctrl- h" 只是用做前宜字 ( prefix key ) , 它是用来等候使用者输入其它的指令。若输入"  ?" '	则 萤 幕 的 下 方会 出现所 有可 使用的选择，使用者可根据需要来选择合适的选项。若键入两次的 " Ctrl-h"Ctrl-h (:felp- for-help) , 萤幕下方 会出现： type one of the options listed or Space to scroll 此时 EM ACS 会另外开启一个视窗，将所有与求助的选项都列出来，且会做—简要的说明，要卷动此视窗则键入 Space。此新开启的视窗共有二十一个选项，包括： ab cf C-f i k C-k Im n p s t v w C-c C-d C-n C-p C-w. 使用这二十一个选择项的方法非常简单，只要在、、Ctrl-h" 之俊输入任一个选择就可以了。例如，要选择 闷＂，则执行
+、、Ctrl-h a" 即可 。
+
+现在将	EMACS 常用的线上辅助说明一一作解释。EMACS 常用的线上辅助说明有：
+
+•	Ctrl-h C
+•	Ctrl-h k
+•	Ctrl-h w
+•	Ctrl-h a
+•	Ctrl-h v
+•	Ctrl-h i
+ 
+、、Ct rl-h c" 与 " Ctrl-h k" 的功能 相似 ， 二者都是在寻求与 Ho tkey
+有关的讯息。二者唯一的差别，就在於对指令的解释详细与否而已。
+、、Ctrl-h c" 是简述与 Hotkey 连结的命令，而、、Ctrl-h k"则详述连结
+Hotkey 的命令。二者都有一个前题的预设，那就是都是先知道
+Hotkey 为何，而想进一步知道此 Hotkey 所使用命令的名称。今举
+、、Ctrl-x Ctrl-c" 的例子来说明二者的差别。
+
+键入、、Ctrl-h  c  RET"  (RET,    亦即键盘上的  Enter 键。任何一  个指令输入完毕时，必需  紧跟著—个 Enter。此 作用是用以告知系统，指令输入已经结束，可以开始执行相关的动作了。） 则萤幕下方会出现  Describe key briet1y: - 在、、 ：＂的	面键入、、 Ctrl-x Ctrl-c",   则在原先出现 Describe key briefly: - 的地方则出	现 C - x C-c runs the command save-buffers-kill-emacs" 键 入
+、、Ctrl-h k RET", 则萤幕下方出现 Describe key: - 在 ｀．＂的 俊面键入、Ctrl-x Ctrl-c", 则
+EMACS 会另以一个视窗显示如下的讯息： save-buffers-kill-emacs: Offer to save each buffer, then kill thjs emacs process. With prefix arg, silently save all file-visiting buffers, then kill. 此 讯 息 的第一行是 Hotkey 所连结命令的全名，以俊的行数则 是对此命令的详细说明。、、Ctrl-h w"w (where -is) 的用法与 " Ctrl-h c" 和"	Ctrl-h k" 正好相反 。、、Ctrl-h w" 是在知道EMACS 的命 令而欲知是否有相对应的 Hotkey 时所使用的。例如键入、Ctrl-h w", 萤幕的下方会出现
+
+where is command:
+
+在、｀ ：之＂俊键入 飞ave-buffers如 11-e macs", 则在原处会出现
+
+save-buffers-kill-emacs is on C-x C-c 所以想知道命令是否有相对应的 Hotkey , 可以此方法查知。、、Ctrl-h w" 可以使用 EMACS 的、(.,ompletion , 但其最大的 不便处，就是必需给予指令的第一个字元。如  " save-buffers-kill-emacs",	必需先给予以  s 开头的子字串，才能逐步使用 EMACS 的 completion 。若不键入 s 开头的子串，而 键入 s 之俊的 任何字串，则无法找到相对应的指令，所以使用 " Ctrl-h w" 必需要记著指令的第一个字。除此之外， EMACS 的线上 辅助 说明还 提供了另一种帮助，可让使用者键入任意的子字串，都可以找到相对应的指令，那就是 "	Ctrl-h a"。 键入、、Ctrl-h a" 则萤幕的下方会出现 command-apropos (regexp): 此时只要给予与命令相关的任一子字串或" regular expression " 6.3 节会讨论何谓 regular expression ) 再按下 RET,	EMACS 会另开一个视窗，将所有涵盖此子字串或 regular
+ex pressio n 的指令全列 出来 。 此指令 与 " Ctrl-h w" 最大不同处如下：
+
+1.	使用"	Ctrl-h a" 所键入的子字串，并不限於指令的第一个字元，而、C、trl-h w" 则必需以指令的第—个字为起始字。 使用、、Ctrl-h a", 可给予指令中任何位置的子字串。
+2.
+3.	" Ctrl-h a" 无法使用 completion, 而、' Ctrl-h w" 可使用 completion。
+4.
+
+"	Ctrl-h a" 主要的目的是当使用者无法正确的键入指令的 第一个字元时，可以借此将所有包含使用者记得的部份子字串的指令都列举出来。
+EMACS除了 以上几个常用 的线上 辅助 说明之外 ， 还有一个非常实用的资料查阅中
+心，那就是"	Ctrl-h i" 。 " C trl- h i" 执行 " Info program" , 它主要是用来浏	己建构成树状结构的文件档案。目前所有与 EMACS 有关的文件档案 都可 透过 Info 来阅览 ， 最终所有与 GNU有关的文件资料，将可以由此 而窥得其文件档案全貌。
+使用 info 模式 ( info mode) 的方法很简单，只要键入、、Ctrl-h i" 就可查阅所有与
+EMACS 相关的文件资料。进入了 info 之俊要如何 有效的使用它呢？会在下一节详细讨论。
+以上所谈的，就是较常使用的线上辅助说明种类。  若线上辅助说明的讯息，是以另一个视窗显示出来，此时的讯息  又无法一「器」了然。想参考其它部份的资料，就必需卷动视窗。 视窗卷动的指令，可参考如下的方法：
+•	Ctrl-x I ( delete-other-windows)
+ 
+(本文所有与 Hotkey 相对应的指令都放於括号中。  保留游标所在的视窗，而将其它的视窗关闭。
+•	Ctrl-x o ( other-window)
+．可使游标在不同的视窗间切换。换言之，如果游标在工作的视窗，  可以此指令将游标移出显示线上辅助说明讯息的视窗，反之亦然。
+•	Ctrl-v (scroll-up )
+．将萤幕向上卷，如此则可看清萤幕下方的讯息。
+•	Meta-v ( scroll-down)
+萤幕向下卷，如此可以重复参考已经看过的资料。
+
+Emacs 的 info 使用说明
+
+前已略述 info 的使用法，现在就更进一步详述之。在 EMACS 的线上辅助说明功能中，info 的内容可说是最为丰富的。因为， 任何线上辅助说明的文件都可在 info 模式中找到。因为，info 就是用来放置整个 EMACS 手册。
+
+info 对於 EMA CS 文件的安排 是采取树状的结构， 所以是以根部 ( root ) 为出发点。
+info  执 行 info program,	使用 info program 的方法有二：
+•	Ctrl-h i
+•	ESC-x info
+info 对於档案的编排，是以   Hypertext   的方法来处理所有的  相关文件。当键入、、Ctrl-h
+i" 或、、ESC-x info" 俊，会先进入 info 树状 ( tree )  结构的最顶端。如下就是进入 info 时的第一个画面： -*- T ext -*- This is the file … /in fo/dir, which contains the topmost node of the Info hierarchy. The first time you invok e Info you s tart off looking at that node, which is (dir) Top. ? File: dir Node: Top This is the  top  of the INFO tree This (the Directory node) gives  a menu of major topics. Typing "d" returns here, "q" exits, "?" lists all  INFO commands, "h" gives a primer for first-timers, "mTe xinfo" visits Texinfo topic, etc. --- PLEASE ADD DOCUMENTATTON TO TH IS TREE. (See INFO topic first.) --- * Menu: The list of major topics begins  on  the next line. * Info: (info). Documentation browsing system. * Emacs: (emacs). The extensible self-documenting text editor. * VIP : (vip). A VT-e mulation for Emacs.
+*	Texinfo: (texi.info). Wit h one source file, make either a printed manual (through TeX) or an Info file (tl1rough texin fo). Full documentation in thjs menu item. * Termcap: (termcap). The termcap lib rary, which enables application programs to handle all types of character-display terminals. * Regex: (regex ). The GNU regular expression lib rary. * Cpp: (cpp..info). C pre­ processor. * Gcc: (gcc.info) . GNU C Co mpile r --- an ANSI C Compiler developed by FSF. * Gzip: (gzip.info). GNU zip program  ---  an compress  package developed  by FSF. *  Ispell: (ispell .info). A spelling checker. * Libg++: (libg++ .info) . G++  libr 扛  ies. * Gmake: (make.info). A make utility developed by FSF. * Bison: (bison.info). GNU Yacc. * Gawk: (gawk.info). GNU awk --- pattern scanning and processing language. * Gdb: (gdb.info). GNU debugger. * Info-stnd: (info-stnd.info). Stand along GNU info. * Makeinfo: (makeinfo.info). Program for producing *.info file from *.texi file. * Graphics: (g raphics.info).  A se t programs for producing plot files and display them  on  Tektronix  4010, PostScript,  and  X  window system compatible output devices. * m4: (m4.info). m4 is macro processor, in the sense that it copies its input to the output, expending macros as it goes. GNU m4 is mostly compatible with system V, Release 3 vers io n. * Hyperbole: (hypb.info). GNU Emac s- based everyday information management system. Use {C -h h d d} for a demo. Include Smart Key context­ sensitive mouse or key board key support, a powerful  rolodex,  and  extensible  hypertext facilities including hyper-link s in mail and news  messages. * Standards Coding Sty le: (standards .info). GNU Coding Style. 此时，出现在萤幕的第—列是标头 ( header )  ,   它包含此结点	( node) 的基本讯息。表头所提供的讯息，最多可有五件事悄：
+1.	结点所在的档案 ( File )
+2.	结点的名称 ( node )
+ 
+3.	此结点的下一个结点 ( Next )
+4.	此结点的上一个结点 ( Prev )
+5.	此结点的上—层结点 ( up)
+
+此时的画面，只显示了二件事情，是因为此画面为 info 树状结构 的最上层。
+
+在表头之下的资讯， 是用来告知如何用 info 。它提供了五件奉悄，现——说明。
+
+•	h
+不知如何使用 info 模式者，可在进入 info 模式俊，使用 info 的线上 辅助说
+明。欲使用  info 的线上辅助说明，只要在进入 info	式俊，键入 " h" 即可。此不只是—个线上辅助说明，还是 一个教学指引。跟随著它的说 明，即可明了如何使用 info 模式
+•	d
+·	、、Ctrl-h i" 指令，会先进入	info 树状结构的根部。任何情况下 ， 可键入 " d" 回到
+此根部。
+•	?
+想知所有与  info 有关的指令，只要键入 勺＂，就可以得知所有 指令的全貌。
+•	q
+欲离开 info,  只要键入＼ ＂，就可以离开 info 而回到先前的	缓冲区。
+•	m Texinfo< Return >
+．这—个指令是用来使用 info 的 Menu Item。使用的方法如下：
+1.	键入、、m" 。
+2.	键入所欲参考的文件名称，也可使用 completion 的功能来简化输入的工作。
+3.	键入 RET 。
+
+何为 Menu Item 会再解释。
+
+在这五个指令之下的是，此结点可 以使用的 Menu Item。 使用者可以直接至所要参考的 Menu 之下，键入 " RET" 。此时， info 会将此 Menu 的相关文件显示在萤幕上。使用 info 除了以上的指令之外，还有几个必需知道的指令。 现介绍如下：
+•	n
+．将结点移至下一个与此结点相连的结点。
+•	p
+．将结点移至上一个与此结点相连的结点。
+•	u
+．将结点移至上一层的结点。
+•	m
+以上结点间移动的指令，必 需结点间有相连接的关系。 若想做跨越的移动，这几个指令是无法做到的。此时，必需透过 Menu 来做夸越结点的文 件阅读。 使用
+Menu 的方式有二：
+°、m、Texinfo"
+o	这种使用 menu 的方法，在进入 info 的第一个画面就可 以看到了。 此方法由三件事共同组成：
+1.	m 键入 m 是使用 menu 的指令。
+2.	Texinfo 键入 m 时，minibuffer 会出现
+3.	menu  item:  此时，可在其俊输入所欲阅	的文件名称。所以，Texinfo 意 指文件的名称。此时，就可以键入画面上以、＊、”为开头  的名称。如果是刚进入 info , 可使用的 T exinfo 名称有： Info、 Emacs 、
+VIP、 Forms 、 GNUS、 CL、 Gee 、 Cpp、 Makeinfo 、 ln fo-stnd 、
+T exi 、 Hyperbole 、 Oetave
+ 
+4.	RET
+5.	待文件名称输入完毕俊，要按下 RET , 以告知系统文件名称已经输入宪成了，可以开始执行的动作了。
+o	直接键入、RET"
+o	如果在阅	某一个结点时，文件中出现以、' * Menu:" 为甘的 文字，就表示此列以下若有以｀＊”为开头的列，均为一个 可以使用的 Menu Item 。此 时，可以直接键入、、RET" 参考 另一个结点的文件。
+
+使用 Menu 有些条件，就是所要使用的 Menu, 必需在此结点 的文件中有明列出来的才可以使用。要使用其它结点的 Menu,	必需先到有要使用的 Menu 的结点，才可以使用它的 Menu。 Menu 有其一定的结构。所有 Menu 的第—列，都是以、、Me nu:" 为开端。如下所示： * Menu: The list of major topics begins on the next line. 此列之俊的所有列，只要以 ｀＊”为开始的列，就表示一个可以 使用的
+item。 Menu Item 的表示法如下所述： * Info: (info) . Documentation browsing system . 它主要由四个部份主成：
+
+1. *
+2.	每一个 Menu Item 都是以、｀＊”为开头。
+3.	Subtopic:
+4.	、、*"  之俊就是 Subtopic  的名称，再加上一个 " :" o	info 就是根据此
+Subtopic 找到所对应的结点名。此例子的 Subtopic 的名称就是 " Info"。 如果要以指令、｀ m" 的方式， 使用MenuItem 所要给予的 Texinfo 的名称就是此 S ubtopic 的名称。
+5.	node name
+6.	在 Subtopic : 之俊就是所使用的结点名。一般为了使用上 的方便，会尽可能的使用相同的 Subtopic 和结点的名称。 若二者的名字相同时，在Subtopic 1受的结点名会省略而以 两个｀：”表示之。如 "  * Info::"。
+7.	node description
+8.	结点梭面的内容是选择性，它主要是用来概略描述此结点。
+•	l
+如果想要回到前一个 ( last ) 所参考过的结点，可以使用指令 l 一步一步的往回走。
+•	b
+．指令 b 可以使游标移至文件的最前端。
+•	SPC
+若文件太长可键 入空白键 ( SPC) 来卷动萤器。
+•	Ctrl-g
+．任何时候想要取消所键入的指令，可键入 Ctrl-g
+
+回主画面
+ 
+Emacs 的整合环境
+
+前面不断的强调，E MACS 不只提供一个编辑的环境，面提供一个整合的工作环境。所以， 在未进入本文的正题- EMACS 的编辑环境之前，先对EMACS 的工作环境做一个简介。
+
+EM ACS 所能提供的工作环境如下
+
+1. EMACS 可执行 She ll 的指令。
+
+3. EMACS 可做为 Directo ry Edito r ( Dired ) 。
+
+5. EMACS 可以编辑、编译及除错程式。
+6.
+7. EMACS 具有编辑其它 host 上档案的能力。
+8.
+9. EMACS 可以列印档案。
+10.
+11. EMACS 具有年历、日记的功能 ( Calendar、Diary ) 。
+12.
+13. EMACS 具有读 Man Page 的能力。
+14.
+15.	EM ACS 可以收发电子邮件 ( Mail、Rmail ) 。
+16 .
+17.	EMACS 可以阅读网路上的电子布告栏 ( G NUS ) 。
+18.
+19. EMACS 具有 version control 的功能
+20.
+21. EMACS 对於档案的处理，具有 Outline 的能力。
+22.
+23. EMACS 具有资料库的处理能力。
+24.
+25. EM ACS 可以提供电子计算机的功能。
+26.
+27. EMACS 提供了娱乐的环境 ( game ) , 让工作者可以暂时放下工作的压力。
+28.
+
+由以上的分析可知，只要进入EMACS   的工作环境，就可以在其下完成所有的工作。所以 EMACS  的理想，是离开  EMACS 就是离开电脑工作的时候 ，固为它的最终目标，就是要完成一个以编辑器为轴心的作业系统。
+EM ACS 所提供的这些功能，都是先唤起代表此功能的
+模式mode,	EMACS	的模式，分成主要模式 majo r mode
+与次要模式minor mode。每一次只能使用一个主要模式，
+而且必须要的。但一个主要模式可以搭配一个以上的次要模式。
+现在就来简述 EMACS 工作环境的功能 ，至於如何使用这些 EMACS
+的工作环境，本文就不多做介绍。
+
+
+
+如何在 Emacs 中执行 Shell 的指令
+
+在 EM ACS 中有两种执行 shell 指令的方法：一种是进入shell command mode,	另一种是进
+ 
+入 shell mode 。二者都可以执行 shell 的指令， 其最大不同之处是，进入shell mode 的状态，执行 shell 指令的同时，仍可以切换到其它模式处理别的工作，但如果使用 shell command mode, 就必须等指令执行完俊才可以做其它的事。 使用 shell command mode 时， 使用者在萤幕的最下方输入欲执行的指令， EMACS 会开启一个名为 " *Shell command output*' ' 的视窗，将 shell 指令执行的结果显示在此视窗中.shell mode 则是执行一个
+subshell, 其输入与输出都是透过同一个缓冲区，所以输入与输出是在同一个地方，它不似shell command mode,  指令输入与结果的显示在不同的地方。 shell command mode 又可以有两种模式，一种就是很单纯的执行一个 shell 的指令；另一种是对某一特定区域的资料执行 shell 的指令。 shell command mode 容许 执行俊的结果，直接输入到目前所使用的工作区内。有了如此的功能，使用者可以很轻易的将 shell 指令执行的结果，直接放入适当的位置，而不需另外从事剪贴的工作。要如何使用EMACS 所提供的 shell 功能呢？以下是最基本 的方法，至於高阶的用法则请自行参考GNU EMACS所提供的、、GNUEmacs
+Manual" 。
+
+1.	shell commandmode
+2.
+o	ESC-! (she ll-command )
+o	唤起 shell command mode 。
+o	ESC- (she! I- command-on-region )
+o	针对某一特定区域执行shell command mode 的 shell 指令。
+0  (特定区域，是指缓冲区的某一范围 (region)而 言，所以此指令只是  针对缓冲区的某一部分运作的资料，）
+o	Ctrl-u ESC-! 与 Ctrl-u ESC- 在 ESC 前加上 Ctrl-u , 可以将 shell 指令执行的结果，输出到 游标所在的位璧。
+3.	shell mode
+4.	ESC-x shell\indexESC- x shell 是唤起 shell mode的指令。
+
+
+有关目录的编辑方法
+
+Dired 是专门针对目录来运作的编辑功能。进入Diredmode 俊，  EMACS会根据使用者所指定的目录来列出其下的档案及次目录，此时可根据需要EMACS对这些档案及次目录 作些运作。 EMACS 所提 供可操作 Dired 的种类如下；
+
+1.	可阅读、编辑 Dired 所列举出来的档案
+2.	操作 Dired 下的档案
+3.	(a)在 Dired可以删除 ( delete) 档案 此功能可以很容易的将EMACS 的备份档（其档名以～结尾）、 暂存档（档名在两个 ＃中间） 或具某一特殊档名模式的档案 删除。
+
+(b)	档案的拷贝
+
+(c)	档名的更新
+
+(d)	改变档案的 mode
+
+(e)	改变 gid、uid
+
+(f)	档案的列印
+
+(g)	档案的压缩、解压缩
+ 
+(h)	载入、编绎 EMACS 的 LISP file
+
+(i ) 可产生 hard links 与 symbolic links
+
+(j) 可将档名换成大 写或小写的英文字母
+
+4.	可在 Dired 中执行 shell 的指令
+5.	可使用 UNIX 的 diff 指令比较档案间的异同
+6.	可隐藏次目录
+7.	可使用 find 的公用程式来寻找档案
+
+以上所列举的就是Dired 的功能，有人说它类似 PC 上的 PCTO O LS ,
+读者是否有相同的感觉呢？
+
+进入 Dired 模式的方法很简单，只要键入
+"	ESC-x dired" 即可。此时的	minibuffer 会显示出如下的文字：
+
+Dired (directory):
+
+、｀：＂之俊是目前所在的目录，此时可以修改目录名。确定所要使用的目录，按下  R ET  梭，系统会另开启一个视窗来显示此目录下的所有档案。之俊就可以对这些档案做运作。 Dired 所使用 的缓冲区是一个唯读 ( read-only)  的缓冲区，所以 mode line 会出现二个％％ 来表示其为唯读的状态。如果要缓冲区的唯读状态改为可读，可以键入Ctrl-x Ctrl-q 的指令，将缓冲区的状态改变。运作此缓冲区有其特别的方法，因此对此缓冲区做编辑并无实质上的作用。以下就介绍运作Dired 的方法：
+
+．在 Dired 中删除档案
+•	Dired 最基本的指令，就是将要删除的档案做上旗标( flag) 之梭， 再将有旗标的档案删除。
+o	d
+o	将游标移至所欲删除的档案列，键入 d。此列的最前方会出现D,  这就是删除的旗标。此时的游标会移至此列的下一列。
+0 U
+o	若想放弃己定好的旗标，可以键入 u 使萤幕上的 D 消失。
+O X
+o	键入指令 d 只是将要删除的档案先做上旗标，井未真正执行 删除的动作。只有键入 x才会将所有做上旗标的档案删除。 执行删除档案之前，会先询问是否真要删除的意见。此时如果 回答｀、yes" 则执行删除的动作，若回答 " no" 不执行删除的动作， 但旗标依然存在著。
+．在 Dired 中将多个档案同时做上旗标
+
+0 -#
+o	键入＃
+ 
+
+ 
+o f (dired-find-file)
+o	如果想要访问目前游标所在列的档案，只要在此列上键入f 即可。 此时，档案的内容会显示在原先显示 Dired 缓冲区的视窗上。 使用此方法访问档案，就如同以 Ctrl-x Ctr l-f 访问档案一样。
+o o (dired-find-file-other-window)
+o	此方法也是用来访问档案，但与键入f 有些不同之处。键入 o 俊，所访问的档案会出现在另一个视窗上而游标也会移至 所访问的视窗，显示Dired 缓冲区的视窗并未消失在萤幕上。
+o	Ctrl-o  ( dired-display-file)
+o	此方法与键入o 雷同，二者不同之处在於键入Ctrl-o 俊所访问的档案会出现在另一个视窗上，但游标不会移至所访问 档案的视窗，依然留在显示 Dired 缓冲区的视窗上。
+o v (dired-view-file)
+o	此指令仅供流 档案之用，因为以此而开启的档案是唯读档案。
+．将 Dired 的档案做上标记
+o	m ( dir ed-mark )
+o	将目前游标所在的档案做上标记｀“＊。如果给予数值引数， 则做上标记的档案数目会依所给予的数目而定。
+o	* (dired-mark-exectables)
+o	将所有的可执行档(executable files) 做上标记｀＊，若给予 数值引数。则会将所有做上标记的可执行档的标记取消( unmar k) 。
+o	@ ( dired-mar k-symlinks)
+o	将所有的 symbolicfiles 做上标记｀泽，若 给予数值引数。则会将 所有做上标记的 symbolic files 档的标记取消(unmar k) 。
+o	I ( dir ed-mark-directories )
+o	将所有为目录的档名，但除了" ." 与" .."之外， 均做上标记｀＊。若给予数值引数，则会将所有做上标记的目录名称的标记取消 Cu mnark ) 。
+o	ESC-DEL markchar (dired-unmark-all-files)
+o	消除所有以字元 (character )	(markchar)	做为标记的记号。 如果给予数值引号，则在消除每一个记号时，会询问是否要消除记号。 回答 " y" 则表示要将记号消除，回答、' n" 则表示 不要消除己做好的记号。若此时键入！，则表示消除其余的记号不再询问意见。
+o cold new ( dired-change-mar ks)
+o	使用此指令，可将原本以old 为标记的记号，换成以 new 为标记的记号。
+o	%m regexp RET ( dired-mark-files-regexp)
+o	可使用regular expression , 将具有某一类型的档案做上标记。
+．．在 Dired 中的运作方式，有几件事情必需注意：
+1.	如果给予指令数值引数n 时，此时指令所运作的档案是从目前游标所在的档案
+起往悛算 n 个档案（包括游标所在的档案）。 如果给予负数的数值，则往游标所在处之前算 n 个档案（包括 游标所在的档案）。
+2.	如果不给予任何的数值引数，则指令的运作范围会 以做了 标记的档案为主。
+
+4.	如果不给予数值引数也不对任何档案做标记，则指令只对目前游标所在列的档案运作。
+5.
+6. 所有运作 Dired 缓冲区的指令都是大写的英文字母，所有的指令都是使用
+minibuffer 来接收所需的讯息。以下就是运作 Dired 缓冲区的指令：
+ 
+o	C new RET	(dired-do-copy)
+o	拷贝档案。若有多个档案同时要拷贝，则引数 new 代表 档案所要拷贝到的目录。若只拷贝一个档案，可利用此引数new将档案从新命名。
+o	R new RET (dired-do-rename)
+o	更换档名。若有多个档案同时要换档名，则引数 new代表档案 换名称俊所要放置的目录。若只有一个档案，此引数new 代表更换的档名。当档名更换完毕，
+Dired 缓冲区的档案名称会自动跟著更换。
+o	H new RET	(dired-do-hardlink)
+o	将档案标上hard links 的标记。引数new代表 hard links所要连接 的目录。若只有一个连接时，此引数 new代表连结的名称。
+o	S new RET	( dir ed-do缅 symlink )
+o	将档案标上 symbolic links 的标记。引数 new 代表 symbolic links 所要连接的目录。若只有一个连接时，此引数 new代表连结的名称 。
+o	M 血despecRET (dired-do-chmod)
+o	更改特定档案的模式( mode, permission bits) 。此程式使用 chmod 的程式，所以式适用的引数。
+o	G newgroup RET (dired-do-chgrp)
+o	改变特定档案的团体(group) 为新的团体( newgroup) 。
+o	O newowner RET	(dired-do-chown)
+o	改变特定档案的拥有者(owner) 为新的拥有者( owner) 。
+o	P command RET (dired-do-print)
+o	列印特定的档案，可利用minibuffer 输入列印的指令 command。o Z (dired-do-compress)
+o	压缩或反压缩特定的档案。如果档案已被压缩则将其反压缩， 反之则将档案压
+缩。
+o	L (dired-do-load)
+o	载入特定的EMACS Lisp 档案。
+o	B ( dired-do 晒 byte-compile)
+o	位元编译 ( byte comp ile) 特定的 EMACS Lisp 档案。
+•	Dired 在编辑远方档案与使用 ftp 的用法 使用 EMACS 的远方编辑或使用 EMACS 来做 ftp 时，若只 给予目录名，系统会进入 Dired 的模式。此时可使用运作 Dired 缓冲区的指令来操作所要的档案。至於何为远方的编辑会在下一节中讨论。
+
+
+
+如何编辑远方机器上的档案
+
+EMACS  除了提供了一般编辑器所具有的功能之外，它还提供了一般编辑器所有的功能，那就是编辑远方 host 的档案。 EMACS 编辑远方 host 的档案，是使用了 ftp 的技巧，将所欲编辑 的档案 ftp 到目前的 host上，待编辑完毕再以相同的技巧，把档案ftp 传回远方的
+host而已。往昔要编辑远方的档案只有两种做法，一是签入 ( login) 到档案所在的 host
+去，另一种就是以 ftp 的方法将档案先传回目前所在的地方，修改完俊再 ftp 回去。Remote Editing 也可以用到 " anonymous ftp" 上，它可以进入 远方的目录下，使用者即可根据需要挑选要 ftp 的档案。 使用 remote editing 的方法非常简单，在键入、、Ctr l-x Ctrl-
+t气＇俊， 再根据语法给予适当档名， EMACS 就会处理自行ftp 远方 host上的档案，其语法如下： Find file:/host:filename host 是指远方 host 的名称， filename 是指存放在远方 host 的档案。例如： Find file:/userl@gate.sinica.edu.tw :.login 就是编辑 host 为
+、、gate.sinica.edu.tw'' 的机器，而使用者为 " user l " , 档案的名称为 " .login" 的档案。
+
+
+程式的编辑，编译与测试
+ 
+EMACS 是一个整合的环境，在提供程式编辑的同时，自然会提供一个可供程式执行的环
+境。以下就要谈谈 EMACS 可以为程式 撰写者提供那些服务。EMACS 对於不同的语言提供不同的编辑模式。 EMACS 提供的服务有程式内缩的安排、括号对应的提示、程式注解的安排、游标移动的方式与程式的删除等等。基本上，EMACS 是提供一个 撰写程式的格式， 只是此格式可根据使用者的需要而自行设计。 EMACS 选择适合的语言模式，是根据所编辑的档案名称附名来判断的。如附名为.c 的 C 语言程式，EMACS 会自动给予C 语言模式， 而不需使用者自行处理。EMACS 提供的程式语言模式有 LISP、SCHEME、C、C++、
+FORTRAN、MAKEFILE、AWK 、 PERL、ICON 与 M UDDLE 等。编辑好的程式可以直接进入 EMACS 的编译模式，不需离开 EMACS 到 UNIX 的 shell 下进行编译的动作。进入 EMACS 的 编译模式 很简单，只要键入 " ESC-xcompile" 即可。 EMACS 预设的 编译指令是 make , 执行 ESC-x compile指令的结果如下所示：
+
+compile command: make -k 若要使用其它的编译器，只需在 " compile command :"的俊面给予适当的编译指令即可，此指令与在 UNIX shell 下使用编译的 方法完全相同。 除了编辑、编译之外，程式撰写者还需要的功能是 Debugger的提供。EMACS 也提供了此项的服务。
+EMACS提供了四种 debugger,   分别为 gdb、dbx、xdb 与 sdb,	使用者可根据需来选择合
+适的 debugger 。此处，只将使用 debugger 的指令列举如下：
+．•   ESC-x gdb RET  file RET
+．•   ESC-x dhx RET file RET
+．•   ESC-x xdb RET file RET
+．•   ESC-x sdb  RET file RET
+如何在 Emacs 中列印文件
+
+除了以上的功能外， EMACS 还提供了列印的功能。 EMACS 的列印可针对个整缓冲区或某部份的区域列印，其相关的指令如下：
+
+1.	ESC-x print-buffer
+2.	列印整个缓冲区的内容。EMACS 处理此工 作的方法是先使用 shell 的 pr 指令，面俊再使用 shell 的 lpr 列印指令。
+3.	ESC-x)pr-buffer
+4.	此指令与上一个指令相似，只是不透过 pr 而直接使用 lpr 。
+5.	ESC-x print-region
+6.	与 ESC-x print-buffer 相似，唯一不同之处在於，此指令只列印	部份的区域。
+7.	ESC-x)pr-region
+8.	与 ESC-x)pr-b uffer 相似，唯一不同之处在於此，指令只列印 部份的区域。
+
+
+
+在 Emacs 中如何收发信件
+
+在  EMACS 众多的整合功能中 ，信件收发的功能自然是不可或缺的。EMACS 对电子邮件的设计却与一般的电子邮件系统背道而驰，它是在以编辑为前提的条件下来提供电子邮件的子系统；换言之，电子邮件为以编辑器为主导的一个子功能。 EMACS 所提供的电子邮件系统分成二个部份，一部分为发送信件(  mail)  ,  另一部为收取信件 (   rmail)  ;   收取信件的同时也能发送信件，它的作法是使用发送信件的功能将信件发送出去。 EMACS 读取电子邮件，是将作业系统存放电子邮件的档案拷贝至EMACS 自己的档案中，此档案名为
+ 
+RMAIL,	EMACS 在读取信件时会至此档( RMAIL ) 中读取所要的信件。 EMACS 如此设计档案的读取有它的理由，其理由如下：
+
+1.	作业系统存放电子邮件的格式不一，读取电子邮件的软体也是变化万千。EMACS 的
+RMAIL 就是要将如此复杂的事情简单化。
+2.	RMAIL 记录了信件所有的相关资料，但作业系统所提供的 信件档案，并未有做如此详细的记录。
+3.	一般作业系统为了要确保信件读取时的安全性，必需经由一套繁杂的方法来保障信件读取的安全以及资料的不流失。 EMACS 的 RMAIL 所采 取的措失就是既安全又简单。 RMAIL 的方法是，先把存於系 统内的信件读出俊，再拷贝至 RMAIL 的 档案内，待一切就绪才将存在系统内的信件删掉。如此作的好处是，即使系统当掉只会使信件多做一份拷贝，也不会有流失信件的事件发生。
+
+EMACS 对於发送信件与读取信件提供了许多有用的 操作功能，读者可自行参考相关手册，此处只告诉读者如何进入送信件与读信件的模式：
+•	ESC-x mail   (发送信件）
+•	ESC -x rrnail (读取信件）
+
+其它与 Emacs 相关的工作环境
+
+EMACS 除了提供以上种种的工作环境境，还有其它的环境可以运用 ，现在让我们一一道来。
+
+•	The Calendar and the Diary
+•	EMACS 的 CalendAr与一般的月历功能相似 。 Diary 更可以适时提醒使用者该注意的事情。 进入 Calendar 的方法如下： ESC-x calendar Diary 的使用可以在进入 calendar 的模式中悛，再来设定相关的资料。
+•	Reading Man Page from EMACS
+阅读 manual page 的方法非常简单，其用法如下： ESC-x manual-entry RET unix-command-name RET
+•	Reading News with GNUS
+．读送网路新闻为现今交换电脑资讯的重要媒体与管道， GNU EMACS 也提供了此一子系统，称为 GNUS. EMACS 的 GNUS 是将 " .newsrc" 档的内容显示出来，它的内容 包括所有被订阅的(subscribe )  的 newsgroups,  以及未被阅读的文章。在 GNUS中还可以看到或隐藏未被订阅的 newsgroups,	并可以再订阅未订阅的 newsgroup 或取消订阅某一个newsgroup。 当然 GNUS 也提供了可游
+走於各 newsgroups间的指令。在 EMACS中使用 GNUS这一个子系统只需键入如下的指令即可。 ESC-x gnus RET
+•	version control
+．管理原始档案 (source files) 也是EMACS 所提供了服务项目之一。 功能。version contr ol 是一个套装软体，它可以记录一个原始档案 (sourcefile) 所有改变的版本 ( multipe versions) , 它保留所有改变的记录且存放於一个档案中，对
+於每一版本重复的部份只会保留一分记录。version contr ol 也会 记录每一版本被创造、谁创造了它等等的相关资料。目前 EMACS 是透过 vc, 来使用作业系统 所提供的 RCS 或 SCCS 的 version control 软体。若作业系统提供 RCS,
+EMACS会先使用 RCS, 若无 RCS 则会使用 SCCS 。 EMACS 允许使用者自行决定使用 RCS 或 SCCS 的 version control。 透过 EMACS 的 vc, 所能使用的 version control 的功能并不多， 它只提供最基本的 version control 的功能，
+但确是最常为人使用的 功能。若想使用 SCCS 或 RCS所提供的所有功能，就必须进入 EMACS 的 she ll mode 中了。以下就来简介 EMACS version control 的功能。EMACS 的 VC 提供的功能如下：
+ 
+o	将档案注册於version control 之下。
+o	可将注册的档案从version control 的控制中取出与放入。
+o	放入 version control 的每一个版本都可以随时取出。
+o	可比较任一版本间的异同。
+o	可将一组相关的档案，置於version contr ol 之下。
+o	可自行设计标头 ( version header) , 此标头可置於version control 下的档案中。
+
+至於其它的 version control 功能，则必需进入EMACS 的 shell 中直接使用
+RCS 或 SCCS。例如，将数个版本合并、使用help 协助使用 version control 等的功能，就从 EMACS 所提供的 VC 得到解答 。
+
+•	Outline Mode
+以 editor 为基石的 EMACS 当然少不了制作文章大纲的功能。 EMACS的大纲模式 ( outline mode) 可以使文章的部份主体 暂时隐藏起来，只呈现文章的大纲部份。如此一来，吾人不需维护一套为本文，另一套为大纲部份的两套系统了。因为， 制作本文的同时就已经隐含了大纲的部份了。
+
+前面已经将 EMACS 可以做的事以及它的特质都做了简要的介绍。 以下就开始讨论
+EMACS 的基本要素－ 编辑功能。
+
+
+回主画面
+ 
+与 Emac s	有关的议题
+上一章简介了 EMACS 的整 合环境，在讨论编辑之前，先介绍如何启动 EMACS 与离 开
+EMACS;	EMACS 对 於萤幕的安排如何；以及缓冲区与视窗在 EMACS 中角色 定位等等 的问 题。
+EMACS 可用在	t ext - onl y 的终端机与 X wi ndow S yst em 的视窗环境，但本	文只针对 t ext ­
+only 的终端环境来 说明任何有关 EMACS 的介绍 。
+
+如何起动 Emac s
+启动 EMACS的方法非常简 单 ，只 要在 shell 的提示下键入
+-- emacs' ' 五个英文字就可以启动 EMACS 了 。例如 ：
+$  emacs  RET
+
+启动梭的 EMACS 做了如下的启始 ( i ni t i al i ze) 动作：
+
+1.	清除目前的萤幕，开始一个全新的  ENlACS  萤幕。
+2.	ENlACS 会在这个全新的萤藩，显示一些与 EMACS 有关的 基本讯息。其中包括，目前使用的 队1ACS 版本、基本的线上 辅助说明讯息以及有关 EMACS 版权的相关资讯等等。
+3.	此时若不输入任何指令， EwlACS 会在一段时间之俊（约二分钟）自动将萤幕重新清除成—个空白的萤蕃。
+4.
+5.	若在萤幕自动重新清除之前键入指令，ENlACS  会根据 所给予的指令来做适当的运作。
+
+启动 E11• ACS 的方法，不需要给予任何的档名，只要 输入 emacs 。因为 ENlACS 是要建立一个能同时开启多个档案的  编辑环境；更进一步希望开启的档案，能彼此共享一些讯息。 所以，在键入、、emacs ' ' 的同时，给予所要编辑的档名 ，就变得 不实际了。
+
+如何离开 Emac s
+
+知道如何启动 EMACS 俊，接下来就要探讨如何离开 EMACS 了 。 离 开 EMACS 的方法有两 种 ，一种 是暂时离 开 EMACS ( s uspendi ng EMACS ) ,	另一种 是永远离 开 EMACS
+(killing EMACS) 。其 使用方法如下 （为求统一，以俊的各章节都先列出 EMACS 的 Hot key, 其相对 应的命令则列举在小括号内 ，若无 Hot key 则直接列出其命令 。 要使用EMACS 的命 令，通常要在每个命令前加上 Met a - x 或	ESC-x ) :
+
+•	Ct r l - z	( sus pend- ema cs )
+暂时离开 EMACS 回到其 上一层的状态，一般是回到 shel l 的状态。 若想回到
+EMACS 的状态，只要键入 ' ' %emacs ' ' , 则可以回到 EMACS 了 。
+•	Ct r l - x Ct r l - c ( s ave - buf f er s - ki ll - emacs )
+永久离开 EMACS。以此方 法离 开 EMACS, 除了亚新启动 EMACS 方外 （ 即在 she ll
+的提示下键入 emacs ) , 没有其它的方法可以 再回 EMACS 了 。
+暂时离 开 EMACS 意思是 回到上一层的状态 ( par ent	process)   ,	一般是指 she ll 。使用者可以随时回到原先所启动的 EMACS 下 ， 对於所使用的缓冲区 、ki 11r i ng以及undo hi s t or y等相关资讯， 仍保持与离开前相同的状态（有关 ki ll	r i ng 、 undo
+hi s t or y 等相关 资料会在以俊的各章陆续提及 。以 Ct r l - z (sus pend- ema cs ) 指令暂时离开的 EMACS  ,   可 以在  s he ll	的提示下，以、、%em acs  '  '	回到	离 开 前的 Eiv!ACS
+下。有些系统或 s he ll	并不提供这种暂时离开的功能， 此时只能永远离开 EMACS 而
+无法暂时离开 EMACS 了 。
+ 
+要永远离开 EMACS 则必需 键入、、Ct r l - x Ctr l - c' ' (s a ve- buf f er s - ki ll - emac s)  或
+、、ESC-x    save-buffers-kill-emacs'',	E叭 CS 接收此指令俊 会展开如下的动作：
+1. EMACS 会主动提醒使用者，储存所有修改过的档案。
+2.
+3.   当使用者对衙要储存的档案做了  适当的处理	， EMACS 对 於所有仍在执行的
+subprocess, 也会主动提醒使用者是否要结束 它们。因为离开 ElvlACS 的同时也就是结束这些 s ubpr ocess 的时侯。
+在永久离开  EMACS  前， ElvlACS  会再三的提醒使用者  有关档案的储存与仍在执行的程式等等。因为，一旦永久离开 ElvlACS  之俊，所有未存档或尚在执行的 subpr ocess  都会随之消失。 EtvlACS 对 於所有未储存的档案与仍在进行的程序，会利用echo area -
+—提醒遗忘它们的使用者。 echo ar ea 会提示需要储存的档案 ，同时也提供可处理这些档案的方法。 所以 echo ar ea 除了显示要存档的档案名称外，还会 在档名之俊出现如下的讯息：	(y,	n,   ! ,   . ,    q,    C-r  or  C-h)	这些讯息提供，就是要让使用者对於档案或程序有适当处理的机会。 现在就对这些讯息做—讨论。
+1.	y
+2.	同意对 echo ar ea 所显示的缓冲区存档，并徵询对於 其它档案是否存档的意见。
+3.	n
+4.	放弃对 echo ar ea 所显示的缓冲区存档，但徵询对於其它 档案是否存档的意见。
+5. !
+6. 同意对 echo  ar ea  所显示的缓冲区存档，且对其它的 缓冲区也一并存档，不再徵询其它档案是否存档的意见。
+7.
+8.	同意对 echo ar ea 所显示的缓冲区存档，但对其它的 缓冲区则不再徵询是否存档的意见，直接放弃其它缓冲区的存档， 且离开此存档的状态。
+9.	q
+10.	放弃存档的状态而不执行任何存档的动作。
+11.	C-r
+12.	此指令可用来流	目前所要储存的档案内容，当离开此流	状态即回复存档的模式，系统会再度询问与存档有关的讯息。
+13.	C-h
+
+对於以上的选项若有不明白的地方，可以此功能查阅其意思。
+
+
+
+EMACS	的萤 幕安排
+在 t ext - onl y  的终端机启动 EMACS  时，	EMACS     会占据整个萤幕，此时的萤幕称为fr BOJe 。 再一次的强调，本文只讨论t ext - onl y 的 终端机，至於 X Wi n dow 的环境则不在讨论的行列中。
+
+t ext - onl y 的 丘a me 又 由 数个w i ndow 所组成。 启动 EMACS 时，会产生二个预设的视窗，一个视窗用来输入一般 的文件，在未有文件输入前先用来展示前面提到的
+EMACS 版本、 线上辅助说明以及有关版权等讯息；另—个视窗用来输入 指令 或是用做讯息的回应，称为，11ni i buf f迈或  echo   ar ea 。
+若终端机提供反白的功能，在反白区域以上的地方是用来输入     文件的视窗；反白区域以下的地方则是 mi ni buf f er  或 echo	ar ea 。 此 反白的长条型则称为 mode line, 它是用来描述输入文件视窗 的一些讯息。现在就来谈谈组成 EMACS   fr  a me   的 这三个部份。
+有关文字视窗的部份，固为还牵涉到缓冲区的问题，      现在先略过不谈，下一节再行讨论。现在先讨论与其有关的 mode	l i ne 和位於 mode l i ne 下的 mi ni bu t 'f er	或 echo
+ 
+ar ea 。
+mode	l i ne 出现在每一个文字视窗的最俊一列，其描述此 视窗的相关资讯。 mode
+l i ne 所描述的讯息如下：一ch- Emacs  :  buf	(major  minor)	- - pos- - - - - - - - - - - - - -
+现在 则分别解 释其所 代表的意义。
+•	r l- h 代表缓冲区的状态（何谓缓冲区会在下一节讨论） 。
+
+0    -- 表示缓冲区未被修改过。
+
+0    ** 表示缓冲区已被修改过。
+
+0    %% 表示缓冲区为 r ead- onl y 的缓冲区 。
+
+0    %* 表示 r ead- onl y 的缓冲区 被修改过。
+
+•	buf
+．表示此视窗缓冲区的名称，一般即为所编辑的档案名称。
+•	maJor minor
+．此缓冲区所有使用的模式 (m ode ) 都列举在此括号内。其中 包括一个主要模式(majorm ode) 和数个 次要榄式 (m i norm ode ) 。 EMACS  允许 一个 缓冲区有数个次要模式，但只能有一个主要模式。
+•	pos
+表示文件在视窗显示的悄形。其表示的种类如下：
+o	All
+o	如果资料很少可以一「幕」了然，则会以   All	来 表示。
+o	Top
+o	若资料无法 一 「幕」 了然，但出 现的位 罚在最前面 ，则以 Top 来表示。
+o	无法一「幕」了然的资料，出现的位置是在最尾端，则以   Bo t     来  表示。
+
+o	nn%
+o	若资料 出现 的位 置 不 在第 前 端 也不在最	端，则以百分比 来表示资料出现的情形。
+介绍完了 mod e  line ,  现在来谈谈  echo ar ea 与  mi ni buff er 。在 fr ame  的 最 俊 一列 ， 也就 是 mode l i ne 的下—列就是 echo ar ea或 mi ni buff社 出现的地方。二者使用同一区位但所代表的意思却不相同。   Echoi    ng    的意思就是将键入的字元在萤幕上回应出来。 EMACS 对於只有一 个字元的指令 并不会把它 Ech oi ng  出来，例如、、 Ct r l ­ e' ' 。 对 於多个字元	的 指 令，只要在键入指令的时候给予稍许的停顿，  echo  ar ea  就会把键入的指令回应出来。等第一次的回应         产生时，再输入的部份就不盆要再给予停顿的时间，其回应会在  键入的同时立即产生。   echo   ar ea   除了回应键入的指令，   也会将指令所产生的讯息显示出来；错误讯息的显示也是利用此区域。
+minibuf fer 所使用的地方与 echo ar ea 相同。它本身也是一个视窗，是用来输入执行指令所需的引数 ( ar gument ) 。 使用 叩 ni bu、f f er 的同时也会使用 echo ar ea。
+叩ni buff er   输入引数的地方，是在  echo  ar ea  回应字串的、、：＇＇之俊。因为  echo
+ 
+ar ea 的回应是以、｀
+ 
+：＇＇的出现做为结束。换言之，、、：＇＇冒号之俊就是
+ 
+胆 ni buf fre
+ 
+输入引数的地方。
+ 
+例如，要访问—个档案，键入指令、- Ctr 1- x Ctr 1- f ' ' 时， echo ar ea 会出现 Fi nd l e :、、贮nd f il e' ' 就是 echo ar ea 的回应字，而此回应字串以 ｀｀： ＇＇ 做为结
+ 
+束。 所以 ｀｀：＇＇ 之俊，就是 mi ni buff re
+的地方。
+ 
+的地盘了 ， 也就是 mi ni buf f re
+ 
+输入引数
+ 
+使用 mi ni buff er 时，游标会自动移至 mi ni b uff er 所在处 ，当游标在 mi ni buf'f'er
+时，就表示可以输入引数了。  若游标因为某些原因不出现在  mi ni buf f er   的位置，此时可以、、 Ct r l - x o	Co t her-wi ndow) 使游 标 在 视 窗间 移动 ， 直 到游 标 出 现 在
+minibuff er 所在的视窗为 止。 若已在 mi ni b uff er 的状态， 但不想输入任何引数， 此时可以、、  Ct r l - g  ( keybo ar d- qu江）） 离 开  mi ni bu、f f er 。输入、、Ct r l - g' '   俊，游
+ 
+标会移至其它的视窗。
+minibuf.经r	也是一个视窗，所以可以从别的视窗      移至此视窗；、'	Ct r l - x o' '	的指令就是用来使游标在各个视窗间  移动的。一般的  历i ni buff	都只有一列的高度，但有时 一列的高度无法将资料显示完毕，此时的 mi ni buff er 就需要  调整其大小了 。至於如何将 mi ni buff er 的视窗做调整， 就是下一节所要讨论的重点之一了。
+
+Emac s	的缓冲区与视窗
+EMACS       的缓冲区与视窗的关系密不可分，缓冲区是用来存放  编辑文件的，但视窗却是用来显示缓冲区的文件。现在就来谈谈  缓冲区和视窗。  缓冲区 ( buff er  )   是  EMACS 编辑文件时，暂时存放文件的地方	。   这个地方只用来暂时存放文件，要想永久保留这些文件，必需将 暂时存放的文件储存起来，一般是使用硬碟来安置缓冲区的文件。
+
+在 EMACS 中所做的任何聿情 ，都是先暂放於缓冲区内。 EMACS 处 理档案的方式，也是先将档案从硬碟中取出俊，      再放於缓冲区内。所以不论是删减、修改与新增文件，都是在  缓冲区内进行，除非将缓冲区内的文件存回 硬碟，否则硬碟的内容  都不会因缓冲区内容的改变而改变。
+文件未存回硬碟而离开 EMACS C ki 11 EMACS) , 将永远消失 。但 EMACS 有 一 个自动 储存文件的功能，称为、- auto   save'  '	。  每当键入一定数盘的字元（通常是三百个字元），EMACS 就会 自动做储存的动作；经过一段停置的时间（通常是三十秒），
+EMACS 也会做自动储存的动作。
+EfvlACS  自动储存的功能并非将文件直接存回该档案 所在的硬碟中，而是将缓冲区的文件存入一个暂存档内。 只有以存档的指令，例如--  Ctr 1-x  Ctr 1- s' '   的指令，将缓冲区的 文件存回硬碟时，缓冲区内的文件才会存回硬碟中。只有当文件 存回硬碟中，
+EfvlACS  才会自动消除此暂存档。若缓冲区的内容 一直未存回硬碟，此暂存档就会一直存在著，直到存回硬碟才会消失。
+EMACS   如此安排暂存档有两个好处，第—个好处 是可以  确保编辑的档案资料不会流失；第二个好处是可预防机器意外关机 或当机，档案不及存回硬碟，所造成 的损失。
+E队 CS 命名此暂存档 的方式，是以缓冲区所使用的档名为依据。在档名的前俊各加上一个－－＃＇，＇就是暂存档的名称 。举例说明，若所编辑的档名为、、ema cs  . doc'',
+其产生的暂存档即为： #ema cs . doc# 若所编错的档案未存回硬碟时， EMACS 会自动产生一个暂存档。 下次编辑此档时， EfvlACS  允予使用者从暂存档中将流 失的资料回复。例如编辑的档案为--  emacs. doc'',  在离开EMACS  时未存回硬碟  ， EfvlACS  会自动产生一个-- #emacs. doc#' ' 的自动储 存档。当重新启动 EMACS 且编辑．' 、e ma cs . doc''
+档时， EMACS  会提示使用者此档案   已被更改过但未给予适当的储存。此时，使用者可自行决定是否  要从自动储存的档案中 (#emacs . doc#)  将、、emacs.  doc'  '   档中  未被储存的资料找回。
+如何从自动储存档中将资料找回呢？想要从自动储存的档案中， 恢复原始档案中流失的资料，可以使用--  Meta-x r ecover y-   l e' '  的指令。若存放 於硬碟中的档案，有相对应的自动储存档时， 可经由如下的步骤将资料找回：
+1.	键入、、 Ct r 1 - x Ctr 1- f RET''
+2.	Find f"1l  e:	/ filename
+3.	在 Fi nd f i l e: 处输入所欲编辑的档案俊俊， echo area
+ 
+4.	会出现如下的讯息： Auto  save  file  is  nwe
+5.	键入	Meta-x recovery-file RET''
+ 
+er : consider M- x recovery-file
+ 
+6.	此时  echo  ar ea   会自动出现相对应的自动储存的档案名称，  若愿意执行恢复的动作，只要直接按下 RET  即可。否则， 以、、Ct rl  - g' '	指令，放弃此命令的执行。
+除了暂存档外， EMACS 对於每一个编辑的档案， 都会在编辑前做一份备份，以防止在编辑的过程中因一时的疏忽  而将档案毁损。备份档的设计是，当档案被存回硬碟俊   ， 备份档也不会因此而消失。
+EfvlACS  命名备份档的方式，是在所要编辑的档名之俊加上、、～＇＇。例如，
+ 
+、、emacs . doc'  '   的备份档就为、·   emacs. do~c,	'  。
+以上的设定是可以改变，因为它们都是变数。下面列出相关的变数，使用者可自行决定其所需。
+•	aut o- save- vi s i t ed- f i l e- name
+．设定自动储存档案的种类。可以设为暂存档也可设为正在 使用的原档案。
+•	del et e- aut o- s ave- f i l e
+．设定档案被存回硬碟俊，自动储存的暂存档是否会自动删除。
+•	auto-save-interval
+．设定自动储存时的字元数。
+•	auto-save-timeout
+．设定自动储存时的时间。
+
+想知道如何设定变数吗？在 ENIACS  中任何设定变数的方法都是以 、｀	Me t a-  x  set-
+va r i a bl e ( 或 ESC- x s et - var i abl e ) ' ' 的指令来完成变数的设定。变数值的设定，可以只设定真假值或设定数值或是 设定字串。
+
+若只是设定变数的肯定或否定值时， EMACS 有一个遵循 的规则。EMACS 中 以任何
+'·   non- ni 广	的值来代表肯定，习惯上是以、、t ' I 来 表示肯定；而以、、ni l ' ' 来代表
+否定。
+在设定新的变数值之前，若想知道目前变 数的值， EMACS 可以、、 Ctr l - h
+v' ' (des cr i be- var i a bl e) 来查阅变数的值。 现在就举设定、' a ut o- sa ve- vi s i t ed­
+f"1le-name	,
+
+、｀和 aut o- save- i nt er va l ' '	二个变数来说明变数设定的方法。
+
+1.	以、、 Ct r l - h v' ' 查阅 a ut o- s a ve- vi s i t e d- f i l e- na me 的变 数。
+2.	以'-	Me t a - x s et - var i a bl e' '	来设定变数 。
+3.	再以--	Ct r l - h v' ' 来查阅所设定的  aut o- save- vi s i t ed- f i l e- name  变数。现在来看看设定 aut o- sa ve- vi s i t ed- f i l e- name 这一个变数的实际过程：
+1.	键、、Ct r l - h v RET''
+2.
+1.	echo ar ea 处会出现 De s c r i be var i abl e :
+2.	在 Des cri be variable: 俊键入 aut o- save- vi s i t ed- f i l e- na me 3 . 萤 幕上会另开一个视窗，显示如下的讯息：
+4. a ut o - s a ve- vi s i t ed- f i l e - name' s  val ue i s ni l Doc ume nt a t i on : *No n- ni l says  auto-save  a  buff  er   in    t he  f i l e  it	is vi s i t i ng, when
+
+practical.  Norm a ll  y aut o- s a ve  f i l es  are	written under ot her names.
+
+3.	键入、、Me t a- x set - var i a bl e' '
+4.
+1.	echo ar ea 处会出现 Set varaible:
+2.
+3. 在 Set var i abl e: 俊键入 aut o- s a ve- vi s i t ed- f i l e- name RET
+4.
+5.	echo ar ea 处会出现 Set  aut o- save- vi s i s t ed- f i l e- name  t o  val ue: 6.
+7.   此时可以利用在、｀ ： ＇＇之俊的 mi ni bu、f f社，输入变数  的值。此变数的值
+不是肯定就是否定的。目前的值是 n且，要改 其值为肯定的可以输入 t 。
+8.
+5. 再以' ' Ct r l - h v' ' 来检视变 数设定的情形。
+ 
+上一个 例子是设定肯定与否定值的例子，现在来看看设定变数值 为数字的例子。
+aut o- sa ve- i nt er va l 实 际 执行的过程：
+
+ 
+1.	键入、｀
+2.
+ 
+Ct r l - h v RET''
+ 
+1.	echo ar ea 处会出现 Descr	i be var i abl e :
+2.	在 Des cr i be variable: 俊键入 aut o- save - i nt er val
+3.	萤幕上会另开一个视窗，显示如下的讯息：
+4.	auto-save-interval's value is 300 Docum ent a t i on:
+
+*Number of keyboard input characters between a ut o- sa ves .
+
+Zero means disable aut osav i ng due to number of characters t yped .
+
+3.	键入｀、Met a - x s et - var i abl e' '
+4.
+1.	echo ar ea 处，会出现 Set varaible
+2.	在 Set variable: 俊键入 aut o- s ave- i nt er va l RET
+3.	echo ar ea 处会出现 Set aut o- s ave- i nt er val to va l ue :
+4.	此时可以利用｀、： ＇＇之俊的叩ni buf在r , 输入变数的值。此变数的值为数字。目前的值是300, 使用者可根据需要 输入适当的数字。
+5.	再以	Ctrl-h v' ' 来检视变数设定的情形。
+在 EMACS 执行过程中所设定的变数值，只对目前所执行的 Elv!ACS 有用 ，一 旦离开此
+E队 CS, 所有的设 定就恢复成原来的 预设值。要想永久保留此设定的变数值，就必需将所设定的变数值 储存在档名为｀、. emacs''(. emacs 档为Elv!ACS   的 启始档，进入
+E队  CS  时会先执行此档内的指令，  Elv!ACS  的设定也是根处此档  而来的的档案中。因为启动 EMACS 时 ， EMACS 会先执行 . emacs 档，所有存於此档案的变数会被重新设定一次。
+在 . emacs	档中 设定变数、、aut o- save - vi s i t ed- f i l e- name' ' 与、' aut o- save -
+i nt er va l' '	的方法如下所示 ： (setq aut o- s ave- vi s i t ed-	l e- name  t)	(setq auto­ save- i nt er val 350)  前已述及 EMACS 可以容许多个缓冲区的同时存在，既然如此， 自然有其处理每个缓冲区的方法。现在就来看看 EMACS 如何 处理缓冲区。
+•	Ct r l - x b buffer RET	( s wi t c h- t o- buff er )	此指令用来选择不同的缓冲区，其预选的缓冲区是目前所使用 的缓冲区之外，最近被使用 过的缓冲区。此指令可以使用 compl e t i on 。 使用此指令， echo ar ea 会出现如下的讯息： Swi t c h to buffer: (default f i lename) 若所要选择的缓冲区不是系统所预设的，可以利用胆 ni buff er 将所要选择的缓冲区 名称键入。
+•	Ctr 1-x k buff ername RET	( ki 11-buffer)	此指令是用来删除，ni ni butr er 所显示的缓冲区。若只键入 RET , 则删除目 前的缓冲区，否则，删除所输入的缓冲区名称。 同样的，此指令可以使用 compl et i on。
+•	Ct r l - x Ct r l - b	(l i s t - buff er )	将目前 E卧 CS 所使用过的缓冲区显示出来。以下的就是执行、、Ct r 1- x Ctr 1- b' ' 时，视窗所 显示的资料：
+
+MR Buffer	Size Mode	File	
+-- ------			
+·* chap4. t ex	17460	LaTeX	/ home / usr / hsko/ wor k/ chap4. t ex
+lie% RMAIL	8788	RMAIL	/ home/ usr / hsko/ RMAI L
+* *Buffer Li s t * Buff er
+241	Menu
+lisp Interaction
+diary	928	Fundamental	/ home/ usr / hsko/ di ar y
+ 
+% *man l s*
+*Help*
+ 
+15420
+64
+ 
+Man
+Fundame ntal
+ 
+
+以上资料的每一栏位各有其所代表的意思，详述如下：
+
+o	栏位 MR, 标 记缓冲区的状态，其可能的状态如下所示：
+＊
+表示此缓冲区被修改过。
+•	. *
+·	、、 . ' '  表示此缓冲区为目前被选择的缓冲区， ｀｀．＊ ＇＇表示此选用  的
+缓冲区被修改过。
+·	、' %' '
+．、％ ＇＇表示此缓冲区为 r ead- onl y 的缓冲区。
+·	、、%* ' '
+表示此 r ead- onl y 的缓冲区 被修改过。
+。o 栏位 Buf f er , 显 示 所 使用 的缓冲 区 名称 。
+■	Buff er 中的资料 若为档案 名称时，则表示缓冲区所放置 的资料 为一个档案。
+
+若  Buff er   中的资料前 俊加上了、｀＊＇，＇则表 示 此 缓冲   区 不 是任何被访问的档案。
+
+o	栏位 Si ze, 显示缓冲区的大小。
+
+o	栏位 Mo de,	显 示 缓冲 区 所 使用的主要模式。
+
+o	栏位 臼l e,  表示所访问档案的绝对名称。若缓冲区的资料  不是来自访问的档案，亦即栏位 Buf f er	的名字前 俊加上、｀＊ ＇时， 则以空白表示。
+
+•	Me t a - x  buff  er m-   enu
+． 此指令好似 Di r e d\ i ndexdir ed  的功能，应用在缓冲区上。  此指令可对列出来的缓冲区各别做运作。其运作内容包括，储存缓冲区、删除缓冲区、显示缓冲区以          及编辑缓冲区等等。其实 运作於、、Me t a- x buff er-menu' ' 的指 令同样也可用
+在、、Ct r l - x  l i s t - buff er ' '   上 ，  只 是使用、、  Me t a - x  buff er m-   enu'  '   指 令
+时， echo ar ea  处会显示出  可运用的选项。其可运用的选项内容如下所示： Comma nd:  d,  s,   x, u; f,	o,  1,   2, m ,  v;	,   %;  q  to  qui t ; ? for	help.  现举较常使用的选项说明，至於其余的选项，使用者可键入.   '  ? ''	'	来 使用 其所 提供的线上述助。
+o	d
+o	标示所欲删除的缓冲区。 在 MR 栏位 的最 前方 会出现 D。此时 并未真 正删除缓冲区，        只是将要删除的缓冲区做上标记，直到下达执行标记的命令 时， 才会真正将标示 D 的缓冲区  删除 。此 执行 的指令为..	x' ' 。
+0	S
+o	标示所欲储存的缓冲区。 在 MR 栏位处标示上  S  。此时并未真 正做储存的动作，只是   在要储存的缓冲区做上标记，直到下达执行标记的命令时，    才会真正将标示 S 的缓冲区存档。
+O X
+o	对做好标记的缓冲区，下达执行的命令。也就是对标示有 D 与 S 的缓冲区，做执行的动作。
+0 U
+o	将设好的标记取消。
+ 
+0 f
+o	选择目前游标所在处的缓冲区。此时的视窗会将此缓冲区的内容 显示出来、
+
+谈究了 EMACS  的缓冲 区 ，现 在来谈谈与其关系密切的视窗。 前已略述，进入  t ext ­ onl y 的 E11ACS, 即进 入一个  fr ame 。 － 个  fr ame  由数个视窗组成，每一个视窗显示一个 EMACS 的缓冲区，且—次只显示—个缓冲区的内容。
+
+EwlACS        在任何时候，总有一个视窗为选抒的视窗	(selected wi ndow)  。此 视窗所	显示 的缓冲 区 ，则称为	目 前 的 缓冲区  (  cur r e nt  buffer) . poi nt  (或称为游标）  所在的视窗，就是 EMACS 的选 择视窗。EMACS 是透过游标来示 poi nt  所在的位置。 所以说，若想要知道目前的选择视窗，观察游标所在的位置就可知道。
+至於什磨是 poi nt  呢?	poi nt 就是用来标示目前 所使用的视窗或缓冲区所在的位
+置。EwlACS 的每一个视窗， 各有其所专属的点位置 ( poi nt location) . 每一个缓冲区 也有屈於它自己的点位置。每一个缓冲区或视窗poi nt   的位置， 并不会随著视窗或缓冲区的改变而变动。换言之，poi nt 的位置会 随时被记录下来，当再次访问其它的视窗或缓冲区时，游标仍会 回到离开前的位置。所以，任何移动 poi nt 的指 令，只会对所选择 的视窗产生影响，对於其它视窗的 poi nt 是不会有任何影响的。 EwlACS
+下 的每 个 视窗 除了 有各自	的	poi nt 外，也各自有其相对应的 mode l i ne 。
+EMACS   视窗的大小是容许重新调整的。除了大小是  可以调整的，一个视窗也可以再分成两个视窗。其分割的方法，          可以做水平或垂直的化分。视窗的操作，除了分割视窗之外，   也可以使游标在不同的视窗间移动；当然，将不需要的视窗删除    也是基本的功能。现在就来看看与视窗相关的指令。
+•	Ct r l - x 2 ( s pl i t - wi ndow- ver ti ca ll y)
+．将一个视窗分成上下两个视窗。此时化分出来的两个视窗，分享 著化分前视窗的缓冲区。换言之，此时两个视窗的缓冲区内容是  一样的。因为共享著同一个缓冲区，所以改变其中一个视窗缓冲区   的内容，也会改变另一个视窗缓冲区的内容。分割成两个视窗的 好处之一是，可以编辑—个缓冲区 ，将另一个缓冲区作为参考的依据。
+o	Ct r l - x,	( enl a r ge-w i ndow)	将目前游标所在的视窗拉长一列。此指令，
+只有在 丘ame 存 在一 个 以上 的视窗时才有	效果。若只有一个视窗，此视窗  就 占据了整个 fr ':me,  此时自然	就 无 多余 的 空 间可 以放大了	。
+o	Ct r l - u  n Ct r l - x	( e nl ar ge-wi ndow  nn)	与 Ct r l - x A 指令相似。不同
+之处在於，此指令可以将目前游标 所在的视窗拉长 n 列以上。
+•	Ct r l - x 3 ( s pl it -w i ndow- hor i zont a ll y)
+．将视窗分成左右两个视窗。此时的两个视窗依然拥有相同的 缓冲区，所以，改变一个视窗绥冲区的内容，同时也会改变 另一个视窗缓冲区的内容。
+o	Ctrl-x	(enlarge-window-horizontally)
+o	将目前游标所在的视窗拉宽—行。对 fr ame  存有 一 个  以上 的视窗才	有 效。若只有一个视窗，此视窗已经占据整个 fr ame 了 ， 即使想 放大 ，恐 怕 也爱 莫能助了 。
+o	Ct r l - u  n Ct r l - x	( enl ar ge- wi ndow- hor i zont a ll y  nn)	与 Ctr l - u 指 令相似。此指令可以将目前游标所在的视窗 拉宽n 行。
+•	Us i ng Other Windows and Deleting Wi ndows
+
+o	Ctrl-x o (other -wi ndow)
+o	此指令是用来选择所欲使用的视窗。注意，此--	o',	是英文字的 ｀＿
+o' ' , 而非数字的--  o', 。
+o	Ct r l - x O (delete-window)
+ 
+。	目,o前·
+ 
+游标所在的视窗删除。提醒大家注意，此 ｀、 O' '	是 阿拉伯数字的
+。
+ 
+o	Ctrl-x 1 (de l et e- ot her -wi ndow)
+o	保 留目前游	标所 在 的视窗	，其 余 的视窗	全部删除。
+ 
+视窗的大小是有限的，但缓冲区的内容却经常超 过视窗 所能显示的范围。接下来就是要告诉各位，如何在有限的空间中， 以窥缓冲区的全貌。 想要在视窗的局限下，洞悉缓冲区的全貌，其最基本动作就是  卷动萤幕。所谓萤幕的卷动，就是萤幕上下左右的移动。除了 卷动萤蕃之外，还需考虑萤器的消除。在那些情形之下要消 除 萤器呢？例如，远方送来的 mes sa ge,	在萤幕的显示久久不退； 系统送来的讯息也在萤幕上不会消失。这些情况的发生 ，都值得 将萤幕做消除且重新显示的动作。以下就来 看看这些相关的指令。
+•	Ctrl-1  (recent er  )	(清除萤幕） 消除萤幕且重新显示萤幕。
+使萤幕上下卷动
+
+o	Ctr 1- v  ( s cr oll - up)	( 向上卷动萤幕一列）
+o	向上卷动萤幕，且将目前萤幕的最俊二列做为卷动俊萤幕的 前二列。
+point 出现在萤器的第—列 。
+o	Ct r l - u n Ct r l - v	( 向上卷动萤幕 n 列）
+o	萤幕向上卷动 n 列。 若指定卷动的列数	n '	不超 过 poi nt 在此萤幕上所在 的列数，卷动俊的 poi nt  仍会留在原处不动，否则 point  移至萤器的第一列。
+o	Meta-v  (scroll-down)	( 向下卷动萤幕一列）
+o	向下卷动萤器， 且将目前萤器的前二列做为卷动俊萤藩的俊二列， point
+出现在萤幕的最俊一列。
+o	Ct r l - u n Ct r l - v ( 向下卷动萤幕 n 列）
+o	萤器 向下卷动 n 列。 若向下卷动的列数	n, 不超 过 poi nt  在此萤器所在位置以下 的列数， 卷动俊的 poi nt 仍会留在原处不动，否则 poi nt 移至萤幕的最俊一列。
+o	Meta<	( begi nni ng- of- buff er )	( 萤 幕卷至缓冲区的最前端）
+o	(begi nni ng-of- buff e r ) 将萤幕卷至缓冲区的最前端， poi nt 也移至第一列。
+o	Meta>     (end-of-buffer)	(萤幕卷至缓冲区的最尾端） 将萤幕卷至缓冲区
+的最尾端， poi nt 也移至最俊一列。
+o	Ct r l - ESC- v ( s cr oll - ot her - wi ndow)
+o	前面六个卷动萤幕的指令，都是针对游标所在位冒的视窗而言，    若要卷动其它的视窗，则必需使用、、Ct r 1- ESC- v' '  、- Ctr   1 - ESC- v' '  指令是用来卷动游标所在位璧下一个视窗的萤幕。 所以，如果开启了两个视窗，可
+以使用此指令来参考非游标所在 位置的缓冲区资料。此指令方便之处在
+於，可以省略移动游标 的步骤，就可以卷动其它的视窗。 如果今开启了 A
+与 B 二个视窗，游标在视窗 A 处 ， 以、、 Ct r 1- ESC- v' ' 可以卷动视窗
+B。如果开启二个以上的视窗， 、- Ctr  1-  ESC-v' '  指令所卷动的视窗 ，就必需看那一个视窗最 接近游标所在的视窗了。
+．使萤幕左右卷动
+
+o	Ct r l - x < ( s cro ll - l ef t )
+o	萤器 向左卷动。
+o	Ct r l - x > ( s cr oll - r i ght )
+o	萤蕃向右卷动。上下移动游标
+o	Ct r l - p 或	t	(previous-line)
+o		t Ct r l - p 可以使游标向上移动一列。若有设定功能键，则可以用 来移动游标。
+o	Ct r l - u n Ct r l - p
+o 使游标向上移动 n 列。
+o  Ct r l - n  或  ! next-line)	Ct r l - n 可以使游标向下移动一列。若有设定功
+ 
+能键，则可以用 i 来移动游标。
+o Ctrl-u n Ct r l - n
+o 使游标向下移动 n 列。
+
+同上页
+ 
+Emacs	的基本编辑指令
+前面的四个章节已经把 EMACS 的环境与架构做了	扼要的介绍，现在开始讨论 EMACS 做为编辑器 ( edi t or ) 所能 提供的服务。
+
+如何载入档案与储存档案
+使用编辑器最基本的需求，就是要能载入档案以便编辑。现在就先来看看   EMACS   是如何处理档案的载入。 EMACS 载入档案的方法 很简单，只要在键入 "Ctr l - x Ctr l - f " 之俊， 再利用
+minibut:仓r	输入所要编辑的档名即可。 档名的输入可以与 compl e ti on 相互 搭配。 键入
+、- Ctrl-x Ctr l - f ' '  命令之俊，在	mi ni nbuf f er 处输入 已存在硬碟的档案， EMACS 会执行如下的过程：
+
+1.	产生一个新的缓冲区 。
+2.	将所欲编辑档案的内容，拷贝至缓冲区内。
+3.	将缓冲区的内容显示出来，以便编辑。
+
+这整个事件的过程，在 EMACS 的编辑系 统中 称为 「访 问档案」
+( visi ti ng f i .le ) 。
+虽然载入档 案 的方法很简单，但仍有几件事情值得讨论的， 现说明如下：
+
+．键入、、Ct r 1- x Ct r 1- f ' ' 俊， echo ar ea 会显示目前缓冲区的目录，此时若编辑档案的目录与 echo ar ea 所显示的目录 相同，可迳在其俊输入档名即可。
+．若档案所在的目录与目前缓冲区的目录不同，输入档名的方法 有如下几种：
+
+o 档案在同一个机器上的做法：
+
+无视  echo  ar   ea  所显示的目录，由使用者重新输入档名。
+．键入新档名的方法，是在  echo  a.r ea  显示目录  的最 俊方键入、、/' ' '、、/' '
+代表， 忽略 ｀／＇＇之前面的路径，新的路径从、｀ 的路径 必须键入绝对路
+径 ( absol ut e f i l e name ) 。 现举一实例说明。 Find f i l e :
+"'/ wor k / em acs / ema cs . t e x 所要编辑的档案在~ ; wor k/ doc/ t ex t . t ex 此时输入正确档名的做法如下所示： Fi nd
+ 
+f i l e : "'w/
+ 
+or k/ ema cs / ema cs .  t e x/~/
+ 
+/ wor k/ doc/ t ext . tex
+ 
+以 E郧 CS 提供的删除功能，将不必要的字删除之俊，
+．再输入正确的资料．除非显示的目录与所欲编辑的目录相差无几，使用删除的方法 才有意义，否则不如放弃所显示目录，重新开始新的生涯才是正
+途。 至於如何删字，会在 5. 2. 5 一节中说明，此处就不赘言。
+
+所欲编辑的档案，不在目前所在的机器上的做法，如下所示：   前已述及  E11•    ACS 可以 FTP 的方式来编辑远方的档案，但 E IACS 是如何以  FTP 的方法来编辑远方档案呢？想要编辑远方的档案，  只要给予正确的语法，  ENIACS   就会根据其语法来决定是否要使用 FTP 来编辑此档案了 。其语法很简单，只有  / hos t : f i l ename 而已。 如何来使用其语法呢？ 由其语法可知，其语法是由四组元素所组成的字串，包括二组子字串	( hos t   和  妇l ename )  以及二个符号（／ 和  ：）。在
+111ini	b 叮仓r	处 输入／ 俊，紧接给予档案所在的机器名称 ( hos t ) , 在其俊立即
+给予	：＇＇，在、、，  ＇ 俊则输入所欲编辑档案 ，整个访问档案的过程就宪成。
+注意此四组资料间，不可以留有任何的的空白。现举一实例子来说明之。 Find
+ 
+f i l e~:  w/
+ 
+or k/ ema cs . t ex / / hsko@ga  t e .  s i ni ca. edu. tw~:   w/
+ 
+or k/ t e xt . tex
+ 
+
+o	键入、、Ct r 1-x   Ct r l - f ' '  当	echo	ar ea 显示 出目 前缓冲区
+ 
+o	的目录俊，只给予 REI  而别无它物时	， EMACS 以目前缓冲区 所使用的档案为预设档案。
+o	键入、、Ct r l - x Ct r l - f ' ' 俊，突然改变心意，想知此目录以外 其它目录的档
+名，除了使用、-Ctr 1-x   d' '		( 使用目录的编辑指令-  di r ed )	指令外，还可以利用现有的目录名称来得到想要的讯息。其作法  是直接修改  echo   ar ea   所显示的目录，直到所要的目录 出现俊，键入   RET,   此时会另开启一个视窗来显示出此目录下  的所有档名。若想操作这些档案，其操作方式与运作 趴r ed  的   方式 相同。若对 Di r e d  的印象已经模	的人，请参阅 3. 2 节 。
+以上是介绍档名的输入方式。在编辑资料的同时，是否 可以轻易查得目前所在的目录? "Meta-x pwd" 指令可 以满足 这种需求。键入 " Me t a- x pwd" 俊，
+E	CS 会假借 echo ar ea将目前所在的目录显示出来。
+以上谈的都是 EMACS  输入档案的方式，但 EMACS  又是如何为其缓冲区命名的呢？其实使用者并不需要为缓冲区命名，  因为  EMACS  会自动给予缓冲区合适的名称。EMACS 为缓冲区的 命名，可以从 mode l i ne 上 得知。
+EMACS  命名缓冲区的方式是根据所键入的档案名称而来，   它舍弃了所有的目录名称只保留编辑档案的档名。所以若全名为、' / user / wor k/  ema cs . t e x' '  的档案， 其缓冲区的名称则为--   emac s. t ex' '	。  除了将档案从硬碟直接载入 缓冲区外， 在编辑档案的同时，       有时福要参考其它的档案，甚至衙要引进其它的档案到目前所使用的缓冲区内。 ElvlACS  的、、 Ct rl  - x  i ' '	指令，就是让使用者能随时 引
+进其它的档案到目前的缓冲区内。 ｀、Ct r l - x  i ' '   的、、 i, '	是 i ns er t 的 意
+思，相信了解慈思俊，对於该指令应有较深刻的印象，否则 怎有知已知彼，百 战百胜之说呢？  以下是  ElvlACS  有关档案载入指令的整理：
+•	Ct r l - x Ct r l - f ( f i nd- f i l e )
+•	Ctrl-x i ( ins er t - f i l e )
+•	Me t a - x pwd
+
+文件编辑宪俊，最亚要的事情就是要能将其保留下来。以下就       来谈谈文件储存的方法。档案储存不外乎将缓冲区的内容以原名    或易名存回磁碟；此储存方式可以选择一次存一个档案或一次   存数个档案；最俊的考	是存完档案俊是否要直接离开 EMACS。 下面就来看看EMACS 所提供的相关指令。
+
+．存档但不离开 EMACS
+
+o	Ct r l - x Ct r l - s ( s a ve- buff er
+o	将目前缓冲区的内容，存回磁碟中。存回的档案名称与缓冲区 的名称相同。此指令只对目前所使用的缓冲区做存档的动作。若缓冲区的  内容未有任何的变动则 echo  ar ea  会显示如下的文字：	CNo changes need to be saved)
+o	Ct r l - x Ct r l -w	(, vri t e- f i le )
+o	此指令与上一个指令相似，不同之处在於可以使用与缓冲区 不同的档案名称存档。。换言之，可另行指定存回磁碟的档名。 键入-- Ctrl­ x Ct r l - w' '	俊， echo	ea  会显示出目前缓冲区所在的目录， 此时，使用者可根据需要输入档名。若不输入任何档名只键入RET ,
+系统仍会将缓冲区内的资料存回原先访问的档案中。此指令 也只对目前所使用的缓冲区做存档的动作 。
+o	Ctrl-x s (save-some-buffers)
+o	此指令可用来储存所有被修改过的缓冲区。使用此指令时， echo
+ar ea  除了显示 档案名称外，还会在档名之俊出现	(y,	n,	!,	.'	Q, C-r	or	C-h)	这些讯息是提供给使用者做参考 的。现在就告诉使用者这些讯息所代表的意义。
+1.	y
+2.	同慈对 echo ar ea 所显示的缓冲区存档，进一步 徵询其它档案是否存档的意见。
+ 
+3.	n
+4.	放弃对 echo ar ea 所显示的缓冲区存档，但徵询 其它档案是否存档的意见。
+5.	!
+6. 同意对 echo ar ea  所显示的缓冲区存档且一并 对其它的缓冲区存档，此时不再一一徵询其它档案是否存档的意见。
+
+8.	同慈对 echo ar ea 所显示的缓冲区存档，但放弃 对其它未存档的缓冲区存档，且直接离开此存档的状态。
+9.	q
+10.	离开存档的状态而不执行任何存档的动作。
+11.	C- r
+1 2.   可以此指令流	目前所要储存的档案内容，当离开此流	状态即回复存档的模式，系统会再度询问与存档有关的讯息。
+13.	C- h
+14.	对於以上的选项若有不明白的地方，可以此功能查阅其意思。
+．存档俊直接离开  ENIACS
+•	Ct r l - x Ct r l - c  ( s a ve- buff er s - ki ll - emacs )	此指令容许用者在决定是否将缓冲区的内容存档俊，立即离开 EMACS。此指 令实际上是先执行
+、 、  save- some- buuf er s ' '	的动作 再离开 E 1ACS。
+
+讨论完了载入与储存档	案的功能之俊，相信已经迫不急待想要知道如何编辑一份心目中想要的文件 。现在就是介绍如何编辑 档案的时候了。
+
+
+
+Emac s 的基础编辑指令
+编辑器做些什度事呢？现在先谈谈编辑器的基本功能，至於编辑器的进阶功能则在下一章讨论。此处所谈的基本或进阶的功能， 所指的都是 EMACS 可以提供的功能，所区分的基本和进阶也只是为了讨论上的方便而已。
+
+所谓的编辑器就是用来编辑文件的器具。—张纸与—支笔，   就可以满足文件的编辑，这也是最简单且最原始的编辑器。       将纸笔产生文件的动作以电脑来代步，就是电子编辑器      （以下简称编辑器）主要的功能，也是本文所要讨论的编辑器。文件的编辑不外乎文件的键入、游标的移动、文件的搬移与删除以及文件资料的    找寻与取代等等。现将  E lACS   可提供  的基本编辑功能简列如下，其详细的用法会在以下的各节中一一叙及。 E队 CS 所能提供的基本编辑功能如下：
+．字元输入与显示在萤幕上的方式
+
+o	字元的显示方式，可使用插入法 ( i ns er t ) 或覆盖 ( oven vri t e ) 的方法。
+o	除了—般的字元 ( ASCII	Cha r ac t e r ) 外，还可以显示特殊字元
+o	(Speci a l Char acter ) 以及任何八进位超过 200 的字元。
+o	文件在萤幕上所能显示的范围。
+•	point  (cursor)	的移动方式(move   point)
+
+o point 能左右移动一个或数个字元 ( charact er )
+
+o	poi n t 能左右移动一个或数个字 (wor d )
+
+o	poi n t 能移至一列的开头或结尾
+ 
+o point 能上下移动一列或数列 (1 ine)
+
+o poin t 的设定，使游标能上下移动至指定的栏位
+
+op oi nt 的移动能以页为单位 ( page )
+
+。o poi nt 能至萤幕的前端或尾端
+o point 能移至缓冲区的前端或尾端
+
+显示缓冲区大小与 poi n t 所在的位置
+．删除萤幕上所显示的文件
+o	向左或向右删除—个字元 ( char ac t er )
+
+o	向左或向右删除一个字 (wor d)
+
+o	删除游标所在位置以俊的所有文件
+
+o	删除—个区块的文件 ( r egi on)
+
+o	删除的文件可以再使用 ( yank)
+
+文件的搬移与拷贝 (move and copy)
+编辑器具备以上的功能， 就可以编辑出想要的文件。 现在就来看看如何在E11ACS 所提供的编辑环境，来编辑出 想要的文件。
+
+在 Ema c s 中 如何加入与显示文件
+
+EMACS 允许输入文件时，将资料直	接输入在p oi nt 所在位置  的正前方，此方法称为 i nser t  mode;  或将输入的资料以覆盖的	方式取代p oi n t 所在位置的字
+元，此方法则称为	ove rwri t e mode。 现举一实例来说明 i nser t mode 与
+overwrite mode 的异同。
+
+．字串 fo od,	poi n t 所在位置为 d 处，此时的状态为 i ns er t m ode。
+．在 poi nt 所在的 d  处键入 t  ,  原字串变为 foot d。
+．字串 fo od,	poi nt 所在位置为 d 处，此时的状态为 over wr i t e m ode。在 poi nt 所在的 d 处键入 t ,  原字串变为 fo ot 。
+
+EMACS  对 输入模式的预设值是 i ns er  t m ode,	若想将模式转换成	ovre wr  i t e
+m ode,	指令、、 Met  a - x  over wr i t e m-   ode  RET' '   可满足此 一需求。若想恢复
+insertmode , 只需再使用—次、、Met a- x overwrite-mode RET' ' 就可 以了 。当
+输入模式转为 oven  vri t em ode  时，萤幕下方的  mode  l i ne  会显示、、Owv  r t ' '
+的讯息，用以提示目前是使用 over wr i t e   的模式。 指令、·	Met a - x over叮 i t e­ m ode' ' 是用来转换 i nser t m ode 与 overwri t em ode
+
+。在此前提下 ，原为 i nser t mode, 经转换则为 over wr i t e m o de。反之， 若原为 over wr i t e m o de 则转换成 i nser t m ode 。
+
+E tACS 的 over wr i t e m ode 只针对从键盘输入的文件有效， 若文件不是从键盘输入，而是以别的方式产生的，则一律失去 overwr i t e的效用  。例如，拷贝而来的文件或以'· Ct r 1-x i ' ' 得来的文件， EMACS 一律使用i ns er t mo de。
+ 
+除了 i nser t 与 overwr i t e  的显示方法 外， EMACS 还允许 使用者输入—些从键盘上无法输入的字，那就是一些控制码   和八进位超过   200     的字元。要输入这些特殊的文字时，只要在 这些字的前方加上｀、Ct r l - q' ' 即可。例如，要输入分页
+码	(formfeed  ,  ASCII Ct r l - L,	oc t a l  code 014) ,	则输入- · ct r l- q Crt l ­
+l, '	即可。此时萤幕	会出现 C此时萤 幕会出现	L 的 符号。当输入文件的长度，
+超过  EMACS  视窗宽度所  能显示	的范围，EA•lACS  对此 情形的处理如下所示：
+．若文件太长需要换列时，在换列处键入  RET  ,   其俊的文字会自动转到下— 列且以第一个栏位为新列的起始点。若其俊没有  文件而键入  RET  ,   游标会会停在下一列的第一个栏位。
+不理会文件是否会超过视窗的宽度 ，也就是不键入 RET 而 继 续输入文字。
+EMACS 会自动在视窗的最俊加上、、＼＇＇，而 将其余 的文字移至下—列· 若下一列还是 无法显示出所有的文字，会在 此列的最俊再加上一个 ｀｀～乡将妇多余的文字移至下—列。  EA1ACS  就是不断重复如此的动作，直到所有的文字都能完全显示出来为止。 所代表的意思与键入RET 并不 相同。键入 RET 表示重新使用一个新列；不键入 RET 而 令 EivlACS 自动 加入所产生的文
+件， 仍代表著同一列，只是这—列太长 ， EMACS 无法 以其视窗	的 宽度来一次穷尽，必须分为数次来表示。
+．不键入  RET  ,   也不使  EivlACS  自动产生  ，而使超过萤幕宽度  的部份暂时隐藏起来。EivlACS  处 理这种情形，是在视窗的最俊 加上一个--  $''。- '  $' ' 表示其俊的内容在视窗上暂时看不到，  但仍安在缓冲区内。EMACS  的基本 预设是自动加入、｀＼＇＇。要使多余的文字隐藏起来，必须设定
+、、t r unca t e- l i nes'  ' 变数的值为正值。 变数设定的方法请参考 4. 4 节。
+4. 4 节曾谈过—个视窗可以分成左右二个小视窗，此视窗可以 做水平的卷动，此情形下的视窗在处理太长的列时 ，就是将 tr unca t e- l i ne 变数的值设成正值，使超过宽度的文件隐藏起来。
+前面所谈的都是「文字」的插入方式，但如何插入—个 「非文字」   的空白列呢？ 在编辑的过程中   ，若想在某列之前加入一个新列，   只需将游标移至此列的最前端  ，随俊再按下 RET  即可。此时 E叭 CS  会在游标所在处的前一列， 加入一空白列。 EMACS 为 何要将空白列加在游标之前而不是游标之俊呢？因为将空白列
+加在游标之前，有—个最大 好处，就是可以  很轻易的在缓冲区的最前端加入—个空白列。 此时所键入的、、RET' '	,  代表著 newl i ne  。若不键入 RET,	也可以使用 EMACS 所 提供的 Hot key , 也就是 Ct r l - j (t ex- t ermi nat e- par agra ph) 来获得新的一列。
+
+p oi n t的移动
+
+文字的键入及显示是编辑过程不可或缺的。除此之外，移动游标到适当的位置，      也是编辑过程不可缺的功能。现在就来看看在EMACS  下 如何移动	poi n t 或可称为 如何移动游标。移动 poi n t  也就是移动游标，因为p  oi n t  是透过游标来显示的。所以在本文会将游标与  point   交互使用。  游标移动不外乎以固定的单位， 将其做上下左右的移动。此固定 的单位可能是字元 ( charac t er ) 、字
+( wor d) 、列 ( li ne) 或页 ( page) 。 现在就来看看如何将游标以这些单位来移
+动。
+
+．左右移动一或数个「字元」 (character) o Ctrl-f (forwar d- char )
+o	游标往前（右）移动一个字元。
+o	Ct r l - u n Ct r l - f
+o	(Ctrl-u  n  Me t a - x  fo wr   ar d- char )  游标往前（右）移动 n  个字元 。
+o	Ct r l - b ( backwar d- char )
+o	游标往回 （左）移动一个字元 。
+ 
+o	Ct r l - u n Ct r l - b	( Ctr l - u n Met a - x backwar d- char )
+o 游标往回 （左） 移动 n 个字元。
+．游标左右移动一或数个 「字」 (word)
+
+o	Meta-f ( fo r wa r d-wor d)
+o	游标往前（右）移动一个字。
+ 
+o	Ct r l - u  n  Met  a - f	( Ct r l - u  n  Me t a - x  fo rwa r dw-
+o 游标往前 （右） 移动 n 个字。
+o	Met a - b	( backwar d- wor d)
+o	游标往回（左）移动一个字。
+o	Ct r l - u  n  Met  a - b	( Ct r l - u  n  Me t a - x  backwar dw-
+o 游标往回 （左） 移动 n 个字 。
+．
+ 
+or d)
+
+
+or d)
+ 
+o	Ct r l - a	( begi nni ng- of- l i ne)
+o	游标移至 一列的最前端。
+o	Ct r l - e	( end - of - l i ne )
+o	游标移至 一列的最尾端。
+．游标上下移动「一列」或「数列」 (1 ine)
+
+o	Ctrl-n	( nex t - l i ne) 游标向下移动一列。
+o	下移一列的游标其所在的水平位置，与移动前的水平位詈       相同。若游标在文件的最俊一列时， Ct r l - n 会自创新列再  移到此新列的第一个栏位。
+o	Ctr 1- u n Ct r 1 - n (Ct rl - u n Me t a - x next - I i ne) 游标向下移动 n 列。
+o	Ct r l - p	( pr evi ous- l i ne) 游标向上移动一列。
+o	上移一列的游标其所在的水平位置，与移动前的水平位置相同。   若游标已在文件的第一列时，再使用、,  Ct r l - p' '  时  echo  ar ea 会显示如下的讯息： Be gi nni ng of buf f er
+o	Ct r l - u n Ct r l - p	( Ctr l - u n Met a - x pr evi ous - l i ne )	游标向上移动 n 列 。
+上下卷动缓冲区
+
+o	Ct r l - v ( s cr oll - up)
+o	向上卷动缓冲区，且将目前视窗所显示的最俊二列，做为 卷动俊的前二列， poi nt 出现在视窗上的第一列。 ENlACS 如此 做只是让使用者有一个承先启俊的感觉罢了。
+o	Ctrl-u n Ct r l - v
+o	缓冲区向上卷动 n 列。 数字 n 若小於目前 poi nt 在此视窗所在位置的列数，卷动俊的 poi nt 位置，仍留在卷动前的同一列上；否则point 移至视窗 的第一列。
+o	Me t a - v ( s cr oll - down)
+o	向下卷动缓冲区，且将目前视窗上的前二列做为卷动俊的俊 二列，此时的 poi n t 出现在萤幕的最俊一列。
+o	Ct r l - u n Ct r l - v
+o	缓冲区向下卷动 n 列， 若数字 n 小於point 在此视窗以下的列数，卷动俊的 poi nt 位置，仍留在卷动前的同一列处。否则 point 移至视窗的最俊一列。
+左右卷动缓冲区
+o	Ctrl-x < ( s c r o ll  - l ef t )	缓冲区向左卷动。
+o	Ctr 1- x > ( s cr oll   一 ri ght )	缓冲区向右卷动。
+．游标移至缓冲区的前端尾端
+ 
+o	Meta< ( begi nni ng- of- buff er )
+o	将游标移至缓冲区的最前端， poi n t 也移至视窗的第一列。
+o	Meta> ( end- of - buff er )
+o	将游标移至缓冲区的最尾端， poi nt 也移至视窗的最俊—列。
+． 页数的移动
+．还记得讨论、'	Ct r 1 - q' '	(quot ed- i nser t ) 时，提过分页 的控制码。 有了
+分页的设定，自然会有以页数做为移动游标的单位了。
+o	Ctrl-x  [	(bacwk  ar d- page )
+o	将 point  移至上一页分页指标 cu 之	且紧邻 ' L。 若 poi n t 己紧邻在.	L 之俊了，则会略过此 F在 飞 之俊了， 则会略过此 飞  到上
+—个.	L 之俊。
+o	Ct r l - x ]	( fo r war d- page)
+o	将 point  移至下一页分页指标          之俊且紧邻.    L。  若poi n t  已紧邻在.   L  之俊了 ，则会略过此 F在.   L  之俊了， 则会略过此.   L  到下一个 A L 之俊。
+o	Ctrl-x  Ctrl-p	(mark-page)
+o	以页为单位做上记号之俊，再配合其它的指令对此页做处理。 此指令类似m ar k region ( 5. 4 节会讨论其意思）。例如 Ct r l - x Ct r l - p
+Ct r l - w 是将游标所在的那一页删掉。此指令可以配合 numer ic arguments ( 5. 3 节会讨论其意思）使用。
+除了以移动游标的方法来游走缓冲区外， EMACS  还  提供一个可以直接将游标移到指定的行列。所要到达的目的地，        不论是以字元数或列数为移动的单位，其起算点都是以缓冲区 的第一列第—个栏位为起 算的标准 。以下就 是此方法的介绍。
+•	Meta-x goto- char RET
+． 键 入此指令俊再按下  RET  ,   echo  ar ea  会出现 ｀｀游 标移动  的总字  元 数即可。再一次的提醒各位，字元的      计算是以缓冲区的第一列的第一个字元为起算点。例如， 在--  Goto  char  : ' '  给予  100  的数字，则游标会从缓冲区的 第一字元移动到第 100 个字元。
+•	Meta-x goto-line RET 键入此 指令 再 按下 RET 俊，echo ar ea 会出现
+、、，    在其俊输入想要游标移动的列数即可。再一次的提醒各位，    列数的计算是以缓冲区的第一列为起算列。例如，在、｀ Got o   l i ne:' '   给予  100  的数字，则游标会从缓冲区的第—列开始往 下移动 10 列。
+
+何谓数值引数
+
+在上一小节 poi n t 移动一文中不断的看到 Ct r l - u n,	它是什度呢？ 它是
+EMACS 的数值引数	( numer i c argument), 但数值引数又是什度的呢？
+
+数值引数适用於所有 EtvlACS 的指 令。它的用途可分成 以下数类： 对某一指令做重复 执行的动作
+
+o	用 法 ： Ctrl-u n comma nd 或
+o	Met a -	n command
+o	说 明 ：
+•	n 代表重 复的次数 ； comma nd 代表要重复执行的指令。
+．若键盘提供 Me t a 键（个人电脑可以使用 ESC 键），则 Me t a
+键是使用数值引数最方便的方法。
+•	n 若为负值的数字，则表示以反方向运行指令。
+o	例子：
+
+•	n 为正值
+■	Ctrl-u 5 Ct r l - f 或 Met a- 5 Ct r l - f 表示游标往前（右）移动
+ 
+5 个字元。
+■	n 负值
+■	Ct r l - u - 5 Ct r l - f 或 Me t a - 5 Ct r l - f 表示游标往回（左）移动
+5 个字元。
+o	重复动作四次
+o	用法：
+o	说明：
+
+■	Ct r l - u 俊面所接的不是数字而 是字元，它代表著一个 Ct r l - u 重复指令的动作为一个四的倍数。换言之，一个 Ct r  l - u 执行四次，二个 Ct r l - u 则执行 16 次，以此类推。
+o	例子：
+
+■	Ct r l - u Ct r l - f
+表示游标往前移动4 个字元。
+■	Ctrl-u Ctrl-u Ctrl-f
+表示游标往前移动 16 个字元。
+．
+利用引数变数自动键入相同的「字元」
+
+o	用 法 ： Ct r l - u n char 或
+o	Meta- n char
+o	说明：省略n 与否，代表不同的意义
+
+■	Ct r l - u 俊紧接著数字与字元，表示重复字元 n 次。
+■	Ct r l - u 俊面不接数字而紧接字元，表示重复字元四次。
+o	例子：
+■	Ct r l - u 10 r 或 Met a- 10 r 则萤幕上出现 10 个 r 。
+■	Ct r l - u r  或 Met  a - 4  r 则萤	幕上出现 4 个 r 。
+．
+o	用 法 ： Ct rl - u n Ctrl- u n  或 Met a -	n Ct r l - u n
+o	说明： Ct r l - u 俊面有二个 n '	第一个	n 表重复的次数 ， 第二个 n 表重复的数字。第二个 n  之前—定要再给予—次  Ct r l - u,  若不给第二个 Ct r l - u , 系统会以为重复 nn 次。
+o	例子： Ctrl-u 5 Ctrl-u 4 或 Met a- 5 Ctrl-u 4 萤幕上出现 5 个
+4。 Ct r l - u 5 4 , 则系 统以为 重复 54 次。
+数值引数的用途很广，且适用任何一个 E队 CS 的指令， 当盆要重复执行某一指令的动作时别忘了它。有人说电脑最强大的功能之一，就是能不厌其烦的执行重复的举悄。以下有关 E lACS 指 令的介绍，不再特别强调 numer i c arguments,
+但并不表示它就此而消失了，因为数值引数适合所有的指令， 所以没有必要每次都重复强调。只需记得，需要时可随时使用  numer i c  ar gument s 。
+
+如何得到与p oi n t 有关的讯息
+
+前面谈过 EMACS 移动 p oi n t 的方法，现在介绍探知 p oi n t 位置 的方法。p  oi n t 所在的栏位、列数与页    数等讯息，可从整个或部份  的缓冲区而得知。现在就开始讨论 poi nt 位置。
+
+•	Met a - x what - page
+．告知 poi nt 所在的页数与列数。若缓冲区没有以分页     符号 分页，则poin t 所在的页数永远为第一页。 若 poi nt 在第一页的 第 200 列，其显示的讯息如下： Page 1, line 200
+ 
+•	Ct r l - x 1	( count - l i nes - page)
+•	'-	Meta-xw ha t - page' ' 用来告知 poi n t 所在位置的页 数与列数， 但无法从中得知此页的总列数。若想知道某一页的总列数， 必需靠 Ct r l - x 1 来得知。 此指令除了得知某页的总列数外，同时还知道 poi nt 所在位置之前与之1射的尚 有的列数。使用此指令时， echo ar ea 会出现 如下的讯息： Page  has   23  lines  (20 + 4)	echo ar ea 出现的第一个数字为总列数，括
+号内的二个数字 分别代表poi n t 所在处之前与之俊的列数。括号内的两个数 是以poi nt 为分界点而得来的。所以当p oi n t 不出现在某一列的第一个栏位时 ， 括号内二个列数的总和会比总列数多出一列，因为 poi n t 所在的列 被重复计算了两 次．此指令在决定如何分页时可以帮上大忙， 因为可以轻易得知 poi nt 前俊的列数。
+•	Met a - x what - line
+．告知 poi nt 在缓冲区的列数。若此时 poi nt 在第 200 列， 则 echo area
+会出现如下的讯息：
+•	Ct r l - x =
+． 指出游标所在栏位的字元资料。这些资料包括字元的八进位码、 字元所在的位翌占整个缓冲区的比例（此比例以字元为基本单位） 以及字元所在的栏位。例如以此指令来得知此、、a' ' 字元的资料， echo area. 会出现如下的资讯： Char: a (0141) point=23905 of  38784  (62)  column 19 临时想知某一字元的八进位，也不妨试试此法。
+•	Me ta- =
+用来得知某特定区域 ( r egi on) 的总列数与总字元数。 至於如何设定区域会在 5. 3 节讨论C    以此指令得知的结果如下所示： Region has 200 lines, 2000 char ac t er s
+•	Met  a - x  l i ne- numberm-   ode
+以上所讨论的指令，只在使用指令时才会显示想要的讯息， 讯息的出现是无法长存的。 基斡此，E队 CS 提供了一个可使 讯息永久存在 l i ne 的方
+法，那就是使用	Me t a - x  li  ne- number m-   ode' ' 。  此指令可以在m ode
+l i ne 上显示 poi n t  所在的列数，直到离开 此状态或离开此视窗才会消
+失。若想使每次进入EMACS 都能 显示列数，最好的方法是在 、｀ . emacs' '
+档加上如下的叙述：  (setq  1ine- number m-   ode  t )   如此一来，只要进入
+EMACS ,	mode l i ne 会自动将列数显现出来。  至於自动显示栏位的方法， 目前的 EMACS 尚未 提供此服务。
+
+文件的删减
+
+修改文件不外乎将原有的文件删除梭，再加入新的内容； 或将现有的资料做重新的排列组合。现先讨论文件的删除部份，  文件的重组就留待 5. 4  节再进行讨 论。
+
+队1ACS  中的删除有两种形式，一种是指文件的  ki l l i ng,	另一种则指文件的
+del e ti on。在 EMACS 中所 谓的 ki l li ng 是指将文件从目前的缓冲区移到一个称
+ 
+为ki ll r-
+ 
+i ng ki ll r-
+ 
+i ng 为—个变数的地方去。文件在缓冲区中是消失了， 但却
+ 
+储存在 ki ll - r i ng , var i a bl e这一个变数中。 EMACS 可 以有许多的缓冲区，但却
+只有一个 幻11r- i ng 的储存变数。	也就是说，多个缓冲区彼此共享一个 幻11-
+ 
+r ing, 而且也只有—个 幻J Ir-
+ 
+i ng。 ElvlACS 所设计共享的 ki ll i ngr-
+ 
+i ng 的用意
+ 
+是让被遗弃的文件可 以找回， 而且各缓冲区彼此也可借由 ki ll i ng- r i ng 来建立一个互通的管道。 所谓的互通就是把甲缓冲区 的东西给乙，反之，也可把乙缓冲
+区的 东西给甲。此模式在  EMACS  中就是透过 幻] l i ngr-     i ng 来完成。 因此，想
+从甲缓冲区中得到某些文件给乙缓冲区，只要将 甲缓冲区的文件放入 幻JI -r i ng 中，乙缓冲区就可以至此共享的 ki ll 丁 i ng 中将文件取出。如此一来，就可以共享资源了。
+ 
+另—种模式的删除 ，在 EMACS 中称为 del e t i on。此种删除， 并不将删除俊的资料放入    幻11-r  i ng   中，而是将删除的文件遗弃。此种情形的删除是无法失物复得的。 以 del e ti on 删除的资料，可以键入
+
+Ctr 1-x  u  ( undo)  来找回。使用一次、  Ct r l - x  u,  恢复前一个指令的景象； 使用二次 Ct r l - x u, 则恢复前 二个指令的容貌，如此周而复始 的使用 Ct r l - x
+u '	可 恢复更改前的全貌。至於--	Ctrl-x u' ' 更详细的 说明会在 5. 5 节进一
+步讨论。
+
+前已说过，不放入  幻11r-  i ng  的指令称为 del e t i on  的指令。 EtvlACS  删除字
+元、空白字元以及空白列的指令都不放入 ki l l r- i ng 中的。具体说来就是，
+Ct r l - d、 DEL、 Me t a- \ 、	Me t a- SPC  与 Ct r l - x Ct r l - o 等 指令。 现就为各位说
+明这些指令。
+文件的修改不是重组资料就是删减与新增资料，新增资料己论述过了，而重组资      料即将在   5.  4     节登塌，现在就开始谈文件的删减。删除文件也不外乎删除一个字元、—个字、一行或一个区块；   删除的方向可以选择左右删除的方式。现在就来看看如何以 EMACS  所 提供的指令，来做删除的工作。此处将删减的指令分成del e ti on 和 kil li ng而大类。
+．屈於 del e ti on 的指令集
+
+o	删除「字元」 ( cha r act er ) 的方法
+
+■	Ct r l - d ( del et e- char )
+删除 poi nt 所在位置的字元。
+■	DEL (delete-backward-char)
+删除 poi nt 之前的字元 。 此指令与 Ct r l - d 为最 基本的删除指令，只要耐心够，任何 的删除都可以此二个指令完成。
+o	删除 spaces 和 t abs 的方法
+
+■	Me t a- \ ( del et e- hor i zont a l - s pace )
+输入资料时，常会不自觉的输入无意的空臼 ( s pace ) 和  t ab  。当合并上下列而为一列时，也常会出现 space 或 t ab 从中作梗。 为此 Etv!ACS  提供了 Me t a-  \   的指	令，让使用者可以很容易将不必要的space  和  t ab  删除 。当然其它的删除指令，也可以将不需要的 space 和 t ab 删除，此指令只是更方  便删除 s pace 和 t ab 而已。 Met a- \ 可删	除 poi nt 前 俊 所 有 的 space 和
+t ab  。  例如：abc  def  g,  此时的游标在 f  与 g  之间。 键入了 Me t a- \ 其 结 果如下所示： abc defg
+■	Me t a - SPC ( j us t - one- s pace )
+删除 poi nt 前俊的 s pace 和 t a b 时， 若希望留下一个 space
+或  t ab  做为彼此的分隔，就必须使用、｀	Me t a- SPC' ' 来完成
+了 。 例 如：abc def g, 此时的游标在f 与 g 之间。 键入了
+、、 Me t a - S PC 其结 果如下所示： abc def g
+．屈於 ki ll i ng的指令
+
+o	删除「字」 (wor d ) 的方法
+■	Me t a- d (kill-word)
+此指令往前（右）删除 poi nt 所在位翌的字。 其所删除字的范围端赖 poi nt 所在的位置而有不同。 若poi nt 在一个字的第一个字元，则会删除此字；若 poi nt 在此字的 其它位置，则删除poi nt  所在位置及其之俊的所有字元，包括 poi nt  所在位 置的字元。 例（一） ： This is a test. 游标若在 t es t 这个字的
+t  处，使用此指令的结果如下： This is  a .  例（二） ： This
+ 
+is a t es t . 游标若在 t es t 这个字的 e 处，使用此指令的结果如下： This is a t. 若想删除一个以上的字，可以使用
+numer i c  ar gument	。
+■	Me t a - DEL ( backwar d- ki ll - wor d)
+此指令往回删除 poi n t 所在位置的字。 其所删除字的范围端赖poi n t  所在的位置而有不同。 若 poi nt  在一个字的第一个字元，则会删除此字之前的字； 若  poi nt  在此字的其它位翌，则
+匮l除 poi nt 之前的所有字元，但不包括 poi nt 所在 位置的字
+兀。 例（一） ： This  is  a  t est .   游标若在 t est  这个字的 t 处，使用此指令的结果如下： This  is   t est .   例（二）： This is  a  t est .  游标若在 t es t  这个字的 e  处，使用此指令的结果如下： This  is   a  est .   同样的，回想一下numer ic  argument 吧。
+o	删除列的方法
+
+■	Ctrl-k (kill-line)
+删除列的指令。所删除列的范围，以 poi nt 所在的位置为 准则， 以 poi n t 所在位置为起始点，以此列的结束为终点。 被删除掉的文件会在视窗上留下一空 白，若想将空白列也一并删除， 必需再使用一次 Ct r l - k。此时的 Ct r l - k 是用来删除换列指令的控制码。
+■	Ctr1- x Ct rl - o ( del et e- bl ank- li nes )
+编辑的过程中会不经意的加入许多空白列，此种情形常发生在       缓冲区的最尾端。每按下一个  RET   ,    就输入了一个新列，但在缓冲区 的尾端按下 RET  ,  此时所加入的新列并不易为人查觉。此指令可以    将point所在位翌「前俊」的空白列删除只留下   一 列。当然并非 一定要以此指令来删除空白， Ct r l - k  自然也可以用来删除空白列， 也可以将空白列以删除区块的方式删除
+之，提供此指令只是方便满足 使用者的需求而已。
+o	删除区块的方法
+
+■	*Ct r l -w (K 且 1-r e gi on) EMACS 允许删除某一特定的区块。要删除区块，必需先标示区块，   此标示的动作称为m  ar  k\   。如何标示区块，就是下一节 的主题。
+E11ACS 对 於被 ki ll i ng而删除的资料 ，都是放在 ki ll -r i ng 中。 ki ll -r i ng 其
+实只是一个变数而已，所有 K且Ji n成刊除掉的文件， 就是此变数的值。其已述及查阅变数值的方法，现不厌其烦的再论述一次：
+1.	键入、、Ct r l - h v' ' 俊， echo ar ea 处会出现：
+2.	在 Des cr i be variable: 俊输入变数的名称， EMACS 会另开一个 视窗来显示此变数的值。此时所要键入的变数名为、、幻11-r i ng '
+
+此节讨论 EMACS 编辑的基本指令，有了这些指令之俊，编辑的工作 就不是难事了。接下来各节则讨论其它的编稻功能。
+
+
+
+何谓 Ya nki ng
+将 kil lr i ng 的内容取出的动作，称为 yank。y ank 除了可 yank 最新
+ki ll i ng 的资料，也可yank 早先 ki l l inB'd勺内容 。现在	就以二种不同的    yank
+做为讨论的对象。 将最新 kil l i a成勺文件 从 ki ll -r i a纠刁取出的方法	很简单，
+ 
+只要使用、｀
+ 
+Ctr l - y' ' 即可。 但在y ank 时，一定要确保在 ki 11i ng-r i ng 中
+ 
+存有被删除的资料。 想要y ank 最新 ki ll i ng之.
+ 
+前的文件，就较为复杂了。所谓
+ 
+的 较为复杂，只是多了一个移动指向 ki ll -r i ng 变数值的程序而已。 因为
+y ank 指令所要yank 的内容，全视指标指向 ki ll  -r i ng  的位置而定。此指标一般都是指向最新放入的文件。若想y ank 其它的内容，就必需先移动指标了。
+
+移动 ki l l r-    i ng 指标的方法是使用、'	Me t a - y' '	(yank-pop),	但在使用、、
+Me t a- y' '	之前，一定要先使用、、Ct r l - y' ' 。 换言之，--	Me t a- y' '	的使用，
+ 
+一定要紧跟在 、｀
+ 
+Ct r l - y' '	之俊。
+ 
+,   '	Me t a - y' ' 的运作是将指向 K且 1 -r i ng 入口的指标，向前移动， 再将、｀
+Ctr  1- y' '	ya nk 出来的资料	，以此时指标指向的文件取而代之。这就是为何使    用、、Me t a - y' '	指令之前 ，—定要先执行、、 Ct r l - y' ' 。 以--	Me t a - y' ' 来移
+动指标，并不会影响 幻11-r i ng 变数值的内容次序。
+
+如何在文件中做上标记
+前面有些指令是专门运作区块的，如--  Ctrl-x Ct r l - p'  '   与、、 Ct r l - w' '   等等 。  但什度是区块呢?	EMACS 所言的区 块，是指 从标记 ( mar k ) 处 到 po i n t 所在位置间	的范围 ，此范围就是区	块 ( r egi on) 了 。 换言之，区块的范围是指， 标记所在位置之俊（包括标记所在位置本身）  到p    oi n t之前（不包括  poi n t   所在的位置）的所有文件。 知道区块的定义俊，接下来就介绍如何定义区块了。
+
+既然区块是指从标记处到poi n t的范围，自然设定区块也意味著 设定标记和
+poi n t。设定 poi n t的方法很简单，只要移动 poi n t至目的地即可。此时的 poi n t 代表著区块范围的终点。 至於设定标记的方法也不难，只要在想要设定标记的地方，输入以下的 任一个指令即可。
+•	Ct r l - @	( s e t -m a r k- comma nd)
+•	Ct r l - SPC	( s e t -m a r k- co mma nd)
+
+所以设定区块 的步骤如下所示：
+
+1.	设定区块的始位置，也就是所谓的标记 ( m ark) 。
+2.	可使用--	Ct r l - @' '	或	Ct r l - S PC' '	任一个指令来设定标记。
+3.	设定区块的终结位置，也就是移动游标至区块的尾端。在标记与 poi nt之间的范围就是所谓的区块。
+为何会提供二个设定标记的 Hot  key  呢?	Hot ke y  是用来连结  Efv!ACS  的命令，
+EMACS 会将常用的命令给予—个  Hot key 与之连结。 此连结的Hot  key,  常会受所使用的终端机而不同。因此有的终端机 可以使用、、Ct r l - @'  '  ,  但有的终端机则必需使用、、Ct r l - SPC'  '  。更甚者，  有的终端机却二者都无法使用，例如笔者以个人电脑模拟成的终端机， 却必需键入、、Ct r l - 2' ' 才能达到设定标记的效
+果。 EMACS 可以允许使用 者 重新设定所使用的 Ho t key , 但这已经超过本文讨论的范围。如果无法 使用以上任何一个 Ho t key , 就使用命令
+、、 ESC-x s et - ma r k- comma nd' ' 。
+
+使用 EMACS 的指令 ( comma nd) 永远可以达到目的的。
+
+EMACS 的 poi n t ,  是透过视窗上的游标来显示的。 t ext - onl y  视窗只有 一个游 标，所无法同时表示标记及 poi n t。  若想观测区块的来龙去脉，可以、、Ct  r  l -  x Ct r l - x' '
+ 
+( excha nge- point- andm-   ar k)
+
+将标记与poi nt做交换，从交换的过程可以观察标记与 poi nt的位置。、、 Ct r l - x Ct r l - x' ' 所能做的事，只互换标记与 poi n t而已。
+
+那些指令是使用在区块上呢？以下指令就是适用在区块上的。 有些是曾经提过的，有些是将要谈及的，有些可只能只是列举出来 并不会在本文中被讨论。
+•	Ct r l - w ( ki ll - r egi on)
+•	Ct r l - x rs	(copy-to-register)
+•	Ct r l - x Ct r l - p (mar k- page)
+•	Ct r l - x Ct r l - 1 ( downcase一r e gi on)
+•	Ct r l - x Ct r l - u ( upcas e一r e gi on)
+•	Me t a - x f i ll - r egi on
+•	Me t a - x pr i nt一r e gi on
+
+接下来讨论与编辑有切身关系的搬移与拷贝。
+
+
+
+文件的移动与拷贝
+变换文件在缓冲区出现的位置称为搬移（在缓冲区的其它地方重复出现称为拷贝
+( Copy) 。
+
+前已论及放於ki ll -r i ng 的文件，可在需要时拿出来使用， 此动作称为
+yank\ i nde xyank 。使用y ank 的方法 很简单，只要键入--  Ct r 1 - x  y' ' 即可。使用此方法可将某特定区块的文件  做「搬移」 的动作，只是所衙的步骤比较烦琐而已。首先将要搬移的文件  重复以--	Ctrl-x  k' '	的指令， 将其放入 K且 ] -r i ng 中 ， 再将 point 移至文件欲搬移的位翌，以、、Ct r l - y' ' 将其y ank 出来。
+「拷贝」一个区块的方法与「搬移」一个区块的方法累同，唯一  不同是要执行二次y ank 。第一次使用 yank, 是将删除的 原文件再放回被删除的位置，第二次
+使用 yank 是做拷贝的动作，  也就是将 ki ll r-   i ng 的文件放入要拷贝的地方。
+以上的方法当然可以用来做搬移和拷贝之用，但如要搬移和拷贝的文件    有数十甚至数百数于列，岂不要重复、、 Ct r l - k' '  的动作数十甚至数百数于次。 因为 、｀ Ct r l - k' ' 基本上是删除列的指令，当然删除列的指令，可 以配合 numer ic
+argument 。但在 使用数值引数之前还必衙确定所欲搬移或拷贝的确实列数 ， 如此一来岂不使事情愈来愈复杂呢？所以，要搬移与拷贝文件最好的方法 ， 就是使用标记与区块。下面所谈的是针对区块的搬移与拷贝的方法。
+不论搬移或拷贝，只要触及区块的使用，首要之第就是先把区块标示出。 区块定
+ 
+好之俊，要搬移就以、｀
+ 
+Ct r l - w' ' ,	将整个区块删除之俊，再以 ｀、 Ct r l - y' '
+ 
+将其 yank 出来。要拷贝则以、- Met a-w ' ' 将区块的内容 拷贝一份放在 ki JJ ­ r i ng 中，尔俊再以、- Ct rl - y' ' 将其y  ank 出来。现说明搬移与拷贝的实际操作过程。
+不设定区块，以删列的方式，将文件一列列先删除俊，再y ank 出来。 此法
+可搬移与拷贝 幻11r- i ng 内的文件。
+
+1.	重复执行、｀	Ct r l - k' '   ( 删除文件 ，可使用  numer i c  ar gument )
+2.	Ct r l - y ( 将放置在 ki ll	r i ng 中的文件，yank 至缓冲区内。）
+3.
+若做搬移的动作，只需使用一次 yank。
+．若做拷贝的动作，则要使用二次的 yank。以设定区块的方式，「搬移」区块的文字。
+ 
+．
+1.	Ct r l - @ ( 设标记， 也就是设定区块的起始值）
+2.	移动游标以便设定 p oi n t的位置（设定区块的终点）
+3.	Ct r l - w ( 删 除所标示的区块）
+4.	移动游标至要搬移的位置（确定文件搬移处）
+5.	Ct r l - y  C 将放置在 ki ll	r i ng  中的文件，y  ank  至缓冲区内。）以设定区块的方式，「拷贝」区块的文字。
+
+ 
+1.	Ct r l 一＠（ 设标记 (mar k) )
+2.	移动游标以设定 poi n t的位置（设定区块的终点）
+3.	Me t a - w ( 不删 除标示区块的内容，将此内容拷贝至 ki ll r-
+4.	移动游标至要拷贝的位置（确定文件拷贝处）
+ 
+
+
+i ng 中）
+ 
+5.	Ct r l - y ( 将放置在 ki ll r-
+6.	yank 至缓冲区内。）
+ 
+i ng 中的文件，
+ 
+
+为了更清楚搬移与拷贝俊的真实结果，现举实例来说明。
+
+实例：现有二段文件，第一段文字是做搬移与拷贝用的， 第二段文字是用来接收搬移俊的文字。 第一段：标记设在第一列的 A 处，而 poi n 戊i在 B 的地方。1111111111A22222222222	3333333333333333333333 4444444444444444444444
+55555B5555555555555555 第二段： poi n t在 Y 处 OOOOOYOOOOOOOOOOOOOOOO
+0000000000000000000000 0000000000000000000000 结果一、将第一段的文件搬
+移至第二段，搬移俊的游标仍在 Y 处 。 111111111	1B5555 555555555555 OOOOOA22222222222	3333333333333333333333 4444444444444444444444
+55555YOOOOOOOOOOOOOOOO	0000000000000000000000 0000000000000000000000 结
+果二、将第一段的文件拷贝至第二段，搬移俊的游标仍在 Y  处 。
+1111111111A22222222222 3333333333333333333333 4444444444444444444444
+5555585555555555555555 OOOOOA22222222222	3333333333333333333333
+4444444444444444444444    55555YOOOOOOOOOOOOOOOO0000000000000000000000
+0000000000000000000000 执行搬移与拷贝的动作时， EMACS 所采 取的一律是
+ 
+i nser t -m ode。此时，即使设定为覆盖  (   ove r wr i t e m-
+时失效。
+ 
+o de )  ,	覆盖的效果也会暂
+ 
+区块的范围以标记 ( ma r k ) 为起始值，以 poi nt所在位置之前 的字元做结束。所以，从以上 的实例可以很消础的看到，搬移或拷贝之俊的文件会包括标记所在的字元，但不会包含 po i n t所在的字元。 搬移或拷贝的文件会出现在 poi n t之前， 原先所有的文件会向俊移动， 此时的 poi n t仍在移动前的字元处。
+区块是以标记为开始而以  poi n t为终点所构成的。标记与   poi  n t所在的列，可能包含所在列的一部分，其它区块所包含的列都是完整的    一列。若搬移或拷贝的范围，为文件中某一个长方形的区域，那该如何来设定      其范围呢？设定好的范围又该如何来操作呢?	EMACS    对於这种形状的区域有其它  的处理方式，称为长方形的区块	( r ect angl e r eg i on) 。
+设定长方形 ( Re c t a ngl e) 的方法与设定区块 ( Re g i o n) 的方法是一样的 ，只是在理解上有所不同。长方形设定的方法，也是设定二个标记，  此两个标记位於长方形相对的两个直角上。所以，设定了左上角，  另一个标记一定要设在右下角； 反之，如果设定了右上角，另一个标记就一定 要在左下角了。。此所设好的长方形， EMACS 称为 r ec t a ng l e 。 长方形与区块的设定方法是一样，所以单从设定标记与p oi n t的方式 ，是无法辨识二者的差别的。要知是使用区块或长方形，只有等到使用运作 於此范围的指令时才会 知道。 若是以删除长方形的指令将长方
+形的区块删除时， 此时删除掉的长方形文件 并不放在 一般的 妇11r-    i ng  中，而
+是放於别的地方。因为删除长方形的 运作方式与删除区块的方式不同，所以将长方形删除俊的内容，与放置区块 删除俊的内容分隔，以便管理。 长方形运作的种类与区块运作的种类累同，可分为二大类，一类 为删除与插入，另一类则专门用来处理空白。 删除长方形可以采取摒弃的方式	(  Ct r l - x r  d) 或将其储存於
+ 
+某 处 ( Ct r l - x r  k),	以利事俊的 yank ( Ct r l - x r  y)	(yan 忙 r ect angl e) 。删除掉的长方形资料的保存，只能保留最新删除的资料，所以只有品新删除掉的长方形资料，才可以被 yank 出来。
+长方形区块的运作种类，除了能将资料做删除与搬移外，还可以 在文件的某处加入固定区域的空白。因为从事编辑时，常需要在某一 区域加入一些空白 ( Ct r l ­ x r o) (open - r ect angl e) 。 例如在文件加上空白做为边缘 (mar gi n) ; 制作图表时留些空 白；或将 某一区域的文件以空白取代 ( Met a- x clear-rectangle) 等等。长方形的运作与区块的运作最大不同处在於，无法直接做拷贝的动作，若要拷贝 必需先删除俊再执行二次的 yank。现在就说明长方形区域的用法。
+长方形区域的y ank 方法
+1.	Ct r l - @ ( 设定长方形区域的第一个对角）
+2.	移动 poi nt至第二个对角处（设定长方区域的第二个对角）
+3.	Ctrl-x r k ( ki ll - r ec t angl e )
+4.	删除设定好的长方形，以便y ank 使用。
+5.	移动 poi n t到要 yank 的地方。
+6.	Ctrl-x r y (y an忙 r ec t angl e)
+7.	将删除的长方形，从储存处取出。
+．永远删除长方形的内容
+
+1.	Ct r l - @ ( 设定长方形区域的第一个对角）
+2.	移动 poi nt至第二个对角处（设定长方区域的第二个对角）
+3.	Ct r l - x rd	( del et e一r ec t a ngl e )
+4.	删除设定好的长方形区域。此删除不会储存在某一定地方。换言之， 一旦摒弃此区域，就无法将其唤回，除非使用 undo 的指令。
+．在长方形区域内插入空白，原文件向前（右）移动。
+
+1.	Ct rl - @ ( 设定长方形区域的第一个对角）
+2.	移动 poi n t ( 设定长方区域第二个对角）
+3.	Ctrl-x r o (open-rectangle)
+4.	填入空白在设定好的长方形区域内。此时区块内的文字会自动往右移 动。使用 over wr i t e mode, 原有的 文件也不会被加入的空白覆盖。
+．将设定的长方形区域以空白覆盖
+
+1.	Ct r l - @ C 设定长方形区域的第一个对角）
+2.	移动 poi n t至第二个对角处（设定长方区域第二个对角）
+3.	Met a - x cl ear - r ec t angl e
+4.	将此长方形区块内的文件以空白取代。
+．在设定的长方形区域内埴充某一类型的字串。
+．此方法常可用在程式的撰写或测试上。例如，测试--  . emacs  '  '   程式时，常因测试的过程中，需要将设定做增减的工夫，     使用此方法可以随时将测试条件做增减。
+1.	Ct r l - @ C 设定要填充字串的起点）
+2.	移动 poi n t至第二个对角处（设定要填充字串的终点）
+3.	键入 Me t a- x s t r i ng- r ect angl e RET, 此时 echo ar ea 会出现
+4.	String rectangle: 利用 叩ni buff er 键入要填充的字串，即可将字串填入长方形区内。 值得注意的是，此时长方形的宽度由字串的宽度来决定， Ct r l 一＠ 与 poi n t只用来  决定长方形的长度。
+
+何谓 Undo
+在 EMACS 中想 要将已经做过的动作放弃，以恢复旧观。 EMACS 将其 称为
+undo, 以下就介绍如何 und0:
+ 
+•	Ctr 1- x u (undo)
+•	Ctrl-\	(undo)
+以上两个 Hot    ke y  都是用来 执行  undo 的指令。 提供二个 Hot key,   是因为有些键盘并无明显使用--  Ct r l - \ _' '  的方法 ，  为了弥 补无法以一个字元达到 undo 效果的键盘，故另行提供、' Ct r l - x u' ' 给无法使用、、 Ct r 1- \ _' ' 的使用 者。
+EMACS 所提供的 undo, 可以连续恢复最近使用过的指令。 undo 的顺序是最新使用过的指令最先被 undo ,  第二次使用 undo 则恢复第二新的指令，任何指令的输入（除了 undo 本身之外） 都会使指令输入的顺序重整， 这也同时影响
+undo 的顺序。
+使用 undo 有一个限制，就是 undo 只能 undo 对缓冲区内容造成改变的指令。对於只是改变游标动作的指令， 是无法以 undo 来恢复旧观。若所有修改过内容的指令，都以 undo 恢复原状俊， 再一次使用 undo 的指令，echo ar ea 会出现如下的讯息： no furter undo i nfo rmati on 当使用了 undo 之俊，还想要在
+r edo 这个已被 undo 的动作时， 有一个技巧可以达成如此的效果。
+1.	首先键入一个不会改变缓冲区内容的指令（如游标移动的指令），使原来
+2.	存放指令的顺序因新指令的加入而改变。
+3.	再使用一次 undo 的指令，就可以达到 r edo 的效果了。
+
+现举—实例来说明此＞ 视窗上现有的资 料为： This is a t est .
+．
+1.	执行四次 DEL , 视窗显示如下的讯息：
+2.	Thi s is a 所使用的指令集如下： DEL DEL DEL DEL
+3.	将游标至字元｀丁 ＇ 处，视窗显示的讯息并无改变：
+4.	Thi s is a 所使用的指令集如下： DEL DEL DEL DEL 5 . 键入 Me t a - cl, 视窗 显示如下的讯息：
+6.	This a 所使用的指令集如下： DEL DEL  DEL DEL  Meta-d
+7.	键入 Ct r l - x u, 视窗显示如下的讯：
+8.	Thi s   is   a   此时恢复最新被使用过指令··   Me t a - d' '   前的状况  ( Ctr  l - x  u  不为恢复的对象），也就是步骤二的悄形。 此时使用的过指令集如下： DEL DEL DEL DEL Meta-d Ctrl-x u
+9.	键入 Ct r l - f , 视窗仍出现 与先前相同的讯息：
+10.	This is a 所使用的指令集则增加如下： DEL DEL DEL DEL Me t a - d Ct r l - x u Ctrl-f
+11.	此时可以Ctr l - x u 恢复第一次 undo 前的状况， 即步骤三的状况。视窗出现：
+12.	This a 因为记录指令历史的指标，此时已在第二个 Ct r l - x u  处，但 Ct r l - x  u Ct r l - f 均不在 undo 的行列中 ，所以此时可以再恢 复一次 Me t a-  d 前的状况。所使用的指令集如下： DEL DEL DEL DEL Me t a - d Ct r l - x u Ct r l - f Ct r l - x u
+
+一般而言，匈一个使用过的编辑指令都有一个与之相对应的	undo 记录。每一个	undo 的记录，都只对目前的缓冲区有效。有的指令需要一个
+以上的	undo 记录来完成	undo 的动作 ；有的指令会先汇渠一群
+undo 的记录，当使用	undo 时，会将此汇集的结果 一次展现出来。例如，单一字元运作的指令，若每次使用	undo , 只恢复一个字元则
+非常的不经济，所以遇到此种悄形，以集合体的方式处理是比较合理的作法。
+
+
+
+回主选、1 jL'
+ 
+Emacs	进阶编辑指令
+
+前面 的章节	谈论 EMACS 的基本用法，现在讨论 EMACS 进阶 的用法。现在先谈 EMACS
+的搜寻 search 与字串 string 的取代功能。
+
+
+文件的搜寻
+
+搜寻特定的字串，并非EMACS所特有的功能，相信大多数的编辑器都具有如此的功能。但
+EMACS 所采取的搜寻方法是，每键入一个字元就展开搜寻，EMACS 称此种方式的搜寻为Incremental Search 。 当然， EMACS 也提供非 Incremental Search} , 称为Nonincremental Search。 EMACS对於所要搜寻的字串，仍是利用 minibuffer 来输入所欲搜寻的字串。 此时，输入 minibuff er 的搜寻字串，若全由小写的英文字母 (lower case) 组成，则 EMACS在展开搜寻的行动时，不论字母是否有大小写的差别，会将所有与
+minibuffer 具有相同英文字母的字串都找寻出来。例如在minibujJer 处输入  abc,	EMACS 会找寻abc、 Abe 、a Bc、 abC、ABc、aBC、ABC 等字串。 所以在 minibuffer 处输入小写的英文字母，就表示所要找寻的字串包括大写的字母在内。 如何直接找寻上述例子的
+ABC,  而不需经过 abc、Abe、aBc 、 abC,	ABc、ABC 等字串呢？欲达如此的效果，必需
+在 minibuff er 处，给予大写字母 ( upper case) 的字串。例如，在 minibuffer 处，给予
+ABC 的字串，此时，缓冲区的内容若为abc、 Abe、aBc、 abC、ABc、aBC、ABC , 则会
+直接搜寻 ABC 。所以在 minibuffer 处输入大写的英文字串时， EMACS 所找寻字串的大小写，就会与minibuffer 字串的大小写 完全一样。此种对大小写极度敏感的作法，称为case
+sensitive。  EMACS对於大小写出现的位置也有差别，现在就先来讨论	casesensitive的问题。
+
+•	minibufj切的字母都是小写，则可能找到的字串，包含 所有大小写的字串。 原始文件：abc、 Abe、aBc、 abC、ABc 、aBC、ABC 输入 minibufj切的字串： abc search string: abc、 Abe、aBc、 abC、ABc、aBC、ABC
+•	minibuffer中的字母 ，若有任一个以上的字母是大写，则可能 找到的字串，就如同
+minibuff妇所示的一样。 原始文件：abc、 Abe、aBc、 abC、ABc、aBC、ABC
+o	输入 minib咐er 的字串： Abe search string: Abe
+o	输入 minibu.ff妇的字串： aBc search st ring: aBc
+o	输入 minib咐er 的字串： ABc search str ing: ABc
+o	输入 minibuffer 的字串： ABCsearch s tring: ABC
+
+如果希望	minibuffer 输入什度，缓冲区就找到什磨时，
+例如，在 minibuffer中输入 abc, 所要找寻的字串就是 abc。 此时就必需修改 EMACS " case-fold-search" 变数的值为 " nil"。因为EMACS对此变数的预设值是 t, 它的意思就是使搜寻成为case sensitive。若将此变数改成非 case sensitive 时， 在
+minibuffer} 输入 abc, 就只会找寻 abc。
+
+知道了 EMACS对大小写的处理程序俊	现在就来谈谈
+incremental sea rch和noincremental sea rch。键入
+第一个字母至minibl{tfer 时，搜寻的序器就展开，是为
+incremental sea rch。
+使用	incremental sea rch时，当	minibuffer
+收到第一个搜寻字母时，搜寻行动就从游标所在位置向下开始搜索 。此时的游标，会从原先游标所在位置移至其下第一个出现此字母的    地方；当 minibuffer 出现两个字元时 ，游标也移至其下出现
+此两个字元的地方。当然，这些都必儒要以缓冲区中有这些文字为前题，
+ 
+若找不到任何合适的文字时，
+echo area 会出现 " Failing I-sea rch:" 的菩示语。
+在 EMACS 中执行	incremental sea rch的方法有两种，
+一种是往前的搜寻 ( forward search), 另一种是回头的搜寻
+( backward search。如下，就是二种搜寻所使用的指令：
+
+
+•	Ctrl-s ( isearch-forward )
+．游标所在处向前（右）搜寻。
+•	Ctrl-r ( ise arch -backward )
+．游标所在处往回 （左） 搜寻。
+
+当使用 Ctrl-s 或 Ctrl-r指令时， EMACS 的
+echo area 会出现 汀-search:"或 " I-se rach backward:"。当出现 这些提示字时，就表示其俊是要输入搜寻字串。只要键入第一个字元，
+搜寻的行动就立即展开了。 虽然如此，仍有几个有关搜寻的关键字必需先行讨论，它们是、、RET"、、、DEL"与、、Ctrl-g"。
+
+
+•	RET
+．当 minibuffer收到 RET 时，游标会停留在最俊—个满 足搜寻 条件之处，且结束搜寻的动作。这种做法的好处是，若所找的资料 就是所要的，且又是必需修改的资料，游标停留在该处，即可立即处理。    因为，有些离开搜寻状态的方法，会使游标到第一次执行搜寻的位置， 这就是下面要谈的" Ctrl-g" 的处理原则 。
+•	Ctrl-g
+·	、、Ctrl-g" 的用法有二种，其—、是离开搜寻，承如上面所言；  其二、就是当所键入的搜寻字串，无法找到宪全符合的对应字串时， 可利用、' Ct rl-g" 将minibi ffer中所能找到的子字串留下， 而将不能找到的资料除去。 所以，若已经找到所要的字串而想离开搜寻时，键入、、Ctrl-g" 除了可以离开搜寻外，还可以将游标带回原先的出发点。根据
+minibuffer   处所给予的资料，完全无误的在缓冲区中找到相对应    的文字俊，以、、Ctt·I-g" 可 将游 标归 回 原位 。但若所给予的资料在缓冲区 中无法找到完全对应的字，此时，若想离开搜寻的状态，就必需用［两次」 的 " Ctrl-g" 才可完全脱离搜寻的状态。
+
+此时，键入的第一个、、Ctrl-g" minibu.ff妇 所 找 到的 字串 留下 ，而 将 无法 兑现的字串  删除 。此时 再键 入 一 次、、Ct rl-g" , 则会究全离开搜寻的 状态，而游标也会自动移回展开搜寻时的位置。
+
+•	DEL
+．想要修改 minibuffer 内的字串时，请用DEL  ( delete-backward-char )	。 还记得它吗？ 它是用来删除字元的，此删除的动作是往回的删除。每执行  一次的DEL    就是一个新字串的诞生， 也就是一个新搜寻的展开。值得注意  的是，此新展开的搜寻与原先的搜寻方向相反，这个设计是合理的。  因为，  只要minibuffer 输入任何一个字，搜寻就已展开了，此时，若以DEL 来   删除错误的输入，则表示先前所找到的字串也不符需要， 所以只能重新来过 才是可行之路。这也就是为何每删掉—个字元，搜寻的行动会回走的理由了。
+
+要使用搜寻的指令，只需键入｀、Ctrl-s" 。此时 minib咐盯会出现
+、、I-search:"。若键入 Ctrl-r 俊，则出现 " I-search backward:"。使用搜寻的指令，会有若干悄形出现：
+．首次搜寻，即觅得所要的字串。
+ 
+．使用者此时可根据所需来做适当的处理。例如，离开搜寻，修改搜寻到 的资料等等。搜寻不利，必衙一而再，再而三的努力，才能找到所要的字串。
+此时只要重复使用 "  Ctrl-s" ,  游标就移至下一个符合的字串。所以， 只要所找寻的字串不变  就不需要再给予搜寻的字串。重复使用"  Ctrl-s" 的结果，仍无法找到所要的字串，echo a rea 会回应出、、Failing I-search:" 的讯息。
+．若重复使用 "	Ctrl-s" 的结果，已使 echo area 出现
+·	、 ' Failing I-sea rch"俊	则表示缓冲区已到了极限。若想再查看已阅	过的资料，只要再使用一次、' Ct rl-s" , 就会迫使搜寻从原来的启始点 再进行一次的搜寻。
+搜寻的过程中，若想回头再查阅己看过的资料时，只要交替使用 " Ctrl-s" 与 " Ctr!-
+r" ' 就可以了。
+
+EMACS可以将搜寻过的字串，再拿出来重复使用。因为，EMACS
+将使用过的搜寻字串，都放在一个名为	search ring的变数中。
+它与先前讨论过的	kill-ring 类似，都为 变数。既为变数，其值就可以增减与参阅的。至於如何查阅变数的值，请再行参考 4.4 节
+(EMACS buffer and windows ) 。
+
+再使用搜寻过的字串，只要将 " sera ch-ring"此一变数的
+值取出即可。取出其值的方法有两种，一种是往前（右）的取出， 另一种是往回（左）的搬取，其分界点是以最新使用过的搜寻字串为分野。因为 " sea rch-ring" 为一个ring, 所以撒取的方式，
+不是采顺时锺的方向，就是采反时锺的方向。今举一实例说明之。
+
+以下是以 " Ctrl-h v" 所得到有关 " search-ring " 的资料。
+search-nno's value is ("k ill" "Ctr!" "tex " "Ctrl-h" "text" "search") Docum entation:
+L ist of search string sequences .
+
+此时 "	search-r ing" 的变数值是：
+
+kill、 Ctrl、 tex、 Ctrl-h、 tex t 、 search
+最新的搜寻字串则位於最前端，此时为 " kill" 。往前（右）所得的字串则为" Ctrl", 往回 （左） 所得的字串则为 飞earch"。
+今以此例，将使用"	search-ring" 得取使用过的搜寻资料的步骤说明如下：
+
+．甘先键入 Ctrl-s 或 Ctrl-r
+
+o	ESC-p
+o	当 echo area 出现 I-search: 俊，再键入" ESC-p",	则可得到、Ctrl"的字串。若想继续往前寻找使用过的字串， 只要重复键入、E、SC-p" 即可。
+o	ESC-n\indexESC-n
+o	当 echo area 出现 I-search: 俊，再键入ESC-n, 则可得到 " search" 的字串。若想继续往回寻找使用过的字串，只要重复 键入 " ESC-n" 即可。
+
+除了	search-ring 的资料可再使用外，将拷贝技巧运用在搜寻上， 也是资料再使用的另一项运用。
+
+拷贝在搜寻上的运用，就是将缓冲区的资料拷贝至	echo area 出现
+ 
+I-	search:  俊的	minibU;tfer	处 。经	此 拷贝的过程，任何大小的字串，都可使它轻易的出现在		minib咐妇处。
+以下就是使用的方法： 键入 Ctrl-y
+若要将游标所在位置到列尾的所有资料，放入 minibufj切处， "	Ctrl-y" 可宪成此一任
+务。
+．键入 Ctrl-w
+．若只想拷贝游标所在位置之俊的字  ( word )   ,   使用"	Ctrl-w" 是一个很好的选 择。｀
+Ctrl-w " 是拷贝缓冲区上的一个字 C word )	到 minilntffer 。其拷贝的范围是以游标所在
+地为准则， 若游标位於一字的第一个字元时，则拷贝整个的字到minibitffer 处， 若游标所在位置不在字首，则将游标之俊的次字串拷贝至 minibuffer 处。
+键 入 ESC-y(yank-po p)
+．向 kill-ring 借资料也是可行的方法之一。使用、' Ctrl-s" 或" Ctrl-r" 指令俊，可使用｀ ESC-y"将原先放於kill-ring 的资料拷贝於minibuffer  处。可惜的是，此方法只 能将最新被删除 的资料来出用。
+
+到此为止，所谈的搜寻都是 incremental sea rch的搜寻，现在来谈谈nonincrementalsearch 。	nonincre mental search
+是一般编辑器处理搜寻最常用的方法，所以又将其称为传统的用法。
+
+nonincrementalsearch 的使用，必需从	incremental sea rch开始。
+当以"	Ctrl-s" 或、、Ctrl-r " 启动	incremental search俊，待	echo area
+出现 " I-search":  或" I-search backward:" 悛，只键入	RET 而不给予
+任何其它的字串，此时就启动了	nonincrementalsearch.当然echo  area
+出现的讯息会不一样，此时	echo a rea 出现的讯息｀、Search:"	或
+、、Search backward:" 。所以要使用	incremental search或nonincrementalsearch,   完全取决於键入	minibuffer 的内容而定。若为只键入 RET ,  就是选择		nonincremental serach 。
+
+在启动了	nonincremental search之梭，在、Sear ch:" 或
+、、Search backward:" 之俊键入、' Ctrl-w" , 则表示要执行字的搜寻(Words Search) 。此功能可以用来搜寻一组的字，只要在 minibuffer 中将所要搜寻字群以一个空白隔开，就表示所要搜寻的是一个
+字群了。以下将	nonincremental serach 的相关指令整理如下：
+
+．•   nonincremental 字串  ( string )  的搜寻
+o	Ctrl-r RET string RET
+o	Ctrl-s RET string RET
+．•   nonincremental 字 ( word )  的搜寻
+o	Ctrl-r RET Ctrl-w words RET
+o	Ctrl-s RET Ctrl-w words RET
+
+还有一种搜寻不论是	incremental search或 nonincremental search
+都有的，那就是	regular expression, 简称为Regexp。
+所谓的	regular expression就是以最少的字元组合来表示最大可能的巨集。现先不讨论如何来表达regular expression , 只讨论如何使用
+regular expression 的搜寻。
+ 
+因为有关	regular expression会有专节 ( 6.3节）来讨论。
+
+
+•	Regexp 的 incremental search
+
+o	ESC-Ctrl-s (isearch-forward-regexp)
+o	使用Regexp 的搜寻方法： 先按下 " ESC" 之梭再将其放掉，随俊再按下｀、Ctrl­ s",	echo area 处就会出现 RegexpI-search: 这时就可以输入 Regexp的表示字串了。 当然还有若干事与Regexp 的搜寻有关，讨论如下：
+．若要继续以 Regexp 的方法搜寻，只需继续键入、、Ctrl-s" 就可找到下一笔相关的资料。
+■	Regexp 的搜寻，也有其独立 的 search-ring 。 这也意谓著可以再使用
+Regexp 的 sear ch ring 。 其使用法与前所讨论的方法一样，就是以" ESC­
+p" 与 " ESC-n" 来再使用Regexp 的 search-ring 。
+o	ESC-Ctrl-r ( isearch畸 backward-regexp)
+o	往回（左） 的 Regexp 搜寻，若想继续的往回找寻想要的字串， 只需键入｀
+Ctrl-r " 即可。当然，也可以 " ESC-p" 与 " ESC-n" 来再使用其 search-ring 。
+•	noni11creme11talsearch
+．以下是以 Regexp 来执行 nonincremental search的方法。
+o	ESC-x re-search-forward
+o	ESC-x re-search-backward
+
+搜寻缓冲区的内容，除了要参考其内容外，有很大的机率是希望 能将找到的内容以它种内容取代。取代 ( Replacement) 的方法， 就是下一节讨论的主题。
+
+
+
+文件的取代
+
+从事编辑工作的时候，常会为了某种需求而将某一共同的用语以另外一种语辞替换，此情形最常发生在撰写程式的时候。当然，英文字串由大写改为小写或小写改为大写也是经常可见的。编辑文件在处理这些事时，就如如下的若干问题产生。
+
+1.	所有要修改的文件，都能如愿以偿的得到适当的修改，不会有漏网之鱼发生。
+2.	修改过文件的一致性，是必要的条件。
+
+因为有这些问题的考量，所以使用	replacement 来完成如是的工作， 就成为最佳的解决之道。现在就来谈谈 EMACS如何处理 replacement 的问题。
+
+EMACS 处理	replacement 的方法有一气呵成的取代， 与选择性的取代二种。
+所给予的被取代文字也有二种，
+一、被取代的字串完全与所给予的字串一样；
+二、以 Regexp 来做为取代的依据。试分述之。
+
+．二种的取代方法
+
+o	一气呵成的取代
+o	所谓一气呵成的取代，是一鼓作气将游标之俊所有符合条件的 字串，全部以新字
+ 
+串取而代之。 此作法不会一一徵求是否要取而代之的意见，而是自动、全盘且无条件的取代。 此作法称为 Unconditional Replacement。
+o	选择性的取代
+o	选择性的取代，是会先徵求取代的意见，只有在取得同意权时， 才会采取取代的行动。这种取代的行为称为 query replacement 。
+二种被取代字串的表示法
+
+o	被取代的字串完全与所给予的字串一样。
+o	此方法所要取代的文字，与 minibuffer 中所给予的文字一样。所以，其可能符合条件的选择最多也只有一种。
+o	Regexp来做为取代的依据。
+o	此方法就是以  Regexp来表示所要找寻的字串集。前已论及，所谓的  Regexp就是以最少的字元组来表达最多的巨集。此时的取代， 就不是单一字串的取代而是某一集合中的所有字串的取代。所以，以此所得的取代字串就有多重的选择。如何表达正确的 Regexp 会在下一节中详细讨论。
+
+以下就是使用取代 ( replacement) 的方法。
+
+•	Unconditional Replace
+进行取代时不事先徵求意见，迳行将缓冲区中游标所在位置（包括游标所在位置本身）之俊，所有符合的字串都以新字串取而代之。
+o	ESC-x replace-string RET string RET newstring RET
+o	此指令是将缓冲区中，所有出现str ing 的字串以newstri ng 取代。 其详细的步骤如下：
+L 键入、' ESC- x replace-string'', 当按下 RET 时，
+2.	echo area 会出现
+
+Replace string:
+
+此时可利用、R、eplacestring:'' 俊的 minibuffer ,	将所要被取代的字串输入，按下 RET 则表示已完成输入的工作 。
+
+3.	按下 RET 时， echo area 会出现如下讯息：
+4.	Replace string string with: 此时可利用 minibuffer 给予所要取代的新字串。键入 RET 时，游标所在位置之俊的所有str ing 都会转换成newstri ng。
+5.	当转换完成俊， echo area 会出现、｀done" 。此时就已大功告成了。
+o	ESC-x replace-Regexp RET Regexp RETnewstring RET 此方法与上一个方法雷
+同，不同之处在於所要取代的资料不是某一个特定的字串，而是某一巨集的字串组。从指令的表示法， 也可以看出所给予的被取代字串是、R、egexp'' 而非
+" string" 。 其详细的执行步骤与字串的取代雷同，只是在 echo ar ea 将所有 的
+string 换成 Regexp罢了。
+•	Query Replace
+•	Query Replace顾名思义就是在取代时会徵询取代的意见， 使用者可根据需要来取决是否要进行取代。以下就介绍字串和 Regexp 的取代。
+o	ESC-x query-replace RET string RET newstring RET
+o	使用 query replace 的方法及步骤与 unconditional replace的方法雷同，不同处只在於所引用的指令有异，以及多增了询问的选择。其详细步骤如下 （斜体字表示使用者所输入的资料，粗体字表示系统自行根据输入资料的回应）：
+1.	ESC-x query-replace RET
+2.	Query replace: Regexp RET
+3.	Query replace Regexp with: newstring RET
+4.	Query replacing Regexp with newstring:(? for help)
+ 
+5.	此步骤是 query replace 与 unconditional replace最大不同之处。因为所有徵询的工作都是从此展开。 不知如何使用徵询的使用者可键入 ｀？＇＇得来到线上的求助。 以下就是键入｀｀？”系统给予的资讯。 Query replacing Regexp with string.
+
+Type Space or' y' to replace one match, Delete o 、r n' to skip to next,
+
+RET o 、r q' to exit, Period to replace one match and exit,
+
+Comma to replace but not move point immediately, C-r to enter recursive edit (M-C-c to get out again), C-w to delete match and recursive edit,
+C-1	to clear the screen, redisplay, and offer same replacement again,
+
+! to replace all remaining matches with no more questions, " to move point back to previous match.
+使用 query replace时可有多种选择项。现只介绍常用的几个选项：
+
+1.	Space 或 y
+2.	当决定以新的字串取代原来的字串时，以 Space 或 y来表示。 执行query replace 时，游标会移至下一个合适的字串处， 此时若决定将其取代，则键入、S、pace" 或、' y" 。当取代完成俊， 游标会自动移至下一个合适的字串处。当然也可以放弃所找到的字串，这就是下一个要讨论的选项了。
+3.	Delete 或 n
+4.	放弃字串的取代，使游标移至下一个目的地，是 Delete或n 所做的事情。
+5.	(Period)
+6.	若己找到合适的字串，而想终止所有进一步的取代行为时， 键入
+、'."可使目前游标所在处的字串以新的字串取代，并且在取代俊立即离开query replace 的状态。
+
+8.	、' !"   可使  query replace 恢复为unconditional replace。 因此，若想放弃询问的权利而恢复 unconditiona l replace 的 状态，键入｀！”就可将游标所位置及其以俊所有合适的字串， 都以新字串取而代之。
+9.	RET 或、 ' q"
+10.	若想就此离 开 quer y-replace 而不再做进一步的取代动作， 只需按下
+RET 或 " q" 即可。
+o	ESC-x query-replace-Regexp RET Regexp RET newstring RET
+o	此方法与"	ESC-x query-replace RET string RET newstring RET" 相似，但此时所取代的不是特定的字串，而是某一字串的巨集。
+
+字串大小写 ( case sensitive ) 的问 题与取代也有很大
+的相关性。因为大小写的问题，对於	unconditional replace 与
+queryr eplace 均适用。所以，只举 query-replace
+为例说明，至於	unconditional replace 就如法泡制。
+当启动"	ESC-x query-replace RET string RET newstring RET"
+ 
+时， string 与	newstring 的大小写，关系 不同字串 的取代。其规则如下所述：
+
+当 string 与 newstring 都以小写的形式出现时，
+．取代工作的进行，就有三种情形：
+o	缓冲区原始字串的第一个字母是以小写为开端时，不论  此字串是否有其它的大写字母，经取代俊全转换成小写。
+o	若原始字串的每个字母都是大写时，经取代俊也维持大写的形式。
+o	若原始字串以大写为开端，不论此字串是否还有其它的字母 为大写，只要不是全为大写的情形，取代俊只有字串的第一个字母为大写，其余一律为小写。
+
+以下举一实例，供参考： string :  ahc ,	newstring:	xyz 原始文件为： ahcAhc aBc ahC ABc AbC aBC ABC 经过取代为： xyz Xyz xyz xyz Xyz Xyz xyz XYZ
+
+ 
+．．当  newsrt
+ 
+ing 部份为大写，而string 依然维持小写 的情形：
+ 
+o	若原始字串的第一个字母为大写时，被取代俊的第一个字母仍维持大写的形式。
+其余原始字串的大小写，就视newstri ng 的大小写而定，与原始字串本身的大小写无关。
+o newstri ng 的字母若以大写出现，则被取代的原始字串也会在相对应的位置以大写的形式出现。
+o	若原始字串全为大写时，取代俊仍维持大写的形式。以下为若干实例，供参考：
+o  string : abc ,	newstring:	Xyz
+o	原始文件为 ： abc Abe aBc abC ABc AbC aBC ABC 经过取代为： XyzXyzXyz Xyz Xyz Xyz Xyz XYZ
+o string:  ahc,	newstring:	xYz
+o	原始文件为： ahc Abe aBc ahC ABc AbC aBC ABC 经过取代为： xYzXYzxYz xYz XYz XYz xYz XYZ
+o string:  ahc,	newstring:	xyZ
+o	原始文件为： abc Abe aBc abC ABc AbC aBC ABC 经过取代为： xyZXyZxyZ xyZ XyZ XyZ xyZ XYZ
+o string:  ahc,	newstring:	XYz
+o	原始文件为： ahc Abe aBc abC ABc AhC aBC ABC 经过取代为： XYzXYz XYzXYzXYzXYzXYzXYZ
+o  string :  abc,	newstring:	xYZ
+o	原始文件为： abc Abe aBc abC ABc AbC aBC ABC 经过取代为： xYZ XYZ xYZ xYZ XYZ XYZ xYZ XYZ
+o  string : abc ,	newstring:	XYZ
+o	原始文件为： ahc Abe aBc abC ABc AbC aBC ABC 经过取代为： XYZXYZ XYZ XYZ XYZ XYZ XYZ XYZ
+只要 string 有大写的字母出现时，取代俊字串的大小写， 就完全依照 newstring 的大小写。换言之， newstri ng 为大写的地方依旧为大写，为小写的地方依然为小写。 以下为若干实例，供参考：
+o string:  Abe,	newstring:	xyz
+o	原始文件为： abc Abe aBc abC ABe AbC aBC ABC 经过取代为： xyz xyz xyz xyz xyz xyz xyz xyz
+o  string : aBc ,	newstring:	xyz
+o	原始文件为： abc Abe aBc abC ABc AbC aBC ABC 经过取代为： xyzxyz xyz xyz xyz xyz xyz xyz
+ 
+o string:  ABc,	newstring:	xyz
+o	原始文件为： abc Abe aBc abC ABc AbC aBC ABC 经过取代为： xyz xyz xyz xyz xyz xyz xyz xyz
+o string:  ABC,	newstring:	xyz
+o	原始文件为： abc Abe aBc abC ABc AbC aBC ABC 经过取代为： xyz xyz xyz xyz xyz xyz xyz xyz
+o  string :  aBC ,	newstring:	Xyz
+o	原始文件为 ： abc Abe aBc abC ABc AbC aBC ABC 经过取代为： Xyz Xyz Xyz Xyz Xyz Xyz Xyz Xyz
+o  string : Abe ,	newstring:	xYz
+o	原始文件为： abc Abe aBc abC ABc AbC aBC ABC 经过取代为： xYzxYzxYz xYzxYzxYzxYzxYz
+o string:  aBc,	newstring:	XYz
+o	原始文件为： abc Abe aBc abC ABc AbC aBC ABC 经过取代为：XYzXYzXYz XYzXYzXYzXYzXYz
+o string:  ABC,	newstring:	XYZ
+o	原始文件为： abc Abe aBc abC ABc AbC aBC ABC 经过取代为： XYZXYZ XYZ XYZ XYZ XYZ XYZ XYZ
+
+讨论至此，取代的部份应该可以告一段落了。接下来，就是要将一直未正式讨论的 Regular Expression 做一详尽的说明。
+
+Regular Expression
+
+所谓的 Regular Expression ( 以下简称 Regexp) 是用来表达一连续字元的组合，或是用来描述字样 ( pattern ) 的一种方法，它在概念上不同於字串。 字串是指由一连续字元
+( character  )  所形成的字元组，一个字元组就只代表一个特定的字，串而 Regexp 通常所代表的是一组具有共通特性的字串集，此共通特性称为pattern。  Regexp 的精神，就是希望以最少的字元，来表达最大的巨集。所以 Regexp 所能表达的字串 数应不只於一个，而是一个字串的集合。这也是字串与Regexp最大不同处。当然， 也可将字串视为  Regexp的一个特例。 本文一直没有讨论撰写程式的问题，但不可否认的，程式撰写使用到 Regexp的机会不胜数。举凡变数、常数的重新命名，同类字串的搜寻，数个程式合并梭的整理工作等等，若能灵活使用 Regexp ,  则可达事半功倍之效。这是一篇 讨论 EMACS 使用入门的文章，并不是讨论程式语言的文章，所以只是将 Regexp 的用法告知。
+
+撰写程式常有的经验，就是要将数个函式合并梭，必需将使用这些函式的地方，以合并俊的新名称取代。例如 read_i.c、 read_c.c 与read_ f' 等三个函式 合并成 read.c 时，所有使用这三个函式的地方，都必需改成 read.c。  此时，若以传统的修改方法，恐会漏一挂万，若采取代法，则必需执行三次的取代，才可以大功告成。但使用  Regexp  ,	则可以一举成功。既方便又快速。又则，编辑文件或程式时，注解的功夫是不可或缺的。不同的文件与语言，各有其不同的注解表示法。例如	LISP 语言是以｀、；”表示注解，LaTex  则以、｀”为注解。有时为了 将注解分类，极  H不同数目的注解符号来做区分。此时遇到的问题是，当重新分类注解时，相对应的注解符号也要调整。以 LISP语言为例， 重新分类俊，可能将拥有一个｀；” 及二个、｀；＂的注解符号，以三｀个｀；＇＇符注号解取而 代之，这时若使用Regexp ,   问题就可迎 刃而解。
+
+程式档名的转换也可以 Regexp来轻松完成。因为不同的程式各有其不同的副名，例如 C 语言的副名为 " .c" ,	C++ 语言的副名为  " .C"  ,   而FORT RAN 语言则为 ｀｀．等广等 。  此时，若想将 FORTRAN 语言所发展软体，转 换成 C 语言，则必需将所有 " .c" 的档名做适当的调整。
+
+例如，将所有" filename.广的档案，改为、f、ilename.心的档名。 此时，若使用Regexp , 可
+ 
+能在极短的时间就可将所有的档名转换成功。 Regexp 的运用非常的广泛，这里所举的例子只是凤毛麟角。以下就开始简介 Regexp 的使用法，至於更详细的介绍，请参照另一篇
+94019的技术报告。
+
+Regexp并非是 EMACS 的专利 ，面是 UNIX系统下 的产物。 UNIX 系统下的许多工具程式都使用 Regexp ,	虽然彼此在表达 Regexp 的方法上，略有差别，但在概念上却是一致的。 UNI X系统上使用 Regexp 的工具，除了EMACS 外，尚有 ed 、ex 、vi 、sed 、awk 、
+grep 、egrep 等等。 这里所介绍的Regexp, 在概念上与其它地方是共通的， 但在实际的运作上可能会有所出入。
+
+Regexp 是由字元所组成，此字元分为一般字元与特殊字元两种。一般字元所组成的
+Regexp ,  是最简单的  Regexp  的表示法。因为它所要表达的字串与  Regexp 完全一模一样  。由特殊字元所组成的 Regexp就较为复杂了。因为不同的特殊 字元，各有特殊的代表意义。EMACS 中Regexp 的特殊字元有＄、＾、 ．、 ＊ 、	十、？、［、］及＼等九个 。 例如，	间 ” 是一般	的字元，它	也只代表 " a飞 别无其它。但是 闷."、、、a*" 、、、a?" 与、' a +"等所代
+表的意义，除了、' a"  外，尚有其它的意涵。特殊字元之外的字元，都是一般字元，但有些特殊字元是由一般字元加上＼而 形成的	。 现在来谈谈几个简单的	Regexp 的表示法。 想进一步多了解 Regexp, 仍请参考编号为 94019的技术报告。以下就开始讨论，代表Regexp 的符
+号有九个。为了讨论上的方便，将其分成若干类：
+
+不在乎所出现的字母为何，可以『．』 来表示。
+．所以『．』 代表除了 newline 之外的任何一个字元。 例如 " a.b" 表示任何一个由三个字元所组成的字串， 此三个字元必需符合第一个字元是 " a",	第三个字元 是 " b" , 但中间的字元只要不是 newline,	任何字元都可以。所以" a.b" 可以为 aab、ahh、
+ach、axb、al  b、a2b  等等，   甚至可以是一些特殊字元，只要这些特殊字元在此时没有特别的意义。例如 " a /\h" 。
+．以特殊字元，来	表示重复出现的一般字元。这些特殊字元称为
+•	postfix cha racter 。其表示符号有 『＊』、『＋』 与『？』 等三种 。
+o	『*』
+o	任何字元 之俊加上『＊』，可表示字元重复出现的次数，从零次到无限多次。因此 " ab*", 可表示， a、ab、abb、abbb、abbb以及 ab…b 到无限个 b。
+o	『+』
+o	任何字元之俊加上『＋』，可表示字元重复的出现次数，从一次到无限多次。因 此 " ab+", 可表示为 ab、abb、abbb、abbb 以及 ab...b 到无限个 b。
+o	『?』
+o	任何字元之俊加上『？』，可表示字元重复的出现次数，不是零次就是只有一 次。因此 ｀、a b?" 不是表示为 闷＂， 就是表示为" ab" 。
+．若字元为属於某一特定集合中的元素时，可以字集 ( character set )	来表示。
+此时的代表符号是［…］。中括号内是就放置字集的地方。如下讨论 字集的若干变化。
+0 [ ... ]
+o	最简单的字集表示法，是将所有符合的字元放於在括号内。 例如，[a@!d13] 。此时，符 合的字元就只有a、@ 、!...  1  和	3  而  已  。	若所表示的字集，具有一定范围的连续性，为了方便表达， 可以 [a-g] 来代表[abcdefg]。 这一类的表示法， 将会有更详细的讨论。
+0  [ ...  ] 与 其它	的特殊字元的配	合。＞
+
+[...]与 「＊」 的配合
+■	c[ab]d 代表 " cad" 或 " cbd" 。 c[ab]*d 代表头尾为｀心 与｀、d " 的字串，	头尾间 的组合，则由[ab]* 来决定。 [ab]* 可表示为 cd、cad、
+cbd、caabd、cabbaar 等形式。[...]与＋的配合
+■	c[ab]+d表示头尾为 " c" 与 飞＂的字串 ， 头尾间的组合，则由[ab]+ 来决
+ 
+定。 [ab]+ 可表示为 cad、cbd、caabd、cabbaad 等形式。[...]与？的配合
+■	c[ab]?d 表示头尾为｀心与 飞＂的字串 ， 头尾间的组合，则由 [ab]? 来决定。 [ab]? 可表示为 cd、cad、cbd 等形式。
+o	特殊字元，为字集内容时的解释
+o	任何   Regexp  的特殊字元，出现在中括号内都   可将其视为一般的字元，除了二个符号之外。这二个例外的符号，也要看其出现的位置而做不同的解释。这两个      符号是 " Att ,	" "。
+l_ "Att
+2. " Att 若出现在括号的第	一个位置时，	表示「以下皆非」的意思。所以，
+[a-zA-Z] 表示所有英文字母的集合， 而(Aa - zA-Z]则表示除了 英文字母之外的所有集合。
+3. " -"
+4.  简化范围性的字集的表示法。其用法是将字集的起始点 放於｀一＂的右边	， 而终点放於｀一＂的右边。 例如， [a bcdefg] 可以 [a-g] 来表示， [a-z] 则表示二十六个字母的集合。[0-9]    则表示数字的集合，要表示二位数字的集合，则可以 [0-9][0-9] 来表示。
+．．指定 Regexp出现的地方为列首或列尾。
+0 、' I\" , 指定 Regexp 出现在列首的符号。
+o	在  Regexp 前加上…  ＾＂的符号，即表示此 Regexp必需出现在列首。例如， 、、＾
+The", 则找寻每列以" The" 为首的字串。
+。、、$" ,	指定 Regexp出现在列尾的符号。
+o	指定 Regexp 必需出现在列尾时，只要在 Regexp 俊加上一个｀｀“＄即可。例如，
+xxxx +$ 会将列尾以 " x" 结束的字串找出。
+．、、＼＂的用法
+．＼在	Regexp	中有二种涵	意：一	、 使特殊字元变为 普通字元，二、使普通字元转为特殊字元。
+o	特殊字前加上＼，此特殊字元就不	具特殊意义，   只是一个普通字元而已。例如， 列首要以＾为开端， 则以＼＾来表示，此时的＾则为普通字元。
+o	将如下的普通字元
+o	I,	(、 )、 d、 '、` 、 b、 B、< 、> 、 w、 W、 SC、 Sc 之前加上＼ 之俊则此普通字元就已特殊化了。现在 只讨论几个常用的字元 ( I 、(、）、d、< 、
+•	\I,	(表示选择的用法）
+欲在二个 Regexp中择一而用，可以  \I ,	将二个 Regexp放於其左右来表示。 例如，the\l it  为二选一的	Regexp 的表示法。可能的符合字串为大小写
+穿插其间的 the 或 it。例如，The、tHe、thE、THe、tHE、THE、iT、IT
+等。为何会有不同的大小写表示法，请再一次注意 EMACS对於 case
+sensitive 的处理方式 。若不清楚者，	请参照 6.1 节。 以 \I 所表示的
+Regexp有一个特色，  那是在找寻合适的字串时，与Regexp从开始至结尾都符合的字串。所以，若想找出read 或 get 其俊立即接上 file 的字串，就必需以" readfile\l  getfile 来表示。乍看之下，似乎没有任何的疑问。事实上，  这种表示法也没有不对，可是各位是否还记得Regexp 的真谛，就是要以最少的字元来表示最大的字集，在这个例子中的重复性很高，似乎不太能符合 Regexp 的精神。 下面就是改进的方法。
+利用 ＼（…）＼将  Regexp 的范围规范出来。
+利用此方法，上例就可以' '  \(read\ l get\)file' ' 来找寻  readfile 或 getfile。这样是不是简捷多了吗？ ＼ ＼）还可 以配 合＊、十、？等特殊字元	使用。＊、十、？等特殊字元在处理字元的重复性时， 只适用在特殊字元之前的一个字元，所以若想重复一组 字元时，就必需以＼（…）＼将其组合	起来。例如，
+、、ba\(na\)*,	可以表示 bana、banana 与bana…….na 等无数个 na 的组合。
+ 
+除了以上所述的表示法外，若干普通字元加上＼还可以有特别的用法，以下讨论常用的儿个用法。
+
+1.	\d
+2.	在 Regexp 的表示法中，可 以只撮取部份的符合	egexp 。其做法是将要保留的 Regexp 暂存在缓冲区 内之俊，再将其拿出来 使用。例如，要将所有副名为 .c 的档名，换成为 .f 的档名，其做法如下： ESC-x replace-Regexp RET \(file[0-9]\)\.c RET \1\.f 如此，会将所有名为 filel .c file2.c file3.c ……
+file9.c的档名，改为 ftlel .f file2.f file3.f	file9.f。
+3.	\<,	寻找一字的开头
+4.	\>,	寻找一字的结尾例如，\< b[a-z]g\> 会将 beg、 big、 bag 等字串找出。
+
+回主选单
+ 
+Emacs 的其它相关事项
+
+这章所谈的内容较为纷杂，但都环绕在加强EMACS的编辑功能 为核心。所谈的内容包括
+register、 bookmark、 错字的自动侦测以及如何在EMACS中使用绘图功能。现在就开始讨
+论 r egister 和 bookmark 。
+
+
+Registers and Bookmarks
+
+EMACS 的 register 是一个可将文件与游标位置	( point loaction) 暂时存放其间的地方。
+register 有它的缺失，那就是一旦离开目前所使用的 EMACS, 所有存於 register 中的资料， 也会随著消失。若想再使用这些放於 register 中的文件或游标位置时，必需重新将资料存入
+register 中。所以 register 只适合暂时性的储存，若想永久使用文件或游标位置，必需仰赖
+bookmark的帮助了。 bookmark与 register 相似，它们都用来 储存物件，但在相似中又有不一样的地方。二者不同的地方如下：
+
+．命名上的不同
+•	bookmark 的名称可由「一个以上」的字元 ( character)	组成，但 register 的名称只能由「一个」字元来命名
+资料保存的时间不同
+．存於 bookmark 的资料具有永恒性，它可以在离开 EMACS 俊还存在。但存於 register
+中的资料，在离开EMACS 俊就无效了。
+
+现在就分别介绍 register 与 bookmark 二者的用法。首先讨论 register 的用法。
+register 可存放的内容有，游标的位置、一般文件与长方形文件的内容、  档案的名称以及本文未曾讨论的视窗资料等等。现在就一一  来介绍这些内容如何存放，以及存放俊如何将其取出用， 与视窗有关的 register在此依然不予讨论。
+．储存与移动至特定 point位置的方法
+
+o	Ctrl-x r SPC r  (point-to-register)	将游标目前所在的位置，存於register 中。存於 register 的步骤如下：
+1.	将游标移至所要储存游标位置的地方。
+2.	键入 " ICtrl蛐   x rl" 以及	" SP ACE"	(空白键）俊，
+3.	echo a rea 会出现 Point to register:
+4.	此时可输入任意一个字元( character ) , 做为此 register 的名称。以俊要使游标移至此位置就要靠此字元。 register 的名称，只能由一个字元组成。
+o	Ctrl-x r j r (jump-to-register)
+o	根据 registerr 所储存的位置，将游标移至 r 所设定的位置。使用此指令前，必需确定 register r,	已设定的妥当了以下就是设定游标位置以及使用游标位置的步骤：
+1.	先以 " Ctrl-x r SPC r",	将游标的位置储存於registerr 内。
+2.	键入、' Ctrl-x r j",	echo area 会出现 " Jump to register:" 的讯息。
+3.	在、' J ump to register:" 之俊，输入己设定妥善的 register r 的名称。此时游标所在的缓冲区若与 registerr 所设定 的缓冲区不一样时，游标会自动移至另一个缓冲区，视窗的内容也会换成新的缓冲区内容。所以，使用 register 所存放的游标位置，是可以跨越不同的缓冲区来做移动的。
+•	r egister 还可用来存放经常被访问到的档案。
+．有人或许会不解，为何耗费如此的功夫，只为了从事" Ctrl-x Ctrl-f" 指令可以做到的事。使用" Ctrl-x Ctr l-f" 有一个不便之处，就是若所欲访问的档案与
+ 
+EMACS 的预设档案位置 不一样时，则必需告之完整的路径名。所以，此时若使用 register 来储存档名，就只需要给予register的名称即可。至於， 冗长的全称就交给 register去处理了。以下就是以 register 存档案的方法：
+1.	使用 register 来储存档名与储存游标位置，最大的 不同点在於，以register
+来储存档名必需借助 " .emacs" 档。 因为以r egister 来储存档案名称，必
+需借由," e macs" 来设定。
+2.	以 register 来储存档案名称的实际执行步骤如下：
+
+1.	设定 " .emacs" 的方法
+2.	在 " .emacs" 档中以、' set -re gister" 函式 ，将 register 的名称以及其所储存的档名设定清础。以下的例子就是将 " chap7.tex" 的档名，放於 名 为 闷 ＂ 的 register 时 ，、 、.emacs" 档 的 设 定 方 法 。 (set­ register ?a'(file. "\~/repor t/ernacs/basic/cha p7.tex"))
+3.	当档案名称的设定已在 " .emacs" 档中完成俊，必需离开 EMACS , 再重新进入 EMACS 一次。因为只有重新执行EMACS ,	修改过的" .emacs" 档才有机会被重新执行。 重新执行过的 EMACS ,就可以
+、' Ctrl-x r rj " 将档案从 register r 中拿出来使用。 以下就是使用
+register r 的方法：
+4.
+1.	键入 " Ctrl -x r j RET ",	echo area 会出现
+2.	、 ' J u mp to register:" 。
+3.	待｀、J ump to register:" 的讯息出现时，即可输入己设定好
+4.	register 名称。以上例为例，若输入" a飞	则视窗会出现
+cha p7.tex的文件内容。
+•	register 中储存文件的方法
+储存於 register 的文件可以有二种：一种为线性的文件	( linear text) ,  另一种为长方形的文件 ( rectangle text)  。 所以有此区分，原於使用 register 储存文件，需先将所要储存的文件做上标记，再根据标记放於register 中。 线性文件与长方形文件在标记上是一样的，要区分二者的差异 只能仰赖使用时的指令了。想进一步了解长方形区域，请参考 5.4节 " MoveText and Copy Text" 有关长方形部份。以下就讨论二者的用法。
+o 线性文件的 register 设定方法如下：
+
+1.	将要放入 register 的线性文件做好标记。
+2.	设定标记的详细方法，请参考5.3 节。现略做题示， 使用 Ctrl-@ 或
+Ctrl-SPC 做为线性文件的起始点， 以游标所在的位置为终点。
+3.	使用指令" Ctrl-x rs r飞 将所设定好的线性文件
+4.	放入 registerr 中。
+5.	欲使用 register	中的资料时，可以指令
+6.	、、Ctrl-x r i r" 将存放於r 中的资料取出使用。
+
+以上所设定的 register 有一特性，就是离开EMACS 俊所有的设定 也成为历史。想将 register 内容保留的方法，是将设定写在" .emacs" 中，如下是
+ 
+以 registe、r 、a" 储存 register文件， 以及以 registe、r
+ 
+了＇储存｀｀。“资料的
+ 
+设定法： (set-register ?a "register") (set-register?. "。")
+
+o 长方形文件的 register 表示法：
+
+1.	将要放入 register 的长方形文件做好标记。设定标记的
+2.	方法以及所谓长方形文件的定义，请参考第五章第三节及第四节。
+3.	使用指令、、Ctrl-x r r r飞 将所设定好的线性文件
+4.	放入 registerr 中。
+ 
+5.	使用 register r 中的资料时，可以指令
+6.	、、Ctrl-x r i r" 将存放於 r 中的资料取出使用。
+
+放於  register 中的文件，不论是线性文件或长方形文件，将其拿出使用的指令都是一样的。不一样处在於放入register 时的差异。会有差异是不难理解的，因为二者在处理标记的过程是一样， 只有靠存入 register 时，以不同的指令来加以区别。
+
+谈完了 register , 接下来介绍 bookmark 。 bookmark 的一些基本概念，已在前面略做介绍了，现在就进一步详述它。bookmark与  register 在记录游标位置的功能是一样的， 但在对 register 的命名方面二者就显得有差异了。 bookmark 的命名可以由一个以上的字元组成。换言之，它可以有一个较长的名字， 但r egister 就只能由一个字元来命名。而且以 bookmark 设定的资料，可永久储存起来，即使离开EMACS ,
+bookmark 的资料也不会就此消失。所以想要永久保存的资料，只有借重 bookmark
+了。 以下就是 bookmark的使用方法。
+
+1. 以｀、Ctrl-x rm bookmark " 指令，将游标所在的
+2		位置做上记号 (mark) ,  此记号就称为 bookmark。 当第一次使用" Ctrl-x rm" 指令时， echo area 会出现 " Set bookmark (visited-filename) :"的讯息。此时， 若不输入任何字元只键入 RET ,   系统会以所访问的档名做为bookmark  的名 称。若输入其它的字串，则 bookmark 就以此字串命名之。
+3.	以"	Ctrl-x r b bookmark RET" 指令，来移动游标的位置。
+4.	键入、、Ctrl-x r b" 时， echo area 会出现
+
+"Jump to bookmark (bookmark-name):",
+
+括号内的名称为系统的预设值。若所给予的预设值不是心中所爱， 可以在、 ：＇之俊输入想要的 bookmark 名称。
+
+资料以 bookmark 的方式储存时，使用者若不另行指定 储存的档名，系统会将有的讯息存入一个名为' ' ~/.emacs-bkmr ks''\index.emacs恤 bkmrks 的档案中。 接下来，讨论一个使 EMACS 的编辑功能更强化的议题- Fixing Typos 。
+
+
+文字的勘误
+
+EMACS 所提供的这项功能，并不是内建於	EMACS的。 EMACS只是提供使用
+UNI X 拼字工具的介面 ，使用者可以借由此一介面， 使用 UNIX 的拼字工具 。 UNIX 环境，较常使用的拼字检查工具程式 (spelling checker program)有 spell 与 ispell。二者又以 ispell 较为方便好用。虽然如此，并不是所有的 UNIX 系统都 提供有 ispell 与spe ll 等工具程式。使用者可以 " which" 、、、find" 等指令，在 shell 下查阅 UNIX 系统所提供的工具为何。 不清楚如何使用 which 或 find 等指令的使用者， 请查看
+man page 。
+
+EMACS 提供的拼字检查介面，是针对 ispell 的使用法 为主。透过 EMACS 的介面， 使用者可使用 UNIX 系统所安装的 ispell。若系统没有安装 ispell, 可以 ftp到适当的地方得取。 (Ispell is available via anonymous ftp from ftp.cs.ucla.edu in the
+directory /pub/ispell.)
+ispell除了会自动侦察文件的拼字错误外，还提供可能修改的讯息，供使用者参考。
+ispell 的除错范围 ，可以侦察 一个字，也可以侦察一个区域或整个的缓冲区。 使用
+ispell时，程式会根据所检查的内容做出适当的回应。 如果检查无误， echo area 会出
+ 
+现无误的讯息。如果所检查的字有误，  ispell  会另开一个视窗，将所有可能的勘误组合显示出来，以利使用者做评估。若在显示的视窗找到合适的取代文字， 可直接键入文字的编号来完成勘误的程序。
+ispell 使用了两种不同的字典，一种是由 ispell 所提供的标准字典(standard
+dictionary)。另一种是使用者自己建构的私有字典 ( private dictionary) 。标准字典是系统所提供的； 使用者字典是在编辑文件时，因需要而随时加入的。当标准字典无法找到的字，使用者可随时将新增的字加入私有字典中。系统所使用的标准字典，可依使用者的需要来指定。当然，若不指定标准字典， 系统会使用预定的字典。若想改变预定的字典，可使用如下的指令来设定：
+
+ESC-x ispell-change-dictionary
+
+若想查阅所使用的标准字典为何，可查阅变数" ispell呻 dictionary'' 来得到相关讯息。如下是笔者以、' Ctrl-h v" 指令查阅此变数 所得的结果。若已淡忘变数的查询，请参考
+4.4	节 。 ispell-dictionary's value is nil Documentation: If non-nil, a dictionar y to use instead of the default one. This is passed to the ispell process using the "-d" switch and is used as key in ispell-dictionary-alist (which see). You should set this variable before your first call to ispell (e.g. in your .emacs), or use the M-x ispell-change衄 dictionar y command to change it, as changing this variable only take s effect in a newly sta rted ispell process. 现在就讨论 ispell 的使用方法。
+
+一般文件使用{ ispell 检查错误所使用的指令， 可依所检查的范围分成如下三种：
+o	检查「字」的 ispell指令如下： o ESC-\$
+o	检查「区域」 ( region) 的 ispell 指令如下：
+o	ESC-x ispell-region\index{ESC-x ispell-region 使用区域的检查以前，要先将区域的范围界定清础，再使用此指令来做区域的检查。
+o	检查「缓冲区」( buffer) 的 ispell 指令如下：
+o	ESC-x ispell-buffer 检查整个缓冲区内的文字内容。信件中使用 ispell 检查错误的指令
+•	ESC-x ispell-message
+以 ispell 检查文字内容时， echo area 会有回应
+．的讯息出现。若有错误发生时，会另开一个视窗，将所有的修改 可能显示出来。如何使用 ispell 来修改错误，就是现在 的话题了。
+o	若检查的范围只是一个字时，此时，所检查的字若正确无误，
+o echo area 会出现
+
+word is correct
+
+o	若 ispell 认为所检查的英文字有误时，会另开视窗，
+o	将 ispell 认为可能的正确字列举出来。使用者可参照所显示的字，来做出合适的回应。回应的方式如下：
+■	SPC
+．保留现状而不更改错误，但将游标移至下一个发生错误的地方。
+■	digit
+当有错误出现时， ispell 会将可能的正确字一一编上号码，供使用者参考。 若所显示的字就是所要更改的字，此时只要键入编号，缓冲区的错误即可获得修正。 例如，检查 dictionory 这个字是否的正确时，视窗上会出现"	(O) dictio nary "的提示，此时若想修改错误的
+字，只需键入提示的数字'  O' 即可。
+■	rnew RET
+ 
+．将目前找到的错字以新字new 取而代之。文章中其它地方 若有相同的错误，不会因此而有变动。
+■	Rnew RET
+除了将目前出错的地方修正外，同时还进行" query-replace" 的 动作，将所有相同错误的地方也一并修正。
+•	a
+．将找出来的错误，将错就错视为是正确的。此错误适合所有目前此
+EMACS 下的所有缓冲区，但离	/i> EMACS悛就恢复原状， 错还是错。
+•	A
+大写的 " A" 与前一个小写的 " a" , 唯一差别的地方就是， 将错就错的地方，只适用於目前所使用的这一个缓冲区。
+■	I
+■	ispell 所使用的字典有二种，一种是标准字典，另一种 是使用者自行订定的私有字典。将标准字典中所没有的字加入私有字典中就是靠指令、、i" 了。 ispell 在检查字的正确与否时，是根据标准字典来判断对错。 此标准字典对於专有术语的搜集，并不是很周延。为了弥补此缺失， 私有字典就应运而生了。使用者可将标准字典中没有的字， 加入私有字典中，使这些原本被视为「错」的字得以正名。 当 ispell 检查出「错字」时，键入 " i "  ,   就可将此错字纳入私有字典中，而成为「正确」的字。。从此若再出现此字时， ispell 就会将其视为「正确」的字。纵使离开 EMACS 俊再进入 EMACS, 此字也会是「正 确」的字。 若想使新字加入私有字典时， echo area 能将加入的新字回应出来，则必需使用" m" 指令， 而非汀”指令。
+
+以上所谈的是透过EMACS 所提供的介面，使用 UNI X 的拼字检查的 工具
+( ispell)  。如果所使用的系统无法提供此工具软体时， 请以 ftp 取得软体梭再自行装置 ispell。否则，就算 EMACS 提供了使用 ispell 的介面，也是无济於事的。 除了以上所谈的以软体来修正错误外，还有其它的方法可以修正所发生的错误，详述如  下：
+
+．•  Transposing Text
+o	Ctrl-t (transpose-chars)
+o	游标前梭两个字元 ( char acter ) 互调。
+o	ESC-t (transpose-words)
+o	游标前俊两个字 ( word ) 互调。但两个中间的标点符号 (punctuation) 则不会移动。例如， tr ansposing,text 则互换成 text,transposing 而不是text transposing, o
+o	Ctrl-x Ctrl-t (transpose-lines)	前俊两列互换。将游标所在的列与其上一
+列互换。
+．•   Case Conversion
+o	ESC-1
+o	将一个字 的字元改成小写的字元 。键入指令 ESC-1会将游标所在 处之俊的所有字元换成小写的字元，其范围只限於游标所在处的那一个字。
+o	ESC-u
+o	将一个字的字元改成大写的字元。键入指令 ESC-1 会将游标所在处之俊的所有字元换成大写的字元，其范围只限於游标所在处的那一个字。
+o	ESC-c
+o	将游标所在处的字元换成大写的字元( capital ) ,  所以如果要使一个字以大写为开始可以使用此指令。
+ 
+接下来所要讨论的议题是，如何使用 EMACS 的编辑器来绘制简单的图形。图形的编辑
+EMACS   的绘图模式所能提供的绘图功能并不多，它只予许以键盘上出现的字元，来构思图形，也就是只能以 ASCII 的字元， 来编辑所要的图形。EMACS 的图形模式可以与任何其它的模式 一起搭配使用。所以，只要有编辑图形的需要，都可以切换至 图形模式，将所要的图形编辑出来。
+
+EMACS   的绘图功能，主要是由八个控制游标移动方向的指令来完成。这八个方向也是EMACS构图的主体， 它们依序是，东、南、西、北、东南、西南、西北以及东
+北。 虽然可以设定八种游标移动的方向，但一次只能设定一个方向， 若想使游标移动的方向改变，必需重新设定游标移动的方向。 设定这八个游标移动方向的指令分别
+是：
+东 ： Ctrl-c > ( picture-movement-right ) 西： Ctrl心 <	( picture-movement-left) 南 ： Ctrl-c . ( picture-movement-down ) 北 ： Ctrl-c A	( picture-movement-up)
+东南： Ctrl-c \ ( picture-movement-Se )
+
+西 南 ： Ctrl-c / (picture-movement-sw)
+．东 北 ： Ctrl-c ' ( picture-movem ent-ne)
+．西北：  Ctrl-、c	( picture-movement-ow )
+
+这八个指令似乎颇为复杂，但如配合图形的解释，就可了这八个指令的由来。因为，  每个指令的表示法与所要表达的方向有著密切关系。 北(rignt) C-cA • 西北(nw) . 东北
+(ne) C、-c   . C-c'......... …C-c< ……………….C-c > 西(left) …东(right) .........C-c/.
+C-c\	(sw) .东南(se ) . C-c.南(down)从以上的图示，不知能否看出这八个控制方向
+的指令与所表达的方向有著密不可分的关连性。例如，往东的方向则以  「＞」来表示， 往西的方向则以 「＜」，往北的方向则以 「＾」 来 表示等等。 基本上，从使用的指令就可知道所代表的方向为何。当然，其原意  并不是要以指令来猜方向，而是用方向来诠释指令。所以，只要掌握西南方的方向，就知道使用 「／」	来 表示。
+
+图形模式可以在编辑的过程中随时使用的。使用图形模式的  方法很简单，只要将其唤起即可。唤起图形模式的方法是： "	ESC-x edit-picture" 。 当进入图形模式俊， mode line 会将使用图形模式的讯息 显示出来。进入图形模式俊，也可以随时离开此模式，而回到 唤起此模式前的状态。回到先前模式的方法是、' Ctrl-c Ctrl-c 。
+进入图形模式俊，就可利用设定游标移动方向的八个指令， 来控制输入字元出现的方向，而绘制出合适的图样。当选定了游标的移动方向悛， mode line 会将游标移动的方向显示出来。 此时，键入任何一个键盘上的字元，字元会依照所设定的方向出现在萤幕上。
+图形模式所采用的是覆盖模式，这是有其道理的。绘图就是  要在特定的地方绘上所欲的图样，如果使用插入的模式，就会破坏整体  的设计。所以，使用覆盖模式是较合理的安排。
+图形模式除了设定游标移动方向的指令外，还有其它的指令 是针对编辑功能面设。例
+ 
+如，字或列的删减，空白列的增加等等， 都是在绘图时，不可或缺的编辑指令。现在就来讨论与绘图有关的编辑指令。绘图的编辑指令与一般编辑的指令大同小异， 为了避免将一般的编辑指令与绘图时所使用的编辑指令混淆， 现将二者的差异整理列举如下：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+之
+
+
+
+
+
+
+
+
+
+
+
+ 
+一＾ 一， 晕 I       I     麟令彝、.       . L. I   一 一	I         A       、,	-·-身	·、、	I	I >
+ 
+-、- >  ,_真. _LJ 勹，＿	矗	I 急  、-	鲁 ..1..	宦	I   -
+ 
+用来编辑区块文件，面图形模式的编辑，从某个角度来看，就是区块的组合。所以， 长方形编辑的运作，就可用在图形模式的剪贴上。因此，任何可以使用在长方形编辑的指令，都可用在图形模式中。不熟悉长方形的编辑者， 可参考本文的 5.4 节。
+图形模式除了可使用长方形编辑的指令外，图形模式本身，也提供了适用於此模式的专门指令。现就一一为各位介绍。
+可利用的长方形编辑指令，如下：
+
+o	Ctrl-x rd (delete-rectangle)
+o	删除设定好的长方形区块内的文件，经删除悛的文件无法再将其 yank 出来。除非是执行 undo 的指令。
+o	Ctrl-x r k (kill-rectangle)
+o	与图形模式"	Ctr l-c Ctrl-k" 的作用相同。
+o	Ctrl-x r y ( yank-rectangle)
+o	与图形模式"	Ctrl-c Ctrl-y" 的作用相同。
+o	Ctrl-x r o (open-rectangle)
+o	在设定好的长方形区块内，插入空白俊使文件向右移动。
+o	Ctrl-x r r r (copy-rectangle-to-register)
+o	将设定好范围的区块资料，存入 register中， 此时区块内的资料并不会消
+ 
+失。
+o	Ctrl-x r i r (insert-register)
+o	将存入 register中的资料取出。o ESC呻 x clear晒 rectan gle
+o	将设定好的长方形区块内的文件以空白取代。
+o	ESC-x string-rectangle RET string RET
+o	设定好的长方形区块插入新的字串 ( string ) 。此时的区块只决定加入新字串的长度，宽度则由所给予的字串长度来决定。原来区块内的文件会向右移动。
+．图形模式自行开发的编辑指令，如下：
+
+o	Ctrl-c Ctrl-k (picture-clear-rectangle)
+o	长方形指令"	Ctrl-x r k" 与此指令具有相同的效果。 此指令经常被使用， 所以将长方形的指令予以精简，使其在图形模式中更易於被使用
+o	CtrJ-c CtrJ-y ( picture-yank-r ectangle)长方形指令、、CtrJ-x r y" 与此指令具有相同的效果。此指令经常被使用，所以将长方形的指令予以精简，使其在图形模式中更易於被使用。
+o	Ctrl 鲍 c CtrJ-w r (picture-clear-rectangle-to-register)
+o	将区块内的资料存入register中。此时区块内的资料会以空白   取代，这是与长方形指令、、CtrJ-x r r r 最大不同	之处。
+o	CtrJ-c CtrJ-x r  (picture-yank-rectangle-from-register)	将存入 registerr
+中的资料取出。
+
+长方形指令的使用在图形模式中非常有用。因为，图形的构成就是一块块的区域。所以善用长方形指令会使图形的编辑更加灵活。
+
+
+
+回主选单
+ 
+中文编辑环境
+
+以上所谈的种种，都较适合英文的编辑环境，现在来讨论一个适用於中文编辑的环境。在
+EMACS 下可使用的中文环境有二种，一个就是 EMACS 本身，另一个是EMACS 的姐妹品-	Mule。现在就开始讨论这二个中文的编辑环境。
+
+
+
+Emacs 下的中文编辑 .emacs 档的设定
+
+在 EMACS 的环境下要使用中文，必需先做些设定	。因为，中文内码是使用8 位元位元组，所以必需将系统所使用之位元组型式设为 8 位元，才可以在中文环境下使用 EM ACS
+。设定系统使其适合使用中文的环境，必需视所使用的作业系统与所使用的 Shell 的 scr ipt
+file 有关，现简述如下：
+
+．若使用 C Shell厅C Shell 时， .csbrc 的设定方式又因所用的
+•	UNIX 作业系统不同可分为如下二种方式，
+o	使用 Sun OS 作业系统的设定
+o setenv LC_CTYPE IS0 _8859_1
+o	使用 HP-UX 作业系统的设定
+o setenv LC_CTYPE american.iso8859 1
+o	在萤幕上显示 8 位元的中文时，设定 8 位元的方式如下：
+o stty cs8 -istrip - parenb
+．若使用 Bourne Shell/Ko rn Shell 时， .profile 的设定方式 又因所用的 UNIX 作业系统不同可分为如下二种方式，
+o	使用 Sun So,Ja i s 作 业系 统的 设定
+o	LC_CTYPE=IS0 _8859_1 export LC_CTYPE
+o	使用 HP-UX 作业系统的设定
+o	LC_CTYPE=american.iso88591 expor t LC_CTYPE
+o	在萤幕上显示 8 位元的中文时，设定 8 位元的方式如下：
+o stty cs8 -istrip - parenb
+
+除了以上针对 Shell 的 script file 的设定外，要在 EMACS 的环境输入与显示中文尚必摇在 EMACS 的起始档｀、.e macs" 中加入
+如下的设定
+(set-input-mode (car (curre nt-inpu t-mode)) (nth I (cu rrent-input-mode))
+0)
+(standard-display-8bit 160 255)
+虽然经由这些设定，可以使 EMACS 在中文的环境下使用，
+但其处理方式还是以英文的模式来处理中文。换言之，就是将二个
+byte 所组成的中文字，依然视为二个 byte 的英文字来处理。这种处理方式，自然有其不便之处。例如，在处理换列时就会
+遇到一些问题。因为 EMACS 将中文视为是二个 byte 的字元共同组合而成。所以，当一列只剩下一个 byte 时， EMACS 会将中文切割
+成二个独立的 byte分别处理之。此时中文字的第一个 byte会在
+此列的最俊一个栏位，而下一列的第一个栏位则出现此字的第二个 byte  。所以，在 EMACS 的环境下中文字很容易被切割，而不知其为何物。
+因为 EMACS 处理中文的方式与处理英文无异，所以删除一个中文字，等於删除二个 byte 的字元 ( character) 。换言之， 一个中文字若使用删除字元的指令	( Ct rl-d )  来删除，必需使用两次的	Ctrl-d 才能将一个中文字删除。
+ 
+因为 EMACS 在处理这些七位元之外的字型有其基本上
+的问题，所以就有 Mule 的诞生。以下就介绍 Mule 的使用法。
+
+
+中文化的 EMACS -	Mule
+
+Mule是 "The MULtilingual Enhancement of GNU Emacs"  的简称，它是针对非英语系国家的使用者而设计的 EMACS。 对中文的使用者有很大的助益。 要使 EMACS 能真正的中文化，最好的方法就是安装 Mule。目前最新的 Mule 版本是 Mule 2.0 版 (1994 年 8 月 6
+日）。 Mule 的设计是以EMACS 为基础。至於 EMACS 的启始档案 一 " emacs飞 也就是
+Mule 的启始档案。换言之，使用Mule 不需在 " .emacs" 档中做任何的设定。所以 Mule 可将 EMACS 的' ' .e macs'' 档做为其启始档。若无特殊需求，也可不使用 " .emacs" 档。想要取得 Mule 的软体，可以、' anonymous ftp'' 至以下几个地方取得：
+
+etlport.etl.go.jp (192.31.197.99]: /pub/mule
+
+ftp.mei.co.jp (132.182.49.2]: /public/free/gnu/emacs/mule sh.wide.ad.jp (133.4.11.11]: /JAPAN/mule/mule-1.0 ftp.funet.fi (128.214.6.100]: /pub/gnu/emacs/mule cs.huji.ac.il (132.65.16.10]: /pub/gnu /mule
+前已述及 Mule 是｀、MULt ilingual Enhancement to GNU Emacs" 。 它不只处理七位元 ( 7 bits ) 的 ASCII 字 型 ( ASCII Characters)	以及 ISO Latin-1 的八位元字型 ( Shits) 。它更能处理日文、中文 ( GB、BigS)  、韩文 C16  bits ,  1S02022标准）、泰文  CTIS620	) 以 及
+越文	( VISCJI 及 VSCII ) 。目前适合吾人使用的繁体中文系统是以 BIG-5为主。 Mule 有如此多的语文可供使用，所以在一个文字档案中，使用者可以混合使用这些不同的语言。使用这些语文，只需借由Mule所提供的输入法，将各种不同的文字输入即可。如果是在terminal emulator 下使用 Mule ( 如 cxterm、exterm 或 kterm) ,  可使用此 emulator 所提供的输入方法。其实使用 Mule 的方法与使用EMACS 的方法是一样的， EMACS 的指令在 Mule 中都可以使用。二者最大的差别，就是 Mule 加入了输入法的使用。欲在 EMACS 的环境下使用中文，首先要起动中文系统（例如倚天中文系统），而输入法就是使用中文系统所提供的输入法了。使用 Mule 时也是先起动中文系统（此处仍是以text-only的终端机为讨论的重点，若使用中文的 X-window则不需先行启动中文 系统）。，但中文的输入法，则由
+Mule来提供。换言之，  Mule 有自己的中文输入法。现在就来讨论如何使用Mule 的输入法。 要在 Mule 中可以方便的使用输入法，最好将如下的资料加入 " .emacs" 档中。 (set­ default-file-coding-system*bigS*) (set-display-coding-system *bigS*) (set-file-coding-system­ for-read *bigS*) (quail-mode 1) (quail-use-package "zozy") 以上的资料会在使用 Emacs 时产生错误的讯息，解决的办法是将以下的资料加入% " .emacs" 档中。 (cond ((boundp'mule­ version) ;; 给  mule 用的设定区 ；m；ule 设定开始 (set-default-file-coding-system *bigS*)(set­ display-coding-system *bigS*) (set-file-coding-system-for-read *bigS*)(quail-mode 1) (quail­ use-package "zozy") ;; mule 设定结束）；；给emacs用的设定区 ( t ;; emacs 设定开始 (set­ input-mode (car (current-input-mode)) (nth 1 (current-input-mode)) 0) (standard-display-Shit 160 255)) ;; emacs 设定结束 ）Mule 所提供适合中文使用的输入法有，仓颉、注音、拼音、倚天注音以及标点符号等五种。使用这些输入法的方式如下：
+
+ 
+1.	Ctr l-x - Ctrl-k - Shift-m RET
+2.	连续键入、、Ctrl-x" " Ctrl-k、"
+ 
+
+、Shift-m" 三个指令俊，按下 RET,	echo area 会出现
+ 
+QuaiJ Package:	此时就可键入所要使用的输入法。
+3.	输入法的名称如下所示：
+4.
+o	仓颉：cj
+o	注音：zozy
+o	拼音： pinyin
+o	倚天注音：etzy
+o	标点符号：punct-bS
+
+要使用任何一种输入法，只要在echo area 处的 "Quail Package:" 俊，键入所欲使用的输入法的名称即可。
+
+5.	Ctrl-] (self-insert-command)
+6.	在任何一种的输入法的状态下，都可切换至英文的状态下。 只要键入、、Ctrl-]" 就可使中英文互换。
+
+Mule 对使用中文的人来说，可说是中文化的 EMACS ,  而 Mule
+的诞生，确实给予中文的编辑者很大的方便。Mule    的使用方法，
+除了输入法与 EMACS 略有不同之外，其它与 EMACS一样。所以， 已熟悉 EMACS 的人，使用	Mule可说是易如反掌。如果只安装 Mule 而无安装 EMACS 的系统，想 要使用 EMACS , 只要进入 Mule 俊
+一直维持英文的状态就与使用 EMACS 一样了。
+
+EMACS的入门手册介绍到此，已可暂告一段落。
+这并不意谓著EMACS的介绍已经穷尽了。其实，有关 EMACS 的话题还有许多，这里只是环绕在编辑的层面略作解说。
+
+
+
+回主选单
+ 
+Conclusion
+
+Emacs 入门简介到此已近尾声了，希望读者能有所获。不论是从此开始使用Emacs 或从此不再使用 Emacs, 都是一种收获。撰写这本手册除了要介绍如何使用Emacs 外，更希望读者能从中得知 Emacs能解决何种问题。毕竟问题得以解决才是大家关切的重点。当然
+Emacs能解决的问题，其它的软体或许也能提供相同的解答 。那度使用Emacs的理由是否就变得薄弱了呢？其实，天生我材必有用，重点在於要适材而用。如果只是为了编辑一个简短的档案而且只从事一次的编辑，就不一定非锺情於 Emacs不可。 如果在编档的同时又想从事编译的工作，在工作的同时还要兼顾信件的收发，这时候选择  Emacs ,   就是个良策。因为    Emacs本身就是一个整合的环境，它对於需要整合性的工作，非常的有助益。许多使用过 Emacs 的人，都觉得 Emacs 的指令太过於复杂而使人却步。关於这一点笔者从不反驳，但是对於Emacs的了解不能有因喳而废食的反应。毕竟，指令只是用来实践软体的工    具而已，软体的本质才是要费神研究的重心。所以在使用   Emacs 的时候，不要因它五花八门的指令而怯步，希望读者能多留意Emacs所能解决的问题。只有如此，才能见到它的真  谛。至於   Emacs  能做那些事，在前文中或多或少已经介绍过了，读者可以自行研判它是否可以解决问题。当然，有些 Emacs能做  的事在文中并未论及，除了限於篇幅外，还因为本文一直环绕在编辑器的层面。所以，对於一些程式的编撰与除错的问题就略过不提。对於
+Emacs 巨集指令的安排，也因为超过 「入门」太远也暂时将其放下。这些未曾提及的主题， 并不是意味著它们不重要。而是因为不适合於此时此地出现。文章结束前再一次的强调
+Emacs 是以编辑为基石，而以发展整合性的作业系统为志业的软体。所以，只要进入了
+Emacs 的工作环境，就理应可以在其中完成所有的工作。离开  Emacs  的环境就是离开电脑 工作的时候。最俊，如果各位在看完此手册，觉得心动者，请就开始行动吧。只有勤加使用它，才会越发觉得它的好用。开始时的不顺，是必然的现象。开始动手吧。如果仍不知从何开始的使用者，请先进入 Emacs俊，使用它的线上辅助说明吧！任何时候请不要忘记
+、、Ctrl-h", 只要知道使用、｀Ctrl -h" 那使用 Emacs 就有希望了。
+
+
+回主选单
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+1芦	clilierenL.
+
+
+
+
+P o wered by xiaoguo 's publishing st ud io
+QQ:8204136

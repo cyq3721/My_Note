@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<!-- 2025-12-07 Sun 10:55 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Manjaro Linux 日常记录</title>
+<meta name="author" content="cyq" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Manjaro Linux 日常记录</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org44489b9">1. 一些命令</a>
+<ul>
+<li><a href="#org5110331">1.1. screenfetch命令</a></li>
+</ul>
+</li>
+<li><a href="#org966df84">2. 更新国内源</a>
+<ul>
+<li><a href="#org13a2a37">2.1. 测试国内镜像源，测试完之后会在一个指定的文件中生成镜像列表</a></li>
+<li><a href="#orge173509">2.2. 设置archlinuxcn源</a></li>
+<li><a href="#orgc7d6478">2.3. 更新源列表</a></li>
+<li><a href="#org0576989">2.4. 更新pacman数据库并全面更新系统</a></li>
+</ul>
+</li>
+<li><a href="#org1e0d66a">3. 配置中文输入法（fcitx-5 rime）</a>
+<ul>
+<li><a href="#org9582389">3.1. 安装fcitx5（输入法框架）</a></li>
+<li><a href="#org7a8eb9c">3.2. 配置fcitx5的环境变量(~/.pam<sub>environment</sub>)</a></li>
+<li><a href="#orgb06910c">3.3. 安装rime（输入法引擎）</a></li>
+<li><a href="#org5feecf3">3.4. 安装输入方案（rime-cloverpinyin）</a></li>
+<li><a href="#orga7984ff">3.5. 安装中文维基字库</a></li>
+</ul>
+</li>
+<li><a href="#org066f889">4. pacman命令详解</a>
+<ul>
+<li><a href="#org8770988">4.1. 简介</a></li>
+<li><a href="#orgfaa97e9">4.2. 安装软件包</a></li>
+<li><a href="#orga6ba940">4.3. 删除软件包</a></li>
+<li><a href="#orgf94b318">4.4. 升级系统</a></li>
+<li><a href="#org6b998d9">4.5. 查询包数据库</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org44489b9" class="outline-2">
+<h2 id="org44489b9"><span class="section-number-2">1.</span> 一些命令</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org5110331" class="outline-3">
+<h3 id="org5110331"><span class="section-number-3">1.1.</span> screenfetch命令</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+显示manjaro的详细系统信息
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org966df84" class="outline-2">
+<h2 id="org966df84"><span class="section-number-2">2.</span> 更新国内源</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org13a2a37" class="outline-3">
+<h3 id="org13a2a37"><span class="section-number-3">2.1.</span> 测试国内镜像源，测试完之后会在一个指定的文件中生成镜像列表</h3>
+<div class="outline-text-3" id="text-2-1">
+<blockquote>
+<p>
+sudo pacman-mirrors -i -c China -m rank
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orge173509" class="outline-3">
+<h3 id="orge173509"><span class="section-number-3">2.2.</span> 设置archlinuxcn源</h3>
+<div class="outline-text-3" id="text-2-2">
+<blockquote>
+<p>
+sudo nano /etc/pacman.conf
+##在文件末尾添加以下内容
+[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Server = <a href="https://mirrors.ustc.edu.cn/archlinuxcn/$arch">https://mirrors.ustc.edu.cn/archlinuxcn/$arch</a>
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgc7d6478" class="outline-3">
+<h3 id="orgc7d6478"><span class="section-number-3">2.3.</span> 更新源列表</h3>
+<div class="outline-text-3" id="text-2-3">
+<blockquote>
+<p>
+sudo pacman-mirrors -g
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org0576989" class="outline-3">
+<h3 id="org0576989"><span class="section-number-3">2.4.</span> 更新pacman数据库并全面更新系统</h3>
+<div class="outline-text-3" id="text-2-4">
+<blockquote>
+<p>
+sudo pacman -Syyu
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="outline-container-org1e0d66a" class="outline-2">
+<h2 id="org1e0d66a"><span class="section-number-2">3.</span> 配置中文输入法（fcitx-5 rime）</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org9582389" class="outline-3">
+<h3 id="org9582389"><span class="section-number-3">3.1.</span> 安装fcitx5（输入法框架）</h3>
+<div class="outline-text-3" id="text-3-1">
+<blockquote>
+<p>
+yay -S fcitx5-im
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org7a8eb9c" class="outline-3">
+<h3 id="org7a8eb9c"><span class="section-number-3">3.2.</span> 配置fcitx5的环境变量(~/.pam<sub>environment</sub>)</h3>
+<div class="outline-text-3" id="text-3-2">
+<ul class="org-ul">
+<li>建立配置文件</li>
+</ul>
+<blockquote>
+<p>
+emacs ~/.pam<sub>environment</sub>
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>文件内容</li>
+</ul>
+<blockquote>
+<p>
+GTK<sub>IM</sub><sub>MODULE</sub> DEFAULT=fcitx
+QT<sub>IM</sub><sub>MODULE</sub>  DEFAULT=fcitx
+XMODIFIERS    DEFAULT=\@im=fcitx
+SDL<sub>IM</sub><sub>MODULE</sub> DEFAULT=fcitx
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgb06910c" class="outline-3">
+<h3 id="orgb06910c"><span class="section-number-3">3.3.</span> 安装rime（输入法引擎）</h3>
+<div class="outline-text-3" id="text-3-3">
+<blockquote>
+<p>
+yay -S fcitx5-rime
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org5feecf3" class="outline-3">
+<h3 id="org5feecf3"><span class="section-number-3">3.4.</span> 安装输入方案（rime-cloverpinyin）</h3>
+<div class="outline-text-3" id="text-3-4">
+<blockquote>
+<p>
+yay -S rime-cloverpinyin
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orga7984ff" class="outline-3">
+<h3 id="orga7984ff"><span class="section-number-3">3.5.</span> 安装中文维基字库</h3>
+<div class="outline-text-3" id="text-3-5">
+<blockquote>
+<p>
+yay -S fcitx5-pinyin-zhwiki-rime
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="outline-container-org066f889" class="outline-2">
+<h2 id="org066f889"><span class="section-number-2">4.</span> pacman命令详解</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org8770988" class="outline-3">
+<h3 id="org8770988"><span class="section-number-3">4.1.</span> 简介</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Pacman 是一个软件包管理器，作为ArchLinux发行版的一部分。简单来说，就是和apt-get之于Ubuntu一样，pacman就是Arch的apt-get。要想轻松玩转Arch，学会pacman是必需的。
+</p>
+
+<p>
+Pacman包管理器是ArchLinux的一大亮点。它汲取了其他Linux版本软件管理的优点，譬如Debian的APT机制、Redhat的 Yum机制、 Suse的Yast等，对于安装软件提供了无与伦比的方便。另外由于ArchLinux是一个针对i686架构优化的发行版，因此对于软件的效率提高也有一定的帮助。pacman可以说是ArchLinux的基础，因为ArchLinux默认安装非常少的软件，其他软件都是使用pacman通过网络来安装的。它将一个简单的二进制包格式和易用的构建系统结合了起来。Pacman使得简单的管理与自定义软件包成为了可能，而不论他们来自于官方的Arch软件库或是用户自己创建的。Pacman可以通过和主服务器同步包列表来进行系统更新，这使得注重安全的系统管理员的维护工作成为轻而易举的事情。
+</p>
+
+<p>
+要完全了解pacman可以做什么，请阅读man pacman。以下只是一些pacman的简单
+操作实例。
+</p>
+</div>
+</div>
+<div id="outline-container-orgfaa97e9" class="outline-3">
+<h3 id="orgfaa97e9"><span class="section-number-3">4.2.</span> 安装软件包</h3>
+<div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li>安装或者升级单个软件包，或者一列软件包（包含依赖包），使用如下命令：</li>
+</ul>
+<blockquote>
+<p>
+pacman -S package<sub>name1</sub> package<sub>name2</sub>
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>有时候在不同的软件仓库中，一个软件包有多个版本（比如extra和testing）。
+你可以选择一个来安装：</li>
+</ul>
+<blockquote>
+<p>
+pacman -S extra/package<sub>name</sub>
+pacman -S testing/package<sub>name</sub>
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orga6ba940" class="outline-3">
+<h3 id="orga6ba940"><span class="section-number-3">4.3.</span> 删除软件包</h3>
+<div class="outline-text-3" id="text-4-3">
+<ul class="org-ul">
+<li>删除单个软件包，保留其全部已经安装的依赖关系</li>
+</ul>
+<blockquote>
+<p>
+pacman -R package<sub>name</sub>
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>删除指定软件包，及其所有没有被其他已安装软件包使用的依赖关系：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Rs package<sub>name</sub>
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>缺省的，pacman会备份被删除程序的配置文件，将它们加上*.pacsave扩展名。如果你在删除软件包时要同时删除相应的配置文件（这种行为在基于Debian的系统中称为清除purging），你可是使用命令：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Rn package<sub>name</sub>
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>当然，它也可以加上-s参数来删除当前无用的依赖。这样的话，真正删除一个软
+件包、它的配置文件以及所有不再需要的依赖的命令如下：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Rsn package<sub>name</sub>
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgf94b318" class="outline-3">
+<h3 id="orgf94b318"><span class="section-number-3">4.4.</span> 升级系统</h3>
+<div class="outline-text-3" id="text-4-4">
+<ul class="org-ul">
+<li>Pacman能够只用一个指令来升级系统中所有已安装的包。升级的时间取决于你的系统有多新。</li>
+</ul>
+<blockquote>
+<p>
+pacman -Su
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>当然，最好做法的是将升级系统和同步仓库数据合成为一条指令：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Syu
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org6b998d9" class="outline-3">
+<h3 id="org6b998d9"><span class="section-number-3">4.5.</span> 查询包数据库</h3>
+<div class="outline-text-3" id="text-4-5">
+<ul class="org-ul">
+<li>Pacman可以在包数据库中查询软件包，查询位置包含了包的名字和描述：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Ss package
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>要查询已安装的软件包：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Qs package
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>一旦你得到了软件包的完整名字，你可以获取关于它的更为详尽的信息：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Si package
+pacman -Qi package
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>要获取已安装软件包所包含文件的列表：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Ql package
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>你也可以通过查询数据库获知目前你的文件系统中某个文件是属于哪个软件包。</li>
+</ul>
+<blockquote>
+<p>
+pacman -Qo /path/to/a/file
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>要罗列所有不再作为依赖的软件包(孤立orphans)：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Qdt
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>Pacman使用-Q参数来查询本地软件包数据库。参见：</li>
+</ul>
+<blockquote>
+<p>
+pacman -Q –help
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>…而使用-S参数来查询远程同步的数据库。参见：</li>
+</ul>
+<blockquote>
+<p>
+pacman -S –help
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">&#20316;&#32773;: cyq</p>
+<p class="date">Created: 2025-12-07 Sun 10:55</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

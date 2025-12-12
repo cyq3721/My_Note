@@ -1,0 +1,531 @@
+#+title:PHP菜鸟教程
+#+author:ShadowFish
+#+data: <2022-05-10 Tue>
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+options: num:t toc:4 author:t date:t
+
+* PHP简介
+PHP是服务器端脚本语言。
+** 应当具备的基础知识
+- HTMl
+- CSS
+**  PHP 是什么？
+- PHP（全称：PHP —— Hypertext Preprocessor，即“PHP：超文本预处理器”）是一种通用开源脚本语言。
+- PHP 脚本在服务器上执行
+- PHP 可以免费下载使用
+**  PHP 文件是什么？
+- PHP 文件可包含文本、HTML、JavaScript 代码和 PHP 代码
+- PHP 代码在服务器上执行，结果以纯 HTML 形式返回给浏览器
+- PHP 文件的默认文件扩展名是.php
+** PHP能做什么？
+- PHP 可以生成动态页面内容
+- PHP 可以创建、打开、读取、写入、关闭服务器上的文件
+- PHP 可以收集表单数据
+- PHP 可以发送和接收 cookies
+- PHP 可以添加、删除、修改您的数据库中的数据
+- PHP 可以限制用户访问您的网站上的一些页面
+- PHP 可以加密数据
+
+  通过 PHP，您不再限于输出 HTML，可以输出图像、pdf文件、甚至 flash 电影，还可以输出任意的文本， 如 XHTML 和 XML。
+* PHP 安装
+**  在自己的 pc 上建立 PHP
+- 安装 Web 服务器
+- 安装 PHP
+- 安装数据库，比如 MySQL
+
+   官方 PHP 网站（PHP.net）有 PHP 的安装说明：[[http://php.net/manual/en/install.php]]
+** PHP 服务器组件
+对于初学者建议使用集成的服务器组件（包含 PHP、Apache、Mysql 等服务）免去把时间花费在繁琐的配置环境上。
+- WampServer
+  Windows 系统可以使用 WampServer
+- XAMPP
+   支持 Mac OS 和 Windows 系统
+**  IED 集成开发环境
+- Eclipse for php（免费）
+-  PhpStorm（收费）
+* PHP 语法
+** 基本的 PHP 语法
+ PHP 脚本可以放在文档的任何位置。
+ PHP 脚本以 <?php 开始，以 ?> 结束。
+ #+begin_quote
+ <?php
+    //php 代码
+ ？>
+ #+end_quote
+
+ 实例：
+ #+begin_src html
+<!DOCTYPE html> 
+<html> 
+<body> 
+
+<h1>My first PHP page</h1> 
+
+<?php 
+  echo "Hello World!"; 
+?> 
+
+</body> 
+</html>
+ #+end_src
+
+PHP中的每个代码行都必须以分号结束。分号是一种分隔符，用于把指令集分开来。
+通过 PHP，有两种在浏览器输出文本的指令：echo 和 print。
+** echo/print
+echo 和 print 区别:
+
+   - echo - 可以输出一个或多个字符串
+   - print - 只允许输出一个字符串，返回值总为 1
+     
+提示：echo 输出的速度比 print 快， echo 没有返回值，print有返回值1。
+** PHP 中的注释
+- 单行注释， //注释
+- 多行注释， /* 注释  */
+**  PHP 变量
+变量是用于存储信息的“容器”。
+
+实例：
+#+begin_src php
+  <?php
+     $x=5;
+     $y=6;
+     $z=$x+$y;
+     echo $z;
+  ?>
+#+end_src
+
+** PHP Switch 语句
+语法：
+#+begin_src php
+  <?php
+switch (n)
+{
+case label1:
+    如果 n=label1，此处代码将执行;
+    break;
+case label2:
+    如果 n=label2，此处代码将执行;
+    break;
+default:
+    如果 n 既不等于 label1 也不等于 label2，此处代码将执行;
+}
+?>
+#+end_src
+
+ 原理：
+ 首先对一个简单的表达式 n（通常是变量）进行一次计算。将表达式的值与结构中每个 case 的值进行比较。如果存在匹配，则执行与 case 关联的代码。代码执行后，使用 break 来阻止代码跳入下一个 case 中继续执行。default 语句用于不存在匹配（即没有 case 为真）时执行。
+
+ 实例：
+ #+begin_src php
+<?php
+$favcolor="red";
+switch ($favcolor)
+{
+case "red":
+    echo "你喜欢的颜色是红色!";
+    break;
+case "blue":
+    echo "你喜欢的颜色是蓝色!";
+    break;
+case "green":
+    echo "你喜欢的颜色是绿色!";
+    break;
+default:
+    echo "你喜欢的颜色不是 红, 蓝, 或绿色!";
+}
+?>
+ #+end_src
+
+** PHP 魔术常量
+ PHP 向它运行的任何脚本提供了大量的预定义常量。
+ 不过很多常量都是由不同的扩展库定义的， 只有在加载了这些扩展库时才会出现，或者动态加载后，或者在编译时已经包括进去了。
+
+ 有八个魔术常量，它们的值随着它们在代码中的位置改变而改变。
+
+ 例如__LINE__的值就依赖于它在脚本中所处的行来决定。 这些特殊的常量不区分大小写。
+
+***  1.__LINE__ 文件当前行号
+实例：
+#+begin_src php
+  <?php
+     echo '这是第 " ' . __LINE__ . ' "行' ;
+  ?>
+     #+end_src
+*** 2.__FILE__ 文件的完整路径和文件名
+如果用在被包含的文件中，则返回被包含的文件名。
+*** 3.__DIR__
+文件所在目录。如果用在被包括文件中，则返回被包括的文件所在的目录
+*** 4.__FUNCTION__
+返回该函数被定义时的名字（区分大小写）。
+*** 5.__CLASS__
+返回该类被定义时的名字
+***  6.__TRAIT__  （待查）
+代码复用的一个方法
+*** 7.__METHOD__
+返回该方法被定义时的名字（区分大小写）
+*** 8.__NAMESPACE__
+当前命名空间的名称（区分大小写）。此常量是在编译时定义的。
+** PHP EOF（heredoc）使用说明
+PHP EOF(heredoc)是一种在命令行shell（如sh、csh、ksh、bash、PowerShell和zsh）和程序语言（像Perl、PHP、Python和Ruby）里定义一个字符串的方法。
+
+*** 使用概述：
+1. 必须后接分号，否则编译通不过。
+2. EOF 可以用任意其它字符代替，只需保证结束标识与开始标识一致。
+3. 结束标识必须顶格独自占一行(即必须从行首开始，前后不能衔接任何空白和字符)。
+4. 开始标识可以不带引号或带单双引号，不带引号与带双引号效果一致，解释内嵌的变量和转义符号，带单引号则不解释内嵌的变量和转义符号。
+5. 当内容需要内嵌引号（单引号或双引号）时，不需要加转义符，本身对单双引号转义，此处相当与q和qq的用法。
+
+实例
+#+begin_src php
+  <?php
+echo <<<EOF
+        <h1>我的第一个标题</h1>
+        <p>我的第一个段落。</p>
+EOF;
+// 结束需要独立一行且前后不能空格
+?>
+#+end_src
+
+*** 注意：
+1. 以 <<<EOF 开始标记开始，以 EOF 结束标记结束，结束标记必须顶头写，不能有缩进和空格，且在结束标记末尾要有分号 。
+2. 开始标记和结束标记相同，比如常用大写的 EOT、EOD、EOF 来表示，但是不只限于那几个(也可以用：JSON、HTML等)，只要保证开始标记和结束标记不在正文中出现即可。
+3. 位于开始标记和结束标记之间的变量可以被正常解析，但是函数则不可以。在 heredoc 中，变量不需要用连接符 . 或 , 来拼接，如下：
+   #+begin_src php
+     <?php
+$name="runoob";
+$a= <<<EOF
+        "abc"$name
+        "123"
+EOF;
+// 结束需要独立一行且前后不能空格
+echo $a;
+?>
+   #+end_src
+4. 补充一下上一个笔记的内容，EOF 中是会解析 html 格式内容的，并且在双引号内的内容也有转义效果。
+具体见下面例子:
+#+begin_src php
+<?php
+$name="变量会被解析";
+$a=<<<EOF
+$name<br><a>html格式会被解析</a><br/>双引号和Html格式外的其他内容都不会被解析
+"双引号外所有被排列好的格式都会被保留"
+"但是双引号内会保留转义符的转义效果,比如table:\t和换行：\n下一行"
+EOF;
+echo $a;
+?>  
+#+end_src
+** include和require语句
+nclude 和 require 除了处理错误的方式不同之外，在其他方面都是相同的：
+
+- require 生成一个致命错误（E_COMPILE_ERROR），在错误发生后脚本会停止执行。
+- include 生成一个警告（E_WARNING），在错误发生后脚本会继续执行。
+
+  因此，如果您希望继续执行，并向用户输出结果，即使包含文件已丢失，那么请使用 include。否则，在框架、CMS 或者复杂的 PHP 应用程序编程中，请始终使用 require 向执行流引用关键文件。这有助于提高应用程序的安全性和完整性，在某个关键文件意外丢失的情况下。
+
+包含文件省去了大量的工作。这意味着您可以为所有网页创建标准页头、页脚或者菜单文件。然后，在页头需要更新时，您只需更新这个页头包含文件即可。
+** PHP数组
+*** 三种数组类型
+- *数值数组* - 带有数字 ID 键的数组
+- *关联数组* - 带有指定的键的数组，每个键关联一个值
+- *多维数组* - 包含一个或多个数组的数组
+*** 数值数组
+**** 两种创建方式
+- 自动分配 ID 键（ID 键总是从 0 开始）：
+#+begin_src php
+  $cars=array("Volvo","BMW","Toyota");
+#+end_src
+
+- 人工分配 ID 键：
+  #+begin_src php
+$cars[0]="Volvo";
+$cars[1]="BMW";
+$cars[2]="Toyota";
+  #+end_src
+*** 关联数组
+关联数组是使用您分配给数组的指定的键的数组。
+
+**** 两种创建关联数组的方法：
+#+begin_src php
+$age=array("Peter"=>"35","Ben"=>"37","Joe"=>"43");
+#+end_src
+or:
+#+begin_src php
+$age['Peter']="35";
+$age['Ben']="37";
+$age['Joe']="43";
+#+end_src
+随后可以在脚本中使用指定的键：
+
+实例
+#+begin_src php
+<?php
+$age=array("Peter"=>"35","Ben"=>"37","Joe"=>"43");
+echo "Peter is " . $age['Peter'] . " years old.";
+?>
+ #+end_src
+
+*** 获取数组的长度 - count() 函数
+count() 函数用于返回数组的长度（元素的数量）：
+
+实例
+#+begin_src php
+<?php
+$cars=array("Volvo","BMW","Toyota");
+echo count($cars);
+?>
+ #+end_src
+
+*** 遍历数组
+**** 遍历数值数组
+遍历并打印数值数组中的所有值，您可以使用 for 循环，如下所示：
+
+实例
+#+begin_src php
+<?php
+$cars=array("Volvo","BMW","Toyota");
+$arrlength=count($cars);
+ 
+for($x=0;$x<$arrlength;$x++)
+{
+    echo $cars[$x];
+    echo "<br>";
+}
+?>
+ #+end_src
+
+**** 遍历关联数组
+遍历并打印关联数组中的所有值，您可以使用 foreach 循环，如下所示：
+
+实例
+#+begin_src php
+<?php
+$age=array("Peter"=>"35","Ben"=>"37","Joe"=>"43");
+ 
+foreach($age as $x=>$x_value)
+{
+    echo "Key=" . $x . ", Value=" . $x_value;
+    echo "<br>";
+}
+?>
+#+end_src
+*** 数组排序
+- sort() - 对数组进行升序排列
+- rsort() - 对数组进行降序排列
+- asort() - 根据关联数组的值，对数组进行升序排列
+- ksort() - 根据关联数组的键，对数组进行升序排列
+- arsort() - 根据关联数组的值，对数组进行降序排列
+- krsort() - 根据关联数组的键，对数组进行降序排列
+
+** PHP超级全局变量
+PHP中预定义了几个超级全局变量（superglobals） ，这意味着它们在一个脚本的全部作用域中都可用。 你不需要特别说明，就可以在函数及类中使用。
+
+*PHP 超级全局变量列表:*
+- $GLOBALS
+- $_SERVER
+- $_REQUEST
+- $_POST
+- $_GET
+- $_FILES
+- $_ENV
+- $_COOKIE
+- $_SESSION
+
+* PHP文件上传
+** 创建一个文件上传表单
+允许用户从表单上传文件是非常有用的。
+
+请看下面这个供上传文件的 HTML 表单：
+#+begin_src html
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<form action="upload_file.php" method="post" enctype="multipart/form-data">
+    <label for="file">文件名：</label>
+    <input type="file" name="file" id="file"><br>
+    <input type="submit" name="submit" value="提交">
+</form>
+
+</body>
+</html>
+#+end_src
+将以上代码保存到 form.html 文件中。
+
+有关上面的 HTML 表单的一些注意项列举如下：
+
+- <form> 标签的 enctype 属性规定了在提交表单时要使用哪种内容类型。在表单需要二进制数据时，比如文件内容，请使用 "multipart/form-data"。
+- <input> 标签的 type="file" 属性规定了应该把输入作为文件来处理。举例来说，当在浏览器中预览时，会看到输入框旁边有一个浏览按钮。
+- 注释：允许用户上传文件是一个巨大的安全风险。请仅仅允许可信的用户执行文件上传操作。
+
+** 创建上传脚本
+"upload_file.php" 文件含有供上传文件的代码：
+#+begin_src php
+<?php
+if ($_FILES["file"]["error"] > 0)
+{
+    echo "错误：" . $_FILES["file"]["error"] . "<br>";
+}
+else
+{
+    echo "上传文件名: " . $_FILES["file"]["name"] . "<br>";
+    echo "文件类型: " . $_FILES["file"]["type"] . "<br>";
+    echo "文件大小: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+    echo "文件临时存储的位置: " . $_FILES["file"]["tmp_name"];
+}
+?>
+#+end_src
+通过使用 PHP 的全局数组 $_FILES，你可以从客户计算机向远程服务器上传文件。
+
+第一个参数是表单的 input name，第二个下标可以是 "name"、"type"、"size"、"tmp_name" 或 "error"。如下所示：
+
+- $_FILES["file"]["name"] - 上传文件的名称
+- $_FILES["file"]["type"] - 上传文件的类型
+- $_FILES["file"]["size"] - 上传文件的大小，以字节计
+- $_FILES["file"]["tmp_name"] - 存储在服务器的文件的临时副本的名称
+- $_FILES["file"]["error"] - 由文件上传导致的错误代码
+
+这是一种非常简单文件上传方式。基于安全方面的考虑，您应当增加有关允许哪些用户上传文件的限制。
+
+** 上传限制
+在这个脚本中，我们增加了对文件上传的限制。用户只能上传 .gif、.jpeg、.jpg、.png 文件，文件大小必须小于 200 kB：
+#+begin_src php
+<?php
+// 允许上传的图片后缀
+$allowedExts = array("gif", "jpeg", "jpg", "png");
+$temp = explode(".", $_FILES["file"]["name"]);
+$extension = end($temp);        // 获取文件后缀名
+if ((($_FILES["file"]["type"] == "image/gif")
+|| ($_FILES["file"]["type"] == "image/jpeg")
+|| ($_FILES["file"]["type"] == "image/jpg")
+|| ($_FILES["file"]["type"] == "image/pjpeg")
+|| ($_FILES["file"]["type"] == "image/x-png")
+|| ($_FILES["file"]["type"] == "image/png"))
+&& ($_FILES["file"]["size"] < 204800)    // 小于 200 kb
+&& in_array($extension, $allowedExts))
+{
+    if ($_FILES["file"]["error"] > 0)
+    {
+        echo "错误：: " . $_FILES["file"]["error"] . "<br>";
+    }
+    else
+    {
+        echo "上传文件名: " . $_FILES["file"]["name"] . "<br>";
+        echo "文件类型: " . $_FILES["file"]["type"] . "<br>";
+        echo "文件大小: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+        echo "文件临时存储的位置: " . $_FILES["file"]["tmp_name"];
+    }
+}
+else
+{
+    echo "非法的文件格式";
+}
+?>
+#+end_src
+
+* 文件结尾检测（EOF）feof（）
+feof() 函数检测是否已到达文件末尾（EOF）。
+在循环遍历未知长度的数据时，feof() 函数很有用。
+注释：在 w 、a 和 x 模式下，您无法读取打开的文件！
+#+begin_src php
+if (feof($file)) echo "文件结尾";
+#+end_src
+* Cookie
+cookie 常用于识别用户。cookie 是一种服务器留在用户计算机上的小文件。每当同一台计算机通过浏览器请求页面时，这台计算机将会发送 cookie。通过 PHP，您能够创建并取回 cookie 的值。
+** 如何创建 Cookie？
+setcookie() 函数用于设置 cookie。
+注释：setcookie() 函数必须位于 <html> 标签之前。
+
+语法:
+#+begin_src php
+setcookie(name, value, expire, path, domain);
+#+end_src
+
+*** 实例1
+在下面的例子中，我们将创建名为 "user" 的 cookie，并为它赋值 "runoob"。我们也规定了此 cookie 在一小时后过期：
+#+begin_src php
+<?php
+setcookie("user", "runoob", time()+3600);
+?>
+
+<html>
+.....
+#+end_src
+注释：在发送 cookie 时，cookie 的值会自动进行 URL 编码，在取回时进行自动解码。（为防止 URL 编码，请使用 setrawcookie() 取而代之。）
+
+*** 实例 2
+您还可以通过另一种方式设置 cookie 的过期时间。这也许比使用秒表示的方式简单。
+#+begin_src php
+<?php
+$expire=time()+60*60*24*30;
+setcookie("user", "runoob", $expire);
+?>
+
+<html>
+.....
+#+end_src
+在上面的实例中，过期时间被设置为一个月（60 秒 * 60 分 * 24 小时 * 30 天）。
+
+** 如何取回 Cookie 的值？
+PHP 的 $_COOKIE 变量用于取回 cookie 的值。
+在下面的实例中，我们取回了名为 "user" 的 cookie 的值，并把它显示在了页面上：
+#+begin_src php
+<?php
+// 输出 cookie 值
+echo $_COOKIE["user"];
+
+// 查看所有 cookie
+print_r($_COOKIE);
+?>
+#+end_src
+
+在下面的实例中，我们使用 isset() 函数来确认是否已设置了
+#+begin_src php
+cookie：
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<?php
+if (isset($_COOKIE["user"]))
+    echo "欢迎 " . $_COOKIE["user"] . "!<br>";
+else
+    echo "普通访客!<br>";
+?>
+
+</body>
+</html>
+#+end_src
+
+* PHP 错误处理
+在创建脚本和 Web 应用程序时，错误处理是一个重要的部分。如果您的代码缺少错误检测编码，那么程序看上去很不专业，也为安全风险敞开了大门。
+本教程介绍了 PHP 中一些最为重要的错误检测方法。
+
+我们将为您讲解不同的错误处理方法：
+- 简单的 "die()" 语句
+- 自定义错误和错误触发器
+- 错误报告
+
+  #+begin_src php
+  <?php
+
+// 错误处理函数
+function customError($errno, $errstr)
+{
+    echo "<b>Error:</b> [$errno] $errstr";
+}
+
+// 设置错误处理函数
+set_error_handler("customError");
+
+// 触发错误
+echo($test);
+
+?>
+#+end_src

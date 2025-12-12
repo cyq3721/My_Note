@@ -1,0 +1,41 @@
+#+title:mac下配置php开发环境
+#+author:ShadowFish
+#+data:<2019-08-20 Tue>
+#+author: chen
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+options: num:t toc:4 author:t date:t
+
+* MAC 下配置php开发环境
+
+
+#+AUTHOR: Mr Chen
+#+DATA：<2019-08-07 Wed>
+* 配置Apache
+** 启动Apache服务
+在Mac系统中已经安装好了Apache服务,我们只需要通过如下方式启动即可直接使用
+在终端中输入如下命令,启动Apache服务
+
+#+BEGIN_QUOTE
+sudo apachectl start
+#+END_QUOTE
+
+注: 因为sudo是系统管理指令,所以需要输入电脑密码(输入字符时不会显示,输入完成敲击回车即可)
+
+** 查看Apache版本
+在终端中输入如下命令,查看Apache服务版本
+
+#+BEGIN_QUOTE
+sudo apachectl -v
+#+END_QUOTE
+
+** 关闭Apache服务
+sudo apachectl stop
+
+** 重启Apache服务
+sudo apachectl restart
+** Apache服务安装路径
+Apache服务默认安装路径在/private/etc/apache2,属于系统私有目录,我们不可直接在Finder中找到该路径
+
+

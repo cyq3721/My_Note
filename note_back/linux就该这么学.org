@@ -1,0 +1,300 @@
+#+title:《linux就该这么学》
+#+author: ShadowFish
+#+data: <2019-01-04 Fri>
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+options: num:t toc:4 author:t date:t
+* 第一章 部署虚拟环境安装Linux系统
+** 重置root管理员密码
+针对RHEL 7 系统，重启linux系统主机并出现引导界面时，按下键盘上的e键进入内核编辑界面，在linux16参数这行的最后追加“rd.break”参数，然后按下Ctrl + X 组合键来运行修改过的内核程序。  大约30秒后，进入到系统的紧急救援模式，依次输入以下命令：
+#+BEGIN_QUOTE
+mouont -o remount,rw /sysroot
+chroot /sysroot
+passwd
+touch /.autorelabel
+exit
+reboot
+#+END_QUOTE
+** RPM(红帽软件包管理器)
+在RPM之前，linux中安装软件只能采取源码包的方式安装。  早期在linux中安装程序是一件非常困难的事，需要运维人员自行编译代码并解决许多的软件依赖关系。  RPM机制则解决了这些问题，RPM会建立统一的数据库文件，详细记录软件信息并能够自动分析依赖关系。
+
+- 常用的RPM软件包命令：
+| 安装软件的命令格式  | rpm -ivh filename.rpm |
+| 升级软件            | rpm -Uvh filename.rpm |
+| 卸载软件            | rpm -e filename.rpm   |
+| 查询软件的描述信息  | rpm -qpi filename.rpm |
+| 列出软件文件信息    | rpm -qpl filename.rpm |
+| 查询文件属于哪个RPM | rpm -qf filename      |
+
+** Yum软件仓库
+- 常见的Yum命令
+| 命令                     | 作用                         |
+| yum repolist all         | 列出所有仓库                 |
+| yum list ll              | 列出仓库中的所有软件包       |
+| yum info 软件包名称      | 查看软件包信息               |
+| yum install 软件包名称   | 安装软件包                   |
+| yum reinstall 软件包名称 | 重新安装软件包               |
+| yum update 软件包名称    | 升级软件包                   |
+| yum update               | 升级系统的所有可升级的软件   |
+| yum remove 软件包名称    | 移除软件包                   |
+| yum clean all            | 清除所有仓库缓存             |
+| yum check-update         | 检查可更新的软件包           |
+| yum grouplist            | 查看系统中已经安装的软件包组 |
+| yum groupinstall软件包组 | 安装指定的软件包组           |
+| yum groupremove 软件包组 | 移除指定的软件包组           |
+| yum groupinfo 软件包组   | 查询指定的软件包信息                   |
+** systemd初始化进程
+*** linux操作系统的开机过程
+从BIOS开始，然后进入Boot Loader，在加载系统内核，然后内核进行初始化，最后启动初始化进程。  初始化进程作为linux系统的第一个进程，需要完成linux系统中相关的初始化工作，为用户提供合适的工作环境。  RHEL 7 系统已经替换掉了属性的初始化进程服务System V init ，正式采用全新的systemd初始化进程服务。  systemd初始化进程服务采用了并发启动机制，开机速度得到不小的提升。  
+*** systemd的四个槽点
+- 槽点1：systemd初始化进程服务的开发人员就职于红帽公司，让其它系统不爽。
+- 槽点2：systemd初始化进程服务仅仅可在linux系统下运行，抛弃了unix用户。
+- 槽点3：systemd接管了诸如syslogd、udev、cgroup等服务的工作，不再甘心只做初始化进程服务。
+- 槽点4：使用systemd初始化进程服务后，RHEL7系统变化太大，而相关的参考文档不多，令用户为难。
+
+采用systemd初始化服务进程后，没有了“运行级别”这个概念，linux系统在启动时要进行大量的初始化工作，比如挂载文件系统和交换分区、启动各类服务进程等，这些都可以看做是一个一个的单元（Unit），systemd用目标（target）代替了System V init 中运行级别的概念，sysyemdhe System V init的区别和作用：
+| System V init运行级别 | systemd目标名称                     | 作用                          |
+|                     0 | runlevel0.target，powweroff.target  | 关机                          |
+|                     1 | runlevel1.target，rescue.target     | 单用户模式                    |
+|                     2 | runlevel2.target，multi-user.target | 等同于级别3（多用户文本界面） |
+|                     3 | runlevel3.target，multi-user.target | 多用户文本界面                |
+|                     4 | runlevel4.target，multi-user.target | 等同于级别3                   |
+|                     5 | runlevel5.target，graphical.target  | 多用户的图形界面              |
+|                     6 | runlevel6.target，reboot.target     | 重启                          |
+|             emergency | emergency.target，emergency.target  | 紧急Shell                       |
+
+*** systemctl命令
+在system中使用systemctl命令管理服务。
+| systemctl                                | 作用                           |
+| systemctl start foo.service              | 启动服务                       |
+| systemctl restart foo.service            | 重启服务                       |
+| systemctl stop foo.service               | 停止服务                       |
+| systemctl reload foo.service             | 重新加载配置文件（不终止服务） |
+| systemctl status foo.service             | 查看服务状态                   |
+| systemctl enable foo.ervice              | 开机自动启动                   |
+| systemctl disable foo.service            | 开机不自动启动                 |
+| systemctl is-enabled foo.service         | 查看服务是否为开机自动启动     |
+| systemctl list-unit-files --type=service | 查看各个级别下服务的启动与禁用情况            |
+
+* 第二章 新手必须掌握的linux命令
+** 本章内容：
+- 强大好用的Shell；
+- 执行帮助文档命令；
+- 常用系统工作命令；
+- 系统状态监测命令；
+- 工作目录切换命令；
+- 文本文件编辑命令；
+- 文件目录管理命令；
+- 打包压缩与搜索命令；
+** Bash（Bourne-Again Shell）的四大优势
+1. 通过上下方向键来调取过往执行过的linux命令；
+2. 命令或参数仅需输入前几位就可以用Tab键补全；
+3. 具有强大的批处理脚本；
+4. 具有实用的环境变量功能；
+** linux命令的格式
+#+BEGIN_QUOTE
+命令名称 [命令参数][命令对象]
+#+END_QUOTE
+- 注意：命令名称、命令参数、命令对象之间用空格分隔。
+- 命令对象：一般是指要处理的文件、目录、用户等资源。
+- 命令参数：可以是长格式（完整的选项名称）， 也可以用短格式（单个字幕的缩写），两者分别用--与-作为前缀。
+| 长格式 | man --help |
+| 短格式 | man -h    |
+** 关于man
+*** man命令中的按键
+| 按键      | 用途                                        |
+| 空格      | 向下翻一页                                  |
+| pape down | 向下翻一页                                  |
+| page up   | 向上翻一页                                  |
+| home      | 直接前往首页                                |
+| end       | 直接前往尾页                                |
+| /         | 从上往下搜索，如"/linux"，搜索关键词“linux” |
+| ？        | 从下往上搜索，如“？linux”                   |
+| n         | 定位到关键词的下一个搜索                    |
+| N         | 定位到关键词的上一个搜索                    |
+| q         | 退出man                                       |
+*** man的结构
+| 结构名称    | 代表意义                 |
+| NAME        | 命令的名称               |
+| SYNOPSIS    | 参数的大致用法           |
+| DESCRIPTION | 介绍说明                 |
+| EXAMPLES    | 演示（附带简单说明）     |
+| OVERVIEW    | 概述                     |
+| DEFAULTS    | 默认的功能               |
+| OPTIONS     | 具体的可用选项（带介绍） |
+| ENVRONMENT  | 环境变量                 |
+| FILES       | 用到的文件               |
+| SEE ALSO    | 相关的资料               |
+| HISTORY     | 维护历史与联系方式                |
+
+** 常用的系统工作命令
+*** echo命令
+用于在终端输出字符串或变量提取后的值， 格式为“echo [字符串] $变量]” 。
+*** date命令
+用于显示和设置系统的时间或日期， 格式为 “date [选项] [+指定格式]”。  只需要在date命令中输入以“+”号开头的参数， 即可按照指定格式来输出系统的时间或日期。
+| 参数 | 作用             |
+| %t   | 相当于tabe键     |
+| %H   | 小时（24小时制） |
+| %I   | 小时（12小时制） |
+| %M   | 分钟             |
+| %S   | 秒               |
+| %j   | 今年中的第几天   |
+| %m   | 月份             |
+| %d   | 天            |
+**** 用默认格式查看当前系统时间的命令
+直接用date， 不使用任何参数。
+**** date命令的实例
+#+BEGIN_QUOTE
+date "+%Y-%m-%d  %H：%M：%S"
+#+END_QUOTE
+*** reboot命令
+重启系统
+*** poweroff命令
+关闭系统
+*** weget命令
+在终端中下载网络文件， 格式为“wget [参数] 下载地址”。
+| 参数 | 作用                               |
+| -b   | 后台下载模式                       |
+| -p   | 下载到指定目录                     |
+| -t   | 最大尝试次数                       |
+| -c   | 断点续传                           |
+| -p   | 下载页面内所有资源，包括图片视屏等 |
+| -r   | 递归下载                               |
+*** ps命令
+查看系统中的进程状态， 格式为“ps [参数]”， 常用的参数如下：
+| 参数 | 作用                             |
+| -a   | 显示所有进程（包括其他用户进程） |
+| -u   | 用户以及其他详细信息             |
+| -x   | 显示没有控制终端的进程                      |
+**** linux常见的5种进程状态
+- R（运行）：进程正在运行或在运行队列中等待。
+- S（中断）：进程处于休眠中， 当某个条件形成后或者接收到信号时， 则脱离该状态。
+- D（不可在中断）：进程不响应系统异步信号，即便用kill命令也不能将其中断。
+- Z（僵死）：进程已经终止， 但进程描述符依然存在，直到父进程调用wait4（）系统函数后讲进程释放。
+- T（停止）：进程收到停止信号后停止运行。
+
+#+BEGIN_QUOTE
+ps aux  相当于ps -aux， 是最常用的命令
+#+END_QUOTE
+*** top 命令
+用于动态的监控进程活动与系统负载等信息， 相当于强化版的windows任务管理器， 前5行的说明：
+- 第一行： 系统时间、运行时间、登陆终端数、系统负载（三个值分别为1分钟、5分钟、15分钟内的平均值，数值越小负载越低
+- 第二行： 进程总数、运行中的进程数、睡眠中的进程数、停止的进程数、僵死的进程数。
+- 第三行： 用户占用资源百分比、改变过优先级的进程资源百分比、空闲的资源百分比等。
+- 第四行： 物理内存总量、内存使用量、内存空限量、作为内核缓存的内存量。
+- 第五行： 虚拟内存总量、虚拟内存使用量、虚拟内存空闲量、已被提前加载的内存量
+*** pidof命令
+用于查询某个指定服务进程的PID值， 格式为：“pidof [参数][服务名称]， 每一个进程的进程号码值（PID）是唯一的，因此可以通过PID来区分不同的进程。
+*** kill命令
+用于终止某个指定PID的服务进程
+*** killall命令
+用于终止某个指定名称的服务所对应的全部进程，格式：killall [参数][进程名称]
+** 系统状态监测命令
+*** ifconfig命令
+用于获取网卡配置与网络状态等信息
+*** uname命令
+用于查看系统内核与系统版本等信息，格式： uname [-a]，用-a参数来完整的查看当前系统的内核名称、主机名、内核发行版本、节点名、系统时间、硬件平台、处理器类型及操作系统名称等信息。
+*** uptime命令
+用于查看系统的负载信息，格式为：uptime 。  可以显示当前系统时间、系统已经运行时间、启用终端数量以及平均负载等信息。
+*** free命令
+用于显示当前系统中内存的使用量信息 ，格式为：free [-h], -h用人性化的方式显示。
+*** who命令
+用于查看当前登入主机的用户终端信息
+*** last命令
+用于查看系统的所有的登陆记录
+*** history命令
+用于显示历史执行过的命令。  历史命令会被保存到用户家目录中的.bash_history文件中。
+
+history -c  清空命令的历史记录。
+*** sosreport命令
+用于收集系统配置及架构信息并输出诊断文档，格式为：sosreport
+** 工作目录切换命令
+*** pwd命令
+显示用于当前所处的工作目录
+*** cd命令
+切换工作路径。
+- cd -    返回上一次的所处的目录
+- cd..    进入上级目录
+- cd ~    切换到当前用户的home目录
+- cd ~username  切换到其他用户的home目录
+*** ls命令
+显示目录中的文件
+** 文本文件的编辑命令
+*** cat命令
+用于查看纯文本文件（内容较少的）
+*** more命令
+用于查看纯文本文件（内容较多），分屏显示，空格键翻页
+*** head命令
+用于查看纯文本文档的前N行。
+*** tail命令
+用于查看纯文本文档的后N行，或持续刷新内容。 tail可以持续刷新一个文件的内容，特别适合查看实时更新的日志文件。
+*** tr命令
+用于替换文本文件中的字符。 格式为： "tr [原始字符][目标字符]"
+*** wc命令
+用于统计指定文本的行数、字数、字节数
+| 参数 | 作用         |
+| -l   | 只显示行数   |
+| -w   | 只显示单词数 |
+| -c   | 只显示字节数       |
+*** stat命令
+用于查看文件的具体存储信息和时间等信息。
+*** cut命令
+用于按”列“提取文本字符。
+#+BEGIN_QUOTE
+cut -d: -f1 /etc/passwd
+#+END_QUOTE
+提取出以：为分隔符的第一列的数据
+*** diff命令
+用于比较多个文本文件的差异
+** 文件目录管理命令
+*** touch命令
+用于创建空白文件或设置文件的时间。
+*** mkdir命令
+创建空白目录
+*** cp命令
+用于复制文件或目录
+| 参数 | 作用                                     |
+| -p   | 保留原始文件的属性                       |
+| -r   | 递归持续复制（用于目录）                 |
+| -l   | 若目标文件存在则询问是否覆盖             |
+| -d   | 若对象为链接文件，则保留改链接文件的属性 |
+| -a   | 相当于 -pdr                           |
+*** mv命令
+剪切或重命名
+*** rm命令
+删除文件或目录
+*** dd命令
+按照指定大小和个数的数据块来复制文件或转换文件
+| 参数 | 作用             |
+| if   | 输入文件的名称   |
+| of   | 输出文件的名称   |
+| bs   | 设置每个块的大小 |
+| count |   设置要复制的块的个数   |
+
+#+BEGIN_QUOTE
+dd if=/dev/zero  of=560_file  count=1 bs=560M
+#+END_QUOTE
+上述命令的作用：从/dev/zero设备文件中取出一个大小为560MB的数据块。
+*** file命令
+查看文件的类型
+** 打包压缩与搜索命令
+*** tar命令
+用于打包压缩或解压缩
+| 参数 | 作用                   |
+| -c   | 创建压缩文件           |
+| -x   | 解开压缩文件           |
+| -t   | 查看压缩包内的内容     |
+| -z   | 用Gzip压缩或解压缩     |
+| -j   | 用bzip2压缩或解压缩    |
+| -v   | 显示压缩或解压缩的过程 |
+| -f   | 目标文件名             |
+| -p   | 保留原始的权限和属性   |
+| -C   | 解压缩到指定目录               |
+ 
+#+BEGIN_QUOTE
+tar -czvf
+tar -xzvf
+#+END_QUOTE
+*** grep命令
+用于在文本中执行关键词搜索，并显示匹配的结果
+*** find命令
+查找文件

@@ -1,0 +1,12 @@
+#+title: 我的日常
+#+author: CYQ
+#+options: num:t toc:4 author:t date:
+#+LANGUAGE: zh-CN
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+
+* 在office computer中 instll  phpstudy <2021-04-12 周一>
+   - 开启FTP
+     - user: cyq
+     - pass: 1980112
+- 更改网站根目录
+

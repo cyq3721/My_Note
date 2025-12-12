@@ -1,0 +1,92 @@
+#+title:Emacs Fill详解
+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+options: num:t toc:4 author:t date:t
+
+本文链接：[[https://docs.huihoo.com/homepage/shredderyin/emacs_fill.html]]
+* Emacs 中的prefix
+Emacs具有非常智能的文本编辑能力。 它可以自动对文字断行，并且在断开的行首都加入一些prefix（前缀）。 你编辑C程序多行注释的时候，你想要编辑器能够自动缩进到合适的位置并且插入一个“*”， 就像下面那样：
+#+begin_quote
+/* seed the random number generator
+ * first try the random file /dev/random
+ * if there isn't such a file in the system
+ * use current time to seed the RNG.
+ */
+#+end_quote
+
+在你写新闻组的时候的文章的时候，你又想让编辑器使你的文档出现这样漂亮的缩进：
+#+begin_quote
+1. I seed the random number generator first try the random file
+   /dev/random if there isn't such a file in the system use current
+   time to seed the RNG.
+
+2. I need more powerful randomized binary search tree algorithm to
+   store my wavefront elements.
+#+end_quote
+
+这些*和行首留出的空白就叫做prefix。 每当使用fill-paragraph等操作或者启动了auto-fill-mode的时候，文字在断行时，Emacs可能会在断开的每行前面加入prefix（前缀）。 这大大方便了编辑类似程序注释这类文字
+
+* 设置fill-column
+fill-colulmn就是说到多少列的时候断行。 可以使用：
+#+begin_quote
+c-u 70 c-x f
+#+end_quote
+这样的命令把fill-column设置为70。 也可以把光标移动到你想要断行的位置，然后按
+#+begin_quote
+c-u c-x f
+#+end_quote
+断开的行可能会被自动加上一个前缀（prefix）。 设置前缀的方式主要有两种， 手动设置和adaptive prefix自动设置。
+* 手动设置prefix
+如果把光标放在段落首后面一个位置，使用：
+#+begin_quote
+C-x . (set-fill-prefix)
+#+end_quote
+
+就可以把段落头到光标处的那段字符作为 prefix.
+
+* Adaptive Filling
+但是没有手动设置 prefix 的时候，Emacs 也可以自动识别段落首的一些字 符作为 prefix。这就叫做 Adaptive Filling。
+
+** 提取候选前缀
+Emacs 使用变量 adaptive-fill-regexp 来提取前缀。这个变量是一个正则 表达式。它会把fill区域开头的能够匹配的部分作为候选的前缀。很多 major mode 会自动帮你设置好这个变量，所以你通常不用操心。
+
+但是某些时候，你可能希望能够自己操纵这一切。我们下面就来看一个具体 的例子。假设如果你要达到这种效果，在同一个文本文件里：
+
+1. 有一些段落每行由3个 * 开头，这可以被作为一小节的标题以及简短的说明。 比如：
+   #+begin_quote
+ *** Section "Files". The location
+     of the RGB database. Note, this
+     is the name of the file minus
+     the extension (like ".txt" or
+     ".db").
+#+end_quote
+
+2. 有一些段落每行由一个 * 号开头，这叫做“强调”。像这样：
+   #+begin_quote
+ * There is normally no need to
+ * change the default. Multiple
+ * FontPath entries are allowed
+ * (they are concatenated together)
+ * By default, Red Hat 6.0 and later
+ * now use a font server independent
+ * of the X server to render fonts.
+   #+end_quote
+3. 有一些段落由数字编号 1. 2. 3. 开头，以后的每一行要求缩进到标号之后。 所有的数字后面的点号要对齐。
+      #+begin_quote
+1. I seed the random number generator first try the random file /dev/random if there isn't such a file in the system use current time to seed the RNG.
+
+2. I need more powerful randomized binary search tree algorithm to
+   store my wavefront elements.
+      #+end_quote
+
+这些 "*** ", "* ", "1. ", "2. ", "   " 就叫做前缀。 为了识别这些前缀，我们把 adaptive-fill-regexp 设置为：
+#+begin_quote
+(setq adaptive-fill-regexp "[ \t]+\\|[ \t]*\\([0-9]+\\.\\|\\*+\\)[ \t]*")
+#+end_quote
+
+这表示前缀可以全是空白字符。或者开头可以有一些空白，接着数字加点 或者一个以上的 *，接着一些空白。那么 Emacs 发现开头有这样的字样时，就 会把这个字符串作为一个“候选前缀”。
+** 候选前缀的选择
+

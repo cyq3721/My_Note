@@ -1,0 +1,1610 @@
+% Created 2024-05-31 Fri 11:44
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{chen}
+\date{\today}
+\title{《PHP和MySQL Web开发》}
+\hypersetup{
+ pdfauthor={chen},
+ pdftitle={《PHP和MySQL Web开发》},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{第一章 PHP快速入门}
+\label{sec:orgec35205}
+\subsection{使用php标记}
+\label{sec:orgb3f9089}
+以<?php 开始，以?>为结束
+\subsection{PHP中的空格}
+\label{sec:org9456f85}
+所有的间隔字符（换行、回车、空格、tab），都被认为是空格，多个空格放在一起，只会认为是一个空格。
+\subsection{PHP中的注释}
+\label{sec:orge0b5bcc}
+两种注释：
+\begin{verbatim}
+1. c语言风格的多行注释
+   ／* ……
+      ……
+   */ 
+2. c++风格的单行注释
+   ／／……
+\end{verbatim}
+\subsection{PHP的数据类型}
+\label{sec:org9b3890a}
+\begin{itemize}
+\item integer
+\item float
+\item string
+\item Boolean
+\item Array
+\item Object
+\item NULL(空)
+\item resource（资源）
+\item callable 可以传递给其他函数的函数
+\end{itemize}
+\subsection{类型强度}
+\label{sec:orgc46e5fb}
+PHP是弱类型语言（动态类型语言），变量的类型由赋给变量的值决定。
+\subsection{date函数}
+\label{sec:org61e748f}
+\begin{itemize}
+\item 用法：date('H:i, jS F');
+\item 说明：
+\begin{itemize}
+\item H 是24小时格式的小时；
+\item i 是分钟（两位数）；
+\item j 是该月的日期，不需要补0；
+\item s 是顺序后缀（比如th）；
+\item F 是月份的全称；
+\end{itemize}
+\end{itemize}
+\subsection{理解标示符}
+\label{sec:orgc6f4db4}
+标示符是变量的名称。 （函数和类的名称也是标示符） 。
+\begin{itemize}
+\item 标示符可以是任何长度， 可以由任何字母、数字、下划线组成。
+\item 标示符不能以数字开头。
+\item 标示符区分大小写
+\item 变量名名可以与函数名相同， 这一点容易引起混淆， 虽然是允许的， 但应当尽量避免。。函数名不能同名。
+\end{itemize}
+\subsection{声明和使用常量}
+\label{sec:orgf9645f8}
+\begin{itemize}
+\item 常量值一旦被设定后，就不能再更改。使用define函数定义常量。
+\end{itemize}
+\begin{verbatim}
+define ('TIREPRICE' , 100);  
+\end{verbatim}
+
+
+\begin{itemize}
+\item 常量的引用
+\end{itemize}
+引用常量不需要\$, 直接使用常量的名称。
+\subsection{PHP中的比较操作符}
+\label{sec:orgcfc34d8}
+\begin{center}
+\begin{tabular}{ll}
+操作符 & 名称\\
+== & 等于\\
+\texttt{=} & 恒等于\\
+！= & 不等于\\
+！== & 不恒等（比较操作）\\
+<> & 不等\\
+< & 小于\\
+<= & 小于等于\\
+> & 大于\\
+>= & 大于等于\\
+\end{tabular}
+\end{center}
+\subsection{PHP中的逻辑操作符}
+\label{sec:org1856903}
+\begin{center}
+\begin{tabular}{llll}
+操作符 & 名称 & 使用方法 & 结果\\
+! & 非 & ！\$b & 如果\$b是false，则返回true\\
+\&\& & 与 & \$a \&\& \$b & \\
+and & 与 &  & 与\&\&相同，但优先级较低\\
+or & 或 &  & 与两竖相同，优先级低\\
+\end{tabular}
+\end{center}
+\subsection{三元操作符 （ ？ ： ）}
+\label{sec:org85490df}
+（\$grade >= 50 ? 'Passed' : 'Failed'）
+\subsection{数字格式函数number\textsubscript{format}() 【来自php的math库】}
+\label{sec:org34616ea}
+\begin{itemize}
+\item number\textsubscript{format}(\$totalamout , 3) —— 小数点后保留3位
+\end{itemize}
+\subsection{htmlspecialchars()函数}
+\label{sec:orgdfbdefa}
+\begin{itemize}
+\item htmlspecialchars() 函数把预定义的字符转换为 HTML 实体。
+\item 预定义的字符是：
+\begin{itemize}
+\item \& （和号）成为 \&
+\item " （双引号）成为 "
+\item ' （单引号）成为 '
+\item < （小于）成为 <
+\item > （大于）成为 >
+\end{itemize}
+\end{itemize}
+\subsection{错误抑制操作符@}
+\label{sec:org19bf4b9}
+用法：
+\begin{verbatim}
+$a = @(57/0)   //抑制了除数为0的错误。
+\end{verbatim}
+如果在php.ini中启用了PHP的track\textsubscript{errors特性}，错误信息将会保存在全局变量\$php\textsubscript{errormsg中}。
+\subsection{执行操作符}
+\label{sec:orgb75f117}
+是一对反向单引号(` `)，将反向单引号之间的命令当做服务器命令来执行。表达式的值就是命令的执行结果。具体实例如下：
+\begin{verbatim}
+$out = `ls -la`;
+echo '<pre>.$out.</pre>';
+\end{verbatim}
+\subsection{PHP的数据类型}
+\label{sec:orgca55a68}
+\begin{itemize}
+\item integer
+\item float
+\item string
+\item boolean
+\item array
+\item object
+\item NULL
+\item resource
+\item callable
+\end{itemize}
+\subsection{常量的声明define}
+\label{sec:orgbfcc744}
+\subsubsection{常量的声明}
+\label{sec:org6ae5d9c}
+define ('TIREPRICE', 100);
+\subsubsection{常量的使用}
+\label{sec:org2ec6a22}
+不需要使用\$符号，直接用变量名称。
+\subsubsection{switch …… case语句 （同C语言）}
+\label{sec:orga90b33e}
+\begin{verbatim}
+switch ($find){
+  case "a" :
+      echo "   ";
+  case "b" :
+      echo "   ";
+  default :
+      echo "   ";
+}
+\end{verbatim}
+\subsection{输出格式控制number\textsubscript{format}(\$val, 位数)}
+\label{sec:orgb466aa0}
+
+\subsection{declare结构}
+\label{sec:org0bc2b22}
+php的另一种控制结构是declare结构， 它并没有像其它结构一样在日常编程中经常使用。 常见的控制结构的常见形式如下：
+\begin{verbatim}
+declare (directive){
+    //block
+}
+\end{verbatim}
+
+这种结构用来设置代码块的执行指令， 也就是， 关于后续代码如何运行的规则。 目前，PHP提供了两个执行指令， ticks和encoding
+\begin{itemize}
+\item ticks
+插入指令ticks=n ， 就可以使用ticks。 它允许在代码内部每执行n行代码后运行特定函数， 这对于性能调优和调试来说是非常有用的。
+\item encoding 用来设置脚本的编码
+\begin{verbatim}
+declare(encoding = 'UTF-8');
+\end{verbatim}
+\end{itemize}
+\section{第2章 数据的存储与检索}
+\label{sec:org42e66ef}
+\subsection{本章主要内容}
+\label{sec:orgd4126c7}
+
+\begin{itemize}
+\item 保存内容以便后期使用
+\item 打开文件
+\item 创建文件并写入文件
+\item 关闭文件
+\item 读文件
+\item 给文件加锁
+\item 其它有用的文件操作函数
+\item 更好的方式：数据管理系统
+\end{itemize}
+
+\subsection{保存数据以便后期使用}
+\label{sec:org4a99528}
+存储数据有两种基本方法：保存到普通文件（flat file）和保存到数据库中
+\subsection{存储和检索订单}
+\label{sec:org878e1ff}
+\subsection{文件处理}
+\label{sec:org9595b54}
+\subsubsection{写入文件}
+\label{sec:org94d0502}
+\begin{itemize}
+\item 打开文件
+\item 将数据写入文件
+\item 关闭文件
+\end{itemize}
+\subsubsection{读出文件}
+\label{sec:org7f7df91}
+\begin{itemize}
+\item 打开文件
+\item 从文件中读出数据
+\item 关闭文件
+\end{itemize}
+\subsection{打开文件}
+\label{sec:org476e72a}
+使用fopen（）函数，指定文件模式。
+\subsubsection{选择文件模式}
+\label{sec:orgfda579d}
+打开文件的三种模式：
+
+\begin{itemize}
+\item 打开文件为只读、只写或者读和写
+\item 如果是写入文件，可以选择覆盖原文件，或者在原文件末尾追加新文件，还可
+以选择在该文件存在的前提下，终止程序的执行
+\item 如果希望在一个区分来二进制方式和纯文本方式的系统写上一个文件，还必须
+指定采用的方式。
+\end{itemize}
+
+fopen（）支持以上三种的组合。
+\subsubsection{使用fopen（）打开文件}
+\label{sec:org6c6fd7a}
+\begin{verbatim}
+$fp=fopen("$DOCUMENT_ROOT/../orders/orders.txt", 'w');
+\end{verbatim}
+说明：
+\begin{itemize}
+\item 第一个参数代表文件路径（相对路径）| r    | 只读     |
+\end{itemize}
+\begin{center}
+\begin{tabular}{ll}
+r+ & 只读\\
+w & 只写\\
+w+ & 只写\\
+x & 谨慎写\\
+x+ & \\
+a & 追加\\
+a+ & 追加\\
+b & 二进制\\
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item 解决打开文件时可能遇到的问题
+\begin{itemize}
+\item 打开文件时可能会遇到文件权限问题， 需要对文件赋予权限
+\item 使用@符号抑制错误，使用@抑制错误后，需要自己编写错误处理代码，应对
+\end{itemize}
+\end{itemize}
+错。如果已经在php.ini中启用了php的track\textsubscript{errors特性}，错误相信将被保存在
+全变量\$php\textsubscript{errormsg中}。
+\subsubsection{写文件}
+\label{sec:orgf0d79f0}
+\begin{enumerate}
+\item fwrite（）函数
+\end{enumerate}
+使用fwrite（）或者fputs（），fputs（）是fwrite（）的别名函数。fwrite（）的调用方式如下：
+\begin{quote}
+fwrite(\$fp, \$outputstring);
+\end{quote}
+将保存在\$outputstring中的字符串写入到\$fp指向的文件中。
+
+\begin{enumerate}
+\item file\textsubscript{put}\textsubscript{contents}()
+\end{enumerate}
+这个函数是fwrite（）的替换函数， 可以不需要调用fopen（）函数打开文件，就将字符串写入， 调用方式如下：
+\begin{quote}
+int file\textsubscript{put}\textsubscript{contents}( string filename,
+                             string data,
+                             [ int flags,
+                               resource context ]
+                             )
+\end{quote}
+
+\begin{enumerate}
+\item fwrite()的参数
+\end{enumerate}
+fwrite()的原型：
+\begin{quote}
+int fwrite ( resource handle, string string [, int length ]);
+\end{quote}
+第三个参数length是写入的最大字符数。  如果给出这个参数，fwrite（）将向handle指向的文件写入字符串，写入长度为length。 
+
+\begin{enumerate}
+\item strlen（）函数
+\end{enumerate}
+获取字符串的长度
+\subsubsection{fgets() fgetss() fgetcsv()}
+\label{sec:org7c9fea8}
+\begin{itemize}
+\item fgets()每次读取一行数据
+\item fgetss()可以过滤字符串中的php和html标记
+\item fgetcsv() 读取一行，将结果返回数组
+\end{itemize}
+
+\subsubsection{通过FTP或HTTP打开文件}
+\label{sec:org72d1d18}
+\subsubsection{解决打开文件时可能遇到的问题}
+\label{sec:orgb4fc548}
+\begin{itemize}
+\item 文件权限问题
+\end{itemize}
+chmod 777 创建最高的读写权限
+\subsubsection{文件的锁定flock（）}
+\label{sec:orgef48db3}
+\begin{itemize}
+\item 避免两个客户同时打开同一个文件产生问题，使用文件锁定锁定文件。
+\item flock（文件，锁定模式，可选）
+\item 锁定模式
+\end{itemize}
+\begin{center}
+\begin{tabular}{ll}
+操作值 & 意义\\
+LOCK\textsubscript{SH} & 读操作锁定，文件可以共享，其它人可以读该文件\\
+LOCK\textsubscript{EX} & 写操作锁定，此时文件不被共享，其它人无法读取\\
+LOCK\textsubscript{UN} & 释放已有的锁定\\
+\end{tabular}
+\end{center}
+\section{第3章 使用数组}
+\label{sec:orgfecfb8d}
+\subsection{本章内容}
+\label{sec:orga460e69}
+\begin{itemize}
+\item 数字索引数组
+\item 非数字索引数组
+\item 数组操作符
+\item 多维数组
+\item 数组排序
+\item 数组函数
+\end{itemize}
+\subsection{数字索引数组}
+\label{sec:org9070f16}
+\subsubsection{数字索引数组的初始化}
+\label{sec:org4fa23fc}
+\begin{enumerate}
+\item 索引默认从0开始
+\label{sec:org7acf19f}
+\item 初始化方式1:
+\label{sec:orgb241a38}
+\begin{verbatim}
+$products = array('tires', 'oil' 'spark plugs');
+\end{verbatim}
+\item 初始化方式2：（php5.4开始支持）
+\label{sec:orgb586bed}
+\begin{verbatim}
+$products = ['tires', 'oil' 'spark plugs'];
+\end{verbatim}
+\item array（）结构简介
+\label{sec:org8be2e8a}
+array()是一个语言结构，不是函数。  可以简单将数组复制给另一个数组。
+\item 使用rang（）函数自动创建数字数组
+\label{sec:orga374212}
+\begin{verbatim}
+$number = range(1,10);     //创建一个1-10的数字数组
+$odds = range(1,10,2);     //创建一个1-10之间的偶数数组
+$letters = range('a','z'); //创建一个a-z的字符数组
+\end{verbatim}
+\end{enumerate}
+\subsubsection{访问数组内容}
+\label{sec:org47af920}
+使用\$products[0],\$products[1]……来访问数组\$products的内容。php的数组不需要预先初始化或创建，在第一次使用的时候会自动创建。使用\$products[n]可以直接扩充数组。
+\subsubsection{使用循环访问数组}
+\label{sec:org8341220}
+\begin{enumerate}
+\item 使用for循环访问数组
+\label{sec:orgb07d2e4}
+\begin{verbatim}
+for($i=0;$i<3;$i++){
+    echo "$products[$i]";
+}
+\end{verbatim}
+\item 使用foreach访问数组
+\label{sec:orgdd860d7}
+\begin{verbatim}
+foreach ($products as $current){
+    echo $current." ";
+}
+// 说明：每次循环都取出数组中的值，并保存到变量$current中，一直到数组的最后一个元素，结束循环
+\end{verbatim}
+\end{enumerate}
+\subsection{使用不同索引的数组（相关数组）}
+\label{sec:org899a65e}
+\subsubsection{初始化相关数组1}
+\label{sec:orgbb507e1}
+\begin{verbatim}
+$price = array('tires'=>100, 'oil'=>10, 'spark plugs'=>4);
+\end{verbatim}
+说明：相关数组由键和相对应的值组成。
+
+\subsubsection{初始化相关数组2}
+\label{sec:org9f9a1d0}
+\begin{verbatim}
+$price[‘tire’] = 20;
+\end{verbatim}
+\subsubsection{访问相关数组}
+\label{sec:orgf863931}
+\begin{verbatim}
+$price['tire'];
+\end{verbatim}
+\subsubsection{使用循环语句访问数组元素（foreach、list、each）}
+\label{sec:org6c97581}
+
+\begin{enumerate}
+\item foreach循环
+\label{sec:org9a977b9}
+\begin{verbatim}
+foreach($price as $key => $value)
+   echo $key.'=>' .$value.<br>';
+\end{verbatim}
+\item each（）结构
+\label{sec:org6e4bac8}
+\begin{verbatim}
+while($element = each($price))
+{
+  echo $element['key'];
+  echo '-';
+  echo $element['value'];
+  echo '<br>';
+}
+\end{verbatim}
+\item 说明：
+\label{sec:orgc6571fb}
+\begin{itemize}
+\item each()一次返回一个包含两个元素的数组，一个元素是被执行数组的索引，一个
+\end{itemize}
+元素是该索引对应的值，利用each（）的这个特性，可以配合list（）函数来访
+问数组：
+list(\$product,\$price) = each(\$prices);
+
+再利用循环，可以遍历所有的数组元素：
+while(list(\$product,\$price) = each(\$prices))
+\{
+   echo "\$product - \$price<br>";
+\}
+
+\begin{itemize}
+\item each()将改变数组的指针位置，若要再次使用该数组，需要使用reset（）函
+数，如reset(\$prices),将数组\$prices的指针回到初始位置。
+\end{itemize}
+\end{enumerate}
+\subsubsection{数组操作符}
+\label{sec:org753ab9f}
+\subsubsection{多维数组}
+\label{sec:org35eb1a4}
+数字索引的多维数组，可以直接使用嵌套的for循环来访问
+\subsubsection{数组的排序}
+\label{sec:orgcfee0a0}
+\begin{enumerate}
+\item 使用sort函数——按升序排列（大写字母排在小写字母的前面）
+\label{sec:orgedbc3c0}
+\begin{verbatim}
+$products = array('tires', 'oil', 'spark plugs');
+sort($products);
+\end{verbatim}
+sort()将对数组内的三个元素按照字母升序排列
+\item 关于sort（）的说明
+\label{sec:orgda4d7f2}
+\item 使用asort（）函数和ksort（）函数对相关数组排序
+\label{sec:org9707b3d}
+\begin{itemize}
+\item asort（）按值排序
+\item ksort（）按索引排序
+\end{itemize}
+\item 反向排序
+\label{sec:org4b83b31}
+\begin{itemize}
+\item rsort（）
+\item arsort（）
+\item krsort（）
+\end{itemize}
+\end{enumerate}
+\subsubsection{多维数组的排序}
+\label{sec:org75168f3}
+\begin{enumerate}
+\item 用户定义排序
+\label{sec:orgea4a1e9}
+\item 反向用户排序
+\label{sec:org9957029}
+\end{enumerate}
+\subsubsection{对数组进行重新排序（随机）}
+\label{sec:orgd9f281c}
+\begin{enumerate}
+\item 使用shuffle（）函数
+\label{sec:org035c903}
+实现随机功能
+\end{enumerate}
+\subsubsection{从文件载入数组}
+\label{sec:org80264fa}
+\begin{itemize}
+\item 用file（）载入文件，返回一个数组，文件的每一行为一个数组元素；
+\item count（）用来计算数组中的元素个数;
+\item explode()分割字符串，返回一个数组；
+\end{itemize}
+\section{第4章 字符串操作和正则表达式}
+\label{sec:org4b6f239}
+\subsection{本章要点}
+\label{sec:org8b5b692}
+\begin{itemize}
+\item 字符串的格式化
+\item 字符串的连接和分割
+\item 字符串的比较
+\item 使用字符串函数匹配和替换自字符串
+\item 使用正则表达式
+\end{itemize}
+\subsection{创建一个智能表单邮件}
+\label{sec:org61ce980}
+\subsubsection{mail（）函数}
+\label{sec:orgdb559d2}
+\begin{itemize}
+\item 几个参数：目的地邮件地址，邮件主题，邮件内容，第四个参数可选，可以用来发送有
+\end{itemize}
+效的额外的邮件头
+\begin{itemize}
+\item 示例：
+\end{itemize}
+mail(\$toaddress, \$subject, \$mailcontent, \$fromaddress);
+\subsection{字符串的格式化}
+\label{sec:orgdf0838a}
+\subsubsection{字符串的整理：chop（）、ltrim（）和trim（）}
+\label{sec:org6f7306c}
+\begin{itemize}
+\item trim（）——去除字符串开始位置和结束位置的空格，并将结果返回。默认情况
+下除去的字符是换行符和回车符（\n和\r），水平和垂直制表符（\t和\x0b）。
+\item ltrim（）——去除字符串开始位置的空格
+\item rtrim（）——去除字符串结束位置的空格
+\item chop()是rtrim（）的别名
+\end{itemize}
+\subsubsection{格式化字符串以便显示}
+\label{sec:org6f71d12}
+\begin{itemize}
+\item 使用html格式化：nl2br（）函数：用字符串作为输入参数，用xhtml中的<br
+/>标记代替字符串中的换行符
+\item 为打印输出而格式化字符串
+\item 改变字符串中字母的大小写
+\end{itemize}
+strtoupper（）——将字符串转变为大写
+strtolower（）——将字符串转变为小写
+ucfirst（）——如果字符串的第一个字符是字母，将该字母转化为大写
+ucwords（）——将字符串中的每个单词的第一个字母转化为大写。
+\subsubsection{格式化字符串以便存储：addslashes（）和stripslashes（）}
+\label{sec:orgcd510df}
+重新格式化字符串，以便存入数据库。对于字符串来说，某些字符是有效的，当
+时将它们插入数据库时可能会引起一些问题，比如引号（单引号、双引号）、反
+斜杠和null字符，数据库会将这些字符解释成控制符。为了将这些字符进行转义，
+需要在它们前面加一个反斜杠（这个规则对所有特殊字符通用）。addslashes（）
+和stripslashes（）就是专门用来进行这样的格式化处理
+
+addslashes（）——添加反斜杠标记
+stripslashes（）——去除反斜杠标记
+\subsubsection{字符串连接和字符串的分割}
+\label{sec:orgb4c37ce}
+\begin{enumerate}
+\item explode（）、implode（）和join（）
+\label{sec:org9ba2bdc}
+\begin{itemize}
+\item explode（）——根据指定的分隔符分割字符串
+\item implode（）和join（）实现与explode（）相反的效果
+\end{itemize}
+\item 使用strtok（）函数
+\label{sec:org4cdb975}
+\item substr（）函数
+\label{sec:orgc29ea7a}
+截取字符串
+\textbf{用法：}
+string substr（string string， int start，【int length】）；
+
+第二个参数代表起始位置，若为0，代表从头部开始。
+
+第三个参数可选，代表截取的长度，若省略，将从起始处截取到结尾，若是负数，
+从起始处往头部截取。
+\end{enumerate}
+\subsubsection{格式化字符串以便存储：addslashes（）和stripslashes（）}
+\label{sec:orgb579952}
+重新格式化字符串，以便存入数据库（主要是自动处理引号、斜杠、NULL字符等）
+
+magic\textsubscript{quotes}\textsubscript{gpc这个配置将自动开启格式化}。
+\subsection{字符串的比较}
+\label{sec:orgff0bb8f}
+\subsubsection{字符串的排序：strcmp（）、strcasecmp（）和strnatcmp（）}
+\label{sec:orgf145227}
+\begin{itemize}
+\item strcmp()——比较两个字符串
+\end{itemize}
+int strcmp（string str1，string str2）；
+
+str1和str2相等，返回0
+str1排在str2的后面（大于），返回一个正数
+小于，返回一个负数
+\subsubsection{使用strlen（）计算字符串长度}
+\label{sec:org9e1e347}
+\subsection{字符串函数匹配和替换字符串}
+\label{sec:orgbbb0f21}
+\subsubsection{在字符串中查找字符串}
+\label{sec:orgfe89807}
+\begin{itemize}
+\item strstr（）
+\item strchr（）
+\item strrchr（）
+\item stristr（）
+\end{itemize}
+\subsubsection{查找子字符串的位置}
+\label{sec:org0da5853}
+\begin{itemize}
+\item strpos（）
+\item strrpos（）
+\end{itemize}
+\subsubsection{替换字符串}
+\label{sec:org6107c0e}
+\begin{itemize}
+\item str\textsubscript{replace}()
+\end{itemize}
+\begin{quote}
+srt\textsubscript{replace}("\r\n","",\$name); //防止header注入。
+\end{quote}
+\begin{itemize}
+\item substr\textsubscript{replace}()
+\end{itemize}
+\subsection{正则表达式介绍}
+\label{sec:orgc2b0b75}
+PHP支持两种风格的正则表达式语法：POSIS和Perl（POSIX正则表达式更容易掌
+握，但是不是二进制安全的）
+\subsubsection{基础知识}
+\label{sec:org9635e69}
+\begin{enumerate}
+\item 分隔符
+\label{sec:org87f5ca4}
+\begin{itemize}
+\item 最常用的分隔符是 / , \emph{shop/这个正则表达式的作用是匹配shop，正则表达式中使用/，需要使用$\backslash$来转义。如/http:$\backslash$}$\backslash$//
+\item 分隔符后可以添加模式修饰符；如/shop/!，表示不区分大小写的方式匹配shop
+\end{itemize}
+\end{enumerate}
+\subsubsection{字符集7和类}
+\label{sec:org8f4d1dc}
+\section{第5章 代码重用与函数编写}
+\label{sec:org13c212a}
+\subsection{本章内容}
+\label{sec:orga72d337}
+\begin{itemize}
+\item 代码重用的好处
+\item 使用require（）和include（）函数
+\item 函数介绍
+\item 定义函数
+\item 使用参数
+\item 理解作用域
+\item 返回值
+\item 参数的饮用调用和值调用
+\item 实现递归
+\item 使用命名空间
+\end{itemize}
+\subsection{代码重用的好处}
+\label{sec:org329e773}
+\begin{itemize}
+\item 成本
+\item 可靠性
+\item 一致性
+\end{itemize}
+\subsection{使用require（）和include（）函数}
+\label{sec:org18646e7}
+\subsubsection{两者的差异}
+\label{sec:orgaeb52d0}
+唯一的区别在于函数失败后require（）函数将给出一个致命的错误。而include
+只是给出一个警告。
+\subsubsection{require\textsubscript{once}()和include\textsubscript{once}()}
+\label{sec:org1e2f95b}
+这两个是变体函数，确保文件只被引用一次
+\subsection{理解作用域}
+\label{sec:orgcbd2f21}
+\subsection{参数的引用传递和值传递}
+\label{sec:org9053458}
+\subsection{使用return关键字}
+\label{sec:org45e35a3}
+\subsection{关于本章实例 --home.html-- 的笔记}
+\label{sec:orga63cb0b}
+\subsubsection{在html文件内部编写css}
+\label{sec:org22f10f9}
+\begin{verbatim}
+<style type="text/css">
+    h1 {
+      color:white;      //文字颜色
+      text-align:center;
+
+    }
+
+    .menu {
+      color:white;
+      font-size:24pt;
+      text-align:center;
+      font-wight:bold;
+    }
+    td {
+      background:black;    //背景颜色
+    }
+    p.foot {
+      color:white;
+      text-align:center;
+    }
+\end{verbatim}
+\subsubsection{表格table的处理}
+\label{sec:org0439576}
+\begin{verbatim}
+<table width="100%" cellpadding="12" cellspacing="0" border="0">
+      <tr bgcolor="black">
+	<td align="left"><img src="./img/s-logo.gif" alt="TLA logo"
+			      height="70" width="70"></td>
+	<td>
+	  <h1 ="white">TLA Consulting</h1>
+	</td>
+	<td align="right"><img src="./img/s-logo.gif" alt=TLA logo" height="70" width="70" ></td>
+      </tr>
+    </table>
+\end{verbatim}
+
+\section{第6章 面向对象的php}
+\label{sec:orgd46174d}
+\subsection{本章主要内容}
+\label{sec:org4423ec6}
+\begin{itemize}
+\item 面向对象的概念
+\item 类、属性和操作
+\item 类属性
+\item 类常量
+\item 类方法的调用
+\item 继承
+\item 访问修饰符
+\item 静态方法
+\item 类型提示
+\item 延迟静态绑定
+\item 对象克隆
+\item 抽象类
+\item 类设计
+\item 设计的实现
+\item 高级的面向对象功能
+\end{itemize}
+\subsection{理解面向对象的概念}
+\label{sec:orga7e190d}
+\subsubsection{类和对象}
+\label{sec:org6f2df3f}
+\subsubsection{多态性}
+\label{sec:orgef82f1d}
+\subsubsection{继承}
+\label{sec:org0978e86}
+\subsubsection{在PHP中创建类、属性和操作}
+\label{sec:orgc94f075}
+\begin{enumerate}
+\item 类的结构
+\label{sec:org2395c23}
+\textbf{类的定义：}
+class classname
+\{
+\}
+\item 构造函数
+\label{sec:orge03d00f}
+构造函数的名称必须是\_\textsubscript{construct}( );
+
+\textbf{示例}
+class classname
+\{
+      function \_\_\textsubscript{construct}（）
+\}
+\item 析构函数
+\label{sec:org477f0a3}
+名称必须是\_\textsubscript{destruct}()，不能带任何参数
+\item 类的实例化
+\label{sec:org3a970a7}
+在声明一个类后，需要创建一个对象（一个特定的个体，即类的一个成员）并使
+用这个对象。这个过程就是创建一个类的实例或实例化一个类。
+
+使用关键词new来实例化一个类。
+\item 使用类的属性
+\label{sec:org4630dee}
+\begin{itemize}
+\item 在类自身中，使用\$this指针来访问属性
+\item 类的外部访问接口
+\begin{itemize}
+\item \_get()函数返回类中的属性的值；
+\item \_set()函数设置类中属性的值；
+\end{itemize}
+\end{itemize}
+
+\textbf{应用实例：}
+\begin{verbatim}
+class classname
+{
+     public $attribute;
+     function ___get($name)
+    {
+	 return $this->$name;
+    }
+
+     function __set($name, $value)
+    {
+	 $this->$name = $value;
+    }
+}
+$a = new classname();
+$a->$attribute = 5 ; // 该语句间接调用_set()函数
+$a->$attribute //该语句间接调用_get()函数
+\end{verbatim}
+\item 使用private和public关键字控制访问
+\label{sec:org09062b4}
+\begin{itemize}
+\item 默认是public（公有），公有的属性或方法可以在类的内部和外部进行访问，可
+\end{itemize}
+以被继承。
+\begin{itemize}
+\item private（私有），只能在类的内部进行访问，不会被继承。
+\item protected（保护），只能在类的内部进行访问，可以被继承
+\end{itemize}
+\item 类的操作和调用
+\label{sec:org2bd4ae2}
+\item 在php中实现继承
+\label{sec:orga84dc63}
+使用extends实现继承
+class b extends a
+\{
+     ……
+\}
+\item 通过继承使用private和proteted访问修饰符控制可见性
+\label{sec:org74c7c72}
+\item 重载
+\label{sec:org61fe4f0}
+\item 理解多重继承
+\label{sec:org72b5221}
+php不支持多重继承，每个子类只能有一个父类。
+\item 实现接口
+\label{sec:orgf2321ff}
+php通过接口来实现多重继承
+\item PHP面向对象的高级功能
+\label{sec:org6d5743c}
+\begin{enumerate}
+\item 使用Per-class常量(用::来调用）
+\label{sec:org8161178}
+可以在不初始化类的情况下，调用类中的常量
+\textbf{实例}
+class Math()
+\{
+     const pi = 3.14159;
+\}
+\$pi = Math::pi;
+\item 实现静态方法
+\label{sec:orgedb8370}
+static关键字，实现static方法，等价与Per-Class常量的思想。
+\textbf{实例}
+class Math
+\{
+      static function squared(\$input)
+\{
+             return \$input*\$input;
+\}
+\$result = Math::squared(8);
+\}
+\end{enumerate}
+\end{enumerate}
+\section{第7章 错误和异常处理}
+\label{sec:org5489ff6}
+\subsection{本章主要内容}
+\label{sec:org81f8f31}
+\begin{itemize}
+\item 异常处理的概念
+\item 异常控制结构：try \ldots{} throw\ldots{} catch
+\item Exception类
+\item 用户自定义异常
+\item 异常和PHP的其他错误处理机制
+\end{itemize}
+\subsection{异常处理的概念}
+\label{sec:org3f9beb9}
+异常处理的基本思想是代码在try代码块被调用执行。
+
+例如：
+try
+\{
+     // code goes here
+\}
+
+如果try代码块出现某些错误，我们可以执行一个抛出异常的错误。PHP中，异常
+必须手动抛出。
+
+例如：
+throw new Exception('message' ,code);
+
+throw 关键字将触发异常处理机制。它是一个语言结构而不是函数，必须给它传
+递一个参数。它要求接收一个对象。在最简单的情况下，可以实例化一个内置的
+Exception类。
+\section{数据库（插入）}
+\label{sec:org44d4cf3}
+\subsection{什么是数据库？}
+\label{sec:org968bed3}
+数据库（Database）是按照数据结构来组织、存储和管理数据的仓库。每个数据库都有一个或多个不同的 API 用于创建，访问，管理，搜索和复制所保存的数据。
+
+我们也可以将数据存储在文件中，但是在文件中读写数据速度相对较慢。
+
+所以，现在我们使用关系型数据库管理系统（RDBMS）来存储和管理大数据量。所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。
+
+RDBMS 即关系数据库管理系统(Relational Database Management System)的特点：
+
+1.数据以表格的形式出现
+2.每行为各种记录名称
+3.每列为记录名称所对应的数据域
+4.许多的行和列组成一张表单
+5.若干的表单组成database
+\section{第8章 设计web数据库}
+\label{sec:orge5700a2}
+\subsection{本章主要内容}
+\label{sec:org8581ad4}
+\begin{itemize}
+\item 关系数据库的概念和术语
+\item web数据库的设计
+\item web数据库的架构
+\end{itemize}
+\subsection{关系数据库的概念和术语}
+\label{sec:orgaab4277}
+关系数据库是最常用的数据库类型
+\subsubsection{表}
+\label{sec:org61c6b63}
+关系数据库由关系组成，这些关系通常称为表。一个表格就是一个数据的表。
+\subsubsection{列}
+\label{sec:org1fc40cb}
+表中的每一列都有唯一的名称，包含不同的数据。每一列都是一个相关的数据类型。 列也叫做字段或属性。
+\subsubsection{行}
+\label{sec:org6d33112}
+每一行具有相同的格式，具有相同的属性。行也称为记录或元组（Tuple）
+\subsubsection{值}
+\label{sec:org894ac6c}
+行和列的交点组成一个值。该值必须与该列定义的数据类型相同。
+\subsubsection{键（主键和外键）}
+\label{sec:orgcbcde8b}
+用来标识数据的列称为键或主键，一个键可能由几列组成。经常使用键作为多个表之间的引用。
+\subsubsection{模式}
+\label{sec:org5af28fc}
+数据库整套表的完整设计称为数据库的模式（Schema），模式应该显示表格及表格的列、每个表格的主键和外键。模式不包含任何数据。
+\subsubsection{关系}
+\label{sec:org78a1400}
+\begin{itemize}
+\item 用外键表示两个表中数据之间的关系。
+\item 三种基本的关系类型：
+\begin{itemize}
+\item 一对一
+\item 一对多
+\item 多对多
+\end{itemize}
+\end{itemize}
+\subsection{考虑真实的建模对象}
+\label{sec:org7857b23}
+\subsection{避免保存冗余数据}
+\label{sec:org4cece89}
+冗余造成的三种异常
+\begin{itemize}
+\item 修改异常
+\item 插入异常
+\item 删除异常
+\end{itemize}
+\subsection{表格类型的总结}
+\label{sec:org5b2e598}
+通常，数据库有两种类型的表组成：
+\begin{itemize}
+\item 描述现实世界对象的简单表。  这些表也可能包含其他简单对象的键，他们之间有一对一或一对多的关系。
+\item 描述两个世界对象的多对多关系的关联表。
+\end{itemize}
+
+\section{第9章 创建Web数据库}
+\label{sec:orgf927394}
+\subsection{本章概要}
+\label{sec:org57ddbbf}
+\begin{itemize}
+\item 创建一个数据库
+\item 设置用户权限
+\item 权限系统的介绍
+\item 创建索引
+\item 选择MySQL中的列类型
+\end{itemize}
+\subsection{使用MySQL监视程序}
+\label{sec:org6d60ccf}
+\begin{itemize}
+\item 命令用；分开
+\item SQL语句不区分大小写
+\item 数据库和数据表名称区分大小写
+\end{itemize}
+\subsection{登录到MySQL}
+\label{sec:org608a3e7}
+在mac中 ，进入/usr/local/mysql/bin,  执行: ./mysql -u root -p   登陆 mysql
+命令：
+\begin{quote}
+mysql -h hostname -u username -p
+\end{quote}
+
+说明：
+\begin{itemize}
+\item h 命令选项用于指定连接的主机。 如果服务器是本机，可忽略该参数。
+\item u 数据库用户名。
+\item p 告诉服务器需要一个密码来连接
+\end{itemize}
+\subsection{创建数据库和用户}
+\label{sec:orgccd93c7}
+\subsubsection{创建数据库}
+\label{sec:orgbe07438}
+\begin{quote}
+create databse dbname;
+\end{quote}
+\subsection{设置用于与权限}
+\label{sec:orgd5c9fd4}
+一个MySQL系统可能有许多用户。  为安全起见，root用户通常只用作管理目的。 对于每个需要使用该系统的用户，应该为他们创建一个账号和密码。
+\subsection{MySQL权限系统介绍}
+\label{sec:orgbb398a4}
+\subsubsection{最少权限原则}
+\label{sec:orgfd7d41f}
+最少权限原则可以用来提高任何计算机系统的安全性。 它是一个基本的、 但又非常重要的原则。该原则内容如下：
+\begin{quote}
+一个用户（或者一个进程）应该拥有能够执行分配给他的任务的最低级别的权限。
+\end{quote}
+\subsubsection{创建用户：GRANT命令}
+\label{sec:orge0ef74d}
+GRANT和REVOKE命令分别用来授予和取消MySQL用户的权限， 这些权限分4个级别。  它们分别是：
+\begin{itemize}
+\item 全局
+\item 数据库
+\item 表
+\item 列
+\end{itemize}
+\begin{enumerate}
+\item GRANT命令
+\label{sec:orga68c773}
+用来创建用户并赋予他们权限。GRANT命令的语法：
+\begin{quote}
+GRANT privileges [columns]
+ON item 
+TO user\textsubscript{name} [IDENTIFIED BY 'password']
+[REQUIRE ssl\textsubscript{options}]
+[WITH [GRANT OPTION | limit\textsubscript{options}]]
+\end{quote}
+说明：
+\begin{itemize}
+\item\relax []中的是可选的
+\item 占位符
+\begin{itemize}
+\item privileges   由逗号分开的一组权限
+\item columns  是可选的， 可以用它对没一个列指定权限。  也可以使用单列的名称或者用逗号分开的一组列的名称。
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\subsubsection{权限的类型和级别}
+\label{sec:org1047e59}
+\begin{enumerate}
+\item 用户权限
+\label{sec:orga7b4d3b}
+\begin{center}
+\begin{tabular}{lll}
+权限 & 应用于 & 描述\\
+select & 表和列 & 允许用户从表中选择行（记录）\\
+insert & 表和列 & 允许用户在表中插入新行\\
+update & 表和列 & 允许用户修改现存表里行的值\\
+delete & 表 & 允许用户删除现存表的行\\
+index & 表 & 允许用户创建和拖动特定表索引\\
+alter & 表 & 允许用户改变现存表的结构，例如，可添加列、重命名列或表、修改列的数据类型\\
+create & 数据库、表、索引 & 允许用户创建新数据库、表或索引。如果在grant中指定了一个特定的数据库、表或索引，用户就只能够创建他们，即用户必须首先删除它\\
+drop & 数据库、表、视图 & 允许用户删除数据库、表或视图\\
+event & 数据库 & 允许用户查看、创建、修改以及删除事件调度器中的事件（目前不讨论）\\
+trigger & 表 & 允许用户对已授权表执行创建、执行、或删除触发器\\
+create view & 视图 & 允许用户查看创建视图的查询\\
+proxy & 所有对象 & 允许用户切换到其它用户，类似于UNIX的su命令\\
+create routine & 存储过程 & 允许用户创建存储过程和函数\\
+execute & 存储过程 & 允许用户运行存储过程和函数\\
+alter routine & 存储过程 & 允许用户修改存储过程和函数的定义\\
+\end{tabular}
+\end{center}
+常规用户的权限大多数都是相对无害的。 通过重命名表，alert权限可以用来绕过权限系统设置， 但是大多数用户需要它。  安全常常是可用性与安全性的折中。
+\item 特殊权限
+\label{sec:org81e80f4}
+\begin{center}
+\begin{tabular}{ll}
+权限 & 描述\\
+all & 授予所有的权限，也可以写成all privileges\\
+usage & 不授予权限。 这将创建一个用户并允许他登陆， 但是不允许进行任何操作。  通常在以后会授予该用户更多的权限。 使用grant和usage语句创建用户并授予权限等同于create user 语句\\
+\end{tabular}
+\end{center}
+\end{enumerate}
+\subsubsection{revoke命令 -- 收回权限}
+\label{sec:org83bfcdd}
+和grant命令相反，从一个用户收回权限。 语法上于grant相似。
+\begin{verbatim}
+revoke privileges [(columns)]
+ON item
+FROM user_name;
+\end{verbatim}
+如果已经给出了with grant option 字句， 可以按如下方式撤销权限（以及所有其它权限）
+\begin{verbatim}
+revoke all privileges ， grant option
+FROM user_name;
+\end{verbatim}
+\subsubsection{使用GRANT和REVOKE示例}
+\label{sec:org523e6a0}
+\begin{itemize}
+\item 创建一个管理员
+\begin{verbatim}
+grant all
+on *.*
+to 'fred' identified by 'mnb123'
+with grant option;
+\end{verbatim}
+以上命令授予了用户名为fred、密码为mnb123的用户使用所有数据库的所有权限、并允许他向其他人授予这些权限。
+\item 如果不希望用户在系统中存在，可以用用如下方式撤销授权
+\begin{verbatim}
+revoke all privileges, grant option
+from 'fred';
+\end{verbatim}
+\item 创建一个没有任何权限的常规用户
+\begin{verbatim}
+grant usage
+on books.*
+to 'sally'@'localhost';
+\end{verbatim}
+\item 授予权限
+\begin{verbatim}
+grant select,insert,update,delete,index,alter,create,drop
+on books.*
+to 'sally'@'localhost'
+\end{verbatim}
+\item 当不再使用数据库时，可以按如下方式撤销所有权限
+\begin{verbatim}
+revoke all
+on books.*
+from 'sally'@'localhost';
+\end{verbatim}
+\end{itemize}
+\subsection{设置Web用户}
+\label{sec:orged56a9c}
+要通过PHP连接到MySQL，需要为PHP脚本创建一个用户。 这里，同样使用最少权限原则。
+在大多数情况下，PHP脚本只需要能执行选择（select）、插入（insert）、删除（delete）和更新（update）操作， 因此可以按如下方式设定这些权限：
+\begin{verbatim}
+grant select,insert,delete,update
+on books.*
+to 'bookorama' identified by 'bookorama123';
+\end{verbatim}
+如果使用了主机托管服务，通常可以获得基于用户类型的数据库权限。 典型的，可以提供相同用户名和密码以用于命令行（建立表等）操作和Web脚本连接（查询数据库）。 对命令行和Web连接使用相同的用户名和密码是不够安全的。 可以建立其它具有相同权限级别的用户，操作如下：
+\begin{verbatim}
+grant select,insert,update,delete,index,alter,create,drop
+on books.*
+to 'bookorama'@'localhost'
+identified by 'bookorama123';
+\end{verbatim}
+\subsection{mysql 8.0 建立用户和设置权限的特别的地方}
+\label{sec:orga1680d0}
+8.0版本建立用户和设置权限不能放在一起，要分开，否则会报错
+\begin{quote}
+-- 创建一个数据库
+CREATE DATABASE us\textsubscript{demo}\textsubscript{dev} DEFAULT CHARACTER SET utf8mb4 ;
+
+-- 创建一个user
+create user 'frank'@'\%' IDENTIFIED BY '123456';
+
+-- 授权 
+GRANT  SELECT,INSERT ,UPDATE ,DELETE ,DROP,ALTER ,INDEX  ON  us\textsubscript{demo}\textsubscript{dev}.*  TO  'frank'@'\%';
+-- 刷新权限
+flush privileges;
+
+-- 查看权限
+SHOW GANTS FOR 'frank'@'\%';
+
+-- 回收权限 
+REVOKE SELECT, INSERT, UPDATE, DELETE, DROP, INDEX, ALTER  ON `us\textsubscript{demo}\textsubscript{dev}`.* from `frank`@`\%` ;
+\end{quote}
+\subsection{创建数据库表}
+\label{sec:org72d1b09}
+\subsubsection{Book-O-Rama 数据库模式}
+\label{sec:org08cad1d}
+\begin{enumerate}
+\item 模式
+\label{sec:orgd39d541}
+\begin{quote}
+Customers(CustomerID, Name, Address, City)
+Orders(OrderID, CustomerID, Amount, Date)
+Books(ISBN, Author, Title, Price)
+Order\textsubscript{Items}(OrderID, ISBN, Quantity)
+Book\textsubscript{Reviews}(ISBN, Review)
+\end{quote}
+\item 脚本代码
+\label{sec:org89967c7}
+\begin{verbatim}
+create table Customers(
+       CustomerID int unsigned not null auto_increment primary key,
+       Name char(50) not null,
+       Address char(100) not null,
+       City char(30) not null
+);
+create table Orders(
+       OrderID int unsigned not null auto_increment primary key,
+       CustomerID int unsigned not null,
+       Amount float(6,2),
+       Date date not null,
+       foreign key(CustomerID) references Customers(CustomerID)
+);
+create table Books(
+       ISBN char(13) not null primary key,
+       Author char(50),
+       Title char(100),
+       Price float(4,2)
+);
+create table Order_Items(
+       OrderID int unsigned not null,
+       ISBN char(13) not null,
+       Quantity tinyint unsigned,
+
+       primary key(orderid,ISBN),
+       foreign key (OrderID) references Orders(OrderID),
+       foreign key (ISBN) references Boosk(ISBN)
+);
+create table Book_reviews(
+       ISBN char(13) not null primary key;
+       Review text,
+
+       foreign key (ISBN) references Books(ISBN)
+);
+
+\end{verbatim}
+\item 关键字解释
+\label{sec:org41ea8cf}
+\begin{itemize}
+\item NOT NULL
+表示必须有一个值， 如果没有指定， 则表示可以为空NULL。
+\item Auto\textsubscript{increment}
+是一个特殊的MySQL特性，可以在整数列上使用，意义为在表中插入行时，如果该字段为空，那么MySQL将自动产生一个唯一的标识符（自动增加1）
+\item primary key
+表示主键， 只适用于单列主键
+\end{itemize}
+\end{enumerate}
+\subsubsection{插入数据库}
+\label{sec:orgba1f73c}
+sql脚本：
+\begin{verbatim}
+use bookorama;
+
+insert into Customers values
+			(1,'Julie Smith','25 Oak Street','Airport West'),
+			(2,'Alian Wong','1/47 Haines Avenue','Box Hill'),
+			(3,'Michelle Arthur','357 North Road','Yarraville');
+insert into Books values
+		    ('0-672-31697-8','Michael Morgan','Java 2 for Professional developers',34.99),
+		    ('0-672-31745-1','Thomas Down','Installing Debian GNU/Linux',24.99),
+		    ('0-672-31509-2','Pruitt, et al.','Teach Yourself GIMP in 24 Hours',24.99),
+		    ('0-672-31769-9','Thomas Schenk','Caldera OpenLinux System Administration Unleashed',49.99);
+insert into Orders values
+		     (null,3,69.98,'2007-04-02'),
+		     (null,1,49.99,'2007-04-15'),
+		     (null,2,74.98,'2007-04-19'),
+		     (null,3,24.99,'2007-05-01');
+INSERT INTO Order_Items VALUES
+			  (1, '0-672-31697-8', 2),
+			  (2, '0-672-31769-9', 1),
+			  (3, '0-672-31769-9', 1),
+			  (3, '0-672-31509-2', 1),
+			  (4, '0-672-31745-1', 3);
+INSERT INTO Book_reviews VALUES
+			   ('0-672-31697-8', 'The Morgan book is clearly written and goes well beyond
+					     most of the basic Java books out there.');
+
+\end{verbatim}
+\section{第11章 使用PHP从Web访问MySQL}
+\label{sec:org1169b7e}
+\subsection{本章主要内容}
+\label{sec:orgd77aac6}
+\begin{itemize}
+\item Web数据库架构及工作原理
+\item 从Web查询数据库的基本步骤
+\item 设置数据库连接
+\item 获取可用数据库信息
+\item 选择要使用的数据库
+\item 查询数据库
+\item 断开数据库连接
+\item 写入新信息
+\item 使用prepared statement
+\item 使用PHP与数据库交互的其它接口
+\item 使用通用数据库接口：PDO
+\end{itemize}
+\subsection{web数据库架构及工作原理}
+\label{sec:org471a08e}
+\begin{enumerate}
+\item 用户Web浏览器发出针对特定页面的HTTP请求。例如，用户可能在Book-O-Rama站点发起搜索Michael Morgan编写的所有图书的请求，搜索结果页面是results.php
+\item Web服务器接收到针对results.php的请求，读取该文件，并将文件传给PHP引擎处理
+\item PHP引擎开始接卸该脚本。 脚本中有一个连接数据库的命令，执行查询命令（执行图书搜索操作）。 PHP打开MySQL服务器连接，并且发送查询命令
+\item MySQL数据库接收到数据库查询指令，执行该指令并将结果返回给PHP引擎。
+\item PHP执行脚本结束，将查询结果格式化为HTML，发送HTML至Web服务器。
+\item Web服务器将HTML返回给用户浏览器
+\end{enumerate}
+\subsection{从Web查询数据库}
+\label{sec:orgcbf60fe}
+\subsubsection{步骤}
+\label{sec:org195fb94}
+任何可以从Web访问数据库的脚本都会执行如下的基本步骤：
+\begin{enumerate}
+\item 检查和过滤来自用户的输入数据
+\item 创建和设置数据库连接
+\item 查询数据库
+\item 读取查询结果
+\item 向用户展示搜索结果
+\end{enumerate}
+\subsubsection{检查并过滤输入数据}
+\label{sec:orgacfd28d}
+过滤掉关键字前后可能存在的空格。使用trim（）函数去除输入数据前后的空格。
+
+检查是否输入了搜索条件
+\begin{verbatim}
+if(!$searchtype || !$searchterm){
+    echo '<p>You have not entered search details. <br />/
+	Please go back and try again. </p>' ;
+    exit;
+}
+\end{verbatim}
+\subsubsection{设置数据库连接}
+\label{sec:org5c764b3}
+连接MySQL数据库的PHP基础函数库是mysqli。 i表示优化版本，未优化版本为mysql
+\begin{enumerate}
+\item 面向对象的语法：
+\label{sec:orga2b4983}
+\begin{verbatim}
+@$db = new mysqli('localhost', '用户名', '密码');
+\end{verbatim}
+备注：在MAC中本机地址用127.0.0.1， 使用localhost可能会无法连接， 调用\$db对象访问数据库。
+\item 面向过程的语法：
+\label{sec:orgf94dc8a}
+\begin{verbatim}
+@$db = mysqli_connect('localhost', '用户名', '密码');
+\end{verbatim}
+\item 两者的差别
+\label{sec:orgede0f5b}
+面向过程的版本以mysqli\textsubscript{开始}，并且要求将从mysqli\textsubscript{connect}()函数返回的资源句柄作为参数在面向过程版本函数中传递。 对于数据库连接，这是一个例外，因为可以由mysqli对象的构造函数实现。
+\item 数据库连接有效性检查（面向对象和面向过程相同）
+\label{sec:org7ed17ac}
+\begin{verbatim}
+if(mysqli_connect_errno()){
+    echo '<p>Error: Could not connect to database <br />
+	    Please try again later. </p>';
+    exit;
+}
+\end{verbatim}
+备注：该函数返回一个资源，而不是对象。 该资源代表到数据库的链接，如果用面向过程的方式，需要将该资源传递给所有mysqli函数。
+\end{enumerate}
+\section{第12章 MySQL高级管理}
+\label{sec:orgb5f9544}
+\subsection{本章概要}
+\label{sec:org62c9cbd}
+\begin{itemize}
+\item 深入理解权限系统
+\item 提升MySQL数据库安全
+\item 获得数据库更多信息
+\item 使用索引加速查询
+\item 优化数据库
+\item 备份和恢复
+\item 实现复制
+\end{itemize}
+\subsection{深入理解权限系统}
+\label{sec:org0dfd8e1}
+当执行一个GRANT语句时， 它将影响存在于特殊数据库的表， 该数据库名为mysql。 权限信息保存在该数据库的7张表中。 基于此设计，在授权时必须关注对mysql数据库访问权限的控制。
+
+以管理员身份登录数据库，使用如下语句查看mysql数据库信息：
+\begin{verbatim}
+use mysql；
+\end{verbatim}
+\section{第19章 与文件系统和服务器交互}
+\label{sec:org5411a8c}
+\subsection{17.1 上传文件}
+\label{sec:orgc3660d6}
+\subsubsection{php.ini中关于文件上传的配置设置}
+\label{sec:org87246f8}
+\begin{center}
+\begin{tabular}{lll}
+指令 & 描述 & 默认值\\
+file\textsubscript{uploads} & 是否支持HTTP文件上传 & on\\
+upload\textsubscript{tmp}\textsubscript{dir} & 文件上传的临时目录。如果没有设置该值，将使用系统默认值。 & NULL\\
+upload\textsubscript{max}\textsubscript{filesize} & 控制文件上传的最大容量，日过文件大于该值，php将写入0字节大小的占位符文件。 & 默认值为2m\\
+post\textsubscript{max}\textsubscript{size} & php可以接受的post数据大小的最大值，必须大于上传最大容量 & 8m\\
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item mac 中的php.ini
+\label{sec:org553e58b}
+Mac OS X中没有默认的php.ini文件，但是有对应的模版文件php.ini.default，
+位于/etc/php.ini.default ，可以自行拷贝一份进行修改。
+\end{enumerate}
+
+\subsubsection{文件上传的html表单}
+\label{sec:org657918e}
+文件上传表单必须使用POST， 不能使用GET， 该表单的其它特性包括：
+\begin{itemize}
+\item <form>标记中，必须设置属性enctype = "multipart/form-data" ，告诉服务器有常规信息的文件要上传；
+\item 如果没有服务器端的配置控制文件上传的大小，必须有个表单域用来设置上传文件的大小。可以使用如下的隐藏域来指定：
+\end{itemize}
+\begin{verbatim}
+<input type="hidden" name="MAX_FILE_SIZE" value="1000000" >//单位为字节
+\end{verbatim}
+\begin{itemize}
+\item type属性值设置为file，用于上传文件，并设置name属性（在php处理中代表上传文件名称）
+\item 指定的大小是可以上传文件的最大大小（以字节为单位）。 上述代码指定为1000000字节（1MB）。根据应用需要，可以调整该值设置。 如果使用MAX\textsubscript{FILE}\textsubscript{SIZE作为隐藏的表单域}， 它将覆盖服务，器端的最大大小设置（如果其值小于upload\textsubscript{max}\textsubscript{filesize和post}\textsubscript{max}\textsubscript{size设置}）。
+\item 需要类型为file的输入框
+\begin{verbatim}
+<input type="file" name="the_file" id="the_file" />
+\end{verbatim}
+\item 可以选择任何文件名称， 但是必须记住， 将在处理上传文件的PHP脚本中使用该名称访问文件。
+\end{itemize}
+\subsubsection{处理文件的php脚本}
+\label{sec:org1e79dd0}
+文件上传后，被保存在php.ini文件的upload\textsubscript{tmp}\textsubscript{dir指定的临时目录中}。如果在php脚本结束前没有移动、复制、或重命名该文件，该文件会在脚本结束后自动删除。
+
+需要在PHP脚本中处理的数据保存在超级全局数组\$\textsubscript{FILES中}。 \$\textsubscript{FILES数组项将通过HTML表单的}<file> 标记名称来保存。 假设表单元素名称为the\textsubscript{file}：
+\begin{enumerate}
+\item 关于\$\textsubscript{FILE全局数组的说明}：
+\label{sec:orgcf2efaa}
+html代码：<input type="file" name="the\textsubscript{file}" …… />
+\begin{itemize}
+\item name属性的值“the\textsubscript{file}",用于\$\textsubscript{FILE数组}，代表上传的文件名
+\item \$\textsubscript{FILE}['the\textsubscript{file}']['tmp\textsubscript{name}'] --- 上传文件的临时文件的名称和位置
+\item \$\textsubscript{FILE}['the\textsubscript{file}']['name'] --- 上传文件的初始名称
+\item \$\textsubscript{FILE}['the\textsubscript{file}']['size'] --- 上传文件的大小
+\item \$\textsubscript{FILE}['the\textsubscript{file}']['type'] --- 文件的类型，比如text/plain或image/png
+\item \$\textsubscript{FILE}['the\textsubscript{file}']['error'] --- 与上传相关的错误代码
+\begin{itemize}
+\item 0 —— 没有错误
+\item 1 —— 上传的文件太大，超出php.ini的规定值
+\item 2 —— 超出表单元素规定的最大值
+\item 3 —— 文件只是部分上传
+\item 4 —— 文件没有上传
+\item 6 —— 没有指定临时目录
+\item 7 —— 文件写入失败
+\item 8 —— php扩展停止了文件上传过程
+\end{itemize}
+\end{itemize}
+\item 文件上传处理
+\label{sec:org0dbec36}
+\begin{itemize}
+\item \$upload\textsubscript{file} = './upload/' . \$\textsubscript{FILE}['the\textsubscript{file}']['name'];前一半是上传的路径，后一半是上传的文件名称
+\item is\textsubscript{upload}\textsubscript{file}(\$\textsubscript{FILE}['the\textsubscript{file}']['tmp\textsubscript{name}']) —— 判断文件是否上传
+\item move\textsubscript{uploaded}\textsubscript{file}(\$\textsubscript{FILE}['the\textsubscript{file}']['tmp\textsubscript{name}'],\$upload\textsubscript{file}) —— 移动临时文件到指定的目录和文件名。
+\end{itemize}
+\end{enumerate}
+\section{第11章 使用PHP从Web访问MySQL数据库}
+\label{sec:org4f1a02b}
+\subsection{从Web查询数据库的基本步骤}
+\label{sec:org01749c7}
+\begin{enumerate}
+\item 检查并过滤来自用户的数据。
+\item 建立一个到适当数据库的连接。
+\item 查询数据库。
+\item 获取查询的结果。
+\item 将结果显示给用户。
+\end{enumerate}
+\subsection{检查与过滤用户输入数据}
+\label{sec:org307bf66}
+\subsubsection{过滤开始和结尾处的空格（trim（）函数）}
+\label{sec:org7443eb3}
+使用trim函数过滤，trim（）还可以过滤掉指定的字符。
+例如：
+trim（\$sdinng,'dkji')——过滤掉dkji
+\subsubsection{格式化字符串，以便输入到数据库（addslashes（））}
+\label{sec:org7a2ca14}
+用addslashes（）自动转义 空格、引号、斜杠、NULL等。 防止  数据库把这些字符当做控制字符处理。
+\subsection{和数据库建立连接}
+\label{sec:org58bf120}
+\subsubsection{面向对象的方法}
+\label{sec:org4b90321}
+@ \$db = new mysqli ( ' 主机名 ' ,   ' 数据库用户名 ' ,   ' 数据库密码
+' ,   ' 数据库名称 ' );
+\subsubsection{面向过程的方法}
+\label{sec:org249abcc}
+@ \$db = mysqli\textsubscript{connect}  ( ' 主机名 ' ,   ' 数据库用户名 ' ,   ' 数据库密码
+ ' ,   ' 数据库名称 ' );
+\subsection{查询数据库}
+\label{sec:org47524ce}
+\subsubsection{建立查询语句；}
+\label{sec:org23779ea}
+\begin{quote}
+\$query = " select * from books where \$searchtype like ' \%\$searchterm\%
+' ";
+\end{quote}
+——这里用了模糊查询 like ，和通配符 \%
+\subsubsection{执行查询；}
+\label{sec:orgc6e0240}
+\begin{enumerate}
+\item \textbf{面向过程：}
+\end{enumerate}
+\$result = mysqli\textsubscript{query}(\$query);
+\begin{enumerate}
+\item \textbf{面向对象：}
+\end{enumerate}
+\$result = \$db->query(\$query)   ——\$db是连接数据库是建立的数据库对象，返
+回的是一个对象
+\subsubsection{检索查询结果}
+\label{sec:orgf15f07b}
+\begin{enumerate}
+\item 返回查询结果的行数（即满足条件的数据有几条）
+\label{sec:org9f391be}
+\begin{enumerate}
+\item \textbf{面向过程：}
+\end{enumerate}
+\$num\textsubscript{results} = mysqli\textsubscript{num}\textsubscript{rows}(\$result);
+\begin{enumerate}
+\item \textbf{面向对象：}
+\end{enumerate}
+\$num\textsubscript{results} = \$result->num\textsubscript{rows};
+\item 返回查询到的每一行的数据
+\label{sec:org2a44cbf}
+\begin{enumerate}
+\item \textbf{面向过程：}
+\end{enumerate}
+\$row = \$result->fetch\textsubscript{assoc}();——以数组的形式返回每一行的数据，要放在循
+环内
+\begin{enumerate}
+\item \textbf{面向对象：}
+\end{enumerate}
+\$row = mysqli\textsubscript{fetch}\textsubscript{assoc}(\$result);
+\item 显示查询到的数据的字段
+\label{sec:org8d4865f}
+stripslashes(\$row['isbn']);——数据库字段名就是 返回的每行数据数组\$row的
+下标，stripslashes()函数的作用是去除数据库格式。
+\end{enumerate}
+\subsection{断开数据库连接}
+\label{sec:org410073b}
+\subsubsection{释放数据库的连接}
+\label{sec:org962eb20}
+\begin{enumerate}
+\item \textbf{面向对象：}
+\end{enumerate}
+\$result ->free();
+\begin{enumerate}
+\item \textbf{面向过程：}
+\end{enumerate}
+mysqli\textsubscript{free}\textsubscript{result}(\$result);
+\subsubsection{断开数据库连接}
+\label{sec:orga968c24}
+\begin{enumerate}
+\item \textbf{面向对象：}
+\end{enumerate}
+\$db->close();
+\begin{enumerate}
+\item \textbf{面向过程：}
+\end{enumerate}
+mysqli\textsubscript{close}(\$db);
+\subsection{将新信息写入数据库}
+\label{sec:orgc4b4c16}
+\section{第23章 在PHP中使用会话控制}
+\label{sec:org65ed678}
+\subsection{本章主要内容}
+\label{sec:org458061a}
+\begin{itemize}
+\item 什么是会话控制
+\item cookie
+\item 创建一个会话控制
+\item 会话变量
+\item 会话和身份验证
+\end{itemize}
+\subsection{什么是会话控制}
+\label{sec:orgcb08d55}
+http是无状态的协议，没有一个内建机制来维护两个事物之间的状态。当一个用
+户在请求一个页面后再请求另外一个页面时，http将无无法告诉我们这两个请求
+是来自同一个用户。
+
+会话控制的思想是指能够在网站中根据一个会话跟踪用户。  如果我们可以做到这
+点，就可以很容易的做到对用户登录的支持，并根据其授权级别和个人喜好显示
+相应的内容。我们可以根据会话控制记录该用户的行为。  还可以实现购物车。
+
+在php4及其以后版本中，php自身包含了会话控制函数。  自从超级全局变量概
+念的引入， 会话控制方法就发生来一些变化。  如今可以使用\$\textsubscript{SEEION超级全}
+局变量。
+\end{document}

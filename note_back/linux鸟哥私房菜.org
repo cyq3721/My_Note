@@ -4,8 +4,7 @@
 #+LANGUAGE: zh-CN
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
 #+options: num:t toc:4 author:t date:t
-
-* 一章 Linux是什么
+* 第一章 Linux是什么
 ** UNIX系统的原型——Unicode系统
 1969年，Ken Thormpson用汇编（Assembler）写出的一组内核程序，同时包括一些内核工具程序，以及一个小的文件系统（File Server System）。Thompson的这个文件系统有两个重要的概念：
 - 所有的程序或系统装置都是文件。

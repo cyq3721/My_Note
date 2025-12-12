@@ -1,0 +1,2967 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-05-03 五 13:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>兄弟连php教程</title>
+<meta name="author" content="ShadowFish" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet"  type="text/css" href="./css/worg-classic.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">兄弟连php教程</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org6777434">1. 第1章 LAMP网站构建</a>
+<ul>
+<li><a href="#orgd4f01e7">1.1. 本章指引</a></li>
+<li><a href="#org57d8899">1.2. 介绍Web给你认识</a>
+<ul>
+<li><a href="#org32be98e">1.2.1. B/S软件的体系结构</a></li>
+<li><a href="#orgf8ec76e">1.2.2. Web的特点</a></li>
+<li><a href="#org66bf5b0">1.2.3. Web应用的优势</a></li>
+<li><a href="#org2adde36">1.2.4. Web 2.0 时代的互联网</a></li>
+<li><a href="#org6ae6726">1.2.5. Web开发标准</a></li>
+<li><a href="#orgbf0cb03">1.2.6. 认识脚本语言</a></li>
+</ul>
+</li>
+<li><a href="#org8f0f90e">1.3. 动态网站开发所需的Web构件</a>
+<ul>
+<li><a href="#orge0c2174">1.3.1. 客户端浏览器</a></li>
+<li><a href="#orgcfd9f45">1.3.2. 超文本标记语言（HTML）</a></li>
+<li><a href="#org83b7aa2">1.3.3. 层叠样式表（css）</a></li>
+<li><a href="#org0432ac6">1.3.4. 客户端脚本语言（JavaScript）</a></li>
+<li><a href="#orgdb6df09">1.3.5. Web服务器</a></li>
+<li><a href="#org1d88b6c">1.3.6. 服务器端编程语言</a></li>
+<li><a href="#org41ac2ab">1.3.7. 数据库管理系统</a></li>
+</ul>
+</li>
+<li><a href="#org2226f56">1.4. http协议与web的关系</a>
+<ul>
+<li><a href="#org95fb407">1.4.1. http协议概述</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org5e530eb">2. 第2章 Html的设计和应用</a>
+<ul>
+<li><a href="#org46c821a">2.1. 网页制作概述</a>
+<ul>
+<li><a href="#org1923331">2.1.1. html基础</a></li>
+</ul>
+</li>
+<li><a href="#org45873bb">2.2. Html语言的语法</a>
+<ul>
+<li><a href="#org5e8b420">2.2.1. html标签和元素</a></li>
+<li><a href="#org324230d">2.2.2. HTML语法不区分字母大小写</a></li>
+<li><a href="#org032a584">2.2.3. html标签属性</a></li>
+<li><a href="#orgcc78773">2.2.4. HTML颜色值的设置</a></li>
+<li><a href="#org22a0343">2.2.5. html文档注释</a></li>
+<li><a href="#org615b1c4">2.2.6. html字符实体</a></li>
+</ul>
+</li>
+<li><a href="#orgff94797">2.3. html文件的主体结构</a></li>
+<li><a href="#orgf943b83">2.4. html文档头部元素&lt;head&gt;</a>
+<ul>
+<li><a href="#orgc561b2e">2.4.1. &lt;title&gt;元素</a></li>
+<li><a href="#orgdb8d3e7">2.4.2. &lt;base&gt;元素</a></li>
+<li><a href="#org150a305">2.4.3. &lt;link&gt;元素</a></li>
+<li><a href="#org467be12">2.4.4. &lt;meta&gt;元素</a></li>
+</ul>
+</li>
+<li><a href="#org7ad9500">2.5. html文档主体标记&lt;body&gt; &lt;/body&gt;</a></li>
+<li><a href="#orgd92445f">2.6. 文字版面的编辑</a>
+<ul>
+<li><a href="#org5edbdb1">2.6.1. 格式标签</a></li>
+<li><a href="#org0c395fa">2.6.2. 文本标签</a></li>
+</ul>
+</li>
+<li><a href="#org0218192">2.7. 创建图像和链接</a>
+<ul>
+<li><a href="#orgd618fca">2.7.1. 插入图片</a></li>
+<li><a href="#org6d93bda">2.7.2. 建立锚点和连接</a></li>
+</ul>
+</li>
+<li><a href="#org590929d">2.8. 使用html表格</a>
+<ul>
+<li><a href="#org5168c3d">2.8.1. 常用标签</a></li>
+<li><a href="#org310298d">2.8.2. 常用属性</a></li>
+</ul>
+</li>
+<li><a href="#orgaf5e4f7">2.9. html框架结构&lt;frameset&gt;</a>
+<ul>
+<li><a href="#org56e5e11">2.9.1. 划分框架</a></li>
+<li><a href="#org82bc7c9">2.9.2. 子窗口&lt;frame&gt;标签的设定</a></li>
+<li><a href="#org957dcee">2.9.3. 窗口的名称和链接</a></li>
+</ul>
+</li>
+<li><a href="#orgb5868f5">2.10. HTML表单设计</a>
+<ul>
+<li><a href="#orgd2bb7a6">2.10.1. 表单标签&lt;form&gt;</a></li>
+<li><a href="#org8b6f53b">2.10.2. 文本域和密码域</a></li>
+<li><a href="#orgc1b1cf1">2.10.3. 提交、重置、和普通按钮</a></li>
+<li><a href="#org064b211">2.10.4. 单选按钮和复选框</a></li>
+<li><a href="#orgeabf5b9">2.10.5. 隐藏域</a></li>
+<li><a href="#org7414310">2.10.6. 多行文本域</a></li>
+<li><a href="#org2c8db95">2.10.7. 菜单下拉列表域</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgc1121f9">3. 第3章 层叠样式表</a>
+<ul>
+<li><a href="#org1126bd2">3.1. 本章指引</a></li>
+<li><a href="#orgcc4c945">3.2. CSS简介</a></li>
+<li><a href="#org5063b43">3.3. CSS规则的组成</a>
+<ul>
+<li><a href="#orge239c5d">3.3.1. css的注释</a></li>
+<li><a href="#orge32ed30">3.3.2. 长度单位</a></li>
+<li><a href="#org7bf5b1b">3.3.3. 颜色单位和URL值</a></li>
+</ul>
+</li>
+<li><a href="#org9960019">3.4. 在html文档中放置CSS的几种方式</a>
+<ul>
+<li><a href="#orgcfacd95">3.4.1. 内联样式表</a></li>
+<li><a href="#org6980e5e">3.4.2. 嵌入一张样式表</a></li>
+<li><a href="#orgf553f95">3.4.3. 链接到外部的样式表</a></li>
+</ul>
+</li>
+<li><a href="#org3a12d46">3.5. CSS选择器</a>
+<ul>
+<li><a href="#orgc1fa52d">3.5.1. HTML选择器</a></li>
+<li><a href="#orge94abb6">3.5.2. 类选择器</a></li>
+<li><a href="#orga25555d">3.5.3. ID选择器</a></li>
+<li><a href="#orgec9a912">3.5.4. 关联选择器</a></li>
+<li><a href="#org0b34d2a">3.5.5. 组合选择器</a></li>
+<li><a href="#org8411f26">3.5.6. 伪元素选择器</a></li>
+</ul>
+</li>
+<li><a href="#org6cb2dae">3.6. CSS常见的样式属性和值</a>
+<ul>
+<li><a href="#org4c4099a">3.6.1. 字体属性</a></li>
+<li><a href="#orge55e3e4">3.6.2. 颜色属性</a></li>
+<li><a href="#org3f1ec44">3.6.3. 背景属性</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1c45252">4. 第四章 DIV+CSS网页标准化布局</a>
+<ul>
+<li><a href="#orgb9a14e0">4.1. DIV+CSS对网页布局的优势</a></li>
+<li><a href="#orgd41c2d2">4.2. “无意义”的HTML元素div和span</a></li>
+<li><a href="#org9da791f">4.3. W3C盒子模型</a></li>
+<li><a href="#orgc0d764c">4.4. 和页面布局有关的CSS属性</a></li>
+</ul>
+</li>
+<li><a href="#org78f7857">5. 第7章 PHP的基本语法</a>
+<ul>
+<li><a href="#orgbd7a45c">5.1. PHP能做什么</a></li>
+</ul>
+</li>
+<li><a href="#org3c8c327">6. 第8章 PHP流程控制结构</a>
+<ul>
+<li><a href="#org0eeea6e">6.1. 本章指引</a></li>
+<li><a href="#org60f8fa7">6.2. 分支结构</a>
+<ul>
+<li><a href="#org68c1936">6.2.1. 单一条件分支结构（if）</a></li>
+<li><a href="#org90b1ae9">6.2.2. 双向条件分支结构（else字句）</a></li>
+<li><a href="#org0d90767">6.2.3. 多项条件分支结构（elseif字句）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgac36d16">7. 第10章 PHP中的数组与数据结构</a>
+<ul>
+<li><a href="#orgc66fa7e">7.1. 数组的分类</a></li>
+<li><a href="#org60f3fa2">7.2. 数组的定义</a>
+<ul>
+<li><a href="#org5496713">7.2.1. 直接赋值的方式声明数组</a></li>
+<li><a href="#orgd68be17">7.2.2. 使用array()语言结构新建数组</a></li>
+</ul>
+</li>
+<li><a href="#org509bd97">7.3. foreach()遍历数组</a></li>
+<li><a href="#org9059e7d">7.4. 联合使用list()、each()和while循环遍历数组</a>
+<ul>
+<li><a href="#org286a4df">7.4.1. each()函数</a></li>
+<li><a href="#org4d54956">7.4.2. list()结构</a></li>
+<li><a href="#org6afcdaf">7.4.3. 关于print<sub>r</sub></a></li>
+</ul>
+</li>
+<li><a href="#org0dc86cd">7.5. 使用数组的内部指针控制函数遍历数组</a></li>
+<li><a href="#org7ae43c5">7.6. 预定义数组</a>
+<ul>
+<li><a href="#org8b8f061">7.6.1. 服务器变量$<sub>SERVER</sub></a></li>
+<li><a href="#orgeeed245">7.6.2. 环境变量：$<sub>ENV</sub></a></li>
+</ul>
+</li>
+<li><a href="#org54bf8c2">7.7. 数组的相关处理函数</a>
+<ul>
+<li><a href="#org98e1114">7.7.1. 数组的键/值操作函数</a></li>
+<li><a href="#orge4a5bf3">7.7.2. 统计数组元素的个数和唯一性</a></li>
+<li><a href="#orgb44ed97">7.7.3. 使用回调函数处理数组的函数</a></li>
+<li><a href="#org1e6e3c0">7.7.4. 数组与数据结构</a></li>
+<li><a href="#orge067922">7.7.5. 其它有用的数组处理函数</a></li>
+</ul>
+</li>
+<li><a href="#org1bd3312">7.8. 操作php数组需要注意的细节</a>
+<ul>
+<li><a href="#orge787da9">7.8.1. 数组运算符号</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgee4a9c9">8. 第11章 PHP面向对象程序设计</a>
+<ul>
+<li><a href="#orgcc2559f">8.1. 抽象一个类</a>
+<ul>
+<li><a href="#orgd957b2e">8.1.1. 类的声明</a></li>
+<li><a href="#org79c317c">8.1.2. 成员属性</a></li>
+<li><a href="#org49a58ae">8.1.3. 成员方法</a></li>
+<li><a href="#org1f86e73">8.1.4. 实例化对象</a></li>
+<li><a href="#org8e5e5c6">8.1.5. 对象在内存中的分配</a></li>
+<li><a href="#org8d69f3d">8.1.6. 对象中成员的访问</a></li>
+<li><a href="#orgdcd6ff3">8.1.7. 特殊的对象引用 $this</a></li>
+<li><a href="#org8ae3704">8.1.8. 构造和析构</a></li>
+</ul>
+</li>
+<li><a href="#org9b1392b">8.2. 封装性</a></li>
+</ul>
+</li>
+<li><a href="#org4d50cdd">9. 第18章 MySQL数据库概述</a>
+<ul>
+<li><a href="#org67af8c6">9.1. 数据库的应用</a></li>
+<li><a href="#orgfd32486">9.2. 结构化查询语言SQL</a></li>
+<li><a href="#org0244107">9.3. MySQL的常见操作</a>
+<ul>
+<li><a href="#orge4b3f41">9.3.1. 数据库的连接和关闭</a></li>
+<li><a href="#orge609db5">9.3.2. 创建新用户并授权</a></li>
+<li><a href="#orge388e00">9.3.3. 创建、删除数据库</a></li>
+<li><a href="#org5494dd6">9.3.4. 查看数据库</a></li>
+<li><a href="#orgf1c04ec">9.3.5. 使用数据库</a></li>
+</ul>
+</li>
+<li><a href="#org123f9b9">9.4. 数据表内容的简单管理</a>
+<ul>
+<li><a href="#orgb2a2eae">9.4.1. 向数据表插入行记录（INSERT）</a></li>
+<li><a href="#orgec7441e">9.4.2. 从MySQL数据表中查询数据记录（SELECT）</a></li>
+<li><a href="#org2179b04">9.4.3. 更改数据表中的记录（UPDATE）</a></li>
+<li><a href="#orgcd4359a">9.4.4. 删除数据表中的记录（DELETE）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgcd82f14">10. 第19章 MySQL数据表的设计</a>
+<ul>
+<li><a href="#org4a04591">10.1. 数据表Table</a></li>
+<li><a href="#orga023505">10.2. 数据值和列类型</a></li>
+</ul>
+</li>
+<li><a href="#org3aa9d09">11. 第21章 PHP访问Mysql</a>
+<ul>
+<li><a href="#org172f5f3">11.1. PHP访问MySQL数据库服务器的流程</a></li>
+<li><a href="#org9999fe8">11.2. 在PHP脚本中连接MySQL服务器 mysql<sub>connect</sub>() 函数</a>
+<ul>
+<li><a href="#orgc07f8e4">11.2.1. 连接数据库</a></li>
+<li><a href="#orgd38c7d4">11.2.2. 断开数据库连接</a></li>
+<li><a href="#org386e226">11.2.3. 在PHP程序中选择已创建的数据库</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6777434" class="outline-2">
+<h2 id="org6777434"><span class="section-number-2">1.</span> 第1章 LAMP网站构建</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgd4f01e7" class="outline-3">
+<h3 id="orgd4f01e7"><span class="section-number-3">1.1.</span> 本章指引</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+本章对动态网站构建做了比较全面的介绍，可以使读者对建站有一个宏观的了解，例如，动态网站隶属于哪一种架构的软件、开发它都需要掌握哪些Web构件，并对每个Web构件在动态网站开发中扮演的角色、运行原理及运行的条件做了说明。本章还从不同角度对比介绍了不同的网站开发平台，其中对LAMP平台（Linux、Apache、MySQL和PHP的组合），从版本发展、行业应用、市场优势和产品特q性等方面做了重点介绍。LAMP组合是日后动态网站软件构建的发展趋势，通过本章的学习，读者能够了解LAMP平台，并为PHP的学习提前准备需要了解的内容。如果要掌握如何构建一个专业的动态网站，请不要跳过本章。本章不包含任何程序代码，专业技术词语也并不是很多，阅读起来容易理解。所以，请将这一章全部读完吧！本章不仅有你必须掌握的专业术语，也会对你后期的学习大有帮助，可以指引你在Web开发方面的学习方向。
+</p>
+</div>
+</div>
+<div id="outline-container-org57d8899" class="outline-3">
+<h3 id="org57d8899"><span class="section-number-3">1.2.</span> 介绍Web给你认识</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-org32be98e" class="outline-4">
+<h4 id="org32be98e"><span class="section-number-4">1.2.1.</span> B/S软件的体系结构</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<ul class="org-ul">
+<li>C/S 体系结构 —— 客户端/服务器结构， 如qq，必须安装客户端软件</li>
+<li>B/S 体系结构 —— 浏览器/服务器结构，只需要在浏览器输入网址</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf8ec76e" class="outline-4">
+<h4 id="orgf8ec76e"><span class="section-number-4">1.2.2.</span> Web的特点</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<ul class="org-ul">
+<li>图形化
+Web非常流行的一个很重要的原因就在于它可以在一页上同时显示色彩丰富的图形和文本。在Web之前，Internet上的信息只有文本形式。Web可以提供将图形、音频、视频信息集合于一体的特性。同时，Web是非常易于导航的，你只需要从一个链接跳到另一个链接，就可以在各页各站点之间进行浏览了。</li>
+<li>与平台无关
+无论你的系统平台是什么，你都可以通过网络访问网站。浏览网页对你的系统平台没有什么限制。无论是通过Windows平台、Linux/UNIX平台、Mac平台还是其他平台，我们都可以访问网站。对网站的访问是通过浏览器软件来实现的。</li>
+<li>分布式的
+大量的图形、音频和视频信息会占用相当大的磁盘空间，我们甚至无法预知信息的多少。对于Web而言，没有必要把所有信息都放在一起。信息可以放在不同的站点上，只需要在浏览器中指明这个站点就可以了，这样就使在物理上并不一定在一个站点的信息在逻辑上一体化，但从用户的角度来看这些信息是一体的。</li>
+<li>动态的
+由于各Web站点的信息包含站点本身的信息，信息的提供者可以经常对站上的信息进行更新，如某个协议的发展状况、公司的广告等。一般各信息站点都尽量保证信息的时间性。所以Web站点上的信息是动态的、经常更新的，这一点是由信息的提供者保证的。</li>
+<li>交互的
+Web的交互性首先表现在它的超链接上，用户的浏览顺序和所到站点完全由他自己决定。另外，通过“表单”的形式可以从服务器方获得动态的信息。用户通过填写表单可以向服务器提交请求，服务器可以根据用户的请求返回相应信息。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org66bf5b0" class="outline-4">
+<h4 id="org66bf5b0"><span class="section-number-4">1.2.3.</span> Web应用的优势</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<ul class="org-ul">
+<li>基于浏览器，具有统一的平台和UI体验。</li>
+<li>无须安装，只要有浏览器，随时随地使用。</li>
+<li>总是使用应用的最新版本，无须升级。</li>
+<li>数据持久存储在云端，基本无须担心丢失。</li>
+<li>新一代Web技术提供了更好的用户体验。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2adde36" class="outline-4">
+<h4 id="org2adde36"><span class="section-number-4">1.2.4.</span> Web 2.0 时代的互联网</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<p>
+Web 2.0 更注重用户的交互作用，用户既是网站内容的浏览者，也是网站内容的制造者。
+</p>
+</div>
+</div>
+<div id="outline-container-org6ae6726" class="outline-4">
+<h4 id="org6ae6726"><span class="section-number-4">1.2.5.</span> Web开发标准</h4>
+<div class="outline-text-4" id="text-1-2-5">
+<p>
+W3C推行的主要规范有HTML、CSS、XML、XHTML和DOM
+</p>
+</div>
+</div>
+<div id="outline-container-orgbf0cb03" class="outline-4">
+<h4 id="orgbf0cb03"><span class="section-number-4">1.2.6.</span> 认识脚本语言</h4>
+<div class="outline-text-4" id="text-1-2-6">
+<p>
+常见的脚本语言有PHP、HTML、CSS、JavaScript、VBScript、ActionScript、MAXScript、ASP、JSP、SQL、Perl、Shell、Python、Ruby、JavaFX、Lua、AutoIt等。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8f0f90e" class="outline-3">
+<h3 id="org8f0f90e"><span class="section-number-3">1.3.</span> 动态网站开发所需的Web构件</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>客户端IE/Firefox/Safari等多种浏览器。</li>
+<li>超文本标记语言（HTML）。</li>
+<li>层叠样式表（CSS）。</li>
+<li>客户端脚本编程语言JavaScript。</li>
+<li>Web服务器Apache/Nginx/TomCat/IIS等中的一种。</li>
+<li>服务器端编程语言PHP/JSP/ASP等中的一种。</li>
+<li>数据库管理系统MySQL/Oracle/SQLServer等中的一种。</li>
+</ul>
+</div>
+<div id="outline-container-orge0c2174" class="outline-4">
+<h4 id="orge0c2174"><span class="section-number-4">1.3.1.</span> 客户端浏览器</h4>
+</div>
+<div id="outline-container-orgcfd9f45" class="outline-4">
+<h4 id="orgcfd9f45"><span class="section-number-4">1.3.2.</span> 超文本标记语言（HTML）</h4>
+</div>
+<div id="outline-container-org83b7aa2" class="outline-4">
+<h4 id="org83b7aa2"><span class="section-number-4">1.3.3.</span> 层叠样式表（css）</h4>
+</div>
+<div id="outline-container-org0432ac6" class="outline-4">
+<h4 id="org0432ac6"><span class="section-number-4">1.3.4.</span> 客户端脚本语言（JavaScript）</h4>
+</div>
+<div id="outline-container-orgdb6df09" class="outline-4">
+<h4 id="orgdb6df09"><span class="section-number-4">1.3.5.</span> Web服务器</h4>
+</div>
+<div id="outline-container-org1d88b6c" class="outline-4">
+<h4 id="org1d88b6c"><span class="section-number-4">1.3.6.</span> 服务器端编程语言</h4>
+</div>
+<div id="outline-container-org41ac2ab" class="outline-4">
+<h4 id="org41ac2ab"><span class="section-number-4">1.3.7.</span> 数据库管理系统</h4>
+</div>
+</div>
+<div id="outline-container-org2226f56" class="outline-3">
+<h3 id="org2226f56"><span class="section-number-3">1.4.</span> http协议与web的关系</h3>
+<div class="outline-text-3" id="text-1-4">
+</div>
+<div id="outline-container-org95fb407" class="outline-4">
+<h4 id="org95fb407"><span class="section-number-4">1.4.1.</span> http协议概述</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<ul class="org-ul">
+<li>客户端连接到web服务器</li>
+<li>发送http请求</li>
+<li>服务器接受请求并返回http响应</li>
+<li>释放tcp连接</li>
+<li>客户端浏览器解析HTML</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org5e530eb" class="outline-2">
+<h2 id="org5e530eb"><span class="section-number-2">2.</span> 第2章 Html的设计和应用</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org46c821a" class="outline-3">
+<h3 id="org46c821a"><span class="section-number-3">2.1.</span> 网页制作概述</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>HTML是Web页面描述性语言，主要用来在Web上发布信息，以及简单地布局。</li>
+<li>CSS是层叠样式表，是网页页面排版样式标准，能够将格式和结构分离，使浏览器的界面更加友好。</li>
+<li>JavaScript是一种描述性脚本语言，和CSS一样可以嵌入到HTML中，在客户端计算机中执行。JavaScript是具有交互性的Web设计的最佳选择，也是浏览器普遍支持的语言。</li>
+</ul>
+</div>
+<div id="outline-container-org1923331" class="outline-4">
+<h4 id="org1923331"><span class="section-number-4">2.1.1.</span> html基础</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+HTML（HyperTextMarkedLanguage）即超文本标记语言，是一种用来制作超文本文档的简单标记语言。我们在浏览网页时看到的一些丰富的影像、文字、图片等内容都是通过HTML表现出来的。用HTML编写的超文本文档称为HTML文档，它能独立于各种操作系统平台，一直被用作WWW（万维网）的信息表示语言。对于网站软件开发人员来讲，如果不涉及HTML语言是不可能的。
+</p>
+
+<ul class="org-ul">
+<li>所谓超文本，是因为它不仅是可以加入文字的文本文件，还是可以加入链接、图片、声音、动画、影视等内容的文本文件。使用HTML语言描述的文件，需要通过Web浏览器显示出效果。HTTP协议的制定使浏览器在运行超文本时有了统一的规则和标准。</li>
+<li>所谓标记语言，是在纯文本文件里面包含了HTML指令代码。这些指令代码并不是一种程序语言，它只是一种排版网页中资料显示位置的标记结构语言，易学易懂，非常简单。在HTML中每个用来作为标签的符号都是一条命令，它告诉浏览器如何显示文本。这些标签均由“&lt;”和“&gt;”符号，以及一个字符串组成。而浏览器的功能是对这些标记进行解释后，显示出文字、图像、动画或播放声音。</li>
+<li>HTML文件必须使用.htm或者.html作为文件扩展名，推荐使用.html是比较安全的做法。</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org45873bb" class="outline-3">
+<h3 id="org45873bb"><span class="section-number-3">2.2.</span> Html语言的语法</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-org5e8b420" class="outline-4">
+<h4 id="org5e8b420"><span class="section-number-4">2.2.1.</span> html标签和元素</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+在HTML文件中是以标签来标记网页结构和显示内容资料的。以“&lt;标签名&gt;”表示标签开始，以“&lt;/标签名&gt;”结束。大部分标签都是成对出现的，成对的标签也称为容器。在一对标签中也可以嵌套其他标签。一个HTML标签及标签中嵌套的内容就是网页中的一个“HTML元素”。例如，在&lt;body&gt;和&lt;/body&gt;之间的是主体元素；又如，&lt;title&gt;和&lt;/title&gt;是标签，而&lt;title&gt;RumpleStiltskin&lt;/title&gt;则是标题元素。也有极少的标签不需要与之配对的结束标签，也称为空标签，即空元素，例如&lt;br&gt;、&lt;hr&gt;等。&lt;/body&gt;和&lt;/title&gt;关闭它们各自的标签。所有的HTML标签都要关闭。尽管老版本的HTML允许某些标签不关闭，但最新的标准要求所有的标签都要关闭。无论如何，闭合标签是一个好习惯。并不是所有的标签都像&lt;html&gt;&lt;/html&gt;一样关闭，有的标签不用绕在内容外面，它们是自关闭的。比如断行的标签是这样的：&lt;br/&gt;。需要记住的是，所有的标签都必须关闭，以及大部分的内容都在标签之间，它们的格式是这样的：起始标签内容闭合标签。如图22所示为一个HTML区块元素。
+</p>
+</div>
+</div>
+<div id="outline-container-org324230d" class="outline-4">
+<h4 id="org324230d"><span class="section-number-4">2.2.2.</span> HTML语法不区分字母大小写</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+html的标签名和属性都是不区分子母奶大小写的。
+</p>
+</div>
+</div>
+<div id="outline-container-org032a584" class="outline-4">
+<h4 id="org032a584"><span class="section-number-4">2.2.3.</span> html标签属性</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<p>
+属性是为html元素提供的附加信息，总是以“名称=值”对的形式出现在html标记的起始标签内，如果有多个属性，则用空格隔开，各属性之间无先后次序，html标记中的每个属性都是可选的，可以省略采用默认值。属性的值可以用双引号（“”）或者单引号（‘’）引起来，也可以不使用引号，推荐使用双引号（W3C规范）。
+</p>
+</div>
+</div>
+<div id="outline-container-orgcc78773" class="outline-4">
+<h4 id="orgcc78773"><span class="section-number-4">2.2.4.</span> HTML颜色值的设置</h4>
+<div class="outline-text-4" id="text-2-2-4">
+<p>
+颜色值是一个关键字或一个RGB格式的数字。仅仅只有16种颜色的英文名称可以作为关键词被识别，剩下的用十六进制表示。十六种可以被识别的颜色名称：aqua、black、blue、fuchsia、gray、green、lime、maroon、olive、purple、red、silver、teal、white、yellow。
+</p>
+
+<p>
+十六进制的颜色值用红、绿、蓝（RGB）的值组成，没种颜色的最小值为0（十六进制：#00），最大值为255（十六进制：#FF），即每种颜色有256中彩度，所以三种颜色可以混合成16777216种颜色
+</p>
+</div>
+</div>
+<div id="outline-container-org22a0343" class="outline-4">
+<h4 id="org22a0343"><span class="section-number-4">2.2.5.</span> html文档注释</h4>
+<div class="outline-text-4" id="text-2-2-5">
+<p>
+以 “&lt;!&#x2013;“开始，以 "&#x2013;&gt;"结束。
+</p>
+</div>
+</div>
+<div id="outline-container-org615b1c4" class="outline-4">
+<h4 id="org615b1c4"><span class="section-number-4">2.2.6.</span> html字符实体</h4>
+<div class="outline-text-4" id="text-2-2-6">
+<p>
+一些字符在html拥有特殊的含义，不可以直接在网页中输出。 如果我们想在浏览器中能正确的显示这些含有特殊含义的字符，则必须在html源码中使用字符实体。
+</p>
+
+<p>
+字符实体有三部分组成：
+</p>
+<ul class="org-ul">
+<li>一个和号（&amp;）</li>
+<li>一个实体名称或者使用#加实体编号</li>
+<li><p>
+一个分号；结尾
+</p>
+
+<p>
+常用的html实体：
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">显示内容</td>
+<td class="org-left">描述</td>
+<td class="org-left">实体名称</td>
+<td class="org-left">实体编号</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">空格</td>
+<td class="org-left">&amp;nsp;</td>
+<td class="org-left">&amp;#160;</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;</td>
+<td class="org-left">小于号</td>
+<td class="org-left">&amp;lt;</td>
+<td class="org-left">&amp;#60;</td>
+</tr>
+
+<tr>
+<td class="org-left">&gt;</td>
+<td class="org-left">大于号</td>
+<td class="org-left">&amp;gt;</td>
+<td class="org-left">&amp;#62;</td>
+</tr>
+
+<tr>
+<td class="org-left">&amp;</td>
+<td class="org-left">和号</td>
+<td class="org-left">&amp;amp;</td>
+<td class="org-left">&amp;#38;</td>
+</tr>
+
+<tr>
+<td class="org-left">"</td>
+<td class="org-left">引号</td>
+<td class="org-left">&amp;quot;</td>
+<td class="org-left">&amp;#34;</td>
+</tr>
+
+<tr>
+<td class="org-left">'</td>
+<td class="org-left">撇号（IE不支持）</td>
+<td class="org-left">&amp;apos;</td>
+<td class="org-left">&amp;#39;</td>
+</tr>
+
+<tr>
+<td class="org-left">x</td>
+<td class="org-left">乘号</td>
+<td class="org-left">&amp;times；</td>
+<td class="org-left">&amp;#215;</td>
+</tr>
+
+<tr>
+<td class="org-left">÷</td>
+<td class="org-left">除号</td>
+<td class="org-left">&amp;divide;</td>
+<td class="org-left">&amp;#247;</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgff94797" class="outline-3">
+<h3 id="orgff94797"><span class="section-number-3">2.3.</span> html文件的主体结构</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">html</span>&gt;
+  &lt;<span style="color: #bc6ec5; font-weight: bold;">head</span>&gt;
+    &#8230;&#8230;
+  &lt;/<span style="color: #bc6ec5; font-weight: bold;">head</span>&gt;
+
+  &lt;<span style="color: #bc6ec5; font-weight: bold;">body</span>&gt;
+    &#8230;&#8230;
+  &lt;/<span style="color: #bc6ec5; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+
+<p>
+说明：
+</p>
+<ul class="org-ul">
+<li>第一部分：&lt;html&gt;和&lt;/html&gt;是网页文件的最外层标签，html文件中所有的内容都应该在这两个标记之间。 &lt;html&gt;标签告诉浏览器这个html文件的开始点。 &lt;/html&gt;标签告诉浏览器这是html文件的结束点。</li>
+<li>第二部分：位于&lt;head&gt;和&lt;/head&gt;标签之间的文本是头信息，放在&lt;html&gt;元素的最上面使用，头信息不会显示在浏览器窗口中。 主要包括当前页面的一些基本描述的语句，用于说明文件的标题和整个文件的一些公共属性，例如声明网页的标题和关键字等。每个&lt;html&gt;元素应当包含一个&lt;title&gt;元素以指示文档的标题，它也可以以任意顺序包含&lt;base&gt;、&lt;object&gt;、&lt;link&gt;、&lt;style&gt;、&lt;script&gt;、&lt;meta&gt;元素的任意组合。</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf943b83" class="outline-3">
+<h3 id="orgf943b83"><span class="section-number-3">2.4.</span> html文档头部元素&lt;head&gt;</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+主要包括页面的一些基本描述语句，以及CSS和JavaScript，一般都可以定义在头部元素中。它用于包含当前文档的有关信息。 例如网页标题和关键字等。 通常位于头部的内容都不会在网页上直接显示， 而是通过另外的方式起作用。在&lt;html&gt;中可以使用的标记不多，包含一些常见的如：&lt;title&gt;、&lt;base&gt;、&lt;link&gt;、&lt;meta&gt;等标记。 注意，&lt;html&gt;和&lt;/html&gt;之间必须有&lt;title&gt;.
+</p>
+</div>
+<div id="outline-container-orgc561b2e" class="outline-4">
+<h4 id="orgc561b2e"><span class="section-number-4">2.4.1.</span> &lt;title&gt;元素</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<p>
+编写每个页面时，应该给其指定一个标题。 html文件的标题使用&lt;title&gt;元素， &lt;title&gt;是&lt;head&gt;元素的子元素，用于将内容显示在浏览器的标题栏中，用于说明文件的用途，也可以作为浏览器中书签的默认名称。 每个html文档都应当有标题，在浏览者保存该网页后成为保存后的网页的文件名。 另外，搜索引擎在收录该页面时，将网页标题作为搜索的关键字。
+</p>
+</div>
+</div>
+<div id="outline-container-orgdb8d3e7" class="outline-4">
+<h4 id="orgdb8d3e7"><span class="section-number-4">2.4.2.</span> &lt;base&gt;元素</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<p>
+当浏览器遇到相对URL时，&lt;base&gt;实际上是将相对URL转化为完整的绝对URL。 &lt;base&gt;元素允许用户指定页面的基URL，这样，当浏览器遇到相对URL时，将在它们的前面添加基URL。在网页文档中，所有的相对地址形式的URL都是相对于这里定义的基URL而言的。 例如，如果在&lt;base&gt;中指定基URL为<a href="http://yun.itxdl.cn">http://yun.itxdl.cn</a> , 那么，在网页中出现的相对链接“test.html”将对应为<a href="http://yun.itxdl.cn/test.html">http://yun.itxdl.cn/test.html</a> 的页面。因此，如果网页位置发生变化，可以通过修改&lt;base&gt;来适应者一变化。 一篇文档中的&lt;base&gt;标记最多只能有一个，而且必须放于头部，并且应该在任何包含URL地址的语句之前
+</p>
+</div>
+</div>
+<div id="outline-container-org150a305" class="outline-4">
+<h4 id="org150a305"><span class="section-number-4">2.4.3.</span> &lt;link&gt;元素</h4>
+<div class="outline-text-4" id="text-2-4-3">
+<p>
+&lt;link&gt;元素可以用于创建到CSS样式表的链接，始终是空元素，用于描述两个文档之间的链接关系。一个最有用的应用就是链接CSS。 浏览器会分析&lt;link&gt;中的内容，自动读取并加载相应的文件。
+</p>
+</div>
+</div>
+<div id="outline-container-org467be12" class="outline-4">
+<h4 id="org467be12"><span class="section-number-4">2.4.4.</span> &lt;meta&gt;元素</h4>
+<div class="outline-text-4" id="text-2-4-4">
+<p>
+通过&lt;meta&gt;标记的属性来定义文件信息的名称、内容等。这个标记是实现元数据的主要标记，它能够提供文档的关键字、作者、描述、编码和语言等多种信息。 在html的头部可以包含任意数量的&lt;meta&gt;标记。 通过标记中的http-equiv、name、content属性，可以建立多种多样的效果和功能。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7ad9500" class="outline-3">
+<h3 id="org7ad9500"><span class="section-number-3">2.5.</span> html文档主体标记&lt;body&gt; &lt;/body&gt;</h3>
+</div>
+
+<div id="outline-container-orgd92445f" class="outline-3">
+<h3 id="orgd92445f"><span class="section-number-3">2.6.</span> 文字版面的编辑</h3>
+<div class="outline-text-3" id="text-2-6">
+</div>
+<div id="outline-container-org5edbdb1" class="outline-4">
+<h4 id="org5edbdb1"><span class="section-number-4">2.6.1.</span> 格式标签</h4>
+<div class="outline-text-4" id="text-2-6-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">标签</td>
+<td class="org-left">描述</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;br&gt;</td>
+<td class="org-left">换行，如果有多个换行，可以连续使用多个&lt;br&gt;</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;p&gt;</td>
+<td class="org-left">段落标签，即换行之后插入一个空行</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;center&gt;</td>
+<td class="org-left">居中对齐</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;pre&gt;</td>
+<td class="org-left">与格式化标记，保留文字在源码中的格式，页面中显示的和源码中书写的格式效果完全一致</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;li&gt;</td>
+<td class="org-left">列表项，每个列表项使用一个&lt;li&gt;</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;ul&gt;</td>
+<td class="org-left">无序列表，使用&lt;ul&gt;作为无序的声明，使用&lt;li&gt;作为每个项目的起始</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;ol&gt;</td>
+<td class="org-left">有序列表，可以显示特定的项目顺序，与无序列表使用方式基本相同</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;hr&gt;</td>
+<td class="org-left">水平分隔线</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org0c395fa" class="outline-4">
+<h4 id="org0c395fa"><span class="section-number-4">2.6.2.</span> 文本标签</h4>
+<div class="outline-text-4" id="text-2-6-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">标签</td>
+<td class="org-left">描述</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;hn&gt;</td>
+<td class="org-left">h1&#x2013;h6，6级标题，自动换行插入一个空行</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;b&gt;</td>
+<td class="org-left">粗体</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;i&gt;</td>
+<td class="org-left">斜体</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;u&gt;</td>
+<td class="org-left">下划线</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;sub&gt;</td>
+<td class="org-left">文字下标</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;sup&gt;</td>
+<td class="org-left">文字 上标</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;font&gt;</td>
+<td class="org-left">字体标记，可以指定字体大小、颜色、字体等信息</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;tt&gt;</td>
+<td class="org-left">打字机字体</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;cite&gt;</td>
+<td class="org-left">用于引证，举例，通常为斜体</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;em&gt;</td>
+<td class="org-left">表示腔调，通常为斜体</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;strong&gt;</td>
+<td class="org-left">表示腔调，通常为斜体</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;small&gt;</td>
+<td class="org-left">小型字体标签</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;big&gt;</td>
+<td class="org-left">大型字体标签</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0218192" class="outline-3">
+<h3 id="org0218192"><span class="section-number-3">2.7.</span> 创建图像和链接</h3>
+<div class="outline-text-3" id="text-2-7">
+</div>
+<div id="outline-container-orgd618fca" class="outline-4">
+<h4 id="orgd618fca"><span class="section-number-4">2.7.1.</span> 插入图片</h4>
+<div class="outline-text-4" id="text-2-7-1">
+<p>
+使用&lt;img /&gt;标记插入图片，在web页面中通常使用jpeg、gig、png三种格式的图片。
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">img</span> <span style="color: #7590db;">src</span>=<span style="color: #2d9574;">"URL"</span> <span style="color: #7590db;">alt</span>=<span style="color: #2d9574;">"text"</span> <span style="color: #7590db;">width</span>=<span style="color: #2d9574;">""</span> <span style="color: #7590db;">height</span>=<span style="color: #2d9574;">""</span> <span style="color: #7590db;">border</span>=<span style="color: #2d9574;">""</span> /&gt;
+</pre>
+</div>
+</div>
+<ol class="org-ol">
+<li><a id="org480d7a3"></a>&lt;img&gt;的说明<br />
+<div class="outline-text-5" id="text-2-7-1-1">
+<ul class="org-ul">
+<li>alt属性不可以缺少。它有三个作用：
+<ol class="org-ol">
+<li>如果图像下载完成，将鼠标放在该图像上，会出现由这个属性指定的提示性文字。</li>
+<li>如果图像没有下载成功，则图像的位置上将会这个这个属性指定的文字</li>
+<li>搜索引擎可以通过这个属性的文字抓取图片</li>
+</ol></li>
+<li>width和height属性用于指定图像的宽度和高度。如果需要等比例缩放，只需要只用一个就可。</li>
+<li>border用于指定图像边框的宽度。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org6d93bda" class="outline-4">
+<h4 id="org6d93bda"><span class="section-number-4">2.7.2.</span> 建立锚点和连接</h4>
+<div class="outline-text-4" id="text-2-7-2">
+<p>
+定义锚点和超链接都使用&lt;a&gt;标记，语法格式如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt; a <span style="color: #7590db;">href</span>=<span style="color: #2d9574;">" URL"</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">" name"</span> <span style="color: #7590db;">target</span>=<span style="color: #2d9574;">" target"</span>&gt; &#38142;&#25509; &#25991;&#23383;&lt;/ a&gt; <span style="color: #2aa1ae; background-color: #292e34;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #292e34;">&#22312; &#32593;&#39029; &#20013; &#23450;&#20041; &#38170; &#28857; &#21644; &#38142;&#25509;</span><span style="color: #2aa1ae; background-color: #292e34;">--&gt;</span>
+</pre>
+</div>
+</div>
+<ol class="org-ol">
+<li><a id="orgb35a222"></a>属性说明<br />
+<div class="outline-text-5" id="text-2-7-2-1">
+<ul class="org-ul">
+<li><p>
+href
+指定链接文件的URL路径。
+</p>
+<ul class="org-ul">
+<li>name</li>
+</ul>
+<p>
+指定页面锚点的名称，如果需要链接到对应的锚点的位置，则需要在锚点名称前面加一个#字符
+</p>
+<ul class="org-ul">
+<li>target</li>
+</ul>
+<p>
+指定要打开的链接所使用的浏览器窗口名称。可以使用自定义的窗口名称，也可以使用下面四个内置的窗口名称。
+</p>
+<ul class="org-ul">
+<li>_self: 在当前窗口中打开链接文件，是默认值</li>
+<li>_blank: 开启一个新的窗口打开链接文件</li>
+<li>_parent: 在父级窗口中打开文件，常用于框架页面</li>
+<li>_top:在顶层窗口中打开文件，常用于框架页面</li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org590929d" class="outline-3">
+<h3 id="org590929d"><span class="section-number-3">2.8.</span> 使用html表格</h3>
+<div class="outline-text-3" id="text-2-8">
+</div>
+<div id="outline-container-org5168c3d" class="outline-4">
+<h4 id="org5168c3d"><span class="section-number-4">2.8.1.</span> 常用标签</h4>
+<div class="outline-text-4" id="text-2-8-1">
+<ul class="org-ul">
+<li>&lt;table&gt;</li>
+<li>&lt;tr&gt;</li>
+<li>&lt;th&gt; 、&lt;td&gt;</li>
+</ul>
+<p>
+s- &lt;caption&gt;  表格标题
+</p>
+</div>
+</div>
+<div id="outline-container-org310298d" class="outline-4">
+<h4 id="org310298d"><span class="section-number-4">2.8.2.</span> 常用属性</h4>
+<div class="outline-text-4" id="text-2-8-2">
+<ul class="org-ul">
+<li>align</li>
+<li>border</li>
+<li>cellspacing  单元格间距</li>
+<li>cellpadding   单元格内容和边框间距</li>
+<li>rowspan 横向合并</li>
+<li>colspan 竖向合并</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgaf5e4f7" class="outline-3">
+<h3 id="orgaf5e4f7"><span class="section-number-3">2.9.</span> html框架结构&lt;frameset&gt;</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+使用html框架结构可以把一个浏览器窗口划分为若干个小窗口，每个小窗口可以显示不同的url网页，每个框架里的网页相互独立。
+</p>
+</div>
+<div id="outline-container-org56e5e11" class="outline-4">
+<h4 id="org56e5e11"><span class="section-number-4">2.9.1.</span> 划分框架</h4>
+<div class="outline-text-4" id="text-2-9-1">
+<p>
+使用&lt;frameset&gt;标签决定如何划分框架, 用&lt;frameset&gt;取代&lt;body&gt;, 如果保留body标签，则无法显示框架。常用属性如下
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">属性</td>
+<td class="org-left">描述</td>
+</tr>
+
+<tr>
+<td class="org-left">cols</td>
+<td class="org-left">用“像素数”和“%”分隔左右窗口，“*”表示剩余部分</td>
+</tr>
+
+<tr>
+<td class="org-left">rows</td>
+<td class="org-left">用“像素数”和“%”分隔左右窗口，“*”表示剩余部分</td>
+</tr>
+
+<tr>
+<td class="org-left">frameborder</td>
+<td class="org-left">指定是否显示边框：“0”表示不显示边框，“1”代表显示边框</td>
+</tr>
+
+<tr>
+<td class="org-left">border</td>
+<td class="org-left">设置边框粗细，默认值是5像素</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org82bc7c9" class="outline-4">
+<h4 id="org82bc7c9"><span class="section-number-4">2.9.2.</span> 子窗口&lt;frame&gt;标签的设定</h4>
+<div class="outline-text-4" id="text-2-9-2">
+<p>
+&lt;frame&gt;是一个单标签，该标签必须放在框架集&lt;frameset&gt;中使用。&lt;frameset&gt;设置了几个子窗口，就必须对应几个&lt;frame&gt;标签，而且每一个&lt;fram&gt;标签内还必须使用src属性设定一个网页文件，常用属性如下
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">属性</td>
+<td class="org-left">描述</td>
+</tr>
+
+<tr>
+<td class="org-left">src</td>
+<td class="org-left">指示加载的URL文件的地址</td>
+</tr>
+
+<tr>
+<td class="org-left">name</td>
+<td class="org-left">指示框架名称</td>
+</tr>
+
+<tr>
+<td class="org-left">noresize</td>
+<td class="org-left">指示不能调整窗口的大小，省略此项时就可调整</td>
+</tr>
+
+<tr>
+<td class="org-left">scrolling</td>
+<td class="org-left">指示是否需要滚动条，auto表示根据需要自动出现，Yes表示有滚动条，No表示无滚动条</td>
+</tr>
+
+<tr>
+<td class="org-left">frameborder</td>
+<td class="org-left">指示是否要边框，1表示显示边框，0表示不显示边框（）不提倡使用yes或no</td>
+</tr>
+
+<tr>
+<td class="org-left">border</td>
+<td class="org-left">设置边框粗细</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org957dcee" class="outline-4">
+<h4 id="org957dcee"><span class="section-number-4">2.9.3.</span> 窗口的名称和链接</h4>
+<div class="outline-text-4" id="text-2-9-3">
+<p>
+如果要在窗口中做链接，就必须对每一个子窗口命名，以便被用于窗口间的链接。 在窗口的链接中使用target属性，就可以讲被链接的内容放置到想要放置的窗口内。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb5868f5" class="outline-3">
+<h3 id="orgb5868f5"><span class="section-number-3">2.10.</span> HTML表单设计</h3>
+<div class="outline-text-3" id="text-2-10">
+<p>
+在表单中提供了多种输入方式，包括文本输入域、单选或多选按钮、下拉式列表域等。表单是网页上由&lt;form&gt;标签定义的一个特定区域，而表单的各种输入域可以由
+</p>
+<ul class="org-ul">
+<li>&lt;input&gt;</li>
+<li>&lt;select&gt;</li>
+<li>&lt;textarea&gt;
+3个标签定义</li>
+</ul>
+</div>
+<div id="outline-container-orgd2bb7a6" class="outline-4">
+<h4 id="orgd2bb7a6"><span class="section-number-4">2.10.1.</span> 表单标签&lt;form&gt;</h4>
+<div class="outline-text-4" id="text-2-10-1">
+<p>
+一个表单用&lt;form&gt;&lt;/form&gt;标签来创建，即定义表单的开始和结束的位置，在开始和结束标签之间的一切定义都属于表单的内容。 单击提交按钮时，提交的也是表单范围内的内容。form的常用属性：
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">属性</td>
+<td class="org-left">描述</td>
+</tr>
+
+<tr>
+<td class="org-left">name</td>
+<td class="org-left">表单名称</td>
+</tr>
+
+<tr>
+<td class="org-left">method</td>
+<td class="org-left">提交方式，可以用get或post</td>
+</tr>
+
+<tr>
+<td class="org-left">action</td>
+<td class="org-left">跳转到的网址，绝对或相对地址都可以</td>
+</tr>
+
+<tr>
+<td class="org-left">enctype</td>
+<td class="org-left">设置表单的编码方式</td>
+</tr>
+
+<tr>
+<td class="org-left">target</td>
+<td class="org-left">指定目标窗口</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org8b6f53b" class="outline-4">
+<h4 id="org8b6f53b"><span class="section-number-4">2.10.2.</span> 文本域和密码域</h4>
+<div class="outline-text-4" id="text-2-10-2">
+<p>
+&lt;input&gt;标签是个单标签，没有结束标记。 &lt;input type=" "&gt;用来顶一个用户输入区，具体是哪一种类型，由type属性来决定。文本和密码输入域 是一个单行文本 框， 它们基本相似， 唯一不同的是， 用户在密码域中输入的字符并不以原样显示， 而是将每个字符 用“*” 代替。 文本和密码 输入域的基本语法格式 如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">input</span> <span style="color: #7590db;">type</span>=<span style="color: #2d9574;">"text"</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">"field_name"</span> <span style="color: #7590db;">value</span>=<span style="color: #2d9574;">"field_value"</span> <span style="color: #7590db;">size</span>=<span style="color: #2d9574;">"n"</span> <span style="color: #7590db;">maxlenght</span>=<span style="color: #2d9574;">"n"</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">input</span> <span style="color: #7590db;">type</span>=<span style="color: #2d9574;">"password"</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">"field_name"</span> <span style="color: #7590db;">value</span>=<span style="color: #2d9574;">"field_value"</span> <span style="color: #7590db;">size</span>=<span style="color: #2d9574;">"n"</span> <span style="color: #7590db;">maxlenght</span>=<span style="color: #2d9574;">"n"</span>&gt;
+</pre>
+</div>
+
+<p>
+&lt;input&gt;标签的常用属性
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">属性</td>
+<td class="org-left">描述</td>
+</tr>
+
+<tr>
+<td class="org-left">type</td>
+<td class="org-left">文本输入域，可以去text或password</td>
+</tr>
+
+<tr>
+<td class="org-left">name</td>
+<td class="org-left">定义控件名称</td>
+</tr>
+
+<tr>
+<td class="org-left">value</td>
+<td class="org-left">指定控件的初始值，就是浏览器被打开时文本框显示的内容</td>
+</tr>
+
+<tr>
+<td class="org-left">size</td>
+<td class="org-left">指定控件宽度，表示该文本框所能显示的最大字符数</td>
+</tr>
+
+<tr>
+<td class="org-left">maxlength</td>
+<td class="org-left">表示该文本框允许用户输入的最大字符数</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgc1b1cf1" class="outline-4">
+<h4 id="orgc1b1cf1"><span class="section-number-4">2.10.3.</span> 提交、重置、和普通按钮</h4>
+<div class="outline-text-4" id="text-2-10-3">
+<p>
+在&lt;input&gt;标签中，当type属性值为“submit”时，表示这是一个提交按钮，单击提交按钮后，可以实现表单内容的提交；当type属性为“reset”时，表示这是一个重置按钮，单击重置按钮，表单内容将恢复默认值；当type属性为“button”时，表示这是一个普通按钮，并不实现任何功能，需要和javascript等脚本语言一起使用。button按钮必须定义在form之间
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">input</span> type = <span style="color: #2d9574;">"submit"</span> name = <span style="color: #2d9574;">"field_name"</span> value = <span style="color: #2d9574;">"field_value"</span>&gt;     <span style="color: #2aa1ae; background-color: #292e34;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #292e34;">&#25552;&#20132;&#25353;&#38062;</span><span style="color: #2aa1ae; background-color: #292e34;"> --&gt;</span>
+&lt;<span style="color: #bc6ec5; font-weight: bold;">input</span> type = <span style="color: #2d9574;">"reset"</span> name = <span style="color: #2d9574;">"field_name"</span> value = <span style="color: #2d9574;">"field_value"</span>&gt;     <span style="color: #2aa1ae; background-color: #292e34;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #292e34;">&#37325;&#32622;&#25353;&#38062;</span><span style="color: #2aa1ae; background-color: #292e34;"> --&gt;</span>
+&lt;<span style="color: #bc6ec5; font-weight: bold;">input</span> type = <span style="color: #2d9574;">"button"</span> name = <span style="color: #2d9574;">"field_name"</span> value = <span style="color: #2d9574;">"field_value"</span>&gt;     <span style="color: #2aa1ae; background-color: #292e34;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #292e34;">&#26222;&#36890;&#25353;&#38062;</span><span style="color: #2aa1ae; background-color: #292e34;"> --&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org064b211" class="outline-4">
+<h4 id="org064b211"><span class="section-number-4">2.10.4.</span> 单选按钮和复选框</h4>
+<div class="outline-text-4" id="text-2-10-4">
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">input</span> <span style="color: #7590db;">type</span>=<span style="color: #2d9574;">"radio"</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">"field_name"</span> <span style="color: #7590db;">value</span>=<span style="color: #2d9574;">"field_value"</span> checked&gt;     <span style="color: #2aa1ae; background-color: #292e34;">&lt;!--</span><span style="color: #2aa1ae; background-color: #292e34;">&#21333;&#36873;&#25353;&#38062;</span><span style="color: #2aa1ae; background-color: #292e34;">--&gt;</span>
+&lt;<span style="color: #bc6ec5; font-weight: bold;">input</span> <span style="color: #7590db;">type</span>=<span style="color: #2d9574;">"checkbox"</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">"field_name"</span> <span style="color: #7590db;">value</span>=<span style="color: #2d9574;">"field_value"</span> checked&gt;     <span style="color: #2aa1ae; background-color: #292e34;">&lt;!--</span><span style="color: #2aa1ae; background-color: #292e34;">&#22797;&#36873;&#26694;</span><span style="color: #2aa1ae; background-color: #292e34;">--&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgeabf5b9" class="outline-4">
+<h4 id="orgeabf5b9"><span class="section-number-4">2.10.5.</span> 隐藏域</h4>
+<div class="outline-text-4" id="text-2-10-5">
+<p>
+隐藏域不会在表单中显示。如果需要再页面之间传递重要数据，则在&lt;input&gt;标签中设置type属性值为“hidden”
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">input</span> <span style="color: #7590db;">type</span>=<span style="color: #2d9574;">"hidden"</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">"field_name"</span> <span style="color: #7590db;">value</span>=<span style="color: #2d9574;">"field_value"</span>&gt;  <span style="color: #2aa1ae; background-color: #292e34;">&lt;!--</span><span style="color: #2aa1ae; background-color: #292e34;">&#38544;&#34255;&#34920;&#21333;&#22495;</span><span style="color: #2aa1ae; background-color: #292e34;">--&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org7414310" class="outline-4">
+<h4 id="org7414310"><span class="section-number-4">2.10.6.</span> 多行文本域</h4>
+<div class="outline-text-4" id="text-2-10-6">
+<p>
+使用&lt;textarea&gt;制作多行文本域
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">textarea</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">"name"</span> <span style="color: #7590db;">rows</span>=<span style="color: #2d9574;">"n"</span> <span style="color: #7590db;">cols</span>=<span style="color: #2d9574;">"n"</span> <span style="color: #7590db;">value</span>=<span style="color: #2d9574;">"value"</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">textarea</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2c8db95" class="outline-4">
+<h4 id="org2c8db95"><span class="section-number-4">2.10.7.</span> 菜单下拉列表域</h4>
+<div class="outline-text-4" id="text-2-10-7">
+<p>
+使用&lt;select&gt;标签创建一个菜单下拉列表域
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">select</span> <span style="color: #7590db;">name</span>=<span style="color: #2d9574;">"name"</span> <span style="color: #7590db;">size</span>=<span style="color: #2d9574;">"n"</span> multiple&gt;
+  &lt;<span style="color: #bc6ec5; font-weight: bold;">option</span> <span style="color: #7590db;">value</span>=<span style="color: #2d9574;">"value"</span> selected&gt;&#36873;&#39033;&lt;/<span style="color: #bc6ec5; font-weight: bold;">option</span>&gt;
+  &lt;<span style="color: #bc6ec5; font-weight: bold;">option</span> <span style="color: #7590db;">value</span>=<span style="color: #2d9574;">"value"</span> &gt;&#36873;&#39033;&lt;/<span style="color: #bc6ec5; font-weight: bold;">option</span>&gt;
+  ...
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">select</span>&gt;
+</pre>
+</div>
+<p>
+multiple表示多选
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc1121f9" class="outline-2">
+<h2 id="orgc1121f9"><span class="section-number-2">3.</span> 第3章 层叠样式表</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org1126bd2" class="outline-3">
+<h3 id="org1126bd2"><span class="section-number-3">3.1.</span> 本章指引</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+HTML使用标签将内容放到网页上，也可以使用元素和属性来控制简单的文档外观。 如果希望更全面的控制Web页面的外观和布局， 则需要使用层叠样式表（简称CSS）。CSS规范的工作原理在于允许用户制定一些规则，描述文档中元素内容的表现形式，通过设置不同规则控制页面中每一个元素的外观，包括字体的颜色和大小、线的宽度和颜色、页面中各项之间的空白量，以便使页面看上去更令人感兴趣。
+</p>
+
+<p>
+CSS是和HTML一起工作的，用来弥补HTML对网页格式化功能的不足。 既可以将HTML和CSS写在同一文件中，也可以分开编写，都是纯文本文件，也都是通过浏览器解析的。
+</p>
+</div>
+</div>
+<div id="outline-container-orgcc4c945" class="outline-3">
+<h3 id="orgcc4c945"><span class="section-number-3">3.2.</span> CSS简介</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+CSS是Cascading Style Sheets（层叠样式表）的缩写，是一种用来表现HTML或XML等文件样式的计算机语言。
+</p>
+
+<ul class="org-ul">
+<li>所谓样式表，是样式化HTML的一种方法。 HTML是文档的内容，而样式表式文档的表现，或者说外观</li>
+<li><p>
+所谓层叠，就是将一组样式在一起层叠使用，控制某一个或多个HTML元素，按样式表中的属性一次显示。
+</p>
+
+<p>
+一张样式表可以用于多个页面，甚至整个站点，因此CSS具有良好的易用性和扩展性。CSS特点如下：
+</p>
+<ul class="org-ul">
+<li>控制页面中每一个元素（精确定位）</li>
+<li>对HTML语言处理样式的最好补充</li>
+<li>把内容和格式处理相分离，减少工作量</li>
+</ul></li>
+</ul>
+
+<p>
+我们可以将CSS定义在HTML文档的每个标记里，或者以&lt;style&gt;标记嵌入在HTML文档中，也可以在外部附加文档作为外加文档。
+</p>
+
+<p>
+实例：
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">&lt;!doctype html&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">&lt;html&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">&lt;head&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">&lt;title&gt;CSS_Test&lt;/title&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">&lt;meta charset=</span><span style="color: #2d9574;">"utf-8"</span><span style="color: #bc6ec5; font-weight: bold;"> /&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">&lt;style&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">p </span>{
+    <span style="color: #4f97d7; font-weight: bold;">font-size</span>: 30px;
+    <span style="color: #4f97d7; font-weight: bold;">color</span>: <span style="color: #000000; background-color: #ffff00;">yellow</span>;
+    <span style="color: #4f97d7; font-weight: bold;">border</span>: 2px solid <span style="color: #ffffff; background-color: #0000ff;">blue</span>;
+    <span style="color: #4f97d7; font-weight: bold;">text-align</span>: center;
+    <span style="color: #4f97d7; font-weight: bold;">background</span>: <span style="color: #ffffff; background-color: #008000;">green</span>;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Linux&lt;/p&gt;
+&lt;p&gt;Apache&lt;/p&gt;
+&lt;p&gt;MySQL&lt;/p&gt;
+&lt;p&gt;PHP&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5063b43" class="outline-3">
+<h3 id="org5063b43"><span class="section-number-3">3.3.</span> CSS规则的组成</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+CSS的规则主要由“选择器” 和 “声明” 两部分组成， 选择器指定声明应用于哪个或哪些元素。
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">p </span>{<span style="color: #4f97d7; font-weight: bold;">text-indent</span>: 3em}  <span style="color: #2aa1ae; background-color: #292e34;">/*</span><span style="color: #2aa1ae; background-color: #292e34;">p&#20026;&#36873;&#25321;&#22120;</span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+</pre>
+</div>
+
+<p>
+声明则是用于定义样式的元素，用于设置HTML元素的样式。 如果声明和选择器一起使用，就需要将声明的部分用 { }组织在一起。 声明中可以用多个样式属性，为通过选择器找到HTML元素叠加样式。 每个样式元素都是以冒号隔开的两部分组成（属性：值）。 属性是希望影响的所选元素的特性，每个属性带一个值，共同地描述选择器应该如何呈现。 样式规则组成如下：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">&#36873;&#25321;&#22120;  </span>{<span style="color: #4f97d7; font-weight: bold;">&#23646;&#24615;1</span>: &#20540;1 ;  <span style="color: #4f97d7; font-weight: bold;">&#23646;&#24615;2</span>: &#20540;2 ; <span style="color: #4f97d7; font-weight: bold;">&#23646;&#24615;n</span>: &#20540;n&#65307;}  <span style="color: #2aa1ae; background-color: #292e34;">/*</span><span style="color: #2aa1ae; background-color: #292e34;">&#22768;&#26126;&#21644;&#36873;&#25321;&#22120;&#19968;&#36215;&#20351;&#29992;</span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+</pre>
+</div>
+
+<p>
+属性和值之间使用冒号：连接，多个属性的复合样式声明之间应该使用分号（；）隔开，最后一个属性的值后面可以不用分号。 如果同一个样式属性出现两次以上，则使用后者。 以下代码定义了h1和h2元素的颜色以及字体大小属性。
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">&lt;head&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">&lt;title&gt;CSS&#31616;&#21333;&#23454;&#20363;&lt;/title&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">&lt;style type=</span><span style="color: #2d9574;">"text/css"</span><span style="color: #bc6ec5; font-weight: bold;">&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">h1 </span>{<span style="color: #4f97d7; font-weight: bold;">font-size</span>: x-large; <span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #ffffff; background-color: #ff0000;">red</span>}
+<span style="color: #bc6ec5; font-weight: bold;">h2 </span>{<span style="color: #4f97d7; font-weight: bold;">font-size</span>: large; <span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #ffffff; background-color: #0000ff;">blue</span>}
+&lt;/style&gt;
+&lt;/head&gt;
+</pre>
+</div>
+
+<p>
+如果直接在html元素中使用style属性声明样式， 则不需要使用{}，而是直接使用多个层叠样式元素声明在sytle属性的双引号中即可。 见如下实例：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-css">&lt;h1 style=<span style="color: #2d9574;">"font-size: x-large; color: red"</span>&gt;&#26631;&#39064;&lt;/h1&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orge239c5d" class="outline-4">
+<h4 id="orge239c5d"><span class="section-number-4">3.3.1.</span> css的注释</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #2aa1ae; background-color: #292e34;">/*</span><span style="color: #2aa1ae; background-color: #292e34;">&#36825;&#37324;&#30340;&#20869;&#23481;&#20026;&#27880;&#37322;&#65292;&#19981;&#33021;&#23884;&#22871;&#20351;&#29992;</span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge32ed30" class="outline-4">
+<h4 id="orge32ed30"><span class="section-number-4">3.3.2.</span> 长度单位</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<p>
+有很多样式属性的值都有长度单位，例如fontsize、width、height、border-width等。 一个长度的值由可选的正号或负号接着的一个数字、表示单位的两个字母组成， 长度的值和单位字母之间没有空格隔开。 例如1.3 em就不是有效的长度值，1.3em是有效的。一个为0的长度不需要两个字母的单位声明。 无论是相对值还是绝对值长度， css都支持。常用的单位
+</p>
+
+<ul class="org-ul">
+<li>em （font-size：2em）一个大致与一个字符高度相同的单位。</li>
+<li>px （font-size：12px） 以像素为单位。</li>
+<li>pt （font-size：12pt） 以磅为单位。</li>
+<li>% （font-size：80%） 以百分比为单位。</li>
+<li>其他单位还包括pc（活字）、cm（厘米）、mm（毫米）和in（英寸）</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7bf5b1b" class="outline-4">
+<h4 id="org7bf5b1b"><span class="section-number-4">3.3.3.</span> 颜色单位和URL值</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<p>
+有很多样式属性的值都有颜色单位，例如color、background-color、border-color等。 颜色值是一个关键字或一个RGB格式的数字。 关键字通常有16个：aqua、black、blue、fuchsia、gray、green、lime、maroon、navy、olive、purple、red、silver、teal、white和yellow。 RGB颜色可以有以下4种形式
+</p>
+<ul class="org-ul">
+<li>#rrggbb（如#00cc00）</li>
+<li>#rgb （如#0c0）</li>
+<li>rgb（x，x，x） x是一个0-255的整数， （如rgb（0，204，0））</li>
+<li><p>
+rgb（y%,y%,y%） y是一个0% - 100%的数 （如rgb（0%，80%，0%））
+</p>
+
+<p>
+另外，指定背景图片还需要使用一个URL值。 URL的格式为：url（addr），其中addr是一个rul值，可以用单引号也可以用双引号，也可以不加引号，并且在url之前或之后可以包含空格。 在url中的括号、逗号、空格、单引号或双引号必须避开反斜杠。 不完整的url会被理解为样式表的源代码，而不是html的源代码，样例如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">body </span>{<span style="color: #4f97d7; font-weight: bold;">background</span>:url<span style="color: #b2b2b2; background-color: #292b2e;">(</span><span style="color: #2d9574;">xsphp.gif</span><span style="color: #b2b2b2; background-color: #292b2e;">)</span>}         <span style="color: #2aa1ae; background-color: #292e34;">/*</span><span style="color: #2aa1ae; background-color: #292e34;">&#19981;&#29992;&#24341;&#21495;</span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+<span style="color: #bc6ec5; font-weight: bold;">body </span>{<span style="color: #4f97d7; font-weight: bold;">background</span>:url<span style="color: #b2b2b2; background-color: #292b2e;">(</span><span style="color: #2d9574;">http://www.lampbrother.net/xsphp.gif</span><span style="color: #b2b2b2; background-color: #292b2e;">)</span>}   <span style="color: #2aa1ae; background-color: #292e34;">/*</span><span style="color: #2aa1ae; background-color: #292e34;">&#32477;&#23545;url</span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+<span style="color: #bc6ec5; font-weight: bold;">body </span>{<span style="color: #4f97d7; font-weight: bold;">background</span>:url(<span style="color: #2d9574;">'xsphp.gif'</span>)}      <span style="color: #2aa1ae; background-color: #292e34;">/*</span><span style="color: #2aa1ae; background-color: #292e34;">&#20351;&#29992;&#21333;&#24341;&#21495;</span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+<span style="color: #bc6ec5; font-weight: bold;">body </span>{<span style="color: #4f97d7; font-weight: bold;">background</span>:url(<span style="color: #2d9574;">"xsphp.gif"</span>)}   <span style="color: #2aa1ae; background-color: #292e34;">/*</span><span style="color: #2aa1ae; background-color: #292e34;">&#20351;&#29992;&#21452;&#24341;&#21495;</span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9960019" class="outline-3">
+<h3 id="org9960019"><span class="section-number-3">3.4.</span> 在html文档中放置CSS的几种方式</h3>
+<div class="outline-text-3" id="text-3-4">
+</div>
+<div id="outline-container-orgcfacd95" class="outline-4">
+<h4 id="orgcfacd95"><span class="section-number-4">3.4.1.</span> 内联样式表</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<p>
+可以使用style属性内联，该属性可以应用于任意body元素，包括body本身。实例如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-css">&lt;p style=<span style="color: #2d9574;">"color:red;font-family:serif"</span>&gt; &#36825;&#27573;&#26679;&#24335;&#26159;&#32418;&#33394;&#30340;serif&#23383;&#65292;&#22914;&#26524;&#23383;&#20307;&#21487;&#29992;&#30340;&#35805;&#12290;&lt;/p&gt;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6980e5e" class="outline-4">
+<h4 id="org6980e5e"><span class="section-number-4">3.4.2.</span> 嵌入一张样式表</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+使用&lt;style&gt;元素嵌入到HTML文档中使用，&lt;style&gt;元素需要放在HTML文档的head部分。
+</p>
+</div>
+</div>
+<div id="outline-container-orgf553f95" class="outline-4">
+<h4 id="orgf553f95"><span class="section-number-4">3.4.3.</span> 链接到外部的样式表</h4>
+<div class="outline-text-4" id="text-3-4-3">
+<p>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+如果多个文档都要使用同一样式表，那么外部样式表会更合适。 一张外部的样式表，可以通过link元素链接到html中。
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">link</span> <span style="color: #7590db;">rel</span>=<span style="color: #2d9574;">"stylesheet"</span> <span style="color: #7590db;">href</span>=<span style="color: #2d9574;">"style.css"</span> <span style="color: #7590db;">type</span>=<span style="color: #2d9574;">"text/css"</span> /&gt;
+</pre>
+</div>
+<p>
+可选的type属性用于指定媒体类型，允许浏览器忽略他们不支持的样表表类型。 rel属于用于定义链接的文件和html文档之间的关系，该属性的stylesheet指定一个固定或首选的样式。 而href属性则用来指定样式文件的位置，可以是相对也可以是绝对的URL。 外部样式表文件要以扩展名.css命名。 样式表仅仅由样式规则或声明组成
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">p </span>{<span style="color: #4f97d7; font-weight: bold;">margin</span>:2em}
+</pre>
+</div>
+
+<p>
+<b>注意：</b> 如果同时使用内联样式表和嵌入式样式表，并设置了相同的属性，则内联样式表的优先级高，而同时使用嵌入式样式表和外部样式表并设置相同属性时，则优先级由出现的先后顺序决定。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org3a12d46" class="outline-3">
+<h3 id="org3a12d46"><span class="section-number-3">3.5.</span> CSS选择器</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+常用的样式选择器有：
+</p>
+<ul class="org-ul">
+<li>Html选择器</li>
+<li>类选择器</li>
+<li>ID选择器</li>
+<li>组合选择器</li>
+<li>关联选择器</li>
+<li>伪类和伪元素</li>
+</ul>
+</div>
+<div id="outline-container-orgc1fa52d" class="outline-4">
+<h4 id="orgc1fa52d"><span class="section-number-4">3.5.1.</span> HTML选择器</h4>
+<div class="outline-text-4" id="text-3-5-1">
+<p>
+Html标签，即HTML的标签，用来改变一个指定标签的样式。 任何HTML元素都可以是一个CSS选择器，用于找到和选择器同名的HTML元素。如：
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">p </span>{<span style="color: #4f97d7; font-weight: bold;">text-indent</span>: 3em}
+<span style="color: #bc6ec5; font-weight: bold;">h1 </span>{<span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #ffffff; background-color: #ff0000;">red</span>}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge94abb6" class="outline-4">
+<h4 id="orge94abb6"><span class="section-number-4">3.5.2.</span> 类选择器</h4>
+<div class="outline-text-4" id="text-3-5-2">
+<p>
+同一个选择器能有不同的类（class），因而允许同一个元素有不同的样式。如：
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">p.dark-row </span>{<span style="color: #4f97d7; font-weight: bold;">background-color</span>: <span style="color: #000000; background-color: #EAEAEA;">#EAEAEA</span>;}
+<span style="color: #bc6ec5; font-weight: bold;">p.light-row </span>{<span style="color: #4f97d7; font-weight: bold;">background-color</span>: <span style="color: #000000; background-color: #F8F8F8;">#F8F8F8</span>;}
+</pre>
+</div>
+<p>
+这些类可以在html标签中使用class属性引用，如
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #bc6ec5; font-weight: bold;">p</span> <span style="color: #7590db;">class</span>=<span style="color: #2d9574;">"dark-row"</span>&gt;&#31532;&#19968;&#27573;&lt;/<span style="color: #bc6ec5; font-weight: bold;">p</span>&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">p</span> <span style="color: #7590db;">class</span>=<span style="color: #2d9574;">"light-row"</span>&gt;&#31532;&#20108;&#27573;&lt;/<span style="color: #bc6ec5; font-weight: bold;">p</span>&gt;
+</pre>
+</div>
+<p>
+类的申明也可以不需要相关的html元素，只用定义类选择器事去点.前面的html标记即可，如
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">.note </span>{<span style="color: #4f97d7; font-weight: bold;">font-size</span>: small}  <span style="color: #2aa1ae; background-color: #292e34;">/*</span><span style="color: #2aa1ae; background-color: #292e34;">&#21487;&#20197;&#29992;&#20110;&#20219;&#20309;&#20803;&#32032;</span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga25555d" class="outline-4">
+<h4 id="orga25555d"><span class="section-number-4">3.5.3.</span> ID选择器</h4>
+<div class="outline-text-4" id="text-3-5-3">
+<p>
+在html页面中，id属性指定了某个单一元素，id选择器用来对这个单一元素定义单独的样式。 ID选择器的应用和类选择器类似，只要把class换成id即可。区别在于id只能用于唯一的元素，class没有这个限制。 定义ID选择器要在ID名称前面加一个#。实例如下：
+</p>
+</div>
+</div>
+<div id="outline-container-orgec9a912" class="outline-4">
+<h4 id="orgec9a912"><span class="section-number-4">3.5.4.</span> 关联选择器</h4>
+<div class="outline-text-4" id="text-3-5-4">
+<p>
+关联选择器只不过是一个用空格隔开的两个或更多的单一选择器组成的字符串。这些选择器组成的字符串。这些选择器可以指定一般属性，而且因为层叠次序的规则，他们的优先权比单一的选择器要大
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">table a </span>{<span style="color: #4f97d7; font-weight: bold;">color</span>: <span style="color: #ffffff; background-color: #ff0000;">red</span>} <span style="color: #2aa1ae; background-color: #292e34;">/*</span><span style="color: #2aa1ae; background-color: #292e34;">&#21482;&#38024;&#23545;table&#26631;&#31614;&#20869;&#20869;&#30340;a&#20803;&#32032;&#26377;&#25928;</span><span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0b34d2a" class="outline-4">
+<h4 id="org0b34d2a"><span class="section-number-4">3.5.5.</span> 组合选择器</h4>
+<div class="outline-text-4" id="text-3-5-5">
+<p>
+为了减少样式表的重复声明，组合选择器声明是允许的。只要用英文逗号隔开就可以。如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">h1, h2, h3,h4 </span>{<span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #ffffff; background-color: #ff0000;">red</span>; <span style="color: #4f97d7; font-weight: bold;">font-family</span>:sans-serif}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8411f26" class="outline-4">
+<h4 id="org8411f26"><span class="section-number-4">3.5.6.</span> 伪元素选择器</h4>
+<div class="outline-text-4" id="text-3-5-6">
+<p>
+伪元素选择器是指对同一个HTML元素不同状态的一种定义方式。 例如，对于&lt;a&gt;标签的正常状态、访问的状态、选中的状态、光标移到超链接文本上的状态，就可以使用伪元素选择器来定义。 语法结构如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #4f97d7; font-weight: bold;">HTML&#26631;&#31614;</span>: &#20266;&#20803;&#32032; {&#23646;&#24615;&#65306;&#20540;;}
+</pre>
+</div>
+<p>
+每个伪元素都已英文的:开头，后面的伪元素名称根据作用不同有各自固定的写法。而冒号前面需要指定使用伪元素的HTML标签， 目前只有&lt;a&gt;或&lt;p&gt;标签可用。指定超链接元素以不同的方式显示链接（links）、光标移动到超链接上（hover links）、已访问链接（visited links）和可以激活链接（active links）时，定位伪元素可以给出link、hover、visited或active。 一个已访问的链接可以定义为不同的颜色显示，甚至不同的字体大小风格。如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #bc6ec5; font-weight: bold;">a:link </span>{<span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #ffffff; background-color: #ff0000;">red</span>;}
+<span style="color: #bc6ec5; font-weight: bold;">a:hover </span>{<span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #000000; background-color: #ffff00;">yellow</span>; <span style="color: #4f97d7; font-weight: bold;">font-size</span>:125%;}
+<span style="color: #bc6ec5; font-weight: bold;">a:active </span>{<span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #ffffff; background-color: #0000ff;">blue</span>; <span style="color: #4f97d7; font-weight: bold;">font-size</span>:125%;}
+<span style="color: #bc6ec5; font-weight: bold;">a:visited </span>{<span style="color: #4f97d7; font-weight: bold;">color</span>:<span style="color: #ffffff; background-color: #008000;">green</span>; <span style="color: #4f97d7; font-weight: bold;">font-size</span>:85%}
+</pre>
+</div>
+
+<p>
+*注意：*多个css选择器同时作用在同一个HTML元素上时，声明不同的属性具有继承关系。如果声明的是相同属性，则以优先级高的选择器为主，主要选择器的优先级关系如下：
+</p>
+<blockquote>
+<p>
+关联选择器&gt;ID选择器&gt;类选择器&gt;HTML选择器
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="outline-container-org6cb2dae" class="outline-3">
+<h3 id="org6cb2dae"><span class="section-number-3">3.6.</span> CSS常见的样式属性和值</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+CSS中的样式属性比较多，经常使用的属性可以分为这么几类：字体、文本、背景、边框、列表以及其他一些样式属性。
+</p>
+</div>
+<div id="outline-container-org4c4099a" class="outline-4">
+<h4 id="org4c4099a"><span class="section-number-4">3.6.1.</span> 字体属性</h4>
+<div class="outline-text-4" id="text-3-6-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">属性</td>
+<td class="org-left">描述</td>
+<td class="org-left">属性值</td>
+</tr>
+
+<tr>
+<td class="org-left">font-famlily</td>
+<td class="org-left">字体</td>
+<td class="org-left">使用字体名称，如Times、serif等</td>
+</tr>
+
+<tr>
+<td class="org-left">font-size</td>
+<td class="org-left">字体大小</td>
+<td class="org-left">可以使用绝对大小、相对大小、长度或百分比</td>
+</tr>
+
+<tr>
+<td class="org-left">font-sytle</td>
+<td class="org-left">字体风格</td>
+<td class="org-left">normal（普通）、italic（斜体）或oblique（倾斜）</td>
+</tr>
+
+<tr>
+<td class="org-left">font-weitht</td>
+<td class="org-left">字体加粗</td>
+<td class="org-left">normal、bold、bolder或lighter等</td>
+</tr>
+
+<tr>
+<td class="org-left">font-variant</td>
+<td class="org-left">字体变形</td>
+<td class="org-left">normal或small-caps（小型小写字母</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orge55e3e4" class="outline-4">
+<h4 id="orge55e3e4"><span class="section-number-4">3.6.2.</span> 颜色属性</h4>
+<div class="outline-text-4" id="text-3-6-2">
+<p>
+使用color属性
+</p>
+</div>
+</div>
+<div id="outline-container-org3f1ec44" class="outline-4">
+<h4 id="org3f1ec44"><span class="section-number-4">3.6.3.</span> 背景属性</h4>
+<div class="outline-text-4" id="text-3-6-3">
+<p>
+包括背景颜色、背景图像、背景重复、背景附件、背景位置等属性。
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">属性</td>
+<td class="org-left">描述</td>
+<td class="org-left">属性值</td>
+</tr>
+
+<tr>
+<td class="org-left">background-color</td>
+<td class="org-left">背景颜色</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">background-image</td>
+<td class="org-left">背景图像</td>
+<td class="org-left">图片url或none</td>
+</tr>
+
+<tr>
+<td class="org-left">background-repeat</td>
+<td class="org-left">背景重复</td>
+<td class="org-left">repeat、repeat-x、repeat-y、no-repeat</td>
+</tr>
+
+<tr>
+<td class="org-left">background-attachment</td>
+<td class="org-left">背景附件</td>
+<td class="org-left">scroll（滚动）或fixed（固定）</td>
+</tr>
+
+<tr>
+<td class="org-left">background-position</td>
+<td class="org-left">背景位置</td>
+<td class="org-left">横向的关键字（left，center，right），纵向的关键字（top，center，bottom），百分比和长度也可用来安排背景图像的位置</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org1c45252" class="outline-2">
+<h2 id="org1c45252"><span class="section-number-2">4.</span> 第四章 DIV+CSS网页标准化布局</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgb9a14e0" class="outline-3">
+<h3 id="orgb9a14e0"><span class="section-number-3">4.1.</span> DIV+CSS对网页布局的优势</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+在HTML网站设计标准中，不再使用表格定位技术，而是采用DIV+CSS的方式实现各种定位， 实现网页页面内容与表现相分离
+</p>
+<ol class="org-ol">
+<li>表现和内容相分离</li>
+<li>代码简洁， 提高页面浏览速度
+除了几个div、span、ul、li之类的标签，几乎不用其它标签</li>
+<li>易于维护和改进</li>
+<li>提高搜索引擎对网页的索引效率</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgd41c2d2" class="outline-3">
+<h3 id="orgd41c2d2"><span class="section-number-3">4.2.</span> “无意义”的HTML元素div和span</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+div和span标签没有任何内容上的意义， 它们的存在纯粹是为了应用css样式，所以当样式表失效时， 它们就没有了任何作用。
+</p>
+
+<p>
+span是内联的（行内标记），用在一小块内联html中； 而div（division）元素是块级的（简单地说，它等同于其前后有换行），用于组合一大块的代码， 为html文档内大块的内容提供结构和背景的元素，可以包含段落、标题、表格甚至其他部分，这使得id便于建立不同集成的类。
+</p>
+</div>
+</div>
+<div id="outline-container-org9da791f" class="outline-3">
+<h3 id="org9da791f"><span class="section-number-3">4.3.</span> W3C盒子模型</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+每个html元素都可以看做一个区块，类似于装了东西的盒子，所以称为盒子模式。 在盒子模型中除了可以装内容（文字、图片等），也可以再装小盒子，所以一个页面的布局就是使用多个盒子按顺序摆放或嵌套成页面框架。 再在不同的盒子中放入对应的页面内容。
+</p>
+
+<p>
+通常，我们使用“无意义”的标签&lt;div&gt;定义一个盒子模型，再通过css属性去声明盒子模型的属性。 一个盒子的属性有
+</p>
+<ul class="org-ul">
+<li>width  宽度  （可以使用auto，不允许使用负值）</li>
+<li>height 高度   （可以使用auto，不允许使用负值）</li>
+<li>padding  盒子里的内容到盒子边框之间的距离，可以理解为打印上的页边距</li>
+<li>border  盒子本身线框的宽度</li>
+<li><p>
+margin  盒子边框外和其它盒子之间的距离，即盒子与盒子之间的间距。
+</p>
+
+<p>
+代码实例：
+</p>
+<div class="org-src-container">
+<pre class="src src-html">    &lt;<span style="color: #4f97d7; font-weight: bold;">!doctype</span> html&gt;
+&lt;<span style="color: #bc6ec5; font-weight: bold;">html</span>&gt;
+    &lt;<span style="color: #bc6ec5; font-weight: bold;">head</span>&gt;
+        &lt;<span style="color: #bc6ec5; font-weight: bold;">title</span>&gt;<span style="font-weight: bold; text-decoration: underline;">CSS&#30418;&#23376;&#27169;&#22411;</span>&lt;/<span style="color: #bc6ec5; font-weight: bold;">title</span>&gt;
+        &lt;<span style="color: #bc6ec5; font-weight: bold;">meta</span> <span style="color: #7590db;">charset</span>=<span style="color: #2d9574;">"utf-8"</span> /&gt;
+        &lt;<span style="color: #bc6ec5; font-weight: bold;">style</span>&gt;
+         #box {
+             width:200px;
+             height:200px;
+             border:10px solid #ccc;
+             padding:50px;
+             margin:10px;
+         }
+        &lt;/<span style="color: #bc6ec5; font-weight: bold;">style</span>&gt;
+    &lt;/<span style="color: #bc6ec5; font-weight: bold;">head</span>&gt;
+    &lt;<span style="color: #bc6ec5; font-weight: bold;">body</span>&gt;
+        &lt;<span style="color: #bc6ec5; font-weight: bold;">div</span> <span style="color: #7590db;">id</span>=<span style="color: #2d9574;">"box"</span>&gt;
+            &#20869;&#23481;&#21306;
+        &lt;/<span style="color: #bc6ec5; font-weight: bold;">div</span>&gt;
+    &lt;/<span style="color: #bc6ec5; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #bc6ec5; font-weight: bold;">html</span>&gt;
+
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc0d764c" class="outline-3">
+<h3 id="orgc0d764c"><span class="section-number-3">4.4.</span> 和页面布局有关的CSS属性</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+掌握定位和浮动两个比较重要的概念， 它们可以控制在页面上排列和显示元素的方式。
+</p>
+
+<p>
+虽然CSS的样式属性非常多，但实际参与页面布局的属性其实很少。 CSS的定位属性应用的非常广泛， 可以控制元素的平面或空间位置， 以及高度、宽度和可见性。 也可以使用CSS的display属性改变区块的类型， 例如将display属性设置为none， 则这个区块框及其内所有的内容就不在显示。 通过将display属性设置为bolck， 可以让行内元素表现的像块级元素一样。 常见的参与页面布局的CSS属性如下表：
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">属性</td>
+<td class="org-left">描述</td>
+</tr>
+
+<tr>
+<td class="org-left">position</td>
+<td class="org-left">定义元素的定位：absolute（绝对）、relative（相对）、static（静态）或者fixed（固定）</td>
+</tr>
+
+<tr>
+<td class="org-left">top</td>
+<td class="org-left">层距离页面顶点纵坐标的距离</td>
+</tr>
+
+<tr>
+<td class="org-left">left</td>
+<td class="org-left">层距离页面顶点横坐标的距离</td>
+</tr>
+
+<tr>
+<td class="org-left">text-align</td>
+<td class="org-left">横向排列，可以使用left（左对齐）、right（右对齐）、center（居中）</td>
+</tr>
+
+<tr>
+<td class="org-left">line-height</td>
+<td class="org-left">指定行高、内容都是在行的中间，所以可以使用这个属性设置内容垂直居中。 这个属性接受一个控制文本基线之间的间隔的值， 当值为数字时，行高由元素字体大小的量与该数字相乘所得。</td>
+</tr>
+
+<tr>
+<td class="org-left">display</td>
+<td class="org-left">是一个显示属性，设定为block值则以块状显示，在元素后面添加换行符，即其他元素不能在其后面并列显示。如果要设定为inline值则内联显示， 在元素后面删除换行符，多个元素可以在一行内并列显示。 使用值none将关闭指定元素及其子元素的显示。</td>
+</tr>
+
+<tr>
+<td class="org-left">float</td>
+<td class="org-left">设置区块漂浮属性，允许网页制作者将文本环绕在一个元素的周围，可以使用left和right值</td>
+</tr>
+
+<tr>
+<td class="org-left">overflow</td>
+<td class="org-left">设置层内的内容超出容纳范围的处理方式。 设置为visible值时，无论层的大小如何，内容都会显示出来，当设置为hidden时， 会隐藏超出层大小的内容， 设置为scroll时，为层添加滚动条， 当使用auto时，只有在内容超出层的范围时才显示滚动条。</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org78f7857" class="outline-2">
+<h2 id="org78f7857"><span class="section-number-2">5.</span> 第7章 PHP的基本语法</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orgbd7a45c" class="outline-3">
+<h3 id="orgbd7a45c"><span class="section-number-3">5.1.</span> PHP能做什么</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>收集表单数据</li>
+<li>生成动态网页</li>
+<li>字符串处理</li>
+<li>动态输出图像</li>
+<li>服务器端文件系统操作</li>
+<li>编写数据库支持的网页</li>
+<li>会话跟踪控制</li>
+<li>处理xml文件</li>
+<li>支持利用大量的网络协议</li>
+<li>服务器端的其他相关操作</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org3c8c327" class="outline-2">
+<h2 id="org3c8c327"><span class="section-number-2">6.</span> 第8章 PHP流程控制结构</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org0eeea6e" class="outline-3">
+<h3 id="org0eeea6e"><span class="section-number-3">6.1.</span> 本章指引</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+流程控制对于任何一门编程语言来说都是至关重要的，它提供了控制程序步骤的基本手段，是程序的核心部分。 可以说，缺少了控制流程，就不会有程序设计语言，因为现在没有哪一种程序只是线性地执行语句序列。 程序中需要与用户相互交流，需要根据用户的输入决定序列，需要有循环将代码反复执行等，这些都少不了流程控制。 在任何一门程序设计语言中，都需要支持满足程序结构化所需要的三种结构：
+</p>
+<ul class="org-ul">
+<li>顺序结构</li>
+<li>分支结构（选择结构或条件结构）</li>
+<li>循环结构</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org60f8fa7" class="outline-3">
+<h3 id="org60f8fa7"><span class="section-number-3">6.2.</span> 分支结构</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+对于要先做判断再选择的问题，就要使用分支结构，又称为选择结构或条件结构。在程序中使用分支结构可以有以下几种形式：
+</p>
+<ul class="org-ul">
+<li>单一条件分支结构</li>
+<li>双向条件分支结构</li>
+<li>多项条件分支结构</li>
+<li>巢状条件分支结构</li>
+</ul>
+</div>
+
+<div id="outline-container-org68c1936" class="outline-4">
+<h4 id="org68c1936"><span class="section-number-4">6.2.1.</span> 单一条件分支结构（if）</h4>
+<div class="outline-text-4" id="text-6-2-1">
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #4f97d7; font-weight: bold;">if</span>(&#34920;&#36798;&#24335;)
+    &#35821;&#21477;&#22359;&#65307;
+</pre>
+</div>
+<p>
+实例：
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #bc6ec5;">&lt;?php</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span>($<span style="color: #7590db;">a</span> &gt; $<span style="color: #7590db;">b</span>)
+
+    <span style="color: #4f97d7; font-weight: bold;">echo</span> <span style="color: #2d9574;">"</span><span style="color: #7590db;">$a</span><span style="color: #2d9574;"> &#22823;&#20110; </span><span style="color: #7590db;">$b</span><span style="color: #2d9574;">"</span> ;
+<span style="color: #bc6ec5;">?&gt;</span>
+</pre>
+</div>
+<p>
+通过使用复合语句（代码块），if语句能够执行多条语句。 代码块是一组用花括号{}括起来的多条语句。
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #4f97d7; font-weight: bold;">if</span>(&#34920;&#36798;&#24335;){
+    &#35821;&#21477;1&#65307;
+    &#35821;&#21477;2&#65307;
+    &#35821;&#21477;3&#65307;
+    &#8230;&#8230;
+    &#35821;&#21477;n&#65307;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org90b1ae9" class="outline-4">
+<h4 id="org90b1ae9"><span class="section-number-4">6.2.2.</span> 双向条件分支结构（else字句）</h4>
+<div class="outline-text-4" id="text-6-2-2">
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #4f97d7; font-weight: bold;">if</span> (&#34920;&#36798;&#24335;)
+    &#35821;&#21477;&#22359;1&#65307;
+    &#8230;&#8230;
+    &#35821;&#21477;&#22359;n&#65307;    
+<span style="color: #4f97d7; font-weight: bold;">else</span>
+    &#35821;&#21477;&#22359;1&#65307;
+    &#8230;&#8230;
+    &#35821;&#21477;&#22359;n&#65307;     
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0d90767" class="outline-4">
+<h4 id="org0d90767"><span class="section-number-4">6.2.3.</span> 多项条件分支结构（elseif字句）</h4>
+<div class="outline-text-4" id="text-6-2-3">
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #4f97d7; font-weight: bold;">if</span>&#65288;&#34920;&#36798;&#24335;1&#65289;
+    &#35821;&#21477;&#22359;1&#65307;
+<span style="color: #4f97d7; font-weight: bold;">elseif</span>&#65288;&#34920;&#36798;&#24335;2&#65289;
+    &#35821;&#21477;&#22359;2&#65307;
+&#8230;&#8230;
+<span style="color: #4f97d7; font-weight: bold;">elseif</span>&#65288;&#34920;&#36798;&#24335;n&#65289;
+    &#35821;&#21477;&#22359;n&#65307;
+<span style="color: #4f97d7; font-weight: bold;">else</span>
+    &#35821;&#21477;&#22359;n+1&#65307;
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgac36d16" class="outline-2">
+<h2 id="orgac36d16"><span class="section-number-2">7.</span> 第10章 PHP中的数组与数据结构</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-orgc66fa7e" class="outline-3">
+<h3 id="orgc66fa7e"><span class="section-number-3">7.1.</span> 数组的分类</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>索引素组（indexed）
+索引素组的索引值是整数，以0开始，以此递增</li>
+<li>关联数组（associative）
+关联数组以字符串作为索引值</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org60f3fa2" class="outline-3">
+<h3 id="org60f3fa2"><span class="section-number-3">7.2.</span> 数组的定义</h3>
+<div class="outline-text-3" id="text-7-2">
+<ul class="org-ul">
+<li>直接为数组元素赋值即可声明数组。</li>
+<li><p>
+使用array（）声明数组。
+</p>
+
+<p>
+使用上面两种方法声明数组时，不仅可以指定元素的值，也可以指定元素的下标，即键和值都可以由使用者定义。
+</p></li>
+</ul>
+</div>
+
+<div id="outline-container-org5496713" class="outline-4">
+<h4 id="org5496713"><span class="section-number-4">7.2.1.</span> 直接赋值的方式声明数组</h4>
+<div class="outline-text-4" id="text-7-2-1">
+<p>
+语法：
+</p>
+<div class="org-src-container">
+<pre class="src src-php">$<span style="color: #7590db;">&#25968;&#32452;&#21517;</span>[&#19979;&#26631;] = &#20540;;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd68be17" class="outline-4">
+<h4 id="orgd68be17"><span class="section-number-4">7.2.2.</span> 使用array()语言结构新建数组</h4>
+<div class="outline-text-4" id="text-7-2-2">
+<p>
+语法结构：
+</p>
+<div class="org-src-container">
+<pre class="src src-php">$<span style="color: #7590db;">&#25968;&#32452;&#21517;</span> = <span style="color: #4f97d7; font-weight: bold;">array</span>(key1=&gt;value1,key2=&gt;value2,&#8230;&#8230;,keyN=&gt;valueN);
+</pre>
+</div>
+
+<p>
+如果不使用key=&gt;，忽略下标，直接使用值，默认就是索引数组
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org509bd97" class="outline-3">
+<h3 id="org509bd97"><span class="section-number-3">7.3.</span> foreach()遍历数组</h3>
+<div class="outline-text-3" id="text-7-3">
+<div class="org-src-container">
+<pre class="src src-php">$<span style="color: #7590db;">shuzu</span> = <span style="color: #4f97d7; font-weight: bold;">array</span>(&#8230;&#8230;);
+<span style="color: #4f97d7; font-weight: bold;">foreach</span>($<span style="color: #7590db;">shuzu</span> <span style="color: #4f97d7; font-weight: bold;">as</span> $<span style="color: #7590db;">value</span>){    <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#29992;&#20110;&#32034;&#24341;&#25968;&#32452;</span>
+      <span style="color: #ce537a; font-weight: bold;">each</span> $<span style="color: #7590db;">value</span>    <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#20381;&#27425;&#25171;&#21360;&#25968;&#32452;&#20540;</span>
+    }
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">or</span>
+<span style="color: #4f97d7; font-weight: bold;">foreach</span>($<span style="color: #7590db;">shuzu</span> <span style="color: #4f97d7; font-weight: bold;">as</span> $<span style="color: #7590db;">key</span> =&gt; $<span style="color: #7590db;">value</span>){  <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#29992;&#20110;&#20851;&#32852;&#25968;&#32452;</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">$key &#26159;&#19979;&#26631;&#65307;$value &#26159;&#25968;&#32452;&#20540;&#65307;</span>
+    }
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9059e7d" class="outline-3">
+<h3 id="org9059e7d"><span class="section-number-3">7.4.</span> 联合使用list()、each()和while循环遍历数组</h3>
+<div class="outline-text-3" id="text-7-4">
+</div>
+<div id="outline-container-org286a4df" class="outline-4">
+<h4 id="org286a4df"><span class="section-number-4">7.4.1.</span> each()函数</h4>
+<div class="outline-text-4" id="text-7-4-1">
+<p>
+each()函数需要传递一个数组作为参数，返回数组中当前元素的*键/值对*，并向后移动数组指针到下一个元素的位置。如果内部指针越过了数组的末端，则each()返回FALSE。
+</p>
+</div>
+</div>
+<div id="outline-container-org4d54956" class="outline-4">
+<h4 id="org4d54956"><span class="section-number-4">7.4.2.</span> list()结构</h4>
+<div class="outline-text-4" id="text-7-4-2">
+<p>
+这不是真正的函数，而是PHP的语言结构。list()用一步操作给一组变量进行赋值，即把数组中的值赋给一些变量。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #4f97d7; font-weight: bold;">list</span>($<span style="color: #7590db;">key</span>,$<span style="color: #7590db;">value</span>) = each($<span style="color: #7590db;">shuzu</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6afcdaf" class="outline-4">
+<h4 id="org6afcdaf"><span class="section-number-4">7.4.3.</span> 关于print<sub>r</sub></h4>
+<div class="outline-text-4" id="text-7-4-3">
+<ul class="org-ul">
+<li>print<sub>r</sub>() 将把数组的指针移到最后边。使用 reset() 可让指针回到开始处。</li>
+<li>可以一次性输出数组的全部内容</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #bc6ec5;">  &lt;?php</span>
+$<span style="color: #7590db;">a</span> = <span style="color: #4f97d7; font-weight: bold;">array</span> (<span style="color: #2d9574;">'a'</span> =&gt; <span style="color: #2d9574;">'apple'</span>, <span style="color: #2d9574;">'b'</span> =&gt; <span style="color: #2d9574;">'banana'</span>, <span style="color: #2d9574;">'c'</span> =&gt; <span style="color: #4f97d7; font-weight: bold;">array</span> (<span style="color: #2d9574;">'x'</span>,<span style="color: #2d9574;">'y'</span>,<span style="color: #2d9574;">'z'</span>));
+print_r ($<span style="color: #7590db;">a</span>);
+<span style="color: #bc6ec5;">?&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0dc86cd" class="outline-3">
+<h3 id="org0dc86cd"><span class="section-number-3">7.5.</span> 使用数组的内部指针控制函数遍历数组</h3>
+<div class="outline-text-3" id="text-7-5">
+<p>
+数组的内部指针是数组内部的组织机制，指向一个数组中的某个元素。默认指向数组中第一个元素，通过移动或改变指针的位置，可以访问数组中的任意元素。对于数组指针的控制，PHP提供了以下几个内建函数可以利用。
+</p>
+<ul class="org-ul">
+<li>current()：取得目前指针位置的内容资料。</li>
+<li>key()：读取目前指针所指向资料的索引值。</li>
+<li>next()：将数组中的内部指针移动到下一个单元。</li>
+<li>prev()：将数组的内部指针倒回一位。</li>
+<li>end()：将数组的内部指针指向最后一个元素。</li>
+<li>reset()：将目前指针无条件移至第一个索引位置。</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7ae43c5" class="outline-3">
+<h3 id="org7ae43c5"><span class="section-number-3">7.6.</span> 预定义数组</h3>
+<div class="outline-text-3" id="text-7-6">
+<p>
+从PHP4.1.0开始，PHP提供了一套附加的预定义数组，这些数组变量包含了来自Web服务器、客户端、运行环境和用户输入的数据。这些数组非常特别，通常被称为自动全局变量或者“超”全局变量，它们具有以下几个特性：
+</p>
+<ul class="org-ul">
+<li>就是一种特殊的数组，操作方式没有区别。</li>
+<li>不用去声明它们， 在每个php脚本中默认存在</li>
+<li>在全局范围内自动生效，在函数中直接就可以使用，且不用使用global关键词。</li>
+</ul>
+
+<p>
+常见的预定义全局数组
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">预定义数组</td>
+<td class="org-left">说明</td>
+</tr>
+
+<tr>
+<td class="org-left">$<sub>SERVER</sub></td>
+<td class="org-left">变量由Web服务器设定或者直接与当前脚本的执行环境相关联</td>
+</tr>
+
+<tr>
+<td class="org-left">$<sub>ENV</sub></td>
+<td class="org-left">执行环境提交至脚本的变量</td>
+</tr>
+
+<tr>
+<td class="org-left">$GET</td>
+<td class="org-left">经由Url请求提交至脚本的变量</td>
+</tr>
+
+<tr>
+<td class="org-left">$POST</td>
+<td class="org-left">经由HTTP POST方法提交至脚本的变量</td>
+</tr>
+
+<tr>
+<td class="org-left">$REQUEST</td>
+<td class="org-left">经由GET、POST和Cookie机制提交至脚本的变量，因此该数组并不值得信任</td>
+</tr>
+
+<tr>
+<td class="org-left">$<sub>FILES</sub></td>
+<td class="org-left">经由HTTP POST文件上传而提交至脚本的变量</td>
+</tr>
+
+<tr>
+<td class="org-left">$<sub>COOKIE</sub></td>
+<td class="org-left">经由HTTPCookies方法提交至脚本的变量</td>
+</tr>
+
+<tr>
+<td class="org-left">$<sub>SESSION</sub></td>
+<td class="org-left">当前注册给脚本会化的变量</td>
+</tr>
+
+<tr>
+<td class="org-left">$GLOBALS</td>
+<td class="org-left">包含一个引用指向每个当前脚本的全局范围内有效的变量。该数组的键名为全局变量的名称</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-org8b8f061" class="outline-4">
+<h4 id="org8b8f061"><span class="section-number-4">7.6.1.</span> 服务器变量$<sub>SERVER</sub></h4>
+<div class="outline-text-4" id="text-7-6-1">
+<p>
+$<sub>SERVER是一个包含诸如头信息</sub>、路径和脚本位置的数组。数组的实体由Web服务器创建，并不能保证所有的服务器都能产生所有的信息，服务器可能忽略了一些信息，或者产生了一些其他的新的信息。和其他的超全局数组一样，这是一个自动的全局变量，在所有的脚本中都有效，在函数或对象的方法中不需要使用global关键字访问它。在下面的示例中使用foreach语句，将当前Web服务器创建的超全局数组$<sub>SERVER中的信息全部遍历出来</sub>，供用户查看。
+\
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #bc6ec5;">  &lt;?php</span>
+<span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">print_r($_SERVER);</span>
+<span style="color: #4f97d7; font-weight: bold;">foreach</span>($<span style="color: #7590db;">_SERVER</span> <span style="color: #4f97d7; font-weight: bold;">as</span>  $<span style="color: #7590db;">key</span> =&gt; $<span style="color: #7590db;">value</span>){
+    <span style="color: #4f97d7; font-weight: bold;">echo</span> $<span style="color: #7590db;">key</span> . <span style="color: #2d9574;">'=&gt;'</span> . $<span style="color: #7590db;">value</span> . <span style="color: #2d9574;">'&lt;br&gt;'</span>;
+    }
+<span style="color: #bc6ec5;">?&gt;</span>
+</pre>
+</div>
+<p>
+$<sub>SERVER数组中的数据可以根据自己声明的脚本情况选择使用</sub>。在上面的代码中，使用foreach语句遍历出由Web服务器创建的所有全局变量，当然也可以使用print<sub>r</sub>()函数直接输出数组中的全部内容。但在程序中只需使用$<sub>SERVER数组中个别的数据</sub>，通过下标单独访问即可。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgeeed245" class="outline-4">
+<h4 id="orgeeed245"><span class="section-number-4">7.6.2.</span> 环境变量：$<sub>ENV</sub></h4>
+</div>
+</div>
+
+<div id="outline-container-org54bf8c2" class="outline-3">
+<h3 id="org54bf8c2"><span class="section-number-3">7.7.</span> 数组的相关处理函数</h3>
+<div class="outline-text-3" id="text-7-7">
+<p>
+PHP中的数组功能非常强大，是在开发中非常重要的数据类型之一。数组的处理函数也有着强大、灵活、高效的特点。在PHP5中提供了近百个操作数组的系统函数，包括排序函数、替换函数、数组计算函数，以及其他一些有用的数组函数。也可以自定义一些函数对数组进行操作。
+</p>
+</div>
+
+<div id="outline-container-org98e1114" class="outline-4">
+<h4 id="org98e1114"><span class="section-number-4">7.7.1.</span> 数组的键/值操作函数</h4>
+<div class="outline-text-4" id="text-7-7-1">
+<ol class="org-ol">
+<li>array<sub>values</sub>()函数
+作用是返回数组中所有元素的值，它只有一个必选参数，规定传入给定的数组，返回一个包含给定数组中所有值的数组；但不保留键名，被返回的数组将使用顺序的数值键重新建立索引，从0开始且以1递增。</li>
+
+<li>array<sub>keys</sub>()函数
+作用是返回数组中所有的键名</li>
+
+<li><p>
+in<sub>array</sub>()函数
+in<sub>array</sub>()函数的作用是检查数组中是否存在某个值，即在数组中搜索给定的值。本函数中有三个参数，前两个参数是必需的，最后一个参数是可选的。
+</p>
+
+<p>
+其函数的原型如下：boolin<sub>array</sub>(mixedneedle,arrayhaystack[,boolstrict])
+</p></li>
+
+<li>array<sub>search</sub>()
+搜索给定的值，存在则返回相应的键名，也支持对数据类型的严格判断</li>
+
+<li>array<sub>flip</sub>()
+作用是交换数组中的键和值，返回一个反转后的数组。如果同一个值出现了多次，则最后一个键名将作为它的值，覆盖前面出现的元素。如果原数组中的值的数据类型不是字符串或整数，函数将报错。</li>
+
+<li>array<sub>reverse</sub>()
+作用是将原数组中的元素顺序翻转，创建新的数组并返回。</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orge4a5bf3" class="outline-4">
+<h4 id="orge4a5bf3"><span class="section-number-4">7.7.2.</span> 统计数组元素的个数和唯一性</h4>
+<div class="outline-text-4" id="text-7-7-2">
+<ol class="org-ol">
+<li>count()
+统计数组中的元素个数</li>
+<li>array<sub>count</sub><sub>values</sub>()
+统计数组中所有值出现的次数, 参数规定输入一个数组，返回一个数组，其元素的键名是原数组的值，键值是该值在原数组中出现的次数。</li>
+<li>array<sub>unique</sub>()
+用于删除数组中重复的值，并返回没有重复值的新数组。参数需要接收一个数组，当数组中几个元素的值相等时，只保留第一个元素，其他的元素被删除，并且返回的新数组中键名不变。</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb44ed97" class="outline-4">
+<h4 id="orgb44ed97"><span class="section-number-4">7.7.3.</span> 使用回调函数处理数组的函数</h4>
+<div class="outline-text-4" id="text-7-7-3">
+<p>
+函数的回调是PHP中的一种特殊机制，这种机制允许在函数的参数列表中，传入用户自定义的函数地址作为参数处理或完成一定的操作。使用回调函数可以很容易地实现一些所需的功能。以下将介绍几个主要的使用回调函数处理数组的函数。
+</p>
+<ol class="org-ol">
+<li><p>
+array<sub>filter</sub>()
+array<sub>filter</sub>()函数用回调函数过滤数组中的元素，返回按用户自定义函数过滤后的新数组。该函数有两个参数.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #bc6ec5;">&lt;?php</span>
+<span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">myfun</span>($<span style="color: #7590db;">var</span>){
+    <span style="color: #4f97d7; font-weight: bold;">if</span>( $<span style="color: #7590db;">var</span> % 2 == 0 )
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
+}
+$<span style="color: #7590db;">array</span> = <span style="color: #4f97d7; font-weight: bold;">array</span>(<span style="color: #2d9574;">"a"</span>=&gt;1,<span style="color: #2d9574;">"b"</span>=&gt;2;<span style="color: #2d9574;">"c"</span>=&gt;3,<span style="color: #2d9574;">"d"</span>=&gt;4,<span style="color: #2d9574;">"e"</span>=&gt;5);
+print_r($<span style="color: #7590db;">array_filter</span>($<span style="color: #7590db;">array</span>,<span style="color: #2d9574;">"myfun"</span>));
+<span style="color: #bc6ec5;">?&gt;</span>
+</pre>
+</div>
+
+<p>
+该函数的第一个参数是必选项，要求输入一个被过滤的数组。第二个参数是可选项，将用户自定义的函数名以字符串形式传入。如果自定义过滤函数返回true，则被操作的数组的当前值就会被包含在返回的结果数组中，并将结果组成一个新的数组。如果原数组是一个关联数组，则键名保持不变。
+</p></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org1e6e3c0" class="outline-4">
+<h4 id="org1e6e3c0"><span class="section-number-4">7.7.4.</span> 数组与数据结构</h4>
+<div class="outline-text-4" id="text-7-7-4">
+</div>
+<ol class="org-ol">
+<li><a id="orgca0ade9"></a>其它语言的解决方案<br />
+<div class="outline-text-5" id="text-7-7-4-1">
+<p>
+在强类型语言中，有专用的数据结构解决方案。 通常是创建一个容器，在这个容器中可以存储任意类型的数据，且，可以根据容器中存储的数据决定容器的容量，达到可以变长的容器结构，比如链表、堆栈及队列等都是数据结构的常用形式。 在PHP中使用数组来完成数据结构的工作。
+</p>
+<ol class="org-ol">
+<li>使用数组实现堆栈
+堆栈是数据结构的一种实现形式。 在堆栈中，最后压入的数据（进栈）将会被最先弹出（出栈），即采用“先进后出”的结构，使用array<sub>push</sub>()array<sub>pop</sub>()两个系统函数即可完成数据的进栈和出栈的操作。</li>
+<li>使用数组实现队列
+队列允许在一端插入数据，在另一端删除数据，队列遵循先进先出的原则。用array<sub>push</sub>()在一端压入数据，用array<sub>shift</sub>()在另一端弹出数据</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orge067922" class="outline-4">
+<h4 id="orge067922"><span class="section-number-4">7.7.5.</span> 其它有用的数组处理函数</h4>
+<div class="outline-text-4" id="text-7-7-5">
+</div>
+<ol class="org-ol">
+<li><a id="org7533eb5"></a>随机函数 array<sub>rand</sub>()<br />
+<div class="outline-text-5" id="text-7-7-5-1">
+<p>
+从数组中随机选出一个或多个元素并返回。
+</p>
+</div>
+</li>
+<li><a id="org7aebb52"></a>shuffle（）<br />
+<div class="outline-text-5" id="text-7-7-5-2">
+<p>
+随机排列数组 ，成功返回true，失败返回false
+</p>
+</div>
+</li>
+<li><a id="org88fb439"></a>array<sub>sum</sub>()<br />
+<div class="outline-text-5" id="text-7-7-5-3">
+<p>
+返回数组中所有值的总和
+</p>
+</div>
+</li>
+<li><a id="org96a2137"></a>range（）<br />
+<div class="outline-text-5" id="text-7-7-5-4">
+<p>
+返回指定范围内的元素的数组
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org1bd3312" class="outline-3">
+<h3 id="org1bd3312"><span class="section-number-3">7.8.</span> 操作php数组需要注意的细节</h3>
+<div class="outline-text-3" id="text-7-8">
+</div>
+<div id="outline-container-orge787da9" class="outline-4">
+<h4 id="orge787da9"><span class="section-number-4">7.8.1.</span> 数组运算符号</h4>
+</div>
+</div>
+</div>
+<div id="outline-container-orgee4a9c9" class="outline-2">
+<h2 id="orgee4a9c9"><span class="section-number-2">8.</span> 第11章 PHP面向对象程序设计</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+面向对象程序设计（Object Oriented Programming ， OOP），实现了三个目标：重用性、灵活性和扩展性
+</p>
+</div>
+<div id="outline-container-orgcc2559f" class="outline-3">
+<h3 id="orgcc2559f"><span class="section-number-3">8.1.</span> 抽象一个类</h3>
+<div class="outline-text-3" id="text-8-1">
+</div>
+<div id="outline-container-orgd957b2e" class="outline-4">
+<h4 id="orgd957b2e"><span class="section-number-4">8.1.1.</span> 类的声明</h4>
+<div class="outline-text-4" id="text-8-1-1">
+<div class="org-src-container">
+<pre class="src src-php">[&#20462;&#39280;&#31867;&#30340;&#20851;&#38190;&#35789;] <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">&#31867;&#21517;</span> {
+    &#31867;&#30340;&#25104;&#21592;;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org79c317c" class="outline-4">
+<h4 id="org79c317c"><span class="section-number-4">8.1.2.</span> 成员属性</h4>
+<div class="outline-text-4" id="text-8-1-2">
+<p>
+在类中直接声明的变量称为成员属性，在类中声明成员属性时，变量前面一定要使用一个关键字，如 public、private、static等关键字，如果不需要使用特定意义的关键字，则使用var。
+</p>
+</div>
+</div>
+<div id="outline-container-org49a58ae" class="outline-4">
+<h4 id="org49a58ae"><span class="section-number-4">8.1.3.</span> 成员方法</h4>
+<div class="outline-text-4" id="text-8-1-3">
+<p>
+在类中直接声明的函数称为成员方法。
+</p>
+</div>
+</div>
+<div id="outline-container-org1f86e73" class="outline-4">
+<h4 id="org1f86e73"><span class="section-number-4">8.1.4.</span> 实例化对象</h4>
+<div class="outline-text-4" id="text-8-1-4">
+<div class="org-src-container">
+<pre class="src src-php">$<span style="color: #7590db;">&#21464;&#37327;&#21517;</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">&#31867;&#21517;&#31216;</span>([&#21442;&#25968;&#21015;&#34920;]);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8e5e5c6" class="outline-4">
+<h4 id="org8e5e5c6"><span class="section-number-4">8.1.5.</span> 对象在内存中的分配</h4>
+<div class="outline-text-4" id="text-8-1-5">
+</div>
+<ol class="org-ol">
+<li><a id="org414f2d9"></a>内存结构<br />
+<div class="outline-text-5" id="text-8-1-5-1">
+<p>
+逻辑上，内存被分为4段：栈空间段、堆空间段、初始化数据段和代码段，程序中不同类型数据的声明会被存放在不同的内存段里。
+</p>
+
+<ol class="org-ol">
+<li>栈空间段</li>
+</ol>
+<p>
+空间小，但被cpu访问的速度快，用于存放程序中临时创建的变量。
+栈空间的数据后进先出，所以栈空间特别方便用来保存和恢复调用现场，可以把栈看成一个临时数据寄存、交换的内存区
+</p>
+<ol class="org-ol">
+<li>堆空间段</li>
+</ol>
+<p>
+堆用于存放进程运行中被动态分配的内存段， 堆的大小并不固定，可以动态扩展或缩减。堆是先进先出的结构
+</p>
+<ol class="org-ol">
+<li>初始化数据段
+存放可执行文件中已经初始化的全局变量。即存放程序静态分配的变量。</li>
+<li>代码段
+存放可执行文件的操作指令。</li>
+</ol>
+
+<p>
+对象是占用空间不定长的数据类型，所以对象创建完成以后被存放在堆中，但是对象的引用名称是存放在栈里面的。   
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org8d69f3d" class="outline-4">
+<h4 id="org8d69f3d"><span class="section-number-4">8.1.6.</span> 对象中成员的访问</h4>
+<div class="outline-text-4" id="text-8-1-6">
+<p>
+用符号 -&gt; 来访问成员属性和成员方法
+</p>
+</div>
+</div>
+<div id="outline-container-orgdcd6ff3" class="outline-4">
+<h4 id="orgdcd6ff3"><span class="section-number-4">8.1.7.</span> 特殊的对象引用 $this</h4>
+<div class="outline-text-4" id="text-8-1-7">
+<p>
+用于在对象内部访问成员属性或成员方法
+</p>
+</div>
+</div>
+<div id="outline-container-org8ae3704" class="outline-4">
+<h4 id="org8ae3704"><span class="section-number-4">8.1.8.</span> 构造和析构</h4>
+<div class="outline-text-4" id="text-8-1-8">
+</div>
+<ol class="org-ol">
+<li><a id="orgcef86b6"></a>构造<br />
+<div class="outline-text-5" id="text-8-1-8-1">
+<p>
+如果没有显示的声明，类中都会默认存在一个没有参数且内容为空的构造函数。 如果显式的声明一个构造函数，则默认的构造函数将不存在。
+使用_<sub>construct</sub>([参数列表])声明构造方法。
+</p>
+</div>
+</li>
+<li><a id="org8b1b9fc"></a>析构<br />
+<div class="outline-text-5" id="text-8-1-8-2">
+<p>
+_<sub>destruct</sub>()
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org9b1392b" class="outline-3">
+<h3 id="org9b1392b"><span class="section-number-3">8.2.</span> 封装性</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+封装性是面向对象的三大特性之一
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org4d50cdd" class="outline-2">
+<h2 id="org4d50cdd"><span class="section-number-2">9.</span> 第18章 MySQL数据库概述</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+MySQL是小型关系型数据库管理系统。
+</p>
+</div>
+<div id="outline-container-org67af8c6" class="outline-3">
+<h3 id="org67af8c6"><span class="section-number-3">9.1.</span> 数据库的应用</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+数据库是计算机应用系统中一种专门管理数据资源的系统。管理这个数据库的软件就称为数据库管理系统. 一个数据系统（database system） 可以分为数据（database）和数据库管理系统（database management system，DBMS）
+</p>
+</div>
+</div>
+<div id="outline-container-orgfd32486" class="outline-3">
+<h3 id="orgfd32486"><span class="section-number-3">9.2.</span> 结构化查询语言SQL</h3>
+<div class="outline-text-3" id="text-9-2">
+<p>
+数据库操作指令称为SQL（structured Query Language）语言，即结构和查询语言，是一种专门用于查询和修改数据库中的数据，以及对数据库进行管理和维护的标准化语言。
+</p>
+
+<p>
+SQL语言的4个部分：
+</p>
+<ul class="org-ul">
+<li>数据定义语言DDL</li>
+<li>数据操作语言DML</li>
+<li>数据查询语言DQL</li>
+<li>数据控制语言DCL</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0244107" class="outline-3">
+<h3 id="org0244107"><span class="section-number-3">9.3.</span> MySQL的常见操作</h3>
+<div class="outline-text-3" id="text-9-3">
+</div>
+<div id="outline-container-orge4b3f41" class="outline-4">
+<h4 id="orge4b3f41"><span class="section-number-4">9.3.1.</span> 数据库的连接和关闭</h4>
+<div class="outline-text-4" id="text-9-3-1">
+<ul class="org-ul">
+<li><p>
+连接数据库
+</p>
+<div class="org-src-container">
+<pre class="src src-sql">mysql -h &#26381;&#21153;&#22120;&#22320;&#22336; -u &#29992;&#25143;&#21517; -p &#23494;&#30721;
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge609db5" class="outline-4">
+<h4 id="orge609db5"><span class="section-number-4">9.3.2.</span> 创建新用户并授权</h4>
+<div class="outline-text-4" id="text-9-3-2">
+<blockquote>
+<p>
+GRANT 权限 ON 数据库.数据表 TO 用户名@登陆主机 IDENTIFIED BY “密码”
+</p>
+</blockquote>
+<p>
+说明：
+</p>
+<ul class="org-ul">
+<li>@“%”            表示全网所有的主机，这存在安全隐患。</li>
+<li>@localhost      表示只允许本机登陆。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge388e00" class="outline-4">
+<h4 id="orge388e00"><span class="section-number-4">9.3.3.</span> 创建、删除数据库</h4>
+<div class="outline-text-4" id="text-9-3-3">
+<ul class="org-ul">
+<li>创建</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">CREATE</span> DATABASE &#25968;&#25454;&#24211;&#21517;&#65307;
+</pre>
+</div>
+<ul class="org-ul">
+<li><p>
+删除
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #4f97d7; font-weight: bold;">DROP</span> DATABASE &#25968;&#25454;&#24211;&#21517;&#65307;
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5494dd6" class="outline-4">
+<h4 id="org5494dd6"><span class="section-number-4">9.3.4.</span> 查看数据库</h4>
+<div class="outline-text-4" id="text-9-3-4">
+<p>
+查看所有数据库
+</p>
+<div class="org-src-container">
+<pre class="src src-sql">SHOW DATABASES;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf1c04ec" class="outline-4">
+<h4 id="orgf1c04ec"><span class="section-number-4">9.3.5.</span> 使用数据库</h4>
+<div class="outline-text-4" id="text-9-3-5">
+<div class="org-src-container">
+<pre class="src src-sql">USE &#25968;&#25454;&#24211;&#21517;&#65307;
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org123f9b9" class="outline-3">
+<h3 id="org123f9b9"><span class="section-number-3">9.4.</span> 数据表内容的简单管理</h3>
+<div class="outline-text-3" id="text-9-4">
+</div>
+<div id="outline-container-orgb2a2eae" class="outline-4">
+<h4 id="orgb2a2eae"><span class="section-number-4">9.4.1.</span> 向数据表插入行记录（INSERT）</h4>
+<div class="outline-text-4" id="text-9-4-1">
+<blockquote>
+<p>
+INSERT INTO book(bookname,publisher,author,price) VALUES("细说PHP”，‘电子工业出版社’，‘骆高峰’,89.00);
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgec7441e" class="outline-4">
+<h4 id="orgec7441e"><span class="section-number-4">9.4.2.</span> 从MySQL数据表中查询数据记录（SELECT）</h4>
+<div class="outline-text-4" id="text-9-4-2">
+<blockquote>
+<p>
+SELECT id，bookname, publisher, author, price FROM book;
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org2179b04" class="outline-4">
+<h4 id="org2179b04"><span class="section-number-4">9.4.3.</span> 更改数据表中的记录（UPDATE）</h4>
+<div class="outline-text-4" id="text-9-4-3">
+<blockquote>
+<p>
+UPDATE book SET price=79 WHERE id=2;
+</p>
+</blockquote>
+<p>
+说明： 若没有WHERE条件限制，则更改所有行。
+</p>
+</div>
+</div>
+<div id="outline-container-orgcd4359a" class="outline-4">
+<h4 id="orgcd4359a"><span class="section-number-4">9.4.4.</span> 删除数据表中的记录（DELETE）</h4>
+<div class="outline-text-4" id="text-9-4-4">
+<blockquote>
+<p>
+DELETE FROM book WHERE ic=‘1’;
+</p>
+</blockquote>
+<p>
+说明：若没有WHERE条件限制， 则删除所有行。
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcd82f14" class="outline-2">
+<h2 id="orgcd82f14"><span class="section-number-2">10.</span> 第19章 MySQL数据表的设计</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-org4a04591" class="outline-3">
+<h3 id="org4a04591"><span class="section-number-3">10.1.</span> 数据表Table</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+数据表是数据库中的基本对象元素，以记录（行）和字段（列）组成的二维结构用于存储数据。
+数据表由表结构和表内容两部分组成，先建立表结构，然后才能输入数据。
+</p>
+</div>
+</div>
+<div id="outline-container-orga023505" class="outline-3">
+<h3 id="orga023505"><span class="section-number-3">10.2.</span> 数据值和列类型</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+数值的分类： 数值型、字符型、日期型、空值等。
+列的分类：数值类、字符类、日期/时间类
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org3aa9d09" class="outline-2">
+<h2 id="org3aa9d09"><span class="section-number-2">11.</span> 第21章 PHP访问Mysql</h2>
+<div class="outline-text-2" id="text-11">
+</div>
+<div id="outline-container-org172f5f3" class="outline-3">
+<h3 id="org172f5f3"><span class="section-number-3">11.1.</span> PHP访问MySQL数据库服务器的流程</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+MySQL采用的是“客户机/服务器”体系结构。 前面的章节中一直使用命令行来远程管理MySQL数据库服务器，这种方式只适合DBA（数据库管理员）或程序开发人员等技术人员去管理数据库。 如果让一个不懂技术的普通用户去管理数据库呢？ 这是能办到的， 可以使用php脚本去处理数据库中的数据， 则php充当了MySQL客户机的角色。 因为通过php程序再去结合一些前台技术开发的图形界面，就可以很轻松的管理数据库了。
+</p>
+
+<p>
+PHP访问MySQL数据库服务器是通过安装相应的扩展模块完成的。 本章重点介绍使用mysql扩展模块中的函数去访问MySQL。 想要使用这个功能扩展模块，php的Linux版本必须的编译上加上一个 &#x2013;with-mysql选项， php的windows版本则通过一个DLL文件提供了相应的扩展 。 无论使用的是哪一种操作系统，都必须在php.ini文件里启用这个扩展以确保php能够找到所有必要的DLL。 可以通过查看phpinfo（）函数确认mysql模块是否安装。
+</p>
+
+<p>
+使用PHP安装的mysql扩展函数， 和直接使用客户端软件访问MySQL数据库服务器， 原理及操作步骤是相同的。
+</p>
+
+<p>
+必须让PHP程序先连接上MySQL数据库服务器， 在选择一个数据库作为默认操作的数据库， 然后才能想MySQL数据库管理系统发送SQL语句。 如果发送的是insert、update或delete等SQL语句， MySQL执行完成并对数据表的记录有所影响， 则说明执行成功。 如果发送的是select这样的SQL语句， 则会返回结果集， 还需要对结果集进行处理。 处理结果集又包括获取字段信息和获取记录记录数据两种操作， 而多数情况下只需要获取记录数据即可。 脚本执行结束后还需要关闭本次连接。
+</p>
+</div>
+</div>
+<div id="outline-container-org9999fe8" class="outline-3">
+<h3 id="org9999fe8"><span class="section-number-3">11.2.</span> 在PHP脚本中连接MySQL服务器 mysql<sub>connect</sub>() 函数</h3>
+<div class="outline-text-3" id="text-11-2">
+</div>
+<div id="outline-container-orgc07f8e4" class="outline-4">
+<h4 id="orgc07f8e4"><span class="section-number-4">11.2.1.</span> 连接数据库</h4>
+<div class="outline-text-4" id="text-11-2-1">
+<p>
+代码实例：
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #bc6ec5;">&lt;?php</span>
+$<span style="color: #7590db;">link</span> = mysql_connect(<span style="color: #2d9574;">'localhost'</span>,<span style="color: #2d9574;">'root'</span>,<span style="color: #2d9574;">'password'</span>);
+
+<span style="color: #4f97d7; font-weight: bold;">if</span>(!$<span style="color: #7590db;">link</span>){
+    <span style="color: #4f97d7; font-weight: bold;">die</span>(<span style="color: #2d9574;">'&#36830;&#25509;&#22833;&#36133;&#65306;'</span> . mysql_error());
+}
+<span style="color: #bc6ec5;">?&gt;</span>
+</pre>
+</div>
+
+<p>
+如果连接成功，将返回一个资源类型的标识符号（$link）。 如果于MySQL服务器建立了不止一条连接，在以后的操作中就必须使用它们的标识符号来加以区分。 而如果只与MySQL服务器建立了一条连接， 则这个连接将成为默认连接，
+</p>
+
+<p>
+如果连接失败， 这个函数将返回FALSE， 并向Web服务器发送一条出错消息。 可以通过下面的代码检查与MySQL服务器建立的连接是否成功， 并输出与当前连接有关的详细信息。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #bc6ec5;"> &lt;?php</span>
+ $<span style="color: #7590db;">link</span> = mysql_connect(<span style="color: #2d9574;">'localhost'</span>,<span style="color: #2d9574;">'root'</span>,<span style="color: #2d9574;">'password'</span>);
+
+ <span style="color: #4f97d7; font-weight: bold;">if</span>(!$<span style="color: #7590db;">link</span>){
+     <span style="color: #4f97d7; font-weight: bold;">die</span>(<span style="color: #2d9574;">'&#36830;&#25509;&#22833;&#36133;&#65306;'</span> . mysql_error());
+ }
+
+ <span style="color: #4f97d7; font-weight: bold;">echo</span> <span style="color: #2d9574;">"&#19982;MySQL&#26381;&#21153;&#22120;&#36830;&#25509;&#25104;&#21151;&#65307;&lt;br /&gt;"</span>;
+
+ <span style="color: #4f97d7; font-weight: bold;">echo</span> mysql_get_client_info();    <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#23458;&#25143;&#31471;API&#20989;&#25968;&#24211;&#30340;&#29256;&#26412;&#20449;&#24687;</span>
+ <span style="color: #4f97d7; font-weight: bold;">echo</span> mysql_get_host_info();      <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#19982;MySQL&#26381;&#21153;&#22120;&#30340;&#36830;&#25509;&#31867;&#22411;</span>
+ <span style="color: #4f97d7; font-weight: bold;">echo</span> mysql_stat();               <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">MySQL&#26381;&#21153;&#22120;&#30340;&#24403;&#21069;&#24037;&#20316;&#29366;&#24577;</span>
+<span style="color: #bc6ec5;">?&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd38c7d4" class="outline-4">
+<h4 id="orgd38c7d4"><span class="section-number-4">11.2.2.</span> 断开数据库连接</h4>
+<div class="outline-text-4" id="text-11-2-2">
+<p>
+mysql<sub>close</sub>($link);
+</p>
+</div>
+</div>
+
+<div id="outline-container-org386e226" class="outline-4">
+<h4 id="org386e226"><span class="section-number-4">11.2.3.</span> 在PHP程序中选择已创建的数据库</h4>
+<div class="outline-text-4" id="text-11-2-3">
+<p>
+通常数据库的创建工作都是先由数据库管理员（DBA）建立， 再由PHP程序员在脚本中使用。 如， 在网上书店系统中，只需要创建一个名为bookstore的数据库即可。 数据库bookstore创建成功以后， 就可以在PHP程序中直接应用了。
+</p>
+
+<p>
+调用函数：
+</p>
+<div class="org-src-container">
+<pre class="src src-php">mysql_select_db(<span style="color: #2d9574;">'bookstore'</span>, $<span style="color: #7590db;">link</span>);
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: ShadowFish</p>
+<p class="date">Created: 2024-05-03 五 13:58</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

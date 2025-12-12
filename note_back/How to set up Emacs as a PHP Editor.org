@@ -1,0 +1,52 @@
+#+title:How to set up Emacs as a PHP Editor
+:#+author: shadowFish
+#+date: <2022-06-13 Mon>
+
+本文地址：https://www.philnewton.net/guides/emacs-as-a-php-editor/
+
+One of Emacs' biggest advantages is its extendability.  There are packages for just about everything,from code editing and compilation to browsing websites like Reddit
+
+Every setup is a little different, but this outlines the extensions I've been using to write PHP code with Emacs.  So far I've found it to cover about 99% of what I need to do my job.
+
+* Essential Packages(必要的扩展包)
+This is all you really need to get started. It adds syntax highlighting and sets up indentation. It doesn't work so great for HTML formatting (especially when mixing PHP/HTML), so I recommend using a dedicated mode for that (such as web-mode below).
+
+Note: The version on SourceForge is out of date. The fork from GitHub is still maintained and is the version provided by melpa.
+
+* web-mode
+I only discovered this recently, but it's quickly become my favourite mode for web development. The HTML support is great, and it also works well when editing template languages such as Twig, Liquid, or Ruby's erb format.
+
+web-mode also provides a lot of keyboard shortcuts and adds functionality for collapsing tags, renaming elements and navigating around a document quickly.
+
+I use the following configuration, which makes web-mode the default mode for editing templates used by the Zend and Symfony2 frameworks.
+
+#+begin_quote
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+#+end_quote
+
+* flycheck(语法检查)
+Checks your PHP code for syntax errors on the fly using PHP's built in syntax checker. It can also be configured to use phpcs and phpmd.
+
+Note: I previously recommended flymake, but flycheck has been quicker and more stable for me.
+
+* Recommended Packages
+** helm
+Helm is an Emacs framework quickly narrowing selections. It looks a little like this:
+
+It integrates nicely with some other packages (including projectile) which makes moving around files much quicker.
+
+** projectile
+Projectile has a long list of excellent features, but the biggest time savers for me have been:
+   - Jumping to any file in a project using helm
+   - Jumping to any file in a project using helm
+   - Running project tests with a single command
+
+ For a more detailed look at projectile's features, see "Exploring my Emacs packages - projectile".(https://www.philnewton.net/blog/exploring-emacs-projectile/)
+
+** YASnippet
+Adds snippet expansion to Emacs. Great for speeding up creation of boilerplate code. Comes with a selection of snippets for about two-dozen languages,
+although PHP is not one of them. However, it's easy to add your own snippets and something like php-auto-yasnippets can generate snippet definitions for
+all PHP functions. 

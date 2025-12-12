@@ -1,0 +1,101 @@
+#+TITLE: Emacs Lisp 简明教程
+#+AUTHOR: Mr Chen
+#+DATA: <2019-11-17 Sun>
+#+STARTUP: content
+* 第一章 一个 Hello World 的例子
+** Hello World
+自动 K&R 以来， hello world 程序历来都是程序语言教程的第一个例子。 我们也用一个hello world 的例子来演示 emacs 里执行 elisp 的环境。 
+
+#+BEGIN_QUOTE
+(message "Hello World!")
+#+END_QUOTE
+
+** elisp的执行
+- 方法1：M-x lisp-interation-mode, 光标移动到语句尾， 执行c-j， 在Minibuffer中显示结果，在光标行也显示结果。
+- 方法2：M-x lisp-interation-mode， 光标移动到语句尾， 执行c-x c-e （这是一个全局的按键绑定， 几乎可以在任何地方使用， 运行结果显示在Minibuffer中)
+** S表达式
+elisp里的一个完整表达式， 都是用括号括起来的， 称为一个S表达式。
+* 基础知识
+** 函数和变量
+*** 定义一个函数
+- 用法：
+#+BEGIN_SRC elisp
+(defun function-name (argu
+ments-list)
+    "document string"
+     body)
+#+END_SRC
+- 具体实例
+#+BEGIN_SRC elisp
+(defun hello-world (name)
+     "say hello to user whose name is NAME."
+(message "Hello ,%s " name))
+#+END_SRC
+
+第二行的文档字符串是可以省略的。
+
+*** 运行一个函数
+运行函数，最一般的方式是：
+#+BEGIN_QUOTE
+(function-name arguments-list)
+#+END_QUOTE
+*** 变量的赋值
+可以直接用setq直接对一个变量赋值
+#+BEGIN_QUOTE
+(setq foo "I'm foo")
+(message foo)
+#+END_QUOTE
+*** 声明变量的特殊表达式defvar
+#+BEGIN_QUOTE
+(defar variable-name value
+  "document string")
+#+END_QUOTE
+*** defvar和setq的不同
+1. 如果变量在声明之前，这个变量已经有一个值的话，用 defvar 声明的变量值不会改变成声明的那个值。
+2. 另一个区别是 defvar 可以为变量提供文档字符串，当变量是在文件中定义的话，C-h v 后能给出变量定义的位置。
+
+*** 关于全局的说明
+elisp中，函数是全局，变量也很容易成为全局变量（局部变量和全局变量都是用setq赋值的），保证变量名不冲突是很关键的。 在命名时， 需要给变量名和函数名一个合适的前缀。
+** 局部变量
+elisp中使用let和了let*绑定局部变量。
+*** let的使用形式：
+#+BEGIN_QUOTE
+(let (binding)
+     body)
+#+END_QUOTE
+说明：binding可以是（var value）这样对var赋初值的形式，或者用var声明一个初始值为nil的变量。  例如：
+#+BEGIN_QUOTE
+(defun circle-area (radix)
+  (let ((pi 3.1415926)
+        area)
+    (setq area (* pi radix radix))
+    (message "直径为 %.2f 的圆面积是 %.2f" radix area)))
+(circle-area 3)
+#+END_QUOTE
+*** let*
+let* 的使用和let一样，不同的是let*可以使用之前声明的变量
+** lambda表达式
+相当于匿名函数,
+*** 用法和defun一样：
+#+BEGIN_QUOTE
+(lambda (arguments-list)
+  "documentation string"
+  body)
+#+END_QUOTE
+lambda相当于函数名
+*** 调用方式：用funcall调用
+#+BEGIN_QUOTE
+(funcall (lambda (name)
+           (message "Hello, %s!" name)) "Emacser")
+#+END_QUOTE
+我的理解：
+#+BEGIN_QUOTE
+(lambda (name)
+           (message "Hello, %s!" name))
+#+END_QUOTE
+这部分有连个作用：
+- 当做函数名
+- 函数定义
+
+最后的"Emacser" ，相当于参数调用。
+

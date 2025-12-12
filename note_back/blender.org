@@ -1,0 +1,46 @@
+#+title:Blender笔记
+#+author:cyq
+#+date:<2022-11-20 周日>
+#+html_head: <link rel="stylesheet" type="text/css" href="css/org.css" />
+* Blender的基本操作
+[[https://www.youtube.com/watch?v=Mc-geCzbrfo&list=PL3bztmH9zKvv4sjPb6PJyLgULvQYJ8e0f&index=3][黄亚猫的Blender教学视频（touTube）]]
+** 视图操作
+- 按住鼠标滚轮移动       以视角中心为基准旋转画面
+- 滑动鼠标滚轮          缩放视图
+- shift + 滚轮键移动    移动视图
+** 物体操作
+- g      移动
+- r      旋转
+- s      缩放
+
+  以上三个操作
+  - 配合x、y、z 可以锁定操作的方向
+  - 配合shift-x、shift-y、shift-z，可以锁定相应的轴向，只在另外两个轴向移动
+  - 配合shift可以降低速度
+  - 配合ctrl，一格一格的移动
+  - 配合alt，回到操作的初始状态
+
+*** 其它一些选中物体的操作
+  - b    出现一个十字进行框选
+  - c    出现一个小的圆圈，用滚轮可以放大缩小，用来选中物体
+
+*** 添加物体的操作
+- shift - a      add菜单
+- shift - d      复制物体（配合x、y、z，锁定轴向移动）
+- alt - d   复制关联物体
+  
+*** 物体模式的选择
+按z键，弹出物体模式选单，四种模式
+- Rendered    8
+- solid             6
+- material preview   2
+- wireframe     4
+
+*** 设置中心点
+- shift - 右键     设置3D cursor
+- alt - 中键        设置旋转中心
+
+  
+- t   隐藏工具面板
+
+

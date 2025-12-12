@@ -1,0 +1,21 @@
+#+title:Org-mode Export Setting
+#+author:CYQ
+#+date:<2021-06-10 ÖÜËÄ>
+#+language:zh-CN
+#+options:html-postamble:nil
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+options: num:t toc:4 author:t date:t
+
+Export Settings
+- author
+  The document author(user-full-name)
+- creater
+  Entity responsible for output generation
+- date
+  A date or a time-stamp
+- email
+  The email address(user-mail-address)
+- language
+  Language to use for translating certain strings

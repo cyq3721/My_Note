@@ -1,0 +1,562 @@
+#+title:emacs平时记录
+#+author:CYQ
+#+data:<2025-08-29 Fri>
+#+LANGUAGE:zh-CN
+#+ATTR_ORG::width 400
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic.css"/>
+#+options: num:t toc:4 author:t date:t
+* 插件
+| 插件名称       | 功能                                                          |
+| company-mode   | 自动补全                                                      |
+| which-key-mode | c-x等的按键提示                                               |
+| embark         | find-file命令，在minibuffer中显示文件详细属性(gnu elpa中下载) |
+|                |                                                               |
+
+** ace-window
+ace-window is an available package.
+
+     Status: Available from gnu -- Install
+    Archive: gnu
+
+    Version: 0.9.0
+    Summary: Quickly switch windows.
+   Requires: avy-0.2.0
+   Homepage: https://github.com/abo-abo/ace-window
+   Keywords: window location 
+
+The main function, `ace-window' is meant to replace `other-window'.
+In fact, when there are only two windows present, `other-window' is
+called.  If there are more, each window will have its first
+character highlighted.  Pressing that character will switch to that
+window.
+
+To setup this package, just add to your .emacs:
+
+   (global-set-key (kbd "M-p") 'ace-window)
+
+replacing "M-p"  with an appropriate shortcut.
+
+Depending on your window usage patterns, you might want to set
+
+   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+
+This way they are all on the home row, although the intuitive
+ordering is lost.
+
+If you don't want the gray background that makes the red selection
+characters stand out more, set this:
+
+   (setq aw-background nil)
+
+If you want to know the selection characters ahead of time, you can
+turn on `ace-window-display-mode'.
+
+When prefixed with one `universal-argument', instead of switching
+to selected window, the selected window is swapped with current one.
+
+When prefixed with two `universal-argument', the selected window is
+deleted instead.
+
+[back]
+** avy
+  avy is an available package.
+
+     Status: Available from gnu -- Install
+    Archive: gnu
+
+    Version: 0.4.0
+    Summary: tree-based completion
+   Requires: emacs-24.1, cl-lib-0.5
+   Homepage: https://github.com/abo-abo/avy
+   Keywords: point location 
+
+This package provides a generic completion method based on building
+a balanced decision tree with each candidate being a leaf.  To
+traverse the tree from the root to a desired leaf, typically a
+sequence of `read-key' can be used.
+
+In order for `read-key' to make sense, the tree needs to be
+visualized appropriately, with a character at each branch node.  So
+this completion method works only for things that you can see on
+your screen, all at once:
+
+*** character positions
+*** word or subword start positions
+*** line beginning positions
+*** link positions
+*** window positions
+
+If you're familiar with the popular `ace-jump-mode' package, this
+package does all that and more, without the implementation
+headache.
+
+[back]
+** neotree(侧边栏目录)
+*** 下载neotree插件
+#+BEGIN_QUOTE
+# git clone https://github.com/jaypei/emacs-neotree.git neotree
+# cd neotree
+# git checkout dev
+# cp -rf neotree ~/.emacs.d/site-lisp
+#+end_quote
+*** 配置插件
+
+#+BEGIN_QUOTE
+(add-to-list 'load-path "~/.emacs.d/site-lisp/neotree")
+(require 'neotree)
+(global-set-key [f5] 'neotree-toggle)
+#+END_QUOTE
+*** 快捷键
+- n：next line 
+- p：previous line
+- SPC or RET or TAB: Open current item if it is a file. Fold/Unfold current item if
+ it is a directory.
+- U：Go up a directory
+- g：Refresh
+- A：Maximize/Minimize the NeoTree Window
+- H：Toggle display hidden files
+- O：Recursively open a directory
+- C-c C-n：Create a file or create a directory if filename ends with a ‘/’
+- C-c C-d：Delete a file or a directory.
+- C-c C-r：Rename a file or a directory.
+- C-c C-c：Change the root directory.
+- C-c C-p：Copy a file or a directory.
+
+————————————————
+版权声明：本文为CSDN博主「慢慢的燃烧」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/u010164190/article/details/94589158
+** Dired Mode
+
+Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的所有操作。
+
+使用 C-x d 就可以进入 Dired Mode，这个模式类似于图形界面系统中的资源管理器。你 可以在其中查看文件和目录的详细信息，对他们进行各种操作，甚至复制粘贴缓冲区中的内 容。下面是一些常用的操作（下面的所有键均需在 Dired Mode 下使用），
+ #+BEGIN_QUOTE
++ 创建目录
+g 刷新目录
+C 拷贝
+D 删除
+R 重命名
+d 标记删除
+u 取消标记
+x 执行所有的标记
+ #+END_QUOTE
+** blcken
+*** Description
+Blacken uses black to format a Python buffer.  It can be called
+explicitly on a certain buffer, but more conveniently, a minor-mode
+'blacken-mode' is provided that turns on automatically running
+black on a buffer before saving.
+
+To automatically format all Python buffers before saving, add the
+function blacken-mode to python-mode-hook:
+#+BEGIN_QUOTE
+(add-hook 'python-mode-hook 'blacken-mode)
+#+END_QUOTE
+
+*** READM
+**** Blacken
+Use the python black package to reformat your python buffers.
+
+**** usage
+The whole buffer can be reformatted with blacken-buffer. If you want to format every time you save, enable blacken-mode in relevant python buffers. Note that if blacken-only-if-project-is-blackened is non-nil, then blacken will only run if your pyproject.toml contains the [tool.black] setting. This setting is off by default.
+
+**** customization
+The following options change the behavior of black when reformatting buffers.
+
+blacken-allow-py36 Allow using Python 3.6-only syntax on all input files.
+blacken-skip-string-normalization Don't normalize string quotes or prefixes.
+blacken-fast-unsafe Skips temporary sanity checks.
+blacken-line-length Max line length enforced by blacken
+** company-jedi
+*** Description
+
+ This is a company-backend for emacs-jedi.  Add this backend to the `company-backends' and enjoy the power. e.g.
+
+#+BEGIN_QUOTE
+ ;; Basic usage.
+ (add-to-list 'company-backends 'company-jedi)
+ ;; Advanced usage.
+ (add-to-list 'company-backends '(company-jedi company-files))
+#+END_QUOTE
+
+ Check https://github.com/company-mode/company-mode for details.
+
+*** Installation
+company-jedi is available on MELPA.  You can install company-jedi with the following command.
+
+M-x package-install [RET] company-jedi [RET]
+
+注意：
+#+BEGIN_QUOTE
+Please do not install jedi package for company users, it is an auto-complete plugin of jedi
+#+END_QUOTE
+
+For el-get users
+#+BEGIN_QUOTE
+(el-get-bundle elpa:jedi-core)
+(el-get-bundle company-jedi :depends (company-mode))
+#+END_QUOTE
+
+company-jedi 是 company 的一个 backend，使用 jedi 这个 Python 的自动补全和静态分析工具。需要注意的是，使用 package-install 安装 company-jedi 就好了，它会安装 jedi-core 这个 package，里面有对 jedi 的封装。说这个是因为用户如果没有看 company-jedi 的说明，有可能会去安装 jedi 这个 Emacs package，但实际上这个 package 是一个 auto-complete 的后端，完全不用。
+** Emacs Lisp 功能扩展集锦
+（https://docs.huihoo.com/homepage/shredderyin/emacs_elisp.html）
+*** session.el
+**** 用法
+#+begin_src elisp
+    (require 'session')
+    (add-hook 'after-init-hook 'session-initialize)
+#+end_src
+**** 作用
+使用了这个扩展之后，你上次离开 Emacs 时的全局变量 (kill-ring，命令记录……)，局部变量，寄存器，打开的文件，修 改过的文件和最后修改的位置，…… 全部都会被记录下来。
+加载了 session 之后菜单上会多两项：最近访问过的文件和最近 修改过的文件。
+
+*** desktop.el
+**** 用法
+#+begin_src elisp
+  (load "desktop") 
+  (desktop-load-default) 
+  (desktop-read)
+#+end_src
+****  作用
+如果你想保存上次打开的文件记录，那么可以使用 desktop。这是 Emacs 自 带的。你只需要加入以上设置，然后 M-x desktop-save。以后 Emacs 启动时就会打开你上次离开时的所有 buffer.
+
+M-x desktop-clear 可以删除记住的内容，你闲现在记住的 buffer 太多就可以采用这个办法。不过我还是建议用 ibuffer(见下) 来管理这些buffer，因为有时你会发现，如果删掉全部记住的buffer， 以后你需要一定的时间来打开你经常编辑的文件！
+
+如果session跟desktop配合，下次启动Emacs 的时候，就像根本 没有关闭
+Emacs 一样！
+*** ibuffer.el
+**** 用法：
+#+begin_src elisp
+  (require 'ibuffer)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+#+end_src
+**** 作用
+使用了 desktop 之后有可能使你同时有几十个 buffer 同时打开 着。有时你想把其中一些关闭，有时你想在某些 buffer 里寻找某个 regexp。这个时候你可以用 ibuffer，它有跟 dired 相似的界面。 可以对 buffer 进行各种标记，排序，隐藏，查找，替换。非常好用。 看看这个[[eww:https://docs.huihoo.com/homepage/shredderyin/images/ibuffer.png][抓图]]就是我限定显示 emacs-lisp-mode 和 c-mode 的 buffer，按 major mode 名称排序， 并做上一些记号的情况。
+
+我常用的一个功能是，用 %-n 标记符合某种名字的 buffer，然 后按 "O" 在这些buffer里寻找我需要的字串。比如在所有打开的后 缀为 html 的 buffer 里寻找 "Emacs" 字样，得到如下结果。
+** w3m(浏览网页)（和eww类似）
+*** 为什么要在emacs中浏览网页
+可以找出好多理由：比如速度快，支持emacs的快捷键，编辑文档时不需要从浏览器拷贝再粘贴到emacs，以及咳咳～，隐蔽性强。
+*** 什么是w3m
+w3m 与Links,Lynx一样，都是基于文本的浏览器。w3m支持表格、框架、SSL连接、颜色。如果是在支持图形界面的终端下，还可以显示图片（inline image）。 w3m支持很多快捷键，可以参考[[https://wiki.ubuntu.org.cn/W3m][这里]] 。
+*** 如何在emacs中浏览网页
+使用w3m emacs可以作为其他程序的界面, 当然也就可以作为w3m的界面，从而实现在emacs中浏览网页。而这些就是通过Emacs-w3m 这个emacs的扩展来实现的。 Emacs-w3m是Emacs调用w3m的接口，所以首先还要安装w3m。另外，为了能够显示图片，还需要安装w3m-img。 此时就可以使用emacs浏览网页了。 首先加载Emacs-w3m模块：
+#+begin_quote
+  M-x load-library RET w3m
+  M-x w3m
+#+end_quote
+打开一个w3m的buffer，输入url就可以浏览网页了。
+** go-translate (翻译插件)
+*** 简介
+To be the most powerful translator on Emacs. Supports multiple translation engines such as Google, Bing, deepL.
+
+First, Install it via MELPA or download from github. Make sure this is on your `load-path'.
+
+Then, add following lines to your `.emacs':
+
+  (require 'go-translate)
+  (setq gts-translate-list '(("en" "zh")))
+  (setq gts-default-translator
+       (gts-translator
+        :picker (gts-prompt-picker)
+        :engines (list (gts-google-engine) (gts-google-rpc-engine))
+        :render (gts-buffer-render)))
+
+And start your translate with command `gts-do-transl
+** image+
+Emacs默认就可以查看图片, 但是在放大缩小方面需要写额外的配置工作需要安装image+模块,可以通过package的方式安装
+
+然后在init.el中添加一行:
+;;image+
+(eval-after-load 'image '(require 'image+))
+
+当打开png图片的时候,运行下面的命令M-x:
+imagex-auto-adjust-mode
+
+然后重新刷新buffer
+revert-buffer
+
+就能看到在窗口内看到大小合适的图片.
+如果需要放大缩小, M-x
+imagex-global-sticky-mode
+
+然后用下面的快捷键进行缩放等操作
+C-c + / C-c -   放大/缩小
+C-c M-m  自动适应当前frame大小
+C-c C-x C-s 保存当前图片
+
+
+
+
+* 快捷键
+| 快捷键   | 功能                                                           |
+| c-h f    | 查看function（函数），比如可以查看company-mode，能查到详细资料 |
+| c-h m    | 查看emacs在此时，开始了多少minor-mode                          |
+| m-x info | 查看emacs的相关文档                                            |
+* 常用的配置命令
+#+BEGIN_QUOTE
+; 开启全局 Company 补全
+(global-company-mode 1)
+
+;; 关闭工具栏，tool-bar-mode 即为一个 Minor Modeq
+
+(tool-bar-mode -1)
+
+;; 关闭文件滑动控件
+(scroll-bar-mode -1)
+
+;; 显示行号
+(global-linum-mode 1)
+
+;; 更改光标的样式（不能生效，解决方案见第二集）
+(setq cursor-type 'bar)
+
+;; 关闭启动帮助画面
+(setq inhibit-splash-screen 1)
+
+;; 关闭缩进 (第二天中被去除)
+;; (electric-indent-mode -1)
+
+;; 更改显示字体大小 16pt
+;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
+(set-face-attribute 'default nil :height 160)
+
+;; 快速打开配置文件
+(defun open-init-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
+(global-set-key (kbd "<f2>") 'open-init-file)
+
+;;禁止自动备份
+(setq make-backup-files nil)
+#+END_QUOTE
+
+在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加 载配置文件。重新加载配置文件你需要在当前配置文件中使用 M-x load-file 双击两次 回车确认默认文件名，或者使用 M-x eval-buffer 去执行当前缓冲区的所有 Lisp 命令。 你也可以使用 C-x C-e 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。 当然你也可以将这些函数绑定为快捷键。
+
+* 关于elisp
+- setq  给变量赋值
+  (setq my-name "bastien")
+- defun  建立函数
+- insert  输出打印（相当于print）
+- (switch-to-buffer-other-window  "*test*")  在emacs中新建一个window（窗格）， 文件名为*test*。注意，此处的window可以用fram取代，frame是新建个新的emacs窗口。
+- progn  建立顺序执行的程序段
+- (setq list '("aaa" "bbb" "ccc" "......"))  建立列表
+- car  取出列表的第一个值
+- cdr  取出列表中除去第一个值以外的所有值
+- push 把数据存入列表（先进后出，存入方式同堆栈））
+- mapcar 用列表中的每个值作为函数的参数，例如（mapcar 'hello list)   hello是函数名，list是列表名
+- goto-char 移动光标
+- point-min 光标在buffer的头部  （goto-char (point-min)) 移动光标的buffer的开头
+* 自动换行
+ - M-x toggle-truncate-lines切换换行与不换行
+ - M-x customize-option，输入truncate-partial-width-windows，将出来的设置页面中的参数改为off，然后保存(Save for future sessions)
+ - M-x auto-fill-mode也是切换换行模式，不过这是要在文章内容里插入回车符号
+* html-mode简单使用<2021-10-31 Sun>
+摘录自[[https://blog.csdn.net/chuchenqiu4433/article/details/100969702][html-mode简单使用（from CSDN）]]
+
+Emacs 默认为我们提供了一个编写 html 文件的模式 -- html-mode 。这给我们带来了不小的方便。当然，你也可以尝试功能更加强大的 html-helper-mode 。
+
+** 开始
+
+当我们打开一个 .html 格式的文件时，emacs 已经自动进入 HTML 模式了，这时你应该可以看到 底部状态条上显示 HTML 字样。 如果没有自动进入，你也可以使用 M-x html-mode 。 Emacs 为我们提供了一个简单的 HTML 模板，C-c C-t html ，然后输入title回车就可以调用这个模板了。M-x html-autoview-mode(C-c C-s)，可以在Emacs保存HTML文档时打开浏览器浏览效果。不过我更喜欢在浏览器中打开着编写的网页，保存后按F5就可以查看效果了。
+
+** 隐藏和显示HTML标记
+
+有时候，我们编写html文件时，整个窗口都是高亮显示的标记，你会不会感觉到眼花呢？想要隐藏这些标记很简单，html-mode 里边只需要 C-c Tab 便可以将这些标记隐藏起来，当要显示它们时，再次按 C-c Tab 就可以了。不用担心隐藏的标记会被我们不小心删除掉，当光标移动到隐藏的标记位置时，Mini-buffer中会显示出来。
+
+** 快捷键
+
+- p { margin-bottom: 0.21cm; }
+- C-c C-f : 光标移动到当前所在位置的下一个HTML 标签。
+- C-c C-b : 光标移到到当前所在位置的上一个HTML 标签。
+- C-c <left>/<right> : 跳到该标签的开始/ 结束。
+- C-c DEL : 删除标签。 C-c 1~6 : 插入标题h1~h6 。
+- C-c Enter : 插入段落标记 <p> 。
+- C-c / ：闭合b 标签。比如可以结合上一条使用，就会自动插入</p> 。
+- C-c C-c h : 插入超级链接标记。
+- C-c C-c n : 插入anchor （锚标），便于在文档其他位置跳转到该位置。
+- 需要在Mini-buffer 中输入锚标名称。
+- C-c C-c u : 插入无序列表标记<ul><li></ul> 。
+- C-c C-c o : 插入有序列表标记<ol><li></ol> 。
+- C-c C-c p : 插入标记<li> 。
+- C-c C-c - : 插入水平线 <hr> 。
+- C-c C-c i : 插入图像引用标记 <img> 。
+- C-c C-j : 插入换行符<br> 。
+  
+** 特殊字符输入
+
+有时需要在html文本中显示html标记，比如<p>，不能直接输入。可以这样： C-c C-n < ，然后输入 p ，然后再 C-c C-n >;。其实 C-c C-n 后输入的字符都不会被html解析而直接输出了。
+
+转载于:https://my.oschina.net/xphouziyu/blog/1787799
+
+* mac emacs 解决svg问题
+安装emacs-mac，解决问题， brew install emacs-mac
+
+* 日志
+** 2021-6（使用org-mode搭建网站）
+*** 使用org-mode 搭建网站 [[http://www.zhangjiee.com/blog/2019/build-site-with-org-mode.html]]
+
+   一些主流的平台（github，gitlab），主流的博客工具（Jekyll，Hugo）都是支持 org-mode 的，把他当做 markdown 来用即可，还有专门针对 org-mode 的博客工具：[[http://renard.github.io/o-blog/][o-blog]]，[[https://github.com/novoid/lazyblorg][lazyblorg]]。
+
+   对于 org-mode，原生提供了将 org-mode 转换成 html 的函数 org-html-publish-to-html 对了，还有将 org-mode 转换成 markdown 的函数 org-md-export-to-markdown 。
+
+   在此基础上封装了 ox-publish 包，使得只需要简单的写一些规则，批量的将 org-mode 输出到指定目录下的 html 文件，如下：
+   #+begin_src elisp
+(require 'ox-publish)
+(setq org-html-validation-link nil)
+
+(setq org-publish-project-alist
+      '(
+        ;; notes component
+        ("site-orgs"
+         :base-directory "~/site/org"
+         :base-extension "org"
+         :html-link-home "index.html"
+         :publishing-directory "~/site-html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 5
+         :auto-preamble t
+         :auto-sitemap t
+         :sitemap-filename "sitemap.org"
+         :sitemap-title "Sitemap"
+         )
+        ;; static component
+        ("site-static"
+         :base-directory "~/site/static/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/site-html/static/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+        ;; publish component
+        ("site" :components ("site-orgs" "site-static"))
+        ))
+   #+end_src
+
+   代码很容易理解，一部分处理 org 文件，一部分处理静态文件，发布只需要执行 org-publish ，选择对应的项目即可。
+
+2. 使用org-mode撰写jekyll博客    [[https://jsuper.github.io/emacs/using-org-mode-to-write-jekyll-post.html]]
+
+   - Jekyll 是什么？
+     Jekyll是一个采用Ruby编写的, 简单的、面向博客的静态网站生成工具。它能够将一系列文本文件（Markdown和Textile）转换成一个完整的，可以发布的静态页面。大名鼎鼎的代码托管商Github的Github pages就是采用的Jekyll做引擎。也就意味着，你可以免费使用Github的服务器来搭建属于你自己的项目WIKI，博客或者是网站等。关于Jekyll的详细使用，请参考官方文档Jekyll.
+
+   - 怎样使用org-mode来写Jekyll的博文？
+    Jekyll博客本身是不支持对org-mode的文件进行转换的，不过我们通过将 org-mode文件发布成html之后，将其扔到jekyll博客的 _posts 目录下，其就可以进行处理了。org-mode支持将org-mode文件转换成多种格式的文档的，如：latex，pdf，html等等。
+*** 重设环境变量的应用；
+#+begin_src  elisp
+(setenv "HOME" "C:/Users/cyq/OneDrive")
+(load "~/emacs配置文件/.emacs.d/init.el")
+#+end_src
+- setenv 设置环境变
+- load
+*** 让不同级别的标题采用不同大小的字体
+其实定制一下 org-level-1, org-level-2 等face的 height 属性就可以了（不过如果你用了其它theme的话， 要在加载这些theme之后再执行一遍下面这些配置，或者你把它们放在 org-mode-hook 中去执行）:
+#+BEGIN_QUOTE
+(set-face-attribute 'org-level-1 nil :height 1.6 :bold t)
+(set-face-attribute 'org-level-2 nil :height 1.4 :bold t)
+(set-face-attribute 'org-level-3 nil :height 1.2 :bold t)))
+#+END_QUOTE
+** 2021-10(使用steven purcell的配置)
+*** steven purcell的配置
+   该配置对于web开发的支持度很高，支持的语言如下：
+     - Haskell / Purescript / Elm / OCaml
+     - Ruby / Ruby on Rails
+     - SQL
+     - CSS / LESS / SASS / SCSS
+     - Javascript / Typescript / Coffeescript
+     -HTML / HAML / Markdown / Textile / ERB
+     - Common Lisp (with Slime)
+     -Python
+     - Rust
+     - Clojure (with Cider and nRepl)
+     - PHP
+     - Erlang
+
+*** install
+    #+begin_quote
+    e https://github.com/purcell/emacs.d.git ~/.emacs.d
+    #+end_quote
+
+*** Updates
+    #+begin_quote
+    M-x package-list-packages, then U followed by x.
+    #+end_quotey
+
+*** Changeing themes and adding your own customization
+    To add your own customization, use M-x customize, M-x customize-themes etc. and/or create a file:  ~/.emacs.d/lisp/init-local.el which looks like this:
+#+begin_quote
+... your code here ...
+
+(provide 'init-local)
+
+#+end_quote
+
+** 2021-10(移植purcell配置的minibuffer效果)
+安装插件embark，marginalia，配置代码如下：
+   #+begin_src lisp
+   (use-package marginalia
+  :ensure t
+  :config
+  (marginalia-mode))
+
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :config
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t
+  :after (embark consult)
+  :demand t ; only necessary if you have the hook below
+  ;; if you want to have consult previews as you move around an
+  ;; auto-updating embark collect buffer
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+   #+end_src
+** 2021-10-31 查询html-mode用法
+*** 删除tag
+    将光标放在要删除的tag上，按C-c C-d， 会把开始标签和结束标签都删掉，
+    需要注意的是，如果HTML tag不匹配的话，可能会删错。
+*** 光标跳转到开始标签或结束标签处
+    - C-c C-f (sgml-skip-tag-forward)
+    - C-c C-b (sgml-skip-tag-backward)
+*** 预览网页
+    C-c C-v（browse-url-of-buffer）
+*** 隐藏tag标签
+    C-c Tab， 再按一次则是恢复，这类似于以文本方式预览
+*** 插入tag
+    | tag           | hotkey    | commandname          |
+    |---------------+-----------+----------------------|
+    | h1            | C-c 1     | html-headline-1      |
+    | h2            | C-c 2     | html-headline-2      |
+    | p             | C-c enter | html-paragraph       |
+    | hr            | C-c C-c - | html-horizontal-rule |
+    | ul            | C-c C-c u | html-unordered-list  |
+    | li            | C-c C-c l | html-list-item       |
+    | a             | C-c C-c h | html-href-anchor     |
+    | img           | C-c C-c i | html-image           |
+    | 交互式插入tag | C-c C-o   | sgml-tag不匹配的话   |
+    | 插入闭合tag   | C-c /     | sgml-close-tag      |
+*** 特殊字符的输入
+    有时需要在html文本中显示html标记，比如<p>，不能直接输入。可以这样： C-c C-n < ，然后输入 p ，然后再 C-c C-n >;。其实 C-c C-n 后输入的字符都不会被html解析而直接输出了。

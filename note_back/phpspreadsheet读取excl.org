@@ -1,0 +1,186 @@
+#+title:phpspreadsheet读取excel
+#+author:ShadowFish
+#+data:<2019-08-20 Tue>
+#+author: chen
+#+STARTUP: indent
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+data:2017-8
+#+options: num:t toc:4 author:t date:t
+
+* PhpspreadSheet读取excel
+
+
+#+author: fishshadowice
+#+data: <2022-07-16 Sat>
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css" />
+*   PhpSpreadsheet Excel   MySQL
+日常开发中，我们经常遇到这样的场景，需要将一个Excel表格数据如客户信息、学生成绩表导入到系统数据库中，然后在系统中进行进一步操作，如给导入的客户群发短信，统计学生成绩排名。PHP导入Excel避免了人工录入信息的麻烦和出错，提高效率。
+
+[[https://www.helloweba.net/down/562.html][下载源码]]
+
+本文以导入学生成绩表为例，给大家讲解使用PhpSpreadsheet将Excel导入的MySQL数据库。
+
+** 准备
+首先我们需要准备一张MySQL表，表名t_student，表结构如下：
+
+#+begin_src sql
+  CREATE TABLE `t_student` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL COMMENT '姓名',
+  `chinese` int(6) NOT NULL DEFAULT '0' COMMENT '语文',
+  `maths` int(6) NOT NULL DEFAULT '0' COMMENT '数学',
+  `english` int(6) NOT NULL DEFAULT '0' COMMENT '外语',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+#+end_src
+这是一张学生成绩表，用来存储学生的姓名和语数外三门课程的成绩。
+接着，我们准备excel表格文件，我特意制作了一个Excel文件students.xlsx
+
+然后将Excel文件放置程序应用目录下。当然，实际应用中，我们一般通过web上传到服务器指定目录下，然后再进行导入数据库操作。本文web上传这块就不涉及了，感兴趣的同学可以参考本站文章：[[https://www.helloweba.net/javascript/393.html][Dropzone.js实现文件拖拽上传]]，[[https://www.helloweba.net/javascript/375.html][能强大的文件上传组件-WebUploader]]。
+最后，你还需要安装好PhpSpreadsheet，在前一节文章中有介绍，非常简单：[[https://www.helloweba.net/php/561.html][使用PhpSpreadsheet读取和写入Excel]]
+
+** 导入Excel
+准备工作做好后，我们来开始导入。
+思路很简单：使用PhpSpreadsheet读取Excel表格中的有用信息，然后组装成sql语句，最后批量插入到MySQL表中。我把代码贴出来。
+ #+begin_src c++
+   require 'vendor/autoload.php';
+
+include('conn.php'); //连接数据库
+
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');  //建立读对象
+$reader->setReadDataOnly(TRUE);
+$spreadsheet = $reader->load('students.xlsx'); //读取excel表格
+
+$worksheet = $spreadsheet->getActiveSheet();  //获取当前活动工作表
+$highestRow = $worksheet->getHighestRow(); // 获取总行数
+$highestColumn = $worksheet->getHighestColumn(); // 获取总列数
+$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+
+$lines = $highestRow - 2; 
+if ($lines <= 0) {
+    exit('Excel表格中没有数据');
+}
+
+$sql = "INSERT INTO `t_student` (`name`, `chinese`, `maths`, `english`) VALUES ";
+
+for ($row = 3; $row <= $highestRow; ++$row) {
+    $name = $worksheet->getCellByColumnAndRow(1, $row)->getValue(); //姓名
+    $chinese = $worksheet->getCellByColumnAndRow(2, $row)->getValue(); //语文
+    $maths = $worksheet->getCellByColumnAndRow(3, $row)->getValue(); //数学
+    $english = $worksheet->getCellByColumnAndRow(4, $row)->getValue(); //外语
+
+    $sql .= "('$name','$chinese','$maths','$english'),";
+}
+$sql = rtrim($sql, ","); //去掉最后一个,号
+try {
+    $db->query($sql);
+    echo 'OK';
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+ #+end_src
+
+ $worksheet->getCellByColumnAndRow($col, $row)->getValue()可以获取表格中任意单元格数据内容，$col表示单元格所在的列，以数字表示，A列表示第一列，$row表示所在的行。
+我们只需要第三行以后的数据，因此直接从第三行开始循环遍历，获取成绩，组装成SQL语句。
+我们使用批量插入MySQL语句，当然你也可以逐条插入，但是效率没有批量插入高。
+最后执行导入代码，你会发现数据表里有数据了：
+
+* php读取excel写入数据库简要流程<2022-07-17 Sun>
+** 制作一个文件上传的表单
+*** 一个实例
+#+begin_src html
+  <html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<form action="upload_file.php" method="post" enctype="multipart/form-data">
+    <label for="file">文件名：</label>
+    <input type="file" name="file" id="file"><br>
+    <input type="submit" name="submit" value="提交">
+</form>
+
+</body>
+</html>
+#+end_src
+
+*** 注意项
+- <form> 标签的 enctype 属性规定了在提交表单时要使用哪种内容类型。在表单需要二进制数据时，比如文件内容，请使用 "multipart/form-data"。
+  
+- <input> 标签的 type="file" 属性规定了应该把输入作为文件来处理。举例来说，当在浏览器中预览时，会看到输入框旁边有一个浏览按钮。
+** 制作上传php脚本（把上传文件保存到指定目录）
+*** 实例源码
+#+begin_src php
+  <?php
+if ($_FILES["file"]["error"] > 0)
+{
+    echo "错误：" . $_FILES["file"]["error"] . "<br>";
+}
+else
+{
+    echo "上传文件名: " . $_FILES["file"]["name"] . "<br>";
+    echo "文件类型: " . $_FILES["file"]["type"] . "<br>";
+    echo "文件大小: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+    echo "文件临时存储的位置: " . $_FILES["file"]["tmp_name"];
+}
+?>
+#+end_src
+*** 源码说明
+- $_FILES["file"]["name"] - 上传文件的名称
+- $_FILES["file"]["type"] - 上传文件的类型
+- $_FILES["file"]["size"] - 上传文件的大小，以字节计
+- $_FILES["file"]["tmp_name"] - 存储在服务器的文件的临时副本的名称
+- $_FILES["file"]["error"] - 由文件上传导致的错误代码
+
+*** 上传限制的实例
+**** 源码
+#+begin_src php
+    <!doctype html>
+  <html>
+    <head>
+
+        <title>文件上传服务器端处理</title>
+      <meta charset="utf-8" />
+    </head>
+    <body>
+      <h1>文件上传服务器端处理</h1>
+      <?php
+      $allowExts = array("gif","jpeg","jpg","png");//把允许的后缀名存入数组$allowExts
+      $temp = explode(".",$_FILES["file"]["name"]);//根据.对文件名进行分割，并保存到数组$temp
+      $exts = end($temp); //end()取数组中的最后一个元素
+      if($_FILES["file"]["error"] >0 ){
+        echo "错误: " . $_FILES["file"]["error"] . "<br>";
+      }
+      else{
+        if(!in_array($exts,$allowExts)){ //in_array(),数据是否存在于数组中
+          echo "文件类型出错，该类型不支持上传！ <br>";
+        }else{
+          echo "上传文件名：" . $_FILES["file"]["name"]."<br>";
+          echo "文件类型：" . $_FILES["file"]["type"]."<br>";
+          echo "文件大小：" . ($_FILES["file"]["size"]/1024/1024)." mb <br>";
+          echo "文件临时存储的位置: " . $_FILES["file"]["tmp_name"]."<br>";
+        }
+      }
+      if(file_exists("upload/" . $_FILES["file"]["name"]))
+      {
+        echo "文件已经存在！";
+      }
+      else{
+        move_uploaded_file($_FILES["file"]["tmp_name"],"upload/" . $_FILES["file"]["name"]);//move_uploaded_file()把上传到缓存目录中中的文件保存到指定目录
+
+        if(file_exists("upload/" . $_FILES["file"]["name"]))
+        {
+          echo "文件上传成功！";
+        
+        }
+        else
+          echo "文件上传失败！";
+        }
+      ?>
+    </body>
+  </html}
+
+#+end_src
+
