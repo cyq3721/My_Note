@@ -1,6 +1,10 @@
 #+title: web前端开发
 #+author:CYQ
 #+DATA: <2025-12-07 Sun>
+#+html_head: <link rel="stylesheet" type="text/css" href="./css/worg.css"/>
+#+startup:content
+#+startup:hidestars
+#+startup:indent
 #+num:t
 #+toc:4
 * Web前端开发
@@ -1164,7 +1168,7 @@ line-height:100px; /* 设置行高等于高度，则当前元素中文字垂直�
 2. text-align
    设置块级元素中文字的水平对齐方式，属性值有 left、center、right。
 
-   #+begin_src html
+   #+begin_src css
           <!DOCTYPE html> <html>
           <head>
             <style type="text/css">
@@ -1348,8 +1352,7 @@ HTML 文档中的每个元素都可以看作一个盒子，盒模 型规定了�
          <p class="p">子盒子</p>
        </div>
      </body>
-   </html>
-      
+   </html>    
 #+end_src
 ***** 多个盒子之间的外边距影响
 ****** 行内盒子水平排放的外边距

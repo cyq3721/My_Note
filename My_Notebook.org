@@ -3,8 +3,12 @@
 #+data:<2021-11-03 Wed>
 #+LANGUAGE: zh-CN
 #+html_head: <link rel="stylesheet" type="text/css" href="./css/worg-classic .css"/>
+#+startup:content
+#+startup:hidestars
+#+startup:indent
 #+num: t
 #+toc: 4
+
 * linux相关
 ** linux相关
     - [[./note/linux就是这个范儿.org][linux就是这个范儿]]
@@ -12,6 +16,7 @@
     - [[./note/linux就该这么学.org][linux就该这么学]]
     - [[./note/manjaro.org][Manjaro Linux日常记录]]
 ** emacs相关
+     - [[file:note/org-mode中tag的使用.org][org-mode中tag的使用]]
      - [[file:note/Emacs自力求生指南——前言.org][Emacs自力求生指南——前言.org]]
      - [[file:note/Emacs自力求生指南.org][Emacs自力求生指南——自己写配置.org]]
      - [[./note/emacs完全补完计划.org][emacs完全补完计划]]
